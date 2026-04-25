@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Options } from 'flatpickr'
+import type { Options } from 'flatpickr/dist/types/options'
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
-import { VForm } from 'vuetify/components'
+import { VForm } from 'vuetify/components/VForm'
 
 import type { Event, NewEvent } from './types'
 import { useCalendarStore } from './useCalendarStore'
@@ -11,8 +11,6 @@ import avatar3 from '@images/avatars/avatar-3.png'
 import avatar5 from '@images/avatars/avatar-5.png'
 import avatar6 from '@images/avatars/avatar-6.png'
 import avatar7 from '@images/avatars/avatar-7.png'
-
-import { requiredValidator, urlValidator } from '@validators'
 
 const props = defineProps<Props>()
 
@@ -33,7 +31,7 @@ const store = useCalendarStore()
 const refForm = ref<VForm>()
 
 // 👉 Event
-const event = ref<Event | NewEvent>(JSON.parse(JSON.stringify(props.event)))
+const event = ref<Event>(JSON.parse(JSON.stringify(props.event)))
 
 const resetEvent = () => {
   event.value = JSON.parse(JSON.stringify(props.event))
@@ -45,7 +43,7 @@ const resetEvent = () => {
 watch(() => props.isDrawerOpen, resetEvent)
 
 const removeEvent = () => {
-  emit('removeEvent', event.value.id)
+  emit('removeEvent', String((event.value as Event).id))
 
   // Close drawer
   emit('update:isDrawerOpen', false)
@@ -90,7 +88,7 @@ const onCancel = () => {
 }
 
 const startDateTimePickerConfig = computed(() => {
-  const config: Options = { enableTime: true, dateFormat: 'Y-m-d H:i' }
+  const config: Options = { enableTime: !event.value.allDay, dateFormat: `Y-m-d${event.value.allDay ? '' : ' H:i'}` }
 
   if (event.value.end)
     config.maxDate = event.value.end
@@ -99,7 +97,7 @@ const startDateTimePickerConfig = computed(() => {
 })
 
 const endDateTimePickerConfig = computed(() => {
-  const config: Options = { enableTime: true, dateFormat: 'Y-m-d H:i' }
+  const config: Options = { enableTime: !event.value.allDay, dateFormat: `Y-m-d${event.value.allDay ? '' : ' H:i'}` }
 
   if (event.value.start)
     config.minDate = event.value.start
@@ -117,47 +115,30 @@ const dialogModelValueUpdate = (val: boolean) => {
     temporary
     location="end"
     :model-value="props.isDrawerOpen"
-    width="420"
+    width="370"
+    :border="0"
     class="scrollable-content"
     @update:model-value="dialogModelValueUpdate"
   >
     <!-- 👉 Header -->
-    <div class="d-flex align-center pa-6 pb-1">
-      <h6 class="text-h6">
-        {{ event.id ? 'Update' : 'Add' }} Event
-      </h6>
+    <AppDrawerHeaderSection
+      :title="event.id ? 'Update Event' : 'Add Event'"
+      @cancel="$emit('update:isDrawerOpen', false)"
+    >
+      <template #beforeClose>
+        <IconBtn
+          v-show="event.id"
+          @click="removeEvent"
+        >
+          <VIcon
+            size="18"
+            icon="tabler-trash"
+          />
+        </IconBtn>
+      </template>
+    </AppDrawerHeaderSection>
 
-      <VSpacer />
-
-      <VBtn
-        v-show="event.id"
-        icon
-        variant="tonal"
-        size="32"
-        class="rounded me-3"
-        color="default"
-        @click="removeEvent"
-      >
-        <VIcon
-          size="18"
-          icon="tabler-trash"
-        />
-      </VBtn>
-
-      <VBtn
-        variant="tonal"
-        color="default"
-        icon
-        size="32"
-        class="rounded"
-        @click="$emit('update:isDrawerOpen', false)"
-      >
-        <VIcon
-          size="18"
-          icon="tabler-x"
-        />
-      </VBTn>
-    </div>
+    <VDivider />
 
     <PerfectScrollbar :options="{ wheelPropagation: false }">
       <VCard flat>
@@ -170,18 +151,20 @@ const dialogModelValueUpdate = (val: boolean) => {
             <VRow>
               <!-- 👉 Title -->
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="event.title"
                   label="Title"
+                  placeholder="Meeting with Jane"
                   :rules="[requiredValidator]"
                 />
               </VCol>
 
               <!-- 👉 Calendar -->
               <VCol cols="12">
-                <VSelect
+                <AppSelect
                   v-model="event.extendedProps.calendar"
                   label="Label"
+                  placeholder="Select Event Label"
                   :rules="[requiredValidator]"
                   :items="store.availableCalendars"
                   :item-title="item => item.label"
@@ -193,16 +176,28 @@ const dialogModelValueUpdate = (val: boolean) => {
                       class="align-center"
                       :class="event.extendedProps.calendar ? 'd-flex' : ''"
                     >
-                      <VBadge
+                      <VIcon
                         :color="item.raw.color"
-                        inline
-                        dot
-                        class="pa-1"
+                        icon="tabler-circle-filled"
+                        size="8"
+                        class="me-2"
                       />
                       <span>{{ item.raw.label }}</span>
                     </div>
                   </template>
-                </VSelect>
+
+                  <template #item="{ item, props: itemProps }">
+                    <VListItem v-bind="itemProps">
+                      <template #prepend>
+                        <VIcon
+                          size="8"
+                          icon="tabler-circle-filled"
+                          :color="item.raw.color"
+                        />
+                      </template>
+                    </VListItem>
+                  </template>
+                </AppSelect>
               </VCol>
 
               <!-- 👉 Start date -->
@@ -212,6 +207,7 @@ const dialogModelValueUpdate = (val: boolean) => {
                   v-model="event.start"
                   :rules="[requiredValidator]"
                   label="Start date"
+                  placeholder="Select Date"
                   :config="startDateTimePickerConfig"
                 />
               </VCol>
@@ -223,6 +219,7 @@ const dialogModelValueUpdate = (val: boolean) => {
                   v-model="event.end"
                   :rules="[requiredValidator]"
                   label="End date"
+                  placeholder="Select End Date"
                   :config="endDateTimePickerConfig"
                 />
               </VCol>
@@ -237,9 +234,10 @@ const dialogModelValueUpdate = (val: boolean) => {
 
               <!-- 👉 Event URL -->
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="event.url"
                   label="Event URL"
+                  placeholder="https://event.com/meeting"
                   :rules="[urlValidator]"
                   type="url"
                 />
@@ -247,9 +245,10 @@ const dialogModelValueUpdate = (val: boolean) => {
 
               <!-- 👉 Guests -->
               <VCol cols="12">
-                <VSelect
+                <AppSelect
                   v-model="event.extendedProps.guests"
                   label="Guests"
+                  placeholder="Select guests"
                   :items="guestsOptions"
                   :item-title="item => item.name"
                   :item-value="item => item.name"
@@ -261,17 +260,19 @@ const dialogModelValueUpdate = (val: boolean) => {
 
               <!-- 👉 Location -->
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="event.extendedProps.location"
                   label="Location"
+                  placeholder="Meeting room"
                 />
               </VCol>
 
               <!-- 👉 Description -->
               <VCol cols="12">
-                <VTextarea
+                <AppTextarea
                   v-model="event.extendedProps.description"
                   label="Description"
+                  placeholder="Meeting description"
                 />
               </VCol>
 
@@ -284,7 +285,7 @@ const dialogModelValueUpdate = (val: boolean) => {
                   Submit
                 </VBtn>
                 <VBtn
-                  variant="tonal"
+                  variant="outlined"
                   color="secondary"
                   @click="onCancel"
                 >

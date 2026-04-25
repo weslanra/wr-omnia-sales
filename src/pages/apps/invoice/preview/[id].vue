@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { Invoice, PaymentDetails } from '@db/apps/invoice/types'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
 
@@ -6,25 +7,19 @@ import { themeConfig } from '@themeConfig'
 import InvoiceAddPaymentDrawer from '@/views/apps/invoice/InvoiceAddPaymentDrawer.vue'
 import InvoiceSendInvoiceDrawer from '@/views/apps/invoice/InvoiceSendInvoiceDrawer.vue'
 
-// Store
-import { useInvoiceStore } from '@/views/apps/invoice/useInvoiceStore'
+const route = useRoute('apps-invoice-preview-id')
 
-const invoiceListStore = useInvoiceStore()
-
-const route = useRoute()
-
-const invoiceData = ref()
-const paymentDetails = ref()
 const isAddPaymentSidebarVisible = ref(false)
 const isSendPaymentSidebarVisible = ref(false)
+const invoice = ref<Invoice>()
+const paymentDetails = ref<PaymentDetails>()
 
-// 👉 fetchInvoice
-invoiceListStore.fetchInvoice(Number(route.params.id)).then(response => {
-  invoiceData.value = response.data.invoice
-  paymentDetails.value = response.data.paymentDetails
-}).catch(error => {
-  console.log(error)
-})
+const { data: invoiceData } = await useApi<any>(`/apps/invoice/${Number(route.params.id)}`)
+
+if (invoiceData.value) {
+  invoice.value = invoiceData.value.invoice
+  paymentDetails.value = invoiceData.value.paymentDetails
+}
 
 // 👉 Invoice Description
 // ℹ️ Your real data will contain this information
@@ -66,142 +61,138 @@ const printInvoice = () => {
 </script>
 
 <template>
-  <section v-if="invoiceData">
+  <section v-if="invoice && paymentDetails">
     <VRow>
       <VCol
         cols="12"
         md="9"
       >
-        <VCard>
+        <VCard class="invoice-preview-wrapper pa-6 pa-sm-12">
           <!-- SECTION Header -->
-          <VCardText class="d-flex flex-wrap justify-space-between flex-column flex-sm-row print-row">
+          <div class="invoice-header-preview d-flex flex-wrap justify-space-between flex-column flex-sm-row print-row bg-var-theme-background gap-6 rounded pa-6 mb-6">
             <!-- 👉 Left Content -->
-            <div class="ma-sm-4">
-              <div class="d-flex align-center mb-6">
+            <div>
+              <div class="d-flex align-center app-logo mb-6">
                 <!-- 👉 Logo -->
-                <VNodeRenderer
-                  :nodes="themeConfig.app.logo"
-                  class="me-3"
-                />
+                <VNodeRenderer :nodes="themeConfig.app.logo" />
 
                 <!-- 👉 Title -->
-                <h6 class="font-weight-bold text-xl">
+                <h6 class="app-logo-title">
                   {{ themeConfig.app.title }}
                 </h6>
               </div>
 
               <!-- 👉 Address -->
-              <p class="mb-0">
+              <h6 class="text-h6 font-weight-regular">
                 Office 149, 450 South Brand Brooklyn
-              </p>
-              <p class="mb-0">
+              </h6>
+              <h6 class="text-h6 font-weight-regular">
                 San Diego County, CA 91905, USA
-              </p>
-              <p class="mb-0">
+              </h6>
+              <h6 class="text-h6 font-weight-regular">
                 +1 (123) 456 7891, +44 (876) 543 2198
-              </p>
+              </h6>
             </div>
 
             <!-- 👉 Right Content -->
-            <div class="mt-4 ma-sm-4">
+            <div>
               <!-- 👉 Invoice ID -->
-              <h6 class="font-weight-medium text-xl mb-6">
-                Invoice #{{ invoiceData.id }}
+              <h6 class="font-weight-medium text-lg mb-6">
+                Invoice #{{ invoice.id }}
               </h6>
 
               <!-- 👉 Issue Date -->
-              <p class="mb-2">
+              <h6 class="text-h6 font-weight-regular">
                 <span>Date Issued: </span>
-                <span class="font-weight-semibold">{{ invoiceData.issuedDate }}</span>
-              </p>
+                <span>{{ new Date(invoice.issuedDate).toLocaleDateString('en-GB') }}</span>
+              </h6>
 
               <!-- 👉 Due Date -->
-              <p class="mb-2">
+              <h6 class="text-h6 font-weight-regular">
                 <span>Due Date: </span>
-                <span class="font-weight-semibold">{{ invoiceData.dueDate }}</span>
-              </p>
+                <span>{{ new Date(invoice.dueDate).toLocaleDateString('en-GB') }}</span>
+              </h6>
             </div>
-          </VCardText>
+          </div>
           <!-- !SECTION -->
 
-          <VDivider />
-
           <!-- 👉 Payment Details -->
-          <VCardText class="d-flex justify-space-between flex-wrap flex-column flex-sm-row print-row">
-            <div class="ma-sm-4">
-              <h6 class="text-sm font-weight-semibold mb-3">
+          <VRow class="print-row mb-6">
+            <VCol class="text-no-wrap">
+              <h6 class="text-h6 mb-4">
                 Invoice To:
               </h6>
-              <p class="mb-1">
-                {{ invoiceData.client.name }}
-              </p>
-              <p class="mb-1">
-                {{ invoiceData.client.company }}
-              </p>
-              <p class="mb-1">
-                {{ invoiceData.client.address }}, {{ invoiceData.client.country }}
-              </p>
-              <p class="mb-1">
-                {{ invoiceData.client.contact }}
+
+              <p class="mb-0">
+                {{ invoice.client.name }}
               </p>
               <p class="mb-0">
-                {{ invoiceData.client.companyEmail }}
+                {{ invoice.client.company }}
               </p>
-            </div>
+              <p class="mb-0">
+                {{ invoice.client.address }}, {{ invoice.client.country }}
+              </p>
+              <p class="mb-0">
+                {{ invoice.client.contact }}
+              </p>
+              <p class="mb-0">
+                {{ invoice.client.companyEmail }}
+              </p>
+            </VCol>
 
-            <div class="mt-4 ma-sm-4">
-              <h6 class="text-sm font-weight-semibold mb-3">
+            <VCol class="text-no-wrap">
+              <h6 class="text-h6 mb-4">
                 Bill To:
               </h6>
               <table>
-                <tr>
-                  <td class="pe-6">
-                    Total Due:
-                  </td>
-                  <td>
-                    {{ paymentDetails.totalDue }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="pe-6">
-                    Bank Name:
-                  </td>
-                  <td>
-                    {{ paymentDetails.bankName }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="pe-6">
-                    Country:
-                  </td>
-                  <td>
-                    {{ paymentDetails.country }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="pe-6">
-                    IBAN:
-                  </td>
-                  <td>
-                    {{ paymentDetails.iban }}
-                  </td>
-                </tr>
-                <tr>
-                  <td class="pe-6">
-                    SWIFT Code:
-                  </td>
-                  <td>
-                    {{ paymentDetails.swiftCode }}
-                  </td>
-                </tr>
+                <tbody>
+                  <tr>
+                    <td class="pe-4">
+                      Total Due:
+                    </td>
+                    <td>
+                      {{ paymentDetails.totalDue }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="pe-4">
+                      Bank Name:
+                    </td>
+                    <td>
+                      {{ paymentDetails.bankName }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="pe-4">
+                      Country:
+                    </td>
+                    <td>
+                      {{ paymentDetails.country }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="pe-4">
+                      IBAN:
+                    </td>
+                    <td>
+                      {{ paymentDetails.iban }}
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="pe-4">
+                      SWIFT Code:
+                    </td>
+                    <td>
+                      {{ paymentDetails.swiftCode }}
+                    </td>
+                  </tr>
+                </tbody>
               </table>
-            </div>
-          </VCardText>
+            </VCol>
+          </VRow>
 
-          <!-- 👉 Table -->
-          <VDivider />
-
-          <VTable>
+          <!-- 👉 invoice Table -->
+          <VTable class="invoice-preview-table border text-high-emphasis overflow-hidden mb-6">
             <thead>
               <tr>
                 <th scope="col">
@@ -231,7 +222,7 @@ const printInvoice = () => {
               </tr>
             </thead>
 
-            <tbody>
+            <tbody class="text-base">
               <tr
                 v-for="item in purchasedProducts"
                 :key="item.name"
@@ -255,13 +246,11 @@ const printInvoice = () => {
             </tbody>
           </VTable>
 
-          <VDivider class="my-2" />
-
-          <!-- Total -->
-          <VCardText class="d-flex justify-space-between flex-column flex-sm-row print-row">
-            <div class="my-2 mx-sm-4">
+          <!-- 👉 Total -->
+          <div class="d-flex justify-space-between flex-column flex-sm-row print-row">
+            <div class="mb-2">
               <div class="d-flex align-center mb-1">
-                <h6 class="text-sm font-weight-semibold me-1">
+                <h6 class="text-h6 me-2">
                   Salesperson:
                 </h6>
                 <span>Jenny Parker</span>
@@ -269,55 +258,69 @@ const printInvoice = () => {
               <p>Thanks for your business</p>
             </div>
 
-            <div class="my-2 mx-sm-4">
-              <table>
-                <tr>
-                  <td class="text-end">
-                    <div class="me-5">
-                      <p class="mb-2">
-                        Subtotal:
-                      </p>
-                      <p class="mb-2">
-                        Discount:
-                      </p>
-                      <p class="mb-2">
-                        Tax:
-                      </p>
-                      <p class="mb-2">
-                        Total:
-                      </p>
-                    </div>
-                  </td>
+            <div>
+              <table class="w-100">
+                <tbody>
+                  <tr>
+                    <td class="pe-16">
+                      Subtotal:
+                    </td>
+                    <td :class="$vuetify.locale.isRtl ? 'text-start' : 'text-end'">
+                      <h6 class="text-base font-weight-medium">
+                        $1800
+                      </h6>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="pe-16">
+                      Discount:
+                    </td>
+                    <td :class="$vuetify.locale.isRtl ? 'text-start' : 'text-end'">
+                      <h6 class="text-base font-weight-medium">
+                        $28
+                      </h6>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="pe-16">
+                      Tax:
+                    </td>
+                    <td :class="$vuetify.locale.isRtl ? 'text-start' : 'text-end'">
+                      <h6 class="text-base font-weight-medium">
+                        21%
+                      </h6>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
 
-                  <td class="font-weight-semibold">
-                    <p class="mb-2">
-                      $154.25
-                    </p>
-                    <p class="mb-2">
-                      $00.00
-                    </p>
-                    <p class="mb-2">
-                      $50.00
-                    </p>
-                    <p class="mb-2">
-                      $204.25
-                    </p>
-                  </td>
-                </tr>
+              <VDivider class="my-2" />
+
+              <table class="w-100">
+                <tbody>
+                  <tr>
+                    <td class="pe-16">
+                      Total:
+                    </td>
+                    <td :class="$vuetify.locale.isRtl ? 'text-start' : 'text-end'">
+                      <h6 class="text-base font-weight-medium">
+                        $1690
+                      </h6>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             </div>
-          </VCardText>
+          </div>
 
-          <VDivider />
+          <VDivider class="my-6 border-dashed" />
 
-          <VCardText>
-            <div class="d-flex mx-sm-4">
-              <h6 class="text-sm font-weight-semibold me-1">
-                Note:
-              </h6>
-              <span>It was a pleasure working with you and your team. We hope you will keep us in mind for future freelance projects. Thank You!</span>
-            </div>
-          </VCardText>
+          <p class="mb-0">
+            <span class="text-high-emphasis font-weight-medium me-1">
+              Note:
+            </span>
+            <span>It was a pleasure working with you and your team. We hope you will keep us in mind for future freelance projects. Thank You!</span>
+          </p>
         </VCard>
       </VCol>
 
@@ -332,7 +335,7 @@ const printInvoice = () => {
             <VBtn
               block
               prepend-icon="tabler-send"
-              class="mb-2"
+              class="mb-4"
               @click="isSendPaymentSidebarVisible = true"
             >
               Send Invoice
@@ -340,37 +343,38 @@ const printInvoice = () => {
 
             <VBtn
               block
-              variant="tonal"
               color="secondary"
-              class="mb-2"
+              variant="tonal"
+              class="mb-4"
             >
               Download
             </VBtn>
 
-            <VBtn
-              block
-              variant="tonal"
-              color="secondary"
-              class="mb-2"
-              @click="printInvoice"
-            >
-              Print
-            </VBtn>
+            <div class="d-flex flex-wrap gap-4">
+              <VBtn
+                variant="tonal"
+                color="secondary"
+                class="flex-grow-1"
+                @click="printInvoice"
+              >
+                Print
+              </VBtn>
 
-            <VBtn
-              block
-              color="secondary"
-              variant="tonal"
-              class="mb-2"
-              :to="{ name: 'apps-invoice-edit-id', params: { id: route.params.id } }"
-            >
-              Edit Invoice
-            </VBtn>
+              <VBtn
+                color="secondary"
+                variant="tonal"
+                class="mb-4 flex-grow-1"
+                :to="{ name: 'apps-invoice-edit-id', params: { id: route.params.id } }"
+              >
+                Edit
+              </VBtn>
+            </div>
 
             <!-- 👉  Add Payment trigger button  -->
             <VBtn
               block
               prepend-icon="tabler-currency-dollar"
+              color="success"
               @click="isAddPaymentSidebarVisible = true"
             >
               Add Payment
@@ -386,21 +390,39 @@ const printInvoice = () => {
     <!-- 👉 Send Invoice Sidebar -->
     <InvoiceSendInvoiceDrawer v-model:isDrawerOpen="isSendPaymentSidebarVisible" />
   </section>
+  <section v-else>
+    <VAlert
+      type="error"
+      variant="tonal"
+    >
+      Invoice with ID  {{ route.params.id }} not found!
+    </VAlert>
+  </section>
 </template>
 
 <style lang="scss">
+.invoice-preview-table {
+  --v-table-header-color: var(--v-theme-surface);
+
+  &.v-table .v-table__wrapper table thead tr th {
+    border-block-end: 1px solid rgba(var(--v-border-color), var(--v-border-opacity)) !important;
+  }
+}
+
 @media print {
-  .v-application {
+  .v-theme--dark {
+    --v-theme-surface: 255, 255, 255;
+    --v-theme-on-surface: 47, 43, 61;
+    --v-theme-on-background: 47, 43, 61;
+  }
+
+  body {
     background: none !important;
   }
 
-  @page { margin: 0; size: auto; }
-
-  .layout-page-content,
-  .v-row,
-  .v-col-md-9 {
-    padding: 0;
-    margin: 0;
+  .invoice-header-preview,
+  .invoice-preview-wrapper {
+    padding: 0 !important;
   }
 
   .product-buy-now {
@@ -426,6 +448,14 @@ const printInvoice = () => {
 
   .layout-content-wrapper {
     padding-inline-start: 0 !important;
+  }
+
+  .v-table__wrapper {
+    overflow: hidden !important;
+  }
+
+  .vue-devtools__anchor {
+    display: none;
   }
 }
 </style>

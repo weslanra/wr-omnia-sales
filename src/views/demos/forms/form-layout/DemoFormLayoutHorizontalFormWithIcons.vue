@@ -15,19 +15,23 @@ const checkbox = ref(false)
           <VCol
             cols="12"
             md="3"
+            class="d-flex align-items-center"
           >
-            <label for="firstNameHorizontalIcons">First Name</label>
+            <label
+              class="v-label text-body-2 text-high-emphasis"
+              for="firstNameHorizontalIcons"
+            >First Name</label>
           </VCol>
 
           <VCol
             cols="12"
             md="9"
           >
-            <VTextField
+            <AppTextField
               id="firstNameHorizontalIcons"
               v-model="firstName"
               prepend-inner-icon="tabler-user"
-              placeholder="First Name"
+              placeholder="John"
               persistent-placeholder
             />
           </VCol>
@@ -40,19 +44,23 @@ const checkbox = ref(false)
           <VCol
             cols="12"
             md="3"
+            class="d-flex align-items-center"
           >
-            <label for="emailHorizontalIcons">Email</label>
+            <label
+              class="v-label text-body-2 text-high-emphasis"
+              for="emailHorizontalIcons"
+            >Email</label>
           </VCol>
 
           <VCol
             cols="12"
             md="9"
           >
-            <VTextField
+            <AppTextField
               id="emailHorizontalIcons"
               v-model="email"
               prepend-inner-icon="tabler-mail"
-              placeholder="Email"
+              placeholder="johndoe@email.com"
               persistent-placeholder
             />
           </VCol>
@@ -65,20 +73,24 @@ const checkbox = ref(false)
           <VCol
             cols="12"
             md="3"
+            class="d-flex align-items-center"
           >
-            <label for="mobileHorizontalIcons">Mobile</label>
+            <label
+              class="v-label text-body-2 text-high-emphasis"
+              for="mobileHorizontalIcons"
+            >Mobile</label>
           </VCol>
 
           <VCol
             cols="12"
             md="9"
           >
-            <VTextField
+            <AppTextField
               id="mobileHorizontalIcons"
               v-model="mobile"
               type="number"
               prepend-inner-icon="tabler-device-mobile"
-              placeholder="Number"
+              placeholder="+1 123 456 7890"
               persistent-placeholder
             />
           </VCol>
@@ -91,20 +103,25 @@ const checkbox = ref(false)
           <VCol
             cols="12"
             md="3"
+            class="d-flex align-items-center"
           >
-            <label for="passwordHorizontalIcons">Password</label>
+            <label
+              class="v-label text-body-2 text-high-emphasis"
+              for="passwordHorizontalIcons"
+            >Password</label>
           </VCol>
 
           <VCol
             cols="12"
             md="9"
           >
-            <VTextField
+            <AppTextField
               id="passwordHorizontalIcons"
               v-model="password"
               prepend-inner-icon="tabler-lock"
+              autocomplete="on"
               type="password"
-              placeholder="Password"
+              placeholder="············"
               persistent-placeholder
             />
           </VCol>
@@ -116,6 +133,7 @@ const checkbox = ref(false)
         offset-md="3"
         cols="12"
         md="9"
+        class="px-2"
       >
         <VCheckbox
           v-model="checkbox"

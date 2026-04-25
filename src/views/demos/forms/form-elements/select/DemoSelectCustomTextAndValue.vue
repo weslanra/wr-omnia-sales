@@ -11,7 +11,7 @@ const items = [
 </script>
 
 <template>
-  <VSelect
+  <AppSelect
     v-model="selectedOption"
     :hint="`${selectedOption.state}, ${selectedOption.abbr}`"
     :items="items"
@@ -21,5 +21,6 @@ const items = [
     persistent-hint
     return-object
     single-line
+    placeholder="Select State"
   />
 </template>

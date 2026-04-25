@@ -1,9 +1,4 @@
 <script setup lang="ts">
-import VueApexCharts from 'vue3-apexcharts'
-import { useTheme } from 'vuetify'
-
-const vuetifyTheme = useTheme()
-
 const series = [
   {
     name: '2020',
@@ -12,9 +7,6 @@ const series = [
 ]
 
 const chartOptions = computed(() => {
-  const currentTheme = vuetifyTheme.current.value.colors
-  const backgroundColor = currentTheme.background
-
   return {
     chart: {
       height: 90,
@@ -30,17 +22,32 @@ const chartOptions = computed(() => {
     plotOptions: {
       bar: {
         barHeight: '100%',
-        columnWidth: '30px',
+        columnWidth: '30%',
         startingShape: 'rounded',
         endingShape: 'rounded',
         borderRadius: 4,
         colors: {
-          backgroundBarColors: [backgroundColor, backgroundColor, backgroundColor, backgroundColor, backgroundColor, backgroundColor, backgroundColor],
+          backgroundBarColors: [
+            'rgba(var(--v-track-bg))',
+            'rgba(var(--v-track-bg))',
+            'rgba(var(--v-track-bg))',
+            'rgba(var(--v-track-bg))',
+            'rgba(var(--v-track-bg))',
+            'rgba(var(--v-track-bg))',
+            'rgba(var(--v-track-bg))',
+            'rgba(var(--v-track-bg))',
+            'rgba(var(--v-track-bg))',
+            'rgba(var(--v-track-bg))',
+            'rgba(var(--v-track-bg))',
+            'rgba(var(--v-track-bg))',
+            'rgba(var(--v-track-bg))',
+            'rgba(var(--v-track-bg))',
+          ],
           backgroundBarRadius: 4,
         },
       },
     },
-    colors: [currentTheme.primary],
+    colors: ['rgba(var(--v-theme-primary),1)'],
     grid: {
       show: false,
       padding: {
@@ -79,7 +86,7 @@ const chartOptions = computed(() => {
         options: {
           plotOptions: {
             bar: {
-              columnWidth: '40%',
+              columnWidth: '30%',
               borderRadius: 4,
             },
           },
@@ -114,8 +121,8 @@ const chartOptions = computed(() => {
         options: {
           plotOptions: {
             bar: {
-              columnWidth: '35%',
-              borderRadius: 6,
+              columnWidth: '15%',
+              borderRadius: 4,
             },
           },
         },
@@ -125,7 +132,7 @@ const chartOptions = computed(() => {
         options: {
           plotOptions: {
             bar: {
-              columnWidth: '40%',
+              columnWidth: '20%',
             },
           },
         },
@@ -145,7 +152,8 @@ const chartOptions = computed(() => {
         options: {
           plotOptions: {
             bar: {
-              borderRadius: 9,
+              columnWidth: '15%',
+              borderRadius: 4,
             },
             colors: {
               backgroundBarRadius: 9,
@@ -158,7 +166,7 @@ const chartOptions = computed(() => {
         options: {
           plotOptions: {
             bar: {
-              borderRadius: 6,
+              borderRadius: 4,
             },
             colors: {
               backgroundBarRadius: 9,
@@ -173,11 +181,11 @@ const chartOptions = computed(() => {
         },
       },
       {
-        breakpoint: 376,
+        breakpoint: 400,
         options: {
           plotOptions: {
             bar: {
-              borderRadius: 6,
+              borderRadius: 3,
             },
           },
         },
@@ -190,27 +198,25 @@ const chartOptions = computed(() => {
 
 <template>
   <VCard>
-    <VCardText>
-      <div class="pb-4">
-        <h6 class="text-h6">
-          Order
-        </h6>
-        <span class="text-sm text-disabled">Last week</span>
-      </div>
+    <VCardItem class="pb-3">
+      <VCardTitle>Orders</VCardTitle>
+      <VCardSubtitle>Last Week</VCardSubtitle>
+    </VCardItem>
 
+    <VCardText>
       <VueApexCharts
         :options="chartOptions"
         :series="series"
-        :height="90"
+        :height="70"
       />
 
-      <div class="d-flex align-center justify-space-between">
-        <h6 class="text-h6 text-center font-weight-semibold">
+      <div class="d-flex align-center justify-space-between gap-x-2 mt-3">
+        <h4 class="text-h4 text-center">
           124k
-        </h6>
-        <span class="text-sm text-success">
+        </h4>
+        <div class="text-sm text-success">
           +12.6%
-        </span>
+        </div>
       </div>
     </VCardText>
   </VCard>

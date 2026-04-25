@@ -23,24 +23,26 @@ const states = [
 <template>
   <VRow>
     <VCol cols="12">
-      <VSelect
+      <AppSelect
         v-model="selectedOption1"
         :items="states"
         label="Select"
         prepend-icon="tabler-map"
         single-line
         variant="filled"
+        placeholder="Select State"
       />
     </VCol>
 
     <VCol cols="12">
-      <VSelect
+      <AppSelect
         v-model="selectedOption2"
         :items="states"
         append-icon="tabler-map"
         label="Select"
         single-line
         variant="filled"
+        placeholder="Select State"
       />
     </VCol>
   </VRow>

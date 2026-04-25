@@ -8,7 +8,11 @@ const themes: ThemeSwitcherTheme[] = [
   },
   {
     name: 'dark',
-    icon: 'tabler-moon',
+    icon: 'tabler-moon-stars',
+  },
+  {
+    name: 'system',
+    icon: 'tabler-device-desktop-analytics',
   },
 ]
 </script>

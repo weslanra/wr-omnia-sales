@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import VueApexCharts from 'vue3-apexcharts'
 import { useTheme } from 'vuetify'
 
 const vuetifyTheme = useTheme()
@@ -41,11 +40,10 @@ const chartOptions = computed(() => {
     plotOptions: {
       bar: {
         horizontal: false,
-        columnWidth: '30%',
-        barHeight: '100%',
+        columnWidth: '40%',
         borderRadius: 5,
-        startingShape: 'rounded',
-        endingShape: 'rounded',
+        borderRadiusApplication: 'around',
+        borderRadiusWhenStacked: 'all',
       },
     },
     dataLabels: {
@@ -56,25 +54,25 @@ const chartOptions = computed(() => {
     },
     stroke: {
       curve: 'smooth',
-      width: 1,
+      width: 4,
       lineCap: 'round',
       colors: [currentTheme.surface],
     },
     legend: {
       show: false,
     },
-    colors: [currentTheme.primary, currentTheme.success],
+    colors: ['rgba(var(--v-theme-primary),1)', 'rgba(var(--v-theme-success),1)'],
     grid: {
       show: false,
       padding: {
-        top: -41,
+        top: -50,
         right: -10,
         left: -8,
-        bottom: -26,
+        bottom: -30,
       },
     },
     xaxis: {
-      categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      categories: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
       labels: {
         show: false,
       },
@@ -94,7 +92,8 @@ const chartOptions = computed(() => {
         options: {
           plotOptions: {
             bar: {
-              columnWidth: '40%',
+              columnWidth: '50%',
+              borderRadius: 4,
             },
           },
         },
@@ -104,18 +103,19 @@ const chartOptions = computed(() => {
         options: {
           plotOptions: {
             bar: {
-              columnWidth: '50%',
+              columnWidth: '60%',
+              borderRadius: 4,
             },
           },
         },
       },
       {
-        breakpoint: 1264,
+        breakpoint: 1280,
         options: {
           plotOptions: {
             bar: {
               borderRadius: 6,
-              columnWidth: '20%',
+              columnWidth: '30%',
             },
           },
         },
@@ -125,8 +125,8 @@ const chartOptions = computed(() => {
         options: {
           plotOptions: {
             bar: {
-              borderRadius: 7,
-              columnWidth: '25%',
+              borderRadius: 6,
+              columnWidth: '30%',
             },
           },
           chart: {
@@ -140,6 +140,7 @@ const chartOptions = computed(() => {
           plotOptions: {
             bar: {
               borderRadius: 6,
+              columnWidth: '25%',
             },
           },
         },
@@ -150,6 +151,7 @@ const chartOptions = computed(() => {
           plotOptions: {
             bar: {
               columnWidth: '30%',
+              borderRadius: 6,
             },
           },
         },
@@ -159,8 +161,8 @@ const chartOptions = computed(() => {
         options: {
           plotOptions: {
             bar: {
-              borderRadius: 12,
-              columnWidth: '25%',
+              borderRadius: 6,
+              columnWidth: '20%',
             },
           },
           chart: {
@@ -173,13 +175,14 @@ const chartOptions = computed(() => {
         options: {
           plotOptions: {
             bar: {
-              borderRadius: 8,
+              borderRadius: 6,
+              columnWidth: '30%',
             },
           },
         },
       },
       {
-        breakpoint: 376,
+        breakpoint: 385,
         options: {
           plotOptions: {
             bar: {
@@ -207,29 +210,30 @@ const chartOptions = computed(() => {
 
 <template>
   <VCard>
-    <VCardText>
-      <div>
-        <h6 class="text-h6">
-          Sessions
-        </h6>
-        <span class="text-sm text-disabled">Last Month</span>
-      </div>
+    <VCardItem class="pb-3">
+      <VCardTitle>
+        Sessions
+      </VCardTitle>
+      <VCardSubtitle>
+        This Month
+      </VCardSubtitle>
+    </VCardItem>
 
+    <VCardText>
       <VueApexCharts
         :options="chartOptions"
         :series="series"
-        :height="90"
+        :height="68"
       />
 
-      <div class="d-flex align-center justify-space-between mt-4">
-        <h6 class="text-h6 text-center font-weight-semibold">
+      <div class="d-flex align-center justify-space-between gap-x-2 mt-3">
+        <h4 class="text-h4">
           45.1k
-        </h6>
-        <span class="text-sm text-success">
+        </h4>
+        <div class="text-sm text-success">
           +12.6%
-        </span>
+        </div>
       </div>
     </VCardText>
   </VCard>
 </template>
-

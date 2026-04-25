@@ -1,12 +1,7 @@
 <script setup lang="ts">
-import '@fullcalendar/core/vdom' // solves problem with Vite
-
-// Local imports
-
 import FullCalendar from '@fullcalendar/vue3'
 import { blankEvent, useCalendar } from '@/views/apps/calendar/useCalendar'
 import { useCalendarStore } from '@/views/apps/calendar/useCalendarStore'
-import { useResponsiveLeftSidebar } from '@core/composable/useResponsiveSidebar'
 
 // Components
 import CalendarEventHandler from '@/views/apps/calendar/CalendarEventHandler.vue'
@@ -45,8 +40,11 @@ const checkAll = computed({
       store.selectedCalendars = []
   },
 })
-
 // !SECTION
+
+const jumpToDateFn = (date: string) => {
+  jumpToDate(date)
+}
 </script>
 
 <template>
@@ -64,7 +62,7 @@ const checkAll = computed({
           class="calendar-add-event-drawer"
           :temporary="$vuetify.display.mdAndDown"
         >
-          <div style="margin: 1.4rem;">
+          <div style="margin: 1.5rem;">
             <VBtn
               block
               prepend-icon="tabler-plus"
@@ -76,21 +74,20 @@ const checkAll = computed({
 
           <VDivider />
 
-          <div class="d-flex align-center justify-center pa-2 mb-3">
+          <div class="d-flex align-center justify-center pa-2">
             <AppDateTimePicker
               :model-value="new Date().toJSON().slice(0, 10)"
-              label="Inline"
               :config="{ inline: true }"
               class="calendar-date-picker"
-              @input="jumpToDate($event.target.value)"
+              @update:model-value="jumpToDateFn"
             />
           </div>
 
           <VDivider />
-          <div class="pa-7">
-            <p class="text-sm text-uppercase text-disabled mb-3">
-              FILTER
-            </p>
+          <div class="pa-6">
+            <h6 class="text-lg font-weight-medium mb-4">
+              Event Filters
+            </h6>
 
             <div class="d-flex flex-column calendars-checkbox">
               <VCheckbox
@@ -140,7 +137,7 @@ const checkAll = computed({
 }
 
 .calendar-add-event-drawer {
-  &.v-navigation-drawer {
+  &.v-navigation-drawer:not(.v-navigation-drawer--temporary) {
     border-end-start-radius: 0.375rem;
     border-start-start-radius: 0.375rem;
   }
@@ -158,6 +155,16 @@ const checkAll = computed({
         border-block-end: none;
       }
     }
+  }
+
+  & ~ .flatpickr-calendar .flatpickr-weekdays {
+    margin-block: 0 4px;
+  }
+}
+
+@media screen and (max-width: 1279px) {
+  .calendar-add-event-drawer {
+    border-width: 0;
   }
 }
 </style>

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import VueApexCharts from 'vue3-apexcharts'
 import { useTheme } from 'vuetify'
 
 const vuetifyTheme = useTheme()
@@ -31,16 +30,22 @@ const chartOptions = computed(() => {
     legend: {
       show: false,
     },
+    stroke: {
+      curve: 'smooth',
+      width: 6,
+      lineCap: 'round',
+      colors: [currentTheme.surface],
+    },
     plotOptions: {
       bar: {
         horizontal: false,
-        columnWidth: '18%',
-        borderRadius: 5,
-        startingShape: 'rounded',
-        endingShape: 'rounded',
+        columnWidth: '45%',
+        borderRadius: 8,
+        borderRadiusApplication: 'around',
+        borderRadiusWhenStacked: 'all',
       },
     },
-    colors: [currentTheme.error, currentTheme.primary],
+    colors: ['rgba(var(--v-theme-primary),1)', 'rgba(var(--v-theme-secondary),1)'],
     dataLabels: {
       enabled: false,
     },
@@ -75,7 +80,17 @@ const chartOptions = computed(() => {
         options: {
           plotOptions: {
             bar: {
-              columnWidth: '22%',
+              columnWidth: '70%',
+            },
+          },
+        },
+      },
+      {
+        breakpoint: 1279,
+        options: {
+          plotOptions: {
+            bar: {
+              columnWidth: '40%',
             },
           },
         },
@@ -88,14 +103,14 @@ const chartOptions = computed(() => {
           },
           plotOptions: {
             bar: {
-              borderRadius: 8,
-              columnWidth: '26%',
+              borderRadius: 6,
+              columnWidth: '40%',
             },
           },
         },
       },
       {
-        breakpoint: 783,
+        breakpoint: 912,
         options: {
           chart: {
             height: 232,
@@ -103,39 +118,40 @@ const chartOptions = computed(() => {
           plotOptions: {
             bar: {
               borderRadius: 6,
-              columnWidth: '28%',
+              columnWidth: '60%',
             },
           },
         },
       },
       {
-        breakpoint: 589,
+        breakpoint: 670,
         options: {
           plotOptions: {
             bar: {
-              columnWidth: '16%',
+              columnWidth: '70%',
+              borderRadius: 6,
             },
           },
         },
       },
       {
-        breakpoint: 520,
+        breakpoint: 600,
+        options: {
+          plotOptions: {
+            bar: {
+              borderRadius: 8,
+              columnWidth: '40%',
+            },
+          },
+        },
+      },
+      {
+        breakpoint: 475,
         options: {
           plotOptions: {
             bar: {
               borderRadius: 6,
-              columnWidth: '18%',
-            },
-          },
-        },
-      },
-      {
-        breakpoint: 426,
-        options: {
-          plotOptions: {
-            bar: {
-              borderRadius: 5,
-              columnWidth: '20%',
+              columnWidth: '50%',
             },
           },
         },
@@ -145,7 +161,8 @@ const chartOptions = computed(() => {
         options: {
           plotOptions: {
             bar: {
-              columnWidth: '24%',
+              columnWidth: '60%',
+              borderRadius: 6,
             },
           },
         },
@@ -169,18 +186,23 @@ const chartOptions = computed(() => {
 const totalEarnings = [
   {
     avatar: 'tabler-brand-paypal',
-    avatarColor: 'error',
+    avatarColor: 'primary',
     title: 'Total Revenue',
     subtitle: 'Client Payment',
     earning: '+$126',
   },
   {
     avatar: 'tabler-currency-dollar',
-    avatarColor: 'primary',
+    avatarColor: 'secondary',
     title: 'Total Sales',
     subtitle: 'Total Sales',
     earning: '+$98',
   },
+]
+
+const moreList = [
+  { title: 'View More', value: 'View More' },
+  { title: 'Delete', value: 'Delete' },
 ]
 </script>
 
@@ -190,12 +212,12 @@ const totalEarnings = [
       <VCardTitle>Total Earning</VCardTitle>
 
       <div class="d-flex align-center mt-2">
-        <h4 class="text-h4 me-2">
+        <h2 class="text-h2 me-2">
           87%
-        </h4>
+        </h2>
         <div class="text-success">
           <VIcon
-            size="18"
+            size="20"
             icon="tabler-chevron-up"
           />
           <span class="text-base">25.8%</span>
@@ -204,29 +226,7 @@ const totalEarnings = [
 
       <template #append>
         <div class="mt-n10 me-n2">
-          <VBtn
-            icon
-            size="x-small"
-            variant="plain"
-            color="default"
-          >
-            <VIcon
-              size="22"
-              icon="tabler-dots-vertical"
-            />
-
-            <VMenu activator="parent">
-              <VList>
-                <VListItem
-                  v-for="(item, index) in ['View More', 'Delete']"
-                  :key="index"
-                  :value="index"
-                >
-                  <VListItemTitle>{{ item }}</VListItemTitle>
-                </VListItem>
-              </VList>
-            </VMenu>
-          </VBtn>
+          <MoreBtn :menu-list="moreList" />
         </div>
       </template>
     </VCardItem>
@@ -235,7 +235,7 @@ const totalEarnings = [
       <VueApexCharts
         :options="chartOptions"
         :series="series"
-        height="225"
+        height="191"
         class="my-2"
       />
 
@@ -243,20 +243,30 @@ const totalEarnings = [
         <VListItem
           v-for="earning in totalEarnings"
           :key="earning.title"
-          :title="earning.title"
-          :subtitle="earning.subtitle"
         >
+          <VListItemTitle class="font-weight-medium">
+            {{ earning.title }}
+          </VListItemTitle>
+          <VListItemSubtitle>
+            {{ earning.subtitle }}
+          </VListItemSubtitle>
           <template #prepend>
             <VAvatar
-              :icon="earning.avatar"
+              size="38"
               :color="earning.avatarColor"
               variant="tonal"
               rounded
-            />
+              class="me-1"
+            >
+              <VIcon
+                :icon="earning.avatar"
+                size="22"
+              />
+            </VAvatar>
           </template>
 
           <template #append>
-            <span class="text-success">{{ earning.earning }}</span>
+            <span class="text-success font-weight-medium">{{ earning.earning }}</span>
           </template>
         </VListItem>
       </VList>
@@ -266,6 +276,6 @@ const totalEarnings = [
 
 <style lang="scss" scoped>
 .card-list {
-  --v-card-list-gap: 28px;
+  --v-card-list-gap: 16px;
 }
 </style>

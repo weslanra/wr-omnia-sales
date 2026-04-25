@@ -1,41 +1,24 @@
 <script lang="ts" setup>
-import type { ProfileConnections } from '@/@fake-db/types'
+import type { ProfileConnections } from '@db/pages/profile/types'
 
 interface Props {
   connectionsData: ProfileConnections[]
 }
 
 const props = defineProps<Props>()
+
+const moreList = [
+  { title: 'Share connections', value: 'Share connections' },
+  { title: 'Suggest edits', value: 'Suggest edits' },
+  { title: 'Report Bug', value: 'Report Bug' },
+]
 </script>
 
 <template>
   <VCard title="Connection">
     <template #append>
-      <div class="me-n2">
-        <VBtn
-          icon
-          variant="text"
-          color="default"
-          size="x-small"
-        >
-          <VIcon
-            size="20"
-            icon="tabler-dots-vertical"
-            class="text-disabled"
-          />
-
-          <VMenu activator="parent">
-            <VList density="compact">
-              <VListItem
-                v-for="(item, index) in ['Share connections', 'Suggest edits', 'Report Bug']"
-                :key="index"
-                :value="index"
-              >
-                <VListItemTitle>{{ item }}</VListItemTitle>
-              </VListItem>
-            </VList>
-          </VMenu>
-        </VBtn>
+      <div>
+        <MoreBtn :menu-list="moreList" />
       </div>
     </template>
 
@@ -60,12 +43,12 @@ const props = defineProps<Props>()
           <template #append>
             <VBtn
               icon
-              size="30"
+              size="38"
               class="rounded"
               :variant="data.isFriend ? 'elevated' : 'tonal' "
             >
               <VIcon
-                size="20"
+                size="22"
                 :icon="data.isFriend ? 'tabler-user-x' : 'tabler-user-check'"
               />
             </VBtn>
@@ -73,13 +56,12 @@ const props = defineProps<Props>()
         </VListItem>
 
         <VListItem>
-          <VListItemTitle>
-            <VBtn
-              block
-              variant="text"
-            >
-              View all connections
-            </VBtn>
+          <VListItemTitle class="pt-2 text-center">
+            <RouterLink :to="{ name: 'pages-user-profile-tab', params: { tab: 'connections' } }">
+              <p class="mb-0">
+                View all connections
+              </p>
+            </RouterLink>
           </VListItemTitle>
         </VListItem>
       </VList>
@@ -89,6 +71,6 @@ const props = defineProps<Props>()
 
 <style lang="scss" scoped>
 .card-list {
-  --v-card-list-gap: 14px;
+  --v-card-list-gap: 16px;
 }
 </style>

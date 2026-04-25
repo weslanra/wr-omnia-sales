@@ -3,12 +3,16 @@ const panel = ref(0)
 </script>
 
 <template>
-  <VExpansionPanels v-model="panel">
+  <VExpansionPanels
+    v-model="panel"
+    class="no-icon-rotate"
+  >
     <VExpansionPanel>
       <VExpansionPanelTitle disable-icon-rotate>
         Server Down
         <template #actions>
           <VIcon
+            size="18"
             icon="tabler-alert-circle"
             color="error"
           />
@@ -20,12 +24,11 @@ const panel = ref(0)
     </VExpansionPanel>
 
     <VExpansionPanel>
-      <VExpansionPanelTitle
-        disable-icon-rotate
-      >
+      <VExpansionPanelTitle disable-icon-rotate>
         Sales report generated
         <template #actions>
           <VIcon
+            size="18"
             icon="tabler-check"
             color="success"
           />
@@ -41,6 +44,7 @@ const panel = ref(0)
         High Memory usage
         <template #actions>
           <VIcon
+            size="18"
             icon="tabler-alert-triangle"
             color="warning"
           />

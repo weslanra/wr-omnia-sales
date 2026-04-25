@@ -26,7 +26,7 @@ const solidCardData = [
   },
   {
     cardBg: '#007BB6',
-    title: 'Linkedin Card',
+    title: 'LinkedIn Card',
     icon: 'tabler-brand-linkedin',
     text: 'With the Internet spreading like wildfire and reaching every part of our daily life, more and more traffic is directed.',
     avatarImg: avatar8,
@@ -60,8 +60,10 @@ const solidCardData = [
           </VCardTitle>
         </VCardItem>
 
-        <VCardText class="text-white">
-          {{ data.text }}
+        <VCardText>
+          <p class="clamp-text text-white mb-0">
+            {{ data.text }}
+          </p>
         </VCardText>
 
         <VCardText class="d-flex justify-space-between align-center flex-wrap">
@@ -73,22 +75,20 @@ const solidCardData = [
             <span class="text-white ms-2">{{ data.avatarName }}</span>
           </div>
 
-          <div>
-            <VIcon
+          <div class="d-flex align-center">
+            <IconBtn
               icon="tabler-heart"
               color="white"
-              size="1.2rem"
-              class="me-2 cursor-pointer"
+              class="me-1"
             />
             <span class="text-subtitle-2 text-white me-4">{{ data.likes }}</span>
 
-            <VIcon
+            <IconBtn
               icon="tabler-share"
               color="white"
-              size="1.2rem"
-              class="me-2 cursor-pointer"
+              class="me-1"
             />
-            <span class="text-subtitle-2 text-white">{{ data.share }}</span>
+            <span class="text-subtitle-2 text-white mt-1">{{ data.share }}</span>
           </div>
         </VCardText>
       </VCard>

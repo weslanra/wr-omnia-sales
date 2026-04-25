@@ -8,41 +8,106 @@ import authV2ForgotPasswordIllustrationLight from '@images/pages/auth-v2-forgot-
 import authV2MaskDark from '@images/pages/misc-mask-dark.png'
 import authV2MaskLight from '@images/pages/misc-mask-light.png'
 
+import { VForm } from 'vuetify/components/VForm'
+
+// store
+import { useLoginStore } from "@/views/login/useLoginStore"
+
+const router = useRouter()
+const useLogin = useLoginStore()
+
 const email = ref('')
-
+const refVForm = ref<VForm>()
 const authThemeImg = useGenerateImageVariant(authV2ForgotPasswordIllustrationLight, authV2ForgotPasswordIllustrationDark)
-
 const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
+
+definePage({
+  meta: {
+    layout: 'blank',
+    unauthenticatedOnly: true,
+  },
+})
+
+const sendRecoveryCode = async () => {
+  // TODO: adicionar toasts
+  return await $api('/api/user/sendRecoveryCode', {
+      method: 'POST',
+      body: {
+        email: email.value
+      },
+      async onResponse({ response }) {
+        const data = response._data as { email?: string; code?: string; message: string };
+        const { code, message } = data;
+        
+        console.log(message);
+
+        useLogin.setEmail(email.value);
+        useLogin.setMockMeta({
+          code: code
+        });
+
+        await nextTick(() => {
+          router.push('confirm-code');
+        })
+      },
+      onResponseError({ response }) {
+        console.log(response);
+      },
+    })
+}
+
+const onSubmit = () => {
+  refVForm.value?.validate()
+    .then(({ valid: isValid }) => {
+      if (isValid)
+        sendRecoveryCode()
+    })
+}
 </script>
 
 <template>
+  <RouterLink to="/">
+    <div class="auth-logo d-flex align-center gap-x-3">
+      <VNodeRenderer :nodes="themeConfig.app.logo" />
+      <h1 class="auth-title">
+        {{ themeConfig.app.title }}
+      </h1>
+    </div>
+  </RouterLink>
+
   <VRow
-    class="auth-wrapper"
+    class="auth-wrapper bg-surface"
     no-gutters
   >
     <VCol
-      lg="8"
-      class="d-none d-lg-flex"
+      md="8"
+      class="d-none d-md-flex"
     >
-      <div class="position-relative auth-bg rounded-lg w-100 ma-8 me-0">
-        <div class="d-flex align-center justify-center w-100 h-100">
+      <div class="position-relative bg-background w-100 me-0">
+        <div
+          class="d-flex align-center justify-center w-100 h-100"
+          style="padding-inline: 150px;"
+        >
           <VImg
-            max-width="368"
+            max-width="468"
             :src="authThemeImg"
             class="auth-illustration mt-16 mb-2"
           />
         </div>
 
-        <VImg
+        <img
           class="auth-footer-mask"
           :src="authThemeMask"
-        />
+          alt="auth-footer-mask"
+          height="280"
+          width="100"
+        >
       </div>
     </VCol>
 
     <VCol
       cols="12"
-      lg="4"
+      md="4"
       class="d-flex align-center justify-center"
     >
       <VCard
@@ -51,27 +116,26 @@ const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
         class="mt-12 mt-sm-0 pa-4"
       >
         <VCardText>
-          <VNodeRenderer
-            :nodes="themeConfig.app.logo"
-            class="mb-6"
-          />
-          <h5 class="text-h5 font-weight-semibold mb-1">
+          <h4 class="text-h4 mb-1">
             Forgot Password? 🔒
-          </h5>
+          </h4>
           <p class="mb-0">
             Enter your email and we'll send you instructions to reset your password
           </p>
         </VCardText>
 
         <VCardText>
-          <VForm @submit.prevent="() => {}">
+          <VForm ref="refVForm" @submit.prevent="onSubmit">
             <VRow>
               <!-- email -->
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="email"
+                  autofocus
                   label="Email"
                   type="email"
+                  placeholder="johndoe@email.com"
+                  :rules="[requiredValidator]"
                 />
               </VCol>
 
@@ -81,7 +145,7 @@ const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
                   block
                   type="submit"
                 >
-                  Send Reset Link
+                  Send Recovery Code
                 </VBtn>
               </VCol>
 
@@ -93,7 +157,8 @@ const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
                 >
                   <VIcon
                     icon="tabler-chevron-left"
-                    class="flip-in-rtl"
+                    size="20"
+                    class="me-1 flip-in-rtl"
                   />
                   <span>Back to login</span>
                 </RouterLink>
@@ -109,11 +174,3 @@ const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
 <style lang="scss">
 @use "@core/scss/template/pages/page-auth.scss";
 </style>
-
-<route lang="yaml">
-meta:
-  layout: blank
-  action: read
-  subject: Auth
-  redirectIfLoggedIn: true
-</route>

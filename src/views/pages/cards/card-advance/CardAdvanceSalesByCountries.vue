@@ -44,6 +44,12 @@ const salesByCountries = [
     profitLoss: 14.8,
   },
 ]
+
+const moreList = [
+  { title: 'Refresh', value: 'refresh' },
+  { title: 'Download', value: 'Download' },
+  { title: 'View All', value: 'View All' },
+]
 </script>
 
 <template>
@@ -53,29 +59,7 @@ const salesByCountries = [
   >
     <template #append>
       <div class="mt-n4 me-n2">
-        <VBtn
-          icon
-          color="default"
-          size="x-small"
-          variant="plain"
-        >
-          <VIcon
-            size="22"
-            icon="tabler-dots-vertical"
-          />
-
-          <VMenu activator="parent">
-            <VList>
-              <VListItem
-                v-for="(item, index) in ['Refresh', 'Download', 'View All']"
-                :key="index"
-                :value="index"
-              >
-                <VListItemTitle>{{ item }}</VListItemTitle>
-              </VListItem>
-            </VList>
-          </VMenu>
-        </VBtn>
+        <MoreBtn :menu-list="moreList" />
       </div>
     </template>
 
@@ -90,11 +74,12 @@ const salesByCountries = [
               size="34"
               color="secondary"
               variant="tonal"
+              class="me-1"
               :image="country.avatarImg"
             />
           </template>
 
-          <VListItemTitle class="font-weight-semibold">
+          <VListItemTitle class="font-weight-medium">
             {{ country.stats }}
           </VListItemTitle>
           <VListItemSubtitle>
@@ -102,13 +87,15 @@ const salesByCountries = [
           </VListItemSubtitle>
 
           <template #append>
-            <div :class="`d-flex align-center font-weight-semibold ${country.profitLoss > 0 ? 'text-success' : 'text-error'}`">
+            <div :class="`d-flex align-center ${country.profitLoss > 0 ? 'text-success' : 'text-error'}`">
               <VIcon
                 :icon="country.profitLoss > 0 ? 'tabler-chevron-up' : 'tabler-chevron-down'"
-                size="18"
+                size="20"
                 class="me-1"
               />
-              <span>{{ Math.abs(country.profitLoss) }}%</span>
+              <div class="font-weight-medium">
+                {{ Math.abs(country.profitLoss) }}%
+              </div>
             </div>
           </template>
         </VListItem>
@@ -119,6 +106,6 @@ const salesByCountries = [
 
 <style lang="scss" scoped>
 .card-list {
-  --v-card-list-gap: 19px;
+  --v-card-list-gap: 1rem;
 }
 </style>

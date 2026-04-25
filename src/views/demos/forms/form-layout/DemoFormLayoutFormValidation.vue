@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import type { VForm } from 'vuetify/components'
-import { emailValidator, requiredValidator } from '@validators'
+import type { VForm } from 'vuetify/components/VForm'
 
 const name = ref('')
 const email = ref('')
@@ -18,28 +17,31 @@ const form = ref<VForm>()
   >
     <VRow>
       <VCol cols="12">
-        <VTextField
+        <AppTextField
           v-model="name"
           :rules="[requiredValidator]"
           label="Name"
+          placeholder="John Doe"
           required
         />
       </VCol>
 
       <VCol cols="12">
-        <VTextField
+        <AppTextField
           v-model="email"
           :rules="[emailValidator, requiredValidator]"
           label="E-mail"
+          placeholder="johndoe@email.com"
           required
         />
       </VCol>
 
       <VCol cols="12">
-        <VSelect
+        <AppSelect
           v-model="select"
           :items="items"
           :rules="[requiredValidator]"
+          placeholder="Select an Item"
           label="Item"
           name="select"
           require

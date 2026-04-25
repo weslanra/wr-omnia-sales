@@ -5,30 +5,30 @@ const tabItemText = 'hortbread chocolate bar marshmallow bear claw tiramisu choc
 </script>
 
 <template>
-  <VTabs
-    v-model="currentTab"
-    fixed-tabs
-  >
-    <VTab
-      v-for="item in items"
-      :key="item"
-      :value="item"
+  <VCard>
+    <VTabs
+      v-model="currentTab"
+      fixed-tabs
     >
-      {{ item }}
-    </VTab>
-  </VTabs>
-  <VDivider />
+      <VTab
+        v-for="item in items"
+        :key="item"
+        :value="item"
+      >
+        {{ item }}
+      </VTab>
+    </VTabs>
 
-  <VWindow
-    v-model="currentTab"
-    class="mt-6"
-  >
-    <VWindowItem
-      v-for="item in items"
-      :key="item"
-      :value="item"
-    >
-      {{ tabItemText }}
-    </VWindowItem>
-  </VWindow>
+    <VCardText>
+      <VWindow v-model="currentTab">
+        <VWindowItem
+          v-for="item in items"
+          :key="item"
+          :value="item"
+        >
+          {{ tabItemText }}
+        </VWindowItem>
+      </VWindow>
+    </VCardText>
+  </VCard>
 </template>

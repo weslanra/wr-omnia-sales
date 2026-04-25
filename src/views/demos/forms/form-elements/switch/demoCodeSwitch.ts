@@ -115,12 +115,10 @@ const insetSwitch2 = ref(false)
   <div class="demo-space-x">
     <VSwitch
       v-model="insetSwitch1"
-      inset
       :label="\`Switch 1: \${insetSwitch1.toString()}\`"
     />
     <VSwitch
       v-model="insetSwitch2"
-      inset
       :label="\`Switch 2: \${insetSwitch2.toString()}\`"
     />
   </div>
@@ -135,12 +133,10 @@ const insetSwitch2 = ref(false)
   <div class="demo-space-x">
     <VSwitch
       v-model="insetSwitch1"
-      inset
       :label="\`Switch 1: \${insetSwitch1.toString()}\`"
     />
     <VSwitch
       v-model="insetSwitch2"
-      inset
       :label="\`Switch 2: \${insetSwitch2.toString()}\`"
     />
   </div>
@@ -158,7 +154,6 @@ const switchMe = ref(false)
     <template #label>
       Turn on the progress: <VProgressCircular
         :indeterminate="switchMe"
-        size="24"
         class="ms-2"
       />
     </template>
@@ -174,7 +169,6 @@ const switchMe = ref(false)
     <template #label>
       Turn on the progress: <VProgressCircular
         :indeterminate="switchMe"
-        size="24"
         class="ms-2"
       />
     </template>
@@ -238,7 +232,7 @@ export const states = {
   ts: `<script setup lang="ts">
 const switchOn = ref('on')
 const switchOnDisabled = ref('on')
-const switchOnLoading = ref('on')
+const switchOnLoading = ref(true)
 </script>
 
 <template>
@@ -266,13 +260,7 @@ const switchOnLoading = ref('on')
     <VSwitch
       v-model="switchOnLoading"
       loading="warning"
-      value="on"
-      label="On loading"
-    />
-
-    <VSwitch
-      loading="warning"
-      label="Off loading"
+      :label="\`\${switchOnLoading ? 'On' : 'Off'} loading\`"
     />
   </div>
 </template>
@@ -280,7 +268,7 @@ const switchOnLoading = ref('on')
   js: `<script setup>
 const switchOn = ref('on')
 const switchOnDisabled = ref('on')
-const switchOnLoading = ref('on')
+const switchOnLoading = ref(true)
 </script>
 
 <template>
@@ -308,13 +296,7 @@ const switchOnLoading = ref('on')
     <VSwitch
       v-model="switchOnLoading"
       loading="warning"
-      value="on"
-      label="On loading"
-    />
-
-    <VSwitch
-      loading="warning"
-      label="Off loading"
+      :label="\`\${switchOnLoading ? 'On' : 'Off'} loading\`"
     />
   </div>
 </template>
@@ -369,4 +351,3 @@ const switch2 = ref('Show')
 </template>
 `,
 }
-

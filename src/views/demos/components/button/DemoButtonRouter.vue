@@ -6,7 +6,7 @@
 
     <VBtn
       color="warning"
-      :to="{ path: '/alert' }"
+      :to="{ path: 'alert' }"
     >
       Object Path
     </VBtn>
@@ -20,7 +20,7 @@
 
     <VBtn
       color="secondary"
-      :to="{ path: '/alert', query: { plan: 'private' } }"
+      :to="{ path: 'alert', query: { plan: 'private' } }"
     >
       With Query
     </VBtn>

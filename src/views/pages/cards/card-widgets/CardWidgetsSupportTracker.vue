@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import VueApexCharts from 'vue3-apexcharts'
 import { useTheme } from 'vuetify'
 import { hexToRgb } from '@layouts/utils'
 
@@ -32,7 +31,7 @@ const chartOptions = computed(() => {
           name: {
             offsetY: -20,
             color: `rgba(${hexToRgb(currentTheme['on-surface'])},${variableTheme['disabled-opacity']})`,
-            fontSize: '14px',
+            fontSize: '13px',
             fontWeight: '400',
             fontFamily: 'Public Sans',
           },
@@ -40,7 +39,7 @@ const chartOptions = computed(() => {
             offsetY: 10,
             color: `rgba(${hexToRgb(currentTheme['on-background'])},${variableTheme['high-emphasis-opacity']})`,
             fontSize: '38px',
-            fontWeight: '600',
+            fontWeight: '500',
             fontFamily: 'Public Sans',
           },
         },
@@ -102,7 +101,7 @@ const supportTicket = [
   },
   {
     avatarColor: 'info',
-    avatarIcon: 'tabler-circle-check',
+    avatarIcon: 'tabler-check',
     title: 'Open Tickets',
     subtitle: '28',
   },
@@ -114,39 +113,22 @@ const supportTicket = [
     subtitle: '1 Day',
   },
 ]
+
+const moreList = [
+  { title: 'View More', value: 'View More' },
+  { title: 'Delete', value: 'Delete' },
+]
 </script>
 
 <template>
   <VCard>
-    <VCardItem class="pb-0">
+    <VCardItem>
       <VCardTitle>Support Tracker</VCardTitle>
       <VCardSubtitle>Last 7 Days</VCardSubtitle>
 
       <template #append>
         <div class="mt-n4 me-n2">
-          <VBtn
-            icon
-            size="x-small"
-            variant="plain"
-            color="default"
-          >
-            <VIcon
-              size="22"
-              icon="tabler-dots-vertical"
-            />
-
-            <VMenu activator="parent">
-              <VList>
-                <VListItem
-                  v-for="(item, index) in ['View More', 'Delete']"
-                  :key="index"
-                  :value="index"
-                >
-                  <VListItemTitle>{{ item }}</VListItemTitle>
-                </VListItem>
-              </VList>
-            </VMenu>
-          </VBtn>
+          <MoreBtn :menu-list="moreList" />
         </div>
       </template>
     </VCardItem>
@@ -158,11 +140,11 @@ const supportTicket = [
           lg="4"
           md="4"
         >
-          <div class="mt-lg-7 mt-lg-2 mb-lg-9 mb-4">
-            <h4 class="text-h4">
+          <div class="mb-lg-6 mb-4 mt-2">
+            <h2 class="text-h2">
               164
-            </h4>
-            <p class="text-sm mb-0">
+            </h2>
+            <p class="text-base mb-0">
               Total Tickets
             </p>
           </div>
@@ -171,17 +153,25 @@ const supportTicket = [
             <VListItem
               v-for="ticket in supportTicket"
               :key="ticket.title"
-              :title="ticket.title"
-              :subtitle="ticket.subtitle"
             >
+              <VListItemTitle class="font-weight-medium">
+                {{ ticket.title }}
+              </VListItemTitle>
+              <VListItemSubtitle>
+                {{ ticket.subtitle }}
+              </VListItemSubtitle>
               <template #prepend>
                 <VAvatar
                   rounded
                   size="34"
                   :color="ticket.avatarColor"
                   variant="tonal"
+                  class="me-1"
                 >
-                  <VIcon :icon="ticket.avatarIcon" />
+                  <VIcon
+                    size="22"
+                    :icon="ticket.avatarIcon"
+                  />
                 </VAvatar>
               </template>
             </VListItem>
@@ -205,6 +195,6 @@ const supportTicket = [
 
 <style lang="scss" scoped>
 .card-list {
-  --v-card-list-gap: 26px;
+  --v-card-list-gap: 16px;
 }
 </style>

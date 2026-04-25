@@ -1,8 +1,6 @@
 export const simpleFormValidation = {
   ts: `<script lang="ts" setup>
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import type { VForm } from 'vuetify/components'
-import { emailValidator, requiredValidator } from '@validators'
+import { VForm } from 'vuetify/components/VForm'
 
 const firstName = ref('')
 const email = ref('')
@@ -20,9 +18,10 @@ const refForm = ref<VForm>()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="firstName"
           label="First Name"
+          placeholder="John"
           :rules="[requiredValidator]"
         />
       </VCol>
@@ -31,9 +30,10 @@ const refForm = ref<VForm>()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="email"
           label="Email"
+          placeholder="john@email.com"
           :rules="[requiredValidator, emailValidator]"
         />
       </VCol>
@@ -51,10 +51,7 @@ const refForm = ref<VForm>()
 </template>
 `,
   js: `<script setup>
-import {
-  emailValidator,
-  requiredValidator,
-} from '@validators'
+import { VForm } from 'vuetify/components/VForm'
 
 const firstName = ref('')
 const email = ref('')
@@ -71,9 +68,10 @@ const refForm = ref()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="firstName"
           label="First Name"
+          placeholder="John"
           :rules="[requiredValidator]"
         />
       </VCol>
@@ -82,9 +80,10 @@ const refForm = ref()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="email"
           label="Email"
+          placeholder="john@email.com"
           :rules="[requiredValidator, emailValidator]"
         />
       </VCol>
@@ -105,15 +104,15 @@ const refForm = ref()
 
 export const validatingMultipleRules = {
   ts: `<script lang="ts" setup>
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import type { VForm } from 'vuetify/components'
-import { confirmedValidator, emailValidator, passwordValidator, requiredValidator } from '@validators'
+import { VForm } from 'vuetify/components/VForm'
 
-const name = ref('')
-const email = ref('')
+const name = ref()
+const email = ref()
 const refForm = ref<VForm>()
-const password = ref('')
-const confirmPassword = ref('')
+const password = ref()
+const confirmPassword = ref()
+const isPasswordVisible = ref(false)
+const isConfirmPasswordVisible = ref(false)
 </script>
 
 <template>
@@ -126,10 +125,10 @@ const confirmPassword = ref('')
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="name"
+          label="Name"
           placeholder="Your Name"
-          persistent-placeholder
           :rules="[requiredValidator]"
         />
       </VCol>
@@ -138,10 +137,10 @@ const confirmPassword = ref('')
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="email"
+          label="Email"
           placeholder="Your Email"
-          persistent-placeholder
           :rules="[requiredValidator, emailValidator]"
         />
       </VCol>
@@ -150,13 +149,15 @@ const confirmPassword = ref('')
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="password"
-          type="password"
-          placeholder="Your Password"
-          persistent-placeholder
+          label="Password"
+          :type="isPasswordVisible ? 'text' : 'password'"
+          :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
+          placeholder="Enter Password"
           :rules="[requiredValidator, passwordValidator]"
           autocomplete="on"
+          @click:append-inner="isPasswordVisible = !isPasswordVisible"
         />
       </VCol>
 
@@ -164,13 +165,15 @@ const confirmPassword = ref('')
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="confirmPassword"
-          type="password"
+          label="Confirm Password"
+          :type="isConfirmPasswordVisible ? 'text' : 'password'"
           placeholder="Confirm Password"
-          persistent-placeholder
+          :append-inner-icon="confirmPassword ? 'tabler-eye-off' : 'tabler-eye'"
           :rules="[requiredValidator, confirmedValidator(confirmPassword, password)]"
           autocomplete="on"
+          @click:append-inner="isConfirmPasswordVisible = !isConfirmPasswordVisible"
         />
       </VCol>
 
@@ -187,18 +190,15 @@ const confirmPassword = ref('')
 </template>
 `,
   js: `<script setup>
-import {
-  confirmedValidator,
-  emailValidator,
-  passwordValidator,
-  requiredValidator,
-} from '@validators'
+import { VForm } from 'vuetify/components/VForm'
 
-const name = ref('')
-const email = ref('')
+const name = ref()
+const email = ref()
 const refForm = ref()
-const password = ref('')
-const confirmPassword = ref('')
+const password = ref()
+const confirmPassword = ref()
+const isPasswordVisible = ref(false)
+const isConfirmPasswordVisible = ref(false)
 </script>
 
 <template>
@@ -211,10 +211,10 @@ const confirmPassword = ref('')
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="name"
+          label="Name"
           placeholder="Your Name"
-          persistent-placeholder
           :rules="[requiredValidator]"
         />
       </VCol>
@@ -223,10 +223,10 @@ const confirmPassword = ref('')
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="email"
+          label="Email"
           placeholder="Your Email"
-          persistent-placeholder
           :rules="[requiredValidator, emailValidator]"
         />
       </VCol>
@@ -235,13 +235,15 @@ const confirmPassword = ref('')
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="password"
-          type="password"
-          placeholder="Your Password"
-          persistent-placeholder
+          label="Password"
+          :type="isPasswordVisible ? 'text' : 'password'"
+          :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
+          placeholder="Enter Password"
           :rules="[requiredValidator, passwordValidator]"
           autocomplete="on"
+          @click:append-inner="isPasswordVisible = !isPasswordVisible"
         />
       </VCol>
 
@@ -249,13 +251,15 @@ const confirmPassword = ref('')
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="confirmPassword"
-          type="password"
+          label="Confirm Password"
+          :type="isConfirmPasswordVisible ? 'text' : 'password'"
           placeholder="Confirm Password"
-          persistent-placeholder
+          :append-inner-icon="confirmPassword ? 'tabler-eye-off' : 'tabler-eye'"
           :rules="[requiredValidator, confirmedValidator(confirmPassword, password)]"
           autocomplete="on"
+          @click:append-inner="isConfirmPasswordVisible = !isConfirmPasswordVisible"
         />
       </VCol>
 
@@ -275,21 +279,7 @@ const confirmPassword = ref('')
 
 export const validationTypes = {
   ts: `<script lang="ts" setup>
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import type { VForm } from 'vuetify/components'
-import {
-  alphaDashValidator,
-  alphaValidator,
-  betweenValidator,
-  confirmedValidator,
-  emailValidator,
-  integerValidator,
-  lengthValidator,
-  passwordValidator,
-  regexValidator,
-  requiredValidator,
-  urlValidator,
-} from '@validators'
+import { VForm } from 'vuetify/components/VForm'
 
 const requiredField = ref('')
 const numberBetween10to20 = ref('')
@@ -316,7 +306,7 @@ const refForm = ref<VForm>()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="requiredField"
           persistent-placeholder
           placeholder="This field is required"
@@ -328,7 +318,7 @@ const refForm = ref<VForm>()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="numberBetween10to20"
           persistent-placeholder
           placeholder="Enter Number between 10 & 20"
@@ -340,7 +330,7 @@ const refForm = ref<VForm>()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="onlyConsistNumber"
           persistent-placeholder
           placeholder="Must only consist of numbers"
@@ -352,7 +342,7 @@ const refForm = ref<VForm>()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="matchRegularEx"
           persistent-placeholder
           placeholder="Must match the specified regular expression : ^([0-9]+)$ - numbers only"
@@ -364,7 +354,7 @@ const refForm = ref<VForm>()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="onlyAlphabeticCharacters"
           persistent-placeholder
           placeholder="Only alphabetic characters"
@@ -376,10 +366,10 @@ const refForm = ref<VForm>()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="specifiedLength"
           persistent-placeholder
-          placeholder="Length should not be less than the specified length : 3"
+          placeholder="Length must be exactly 3 characters."
           :rules="[requiredValidator, lengthValidator(specifiedLength, 3)]"
         />
       </VCol>
@@ -388,7 +378,7 @@ const refForm = ref<VForm>()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="password"
           persistent-placeholder
           placeholder="Password Input Field"
@@ -402,7 +392,7 @@ const refForm = ref<VForm>()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="digits"
           persistent-placeholder
           placeholder="The digits field must be numeric and exactly contain 3 digits"
@@ -414,7 +404,7 @@ const refForm = ref<VForm>()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="repeatPassword"
           persistent-placeholder
           placeholder="Repeat password must match"
@@ -428,7 +418,7 @@ const refForm = ref<VForm>()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="onlyAlphabeticNumbersDashesUnderscores"
           persistent-placeholder
           placeholder="Only alphabetic characters, numbers, dashes or underscores"
@@ -440,7 +430,7 @@ const refForm = ref<VForm>()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="email"
           persistent-placeholder
           placeholder="Must be a valid email"
@@ -452,7 +442,7 @@ const refForm = ref<VForm>()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="validURL"
           persistent-placeholder
           placeholder="Must be a valid url"
@@ -473,19 +463,7 @@ const refForm = ref<VForm>()
 </template>
 `,
   js: `<script setup>
-import {
-  alphaDashValidator,
-  alphaValidator,
-  betweenValidator,
-  confirmedValidator,
-  emailValidator,
-  integerValidator,
-  lengthValidator,
-  passwordValidator,
-  regexValidator,
-  requiredValidator,
-  urlValidator,
-} from '@validators'
+import { VForm } from 'vuetify/components/VForm'
 
 const requiredField = ref('')
 const numberBetween10to20 = ref('')
@@ -512,7 +490,7 @@ const refForm = ref()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="requiredField"
           persistent-placeholder
           placeholder="This field is required"
@@ -524,7 +502,7 @@ const refForm = ref()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="numberBetween10to20"
           persistent-placeholder
           placeholder="Enter Number between 10 & 20"
@@ -536,7 +514,7 @@ const refForm = ref()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="onlyConsistNumber"
           persistent-placeholder
           placeholder="Must only consist of numbers"
@@ -548,7 +526,7 @@ const refForm = ref()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="matchRegularEx"
           persistent-placeholder
           placeholder="Must match the specified regular expression : ^([0-9]+)$ - numbers only"
@@ -560,7 +538,7 @@ const refForm = ref()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="onlyAlphabeticCharacters"
           persistent-placeholder
           placeholder="Only alphabetic characters"
@@ -572,10 +550,10 @@ const refForm = ref()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="specifiedLength"
           persistent-placeholder
-          placeholder="Length should not be less than the specified length : 3"
+          placeholder="Length must be exactly 3 characters."
           :rules="[requiredValidator, lengthValidator(specifiedLength, 3)]"
         />
       </VCol>
@@ -584,7 +562,7 @@ const refForm = ref()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="password"
           persistent-placeholder
           placeholder="Password Input Field"
@@ -598,7 +576,7 @@ const refForm = ref()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="digits"
           persistent-placeholder
           placeholder="The digits field must be numeric and exactly contain 3 digits"
@@ -610,7 +588,7 @@ const refForm = ref()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="repeatPassword"
           persistent-placeholder
           placeholder="Repeat password must match"
@@ -624,7 +602,7 @@ const refForm = ref()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="onlyAlphabeticNumbersDashesUnderscores"
           persistent-placeholder
           placeholder="Only alphabetic characters, numbers, dashes or underscores"
@@ -636,7 +614,7 @@ const refForm = ref()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="email"
           persistent-placeholder
           placeholder="Must be a valid email"
@@ -648,7 +626,7 @@ const refForm = ref()
         cols="12"
         md="6"
       >
-        <VTextField
+        <AppTextField
           v-model="validURL"
           persistent-placeholder
           placeholder="Must be a valid url"
@@ -669,4 +647,3 @@ const refForm = ref()
 </template>
 `,
 }
-

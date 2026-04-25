@@ -1,47 +1,51 @@
 <script setup lang="ts">
-import type { UserProperties } from '@/@fake-db/types'
 import AddNewUserDrawer from '@/views/apps/user/list/AddNewUserDrawer.vue'
-import { useUserListStore } from '@/views/apps/user/useUserListStore'
-import { avatarText } from '@core/utils/formatters'
+import type { UserProperties } from '@db/apps/users/types'
 
 // 👉 Store
-const userListStore = useUserListStore()
 const searchQuery = ref('')
 const selectedRole = ref()
 const selectedPlan = ref()
 const selectedStatus = ref()
-const rowPerPage = ref(10)
-const currentPage = ref(1)
-const totalPage = ref(1)
-const totalUsers = ref(0)
-const users = ref<UserProperties[]>([])
 
-// 👉 Fetching users
+// Data table options
+const itemsPerPage = ref(10)
+const page = ref(1)
+const sortBy = ref()
+const orderBy = ref()
 
-const fetchUsers = () => {
-  userListStore.fetchUsers({
-    q: searchQuery.value,
-    status: selectedStatus.value,
-    plan: selectedPlan.value,
-    role: selectedRole.value,
-    perPage: rowPerPage.value,
-    currentPage: currentPage.value,
-  }).then(response => {
-    users.value = response.data.users
-    totalPage.value = response.data.totalPage
-    totalUsers.value = response.data.totalUsers
-  }).catch(error => {
-    console.error(error)
-  })
+// Update data table options
+const updateOptions = (options: any) => {
+  sortBy.value = options.sortBy[0]?.key
+  orderBy.value = options.sortBy[0]?.order
 }
 
-watchEffect(fetchUsers)
+// Headers
+const headers = [
+  { title: 'User', key: 'user' },
+  { title: 'Role', key: 'role' },
+  { title: 'Plan', key: 'plan' },
+  { title: 'Billing', key: 'billing' },
+  { title: 'Status', key: 'status' },
+  { title: 'Actions', key: 'actions', sortable: false },
+]
 
-// 👉 watching current page
-watchEffect(() => {
-  if (currentPage.value > totalPage.value)
-    currentPage.value = totalPage.value
-})
+// 👉 Fetching users
+const { data: usersData, execute: fetchUsers } = await useApi<any>(createUrl('/apps/users', {
+  query: {
+    q: searchQuery,
+    status: selectedStatus,
+    plan: selectedPlan,
+    role: selectedRole,
+    itemsPerPage,
+    page,
+    sortBy,
+    orderBy,
+  },
+}))
+
+const users = computed((): UserProperties[] => usersData.value.users)
+const totalUsers = computed(() => usersData.value.totalUsers)
 
 // 👉 search filters
 const roles = [
@@ -66,26 +70,29 @@ const status = [
 ]
 
 const resolveUserRoleVariant = (role: string) => {
-  if (role === 'subscriber')
-    return { color: 'warning', icon: 'tabler-user' }
-  if (role === 'author')
-    return { color: 'success', icon: 'tabler-circle-check' }
-  if (role === 'maintainer')
-    return { color: 'primary', icon: 'tabler-chart-pie-2' }
-  if (role === 'editor')
-    return { color: 'info', icon: 'tabler-pencil' }
-  if (role === 'admin')
-    return { color: 'secondary', icon: 'tabler-device-laptop' }
+  const roleLowerCase = role.toLowerCase()
+
+  if (roleLowerCase === 'subscriber')
+    return { color: 'success', icon: 'tabler-user' }
+  if (roleLowerCase === 'author')
+    return { color: 'error', icon: 'tabler-device-desktop' }
+  if (roleLowerCase === 'maintainer')
+    return { color: 'info', icon: 'tabler-chart-pie' }
+  if (roleLowerCase === 'editor')
+    return { color: 'warning', icon: 'tabler-edit' }
+  if (roleLowerCase === 'admin')
+    return { color: 'primary', icon: 'tabler-crown' }
 
   return { color: 'primary', icon: 'tabler-user' }
 }
 
 const resolveUserStatusVariant = (stat: string) => {
-  if (stat === 'pending')
+  const statLowerCase = stat.toLowerCase()
+  if (statLowerCase === 'pending')
     return 'warning'
-  if (stat === 'active')
+  if (statLowerCase === 'active')
     return 'success'
-  if (stat === 'inactive')
+  if (statLowerCase === 'inactive')
     return 'secondary'
 
   return 'primary'
@@ -93,376 +100,319 @@ const resolveUserStatusVariant = (stat: string) => {
 
 const isAddNewUserDrawerVisible = ref(false)
 
-// 👉 watching current page
-watchEffect(() => {
-  if (currentPage.value > totalPage.value)
-    currentPage.value = totalPage.value
-})
-
-// 👉 Computing pagination data
-const paginationData = computed(() => {
-  const firstIndex = users.value.length ? ((currentPage.value - 1) * rowPerPage.value) + 1 : 0
-  const lastIndex = users.value.length + ((currentPage.value - 1) * rowPerPage.value)
-
-  return `Showing ${firstIndex} to ${lastIndex} of ${totalUsers.value} entries`
-})
-
 // 👉 Add new user
-const addNewUser = (userData: UserProperties) => {
-  userListStore.addUser(userData)
+const addNewUser = async (userData: UserProperties) => {
+  await $api('/apps/users', {
+    method: 'POST',
+    body: userData,
+  })
 
   // refetch User
   fetchUsers()
 }
 
-// 👉 List
-const userListMeta = [
-  {
-    icon: 'tabler-user',
-    color: 'primary',
-    title: 'Session',
-    stats: '21,459',
-    percentage: +29,
-    subtitle: 'Total Users',
-  },
-  {
-    icon: 'tabler-user-plus',
-    color: 'error',
-    title: 'Paid Users',
-    stats: '4,567',
-    percentage: +18,
-    subtitle: 'Last week analytics',
-  },
-  {
-    icon: 'tabler-user-check',
-    color: 'success',
-    title: 'Active Users',
-    stats: '19,860',
-    percentage: -14,
-    subtitle: 'Last week analytics',
-  },
-  {
-    icon: 'tabler-user-exclamation',
-    color: 'warning',
-    title: 'Pending Users',
-    stats: '237',
-    percentage: +42,
-    subtitle: 'Last week analytics',
-  },
-]
+// 👉 Delete user
+const deleteUser = async (id: number) => {
+  await $api(`/apps/users/${id}`, {
+    method: 'DELETE',
+  })
+
+  // refetch User
+  // TODO: Make this async
+  fetchUsers()
+}
+
+const widgetData = ref([
+  { title: 'Session', value: '21,459', change: 29, desc: 'Total Users', icon: 'tabler-users', iconColor: 'primary' },
+  { title: 'Paid Users', value: '4,567', change: 18, desc: 'Last Week Analytics', icon: 'tabler-user-plus', iconColor: 'error' },
+  { title: 'Active Users', value: '19,860', change: -14, desc: 'Last Week Analytics', icon: 'tabler-user-check', iconColor: 'success' },
+  { title: 'Pending Users', value: '237', change: 42, desc: 'Last Week Analytics', icon: 'tabler-user-search', iconColor: 'warning' },
+])
 </script>
 
 <template>
   <section>
-    <VRow>
-      <VCol
-        v-for="meta in userListMeta"
-        :key="meta.title"
-        cols="12"
-        sm="6"
-        lg="3"
-      >
-        <VCard>
-          <VCardText class="d-flex justify-space-between">
-            <div>
-              <span>{{ meta.title }}</span>
-              <div class="d-flex align-center gap-2 my-1">
-                <h6 class="text-h6">
-                  {{ meta.stats }}
-                </h6>
-                <span :class="meta.percentage > 0 ? 'text-success' : 'text-error'">({{ meta.percentage }}%)</span>
-              </div>
-              <span>{{ meta.subtitle }}</span>
-            </div>
-
-            <VAvatar
-              rounded
-              variant="tonal"
-              :color="meta.color"
-              :icon="meta.icon"
-            />
-          </VCardText>
-        </VCard>
-      </VCol>
-
-      <VCol cols="12">
-        <VCard title="Search Filter">
-          <!-- 👉 Filters -->
-          <VCardText>
-            <VRow>
-              <!-- 👉 Select Role -->
-              <VCol
-                cols="12"
-                sm="4"
-              >
-                <VSelect
-                  v-model="selectedRole"
-                  label="Select Role"
-                  :items="roles"
-                  clearable
-                  clear-icon="tabler-x"
-                />
-              </VCol>
-              <!-- 👉 Select Plan -->
-              <VCol
-                cols="12"
-                sm="4"
-              >
-                <VSelect
-                  v-model="selectedPlan"
-                  label="Select Plan"
-                  :items="plans"
-                  clearable
-                  clear-icon="tabler-x"
-                />
-              </VCol>
-              <!-- 👉 Select Status -->
-              <VCol
-                cols="12"
-                sm="4"
-              >
-                <VSelect
-                  v-model="selectedStatus"
-                  label="Select Status"
-                  :items="status"
-                  clearable
-                  clear-icon="tabler-x"
-                />
-              </VCol>
-            </VRow>
-          </VCardText>
-
-          <VDivider />
-
-          <VCardText class="d-flex flex-wrap py-4 gap-4">
-            <div
-              class="me-3"
-              style="width: 80px;"
-            >
-              <VSelect
-                v-model="rowPerPage"
-                density="compact"
-                variant="outlined"
-                :items="[10, 20, 30, 50]"
-              />
-            </div>
-
-            <VSpacer />
-
-            <div class="app-user-search-filter d-flex align-center flex-wrap gap-4">
-              <!-- 👉 Search  -->
-              <div style="width: 10rem;">
-                <VTextField
-                  v-model="searchQuery"
-                  placeholder="Search"
-                  density="compact"
-                />
-              </div>
-
-              <!-- 👉 Export button -->
-              <VBtn
-                variant="tonal"
-                color="secondary"
-                prepend-icon="tabler-screen-share"
-              >
-                Export
-              </VBtn>
-
-              <!-- 👉 Add user button -->
-              <VBtn
-                prepend-icon="tabler-plus"
-                @click="isAddNewUserDrawerVisible = true"
-              >
-                Add New User
-              </VBtn>
-            </div>
-          </VCardText>
-
-          <VDivider />
-
-          <VTable class="text-no-wrap">
-            <!-- 👉 table head -->
-            <thead>
-              <tr>
-                <th scope="col">
-                  USER
-                </th>
-                <th scope="col">
-                  ROLE
-                </th>
-                <th scope="col">
-                  PLAN
-                </th>
-                <th scope="col">
-                  BILLING
-                </th>
-                <th scope="col">
-                  STATUS
-                </th>
-                <th scope="col">
-                  ACTIONS
-                </th>
-              </tr>
-            </thead>
-            <!-- 👉 table body -->
-            <tbody>
-              <tr
-                v-for="user in users"
-                :key="user.id"
-                style="height: 3.75rem;"
-              >
-                <!-- 👉 User -->
-                <td>
-                  <div class="d-flex align-center">
-                    <VAvatar
-                      variant="tonal"
-                      :color="resolveUserRoleVariant(user.role).color"
-                      class="me-3"
-                      size="38"
-                    >
-                      <VImg
-                        v-if="user.avatar"
-                        :src="user.avatar"
-                      />
-                      <span v-else>{{ avatarText(user.fullName) }}</span>
-                    </VAvatar>
-
-                    <div class="d-flex flex-column">
-                      <h6 class="text-base">
-                        <RouterLink
-                          :to="{ name: 'apps-user-view-id', params: { id: user.id } }"
-                          class="font-weight-medium user-list-name"
-                        >
-                          {{ user.fullName }}
-                        </RouterLink>
-                      </h6>
-                      <span class="text-sm text-disabled">@{{ user.email }}</span>
+    <!-- 👉 Widgets -->
+    <div class="d-flex mb-6">
+      <VRow>
+        <template
+          v-for="(data, id) in widgetData"
+          :key="id"
+        >
+          <VCol
+            cols="12"
+            md="3"
+            sm="6"
+          >
+            <VCard>
+              <VCardText>
+                <div class="d-flex justify-space-between">
+                  <div class="d-flex flex-column gap-y-1">
+                    <div class="text-body-1 text-high-emphasis">
+                      {{ data.title }}
+                    </div>
+                    <div class="d-flex gap-x-2 align-center">
+                      <h4 class="text-h4">
+                        {{ data.value }}
+                      </h4>
+                      <div
+                        class="text-base"
+                        :class="data.change > 0 ? 'text-success' : 'text-error'"
+                      >
+                        ({{ prefixWithPlus(data.change) }}%)
+                      </div>
+                    </div>
+                    <div class="text-sm">
+                      {{ data.desc }}
                     </div>
                   </div>
-                </td>
-
-                <!-- 👉 Role -->
-                <td>
                   <VAvatar
-                    :color="resolveUserRoleVariant(user.role).color"
-                    :icon="resolveUserRoleVariant(user.role).icon"
+                    :color="data.iconColor"
                     variant="tonal"
-                    size="30"
-                    class="me-4"
-                  />
-                  <span class="text-capitalize text-base">{{ user.role }}</span>
-                </td>
-
-                <!-- 👉 Plan -->
-                <td>
-                  <span class="text-capitalize text-base font-weight-semibold">{{ user.currentPlan }}</span>
-                </td>
-
-                <!-- 👉 Billing -->
-                <td>
-                  <span class="text-base">{{ user.billing }}</span>
-                </td>
-
-                <!-- 👉 Status -->
-                <td>
-                  <VChip
-                    label
-                    :color="resolveUserStatusVariant(user.status)"
-                    size="small"
-                    class="text-capitalize"
-                  >
-                    {{ user.status }}
-                  </VChip>
-                </td>
-
-                <!-- 👉 Actions -->
-                <td
-                  class="text-center"
-                  style="width: 5rem;"
-                >
-                  <VBtn
-                    icon
-                    size="x-small"
-                    color="default"
-                    variant="text"
+                    rounded
+                    size="42"
                   >
                     <VIcon
-                      size="22"
-                      icon="tabler-edit"
+                      :icon="data.icon"
+                      size="26"
                     />
-                  </VBtn>
+                  </VAvatar>
+                </div>
+              </VCardText>
+            </VCard>
+          </VCol>
+        </template>
+      </VRow>
+    </div>
 
-                  <VBtn
-                    icon
-                    size="x-small"
-                    color="default"
-                    variant="text"
-                  >
-                    <VIcon
-                      size="22"
-                      icon="tabler-trash"
-                    />
-                  </VBtn>
+    <VCard class="mb-6">
+      <VCardItem class="pb-4">
+        <VCardTitle>Filters</VCardTitle>
+      </VCardItem>
 
-                  <VBtn
-                    icon
-                    size="x-small"
-                    color="default"
-                    variant="text"
-                  >
-                    <VIcon
-                      size="22"
-                      icon="tabler-dots-vertical"
-                    />
-
-                    <VMenu activator="parent">
-                      <VList>
-                        <VListItem
-                          title="View"
-                          :to="{ name: 'apps-user-view-id', params: { id: user.id } }"
-                        />
-                        <VListItem
-                          title="Suspend"
-                          href="javascript:void(0)"
-                        />
-                      </VList>
-                    </VMenu>
-                  </VBtn>
-                </td>
-              </tr>
-            </tbody>
-
-            <!-- 👉 table footer  -->
-            <tfoot v-show="!users.length">
-              <tr>
-                <td
-                  colspan="7"
-                  class="text-center"
-                >
-                  No data available
-                </td>
-              </tr>
-            </tfoot>
-          </VTable>
-
-          <VDivider />
-
-          <VCardText class="d-flex align-center flex-wrap justify-space-between gap-4 py-3 px-5">
-            <span class="text-sm text-disabled">
-              {{ paginationData }}
-            </span>
-
-            <VPagination
-              v-model="currentPage"
-              size="small"
-              :total-visible="5"
-              :length="totalPage"
+      <VCardText>
+        <VRow>
+          <!-- 👉 Select Role -->
+          <VCol
+            cols="12"
+            sm="4"
+          >
+            <AppSelect
+              v-model="selectedRole"
+              placeholder="Select Role"
+              :items="roles"
+              clearable
+              clear-icon="tabler-x"
             />
-          </VCardText>
-        </VCard>
-      </VCol>
-    </VRow>
+          </VCol>
+          <!-- 👉 Select Plan -->
+          <VCol
+            cols="12"
+            sm="4"
+          >
+            <AppSelect
+              v-model="selectedPlan"
+              placeholder="Select Plan"
+              :items="plans"
+              clearable
+              clear-icon="tabler-x"
+            />
+          </VCol>
+          <!-- 👉 Select Status -->
+          <VCol
+            cols="12"
+            sm="4"
+          >
+            <AppSelect
+              v-model="selectedStatus"
+              placeholder="Select Status"
+              :items="status"
+              clearable
+              clear-icon="tabler-x"
+            />
+          </VCol>
+        </VRow>
+      </VCardText>
 
+      <VDivider />
+
+      <VCardText class="d-flex flex-wrap gap-4">
+        <div class="me-3 d-flex gap-3">
+          <AppSelect
+            :model-value="itemsPerPage"
+            :items="[
+              { value: 10, title: '10' },
+              { value: 25, title: '25' },
+              { value: 50, title: '50' },
+              { value: 100, title: '100' },
+              { value: -1, title: 'All' },
+            ]"
+            style="inline-size: 6.25rem;"
+            @update:model-value="itemsPerPage = parseInt($event, 10)"
+          />
+        </div>
+        <VSpacer />
+
+        <div class="app-user-search-filter d-flex align-center flex-wrap gap-4">
+          <!-- 👉 Search  -->
+          <div style="inline-size: 15.625rem;">
+            <AppTextField
+              v-model="searchQuery"
+              placeholder="Search User"
+            />
+          </div>
+
+          <!-- 👉 Export button -->
+          <VBtn
+            variant="tonal"
+            color="secondary"
+            prepend-icon="tabler-upload"
+          >
+            Export
+          </VBtn>
+
+          <!-- 👉 Add user button -->
+          <VBtn
+            prepend-icon="tabler-plus"
+            @click="isAddNewUserDrawerVisible = true"
+          >
+            Add New User
+          </VBtn>
+        </div>
+      </VCardText>
+
+      <VDivider />
+
+      <!-- SECTION datatable -->
+      <VDataTableServer
+        v-model:items-per-page="itemsPerPage"
+        v-model:page="page"
+        :items="users"
+        :items-length="totalUsers"
+        :headers="headers"
+        class="text-no-wrap"
+        show-select
+        @update:options="updateOptions"
+      >
+        <!-- User -->
+        <template #item.user="{ item }">
+          <div class="d-flex align-center gap-x-4">
+            <VAvatar
+              size="34"
+              :variant="!item.avatar ? 'tonal' : undefined"
+              :color="!item.avatar ? resolveUserRoleVariant(item.role).color : undefined"
+            >
+              <VImg
+                v-if="item.avatar"
+                :src="item.avatar"
+              />
+              <span v-else>{{ avatarText(item.fullName) }}</span>
+            </VAvatar>
+            <div class="d-flex flex-column">
+              <h6 class="text-base">
+                <RouterLink
+                  :to="{ name: 'apps-user-view-id', params: { id: item.id } }"
+                  class="font-weight-medium text-link"
+                >
+                  {{ item.fullName }}
+                </RouterLink>
+              </h6>
+              <div class="text-sm">
+                {{ item.email }}
+              </div>
+            </div>
+          </div>
+        </template>
+
+        <!-- 👉 Role -->
+        <template #item.role="{ item }">
+          <div class="d-flex align-center gap-x-2">
+            <VIcon
+              :size="22"
+              :icon="resolveUserRoleVariant(item.role).icon"
+              :color="resolveUserRoleVariant(item.role).color"
+            />
+
+            <div class="text-capitalize text-high-emphasis text-body-1">
+              {{ item.role }}
+            </div>
+          </div>
+        </template>
+
+        <!-- Plan -->
+        <template #item.plan="{ item }">
+          <div class="text-body-1 text-high-emphasis text-capitalize">
+            {{ item.currentPlan }}
+          </div>
+        </template>
+
+        <!-- Status -->
+        <template #item.status="{ item }">
+          <VChip
+            :color="resolveUserStatusVariant(item.status)"
+            size="small"
+            label
+            class="text-capitalize"
+          >
+            {{ item.status }}
+          </VChip>
+        </template>
+
+        <!-- Actions -->
+        <template #item.actions="{ item }">
+          <IconBtn @click="deleteUser(item.id)">
+            <VIcon icon="tabler-trash" />
+          </IconBtn>
+
+          <IconBtn>
+            <VIcon icon="tabler-eye" />
+          </IconBtn>
+
+          <VBtn
+            icon
+            variant="text"
+            color="medium-emphasis"
+          >
+            <VIcon icon="tabler-dots-vertical" />
+            <VMenu activator="parent">
+              <VList>
+                <VListItem :to="{ name: 'apps-user-view-id', params: { id: item.id } }">
+                  <template #prepend>
+                    <VIcon icon="tabler-eye" />
+                  </template>
+
+                  <VListItemTitle>View</VListItemTitle>
+                </VListItem>
+
+                <VListItem link>
+                  <template #prepend>
+                    <VIcon icon="tabler-pencil" />
+                  </template>
+                  <VListItemTitle>Edit</VListItemTitle>
+                </VListItem>
+
+                <VListItem @click="deleteUser(item.id)">
+                  <template #prepend>
+                    <VIcon icon="tabler-trash" />
+                  </template>
+                  <VListItemTitle>Delete</VListItemTitle>
+                </VListItem>
+              </VList>
+            </VMenu>
+          </VBtn>
+        </template>
+
+        <!-- pagination -->
+        <template #bottom>
+          <TablePagination
+            v-model:page="page"
+            :items-per-page="itemsPerPage"
+            :total-items="totalUsers"
+          />
+        </template>
+      </VDataTableServer>
+      <!-- SECTION -->
+    </VCard>
     <!-- 👉 Add New User -->
     <AddNewUserDrawer
       v-model:isDrawerOpen="isAddNewUserDrawerVisible"
@@ -470,17 +420,3 @@ const userListMeta = [
     />
   </section>
 </template>
-
-<style lang="scss">
-.app-user-search-filter {
-  inline-size: 31.6rem;
-}
-
-.text-capitalize {
-  text-transform: capitalize;
-}
-
-.user-list-name:not(:hover) {
-  color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity));
-}
-</style>

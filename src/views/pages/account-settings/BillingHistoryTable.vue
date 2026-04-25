@@ -1,51 +1,47 @@
 <script setup lang="ts">
-import type { Invoice } from '@/@fake-db/types'
-import { useInvoiceStore } from '@/views/apps/invoice/useInvoiceStore'
-import { avatarText } from '@core/utils/formatters'
-
-// 👉 Store
-const invoiceListStore = useInvoiceStore()
+import type { Invoice } from '@db/apps/invoice/types'
 
 const searchQuery = ref('')
 const selectedStatus = ref()
-const rowPerPage = ref(10)
-const currentPage = ref(1)
-const totalPage = ref(1)
-const totalInvoices = ref(0)
-const invoices = ref<Invoice[]>([])
 const selectedRows = ref<string[]>([])
 
+// Data table options
+const itemsPerPage = ref(10)
+const page = ref(1)
+const sortBy = ref()
+const orderBy = ref()
+
+// Update data table options
+const updateOptions = (options: any) => {
+  sortBy.value = options.sortBy[0]?.key
+  orderBy.value = options.sortBy[0]?.order
+}
+
+// 👉 headers
+const headers = [
+  { title: '#', key: 'id' },
+  { title: 'Status', key: 'status', sortable: false },
+  { title: 'Client', key: 'client' },
+  { title: 'Total', key: 'total' },
+  { title: 'Issued Date', key: 'date' },
+  { title: 'Balance', key: 'balance' },
+  { title: 'Actions', key: 'actions', sortable: false },
+]
+
 // 👉 Fetch Invoices
-watchEffect(() => {
-  invoiceListStore.fetchInvoices(
-    {
-      q: searchQuery.value,
-      status: selectedStatus.value,
-      perPage: rowPerPage.value,
-      currentPage: currentPage.value,
-    },
-  ).then(response => {
-    invoices.value = response.data.invoices
-    totalPage.value = response.data.totalPage
-    totalInvoices.value = response.data.totalInvoices
-  }).catch(error => {
-    console.log(error)
-  })
-})
+const { data: invoiceData, execute: fetchInvoices } = await useApi<any>(createUrl('/apps/invoice', {
+  query: {
+    q: searchQuery,
+    status: selectedStatus,
+    itemsPerPage,
+    page,
+    sortBy,
+    orderBy,
+  },
+}))
 
-// 👉 watching current page
-watchEffect(() => {
-  if (currentPage.value > totalPage.value)
-    currentPage.value = totalPage.value
-})
-
-// 👉 Computing pagination data
-const paginationData = computed(() => {
-  const firstIndex = invoices.value.length ? ((currentPage.value - 1) * rowPerPage.value) + 1 : 0
-  const lastIndex = invoices.value.length + ((currentPage.value - 1) * rowPerPage.value)
-
-  return `Showing ${firstIndex} to ${lastIndex} of ${totalInvoices.value} entries`
-})
+const invoices = computed((): Invoice[] => invoiceData.value?.invoices)
+const totalInvoices = computed(() => invoiceData.value?.totalInvoices)
 
 // 👉 Invoice balance variant resolver
 const resolveInvoiceBalanceVariant = (balance: string | number, total: number) => {
@@ -61,19 +57,25 @@ const resolveInvoiceBalanceVariant = (balance: string | number, total: number) =
 // 👉 Invoice status variant resolver
 const resolveInvoiceStatusVariantAndIcon = (status: string) => {
   if (status === 'Partial Payment')
-    return { variant: 'warning', icon: 'tabler-circle-half-2' }
+    return { variant: 'warning', icon: 'tabler-chart-pie' }
   if (status === 'Paid')
-    return { variant: 'success', icon: 'tabler-circle-check' }
+    return { variant: 'success', icon: 'tabler-check' }
   if (status === 'Downloaded')
-    return { variant: 'info', icon: 'tabler-download' }
+    return { variant: 'info', icon: 'tabler-arrow-down' }
   if (status === 'Draft')
-    return { variant: 'secondary', icon: 'tabler-device-floppy' }
+    return { variant: 'primary', icon: 'tabler-folder' }
   if (status === 'Sent')
-    return { variant: 'primary', icon: 'tabler-mail' }
+    return { variant: 'secondary', icon: 'tabler-mail' }
   if (status === 'Past Due')
     return { variant: 'error', icon: 'tabler-alert-circle' }
 
   return { variant: 'secondary', icon: 'tabler-x' }
+}
+
+// 👉 Delete Invoice
+const deleteInvoice = async (id: number) => {
+  await $api(`/apps/invoice/${id}`, { method: 'DELETE' })
+  fetchInvoices()
 }
 </script>
 
@@ -81,281 +83,194 @@ const resolveInvoiceStatusVariantAndIcon = (status: string) => {
   <VCard
     v-if="invoices"
     id="invoice-list"
+    title="Billing History"
   >
-    <VCardText class="d-flex align-center flex-wrap gap-3">
-      <!-- 👉 Rows per page -->
-      <div
-        class="me-2"
-        style="width: 5rem;"
-      >
-        <VSelect
-          v-model="rowPerPage"
-          variant="outlined"
-          :items="[10, 20, 30, 50]"
+    <VCardText class="d-flex align-center flex-wrap gap-4">
+      <!-- 👉 Create invoice -->
+
+      <div class="d-flex gap-2">
+        <VLabel>Show</VLabel>
+        <AppSelect
+          v-model="itemsPerPage"
+          :items="[5, 10, 20, 25, 50]"
         />
       </div>
 
-      <!-- 👉 Create invoice -->
       <VBtn
         prepend-icon="tabler-plus"
         :to="{ name: 'apps-invoice-add' }"
-        class="me-3"
       >
         Create invoice
       </VBtn>
 
       <VSpacer />
 
-      <div class="d-flex align-center flex-wrap gap-3">
+      <div class="d-flex align-end flex-wrap gap-4">
         <!-- 👉 Search  -->
         <div class="invoice-list-search">
-          <VTextField
+          <AppTextField
             v-model="searchQuery"
             placeholder="Search Invoice"
-            density="compact"
-            class="me-3"
           />
         </div>
         <div class="invoice-list-status">
-          <VSelect
+          <AppSelect
             v-model="selectedStatus"
-            label="Select Status"
+            placeholder="Invoice Status"
             clearable
             clear-icon="tabler-x"
-            density="compact"
-            :items="['Downloaded', 'Draft', 'Paid', 'Partial Payment', 'Past Due']"
+            :items="['Downloaded', 'Draft', 'Sent', 'Paid', 'Partial Payment', 'Past Due']"
+            style="inline-size: 12rem;"
           />
         </div>
       </div>
     </VCardText>
 
     <VDivider />
-    <!-- SECTION Table -->
-    <VTable class="text-no-wrap invoice-list-table">
-      <!-- 👉 Table head -->
-      <thead>
-        <tr>
-          <th scope="col">
-            #ID
-          </th>
-          <th scope="col">
-            <VIcon icon="tabler-trending-up" />
-          </th>
-          <th scope="col">
-            CLIENT
-          </th>
-          <th scope="col">
-            TOTAL
-          </th>
-          <th scope="col">
-            ISSUED DATE
-          </th>
-          <th scope="col">
-            BALANCE
-          </th>
-          <th scope="col">
-            <span class="ms-2">ACTIONS</span>
-          </th>
-        </tr>
-      </thead>
 
-      <!-- 👉 Table Body -->
-      <tbody>
-        <tr
-          v-for="invoice in invoices"
-          :key="invoice.id"
-        >
-          <!-- 👉 Id -->
-          <td>
-            <RouterLink :to="{ name: 'apps-invoice-preview-id', params: { id: invoice.id } }">
-              #{{ invoice.id }}
-            </RouterLink>
-          </td>
+    <!-- SECTION DataTable -->
+    <VDataTableServer
+      v-model="selectedRows"
+      v-model:items-per-page="itemsPerPage"
+      v-model:page="page"
+      show-select
+      :items-length="totalInvoices"
+      :headers="headers"
+      :items="invoices"
+      class="text-no-wrap"
+      @update:options="updateOptions"
+    >
+      <!-- id -->
+      <template #item.id="{ item }">
+        <div class="text-body-1">
+          <RouterLink :to="{ name: 'apps-invoice-preview-id', params: { id: item.id } }">
+            #{{ item.id }}
+          </RouterLink>
+        </div>
+      </template>
 
-          <!-- 👉 Trending -->
-          <td>
-            <VTooltip>
-              <template #activator="{ props }">
-                <VAvatar
-                  :size="30"
-                  v-bind="props"
-                  :color="resolveInvoiceStatusVariantAndIcon(invoice.invoiceStatus).variant"
-                  variant="tonal"
-                >
-                  <VIcon
-                    :size="20"
-                    :icon="resolveInvoiceStatusVariantAndIcon(invoice.invoiceStatus).icon"
-                  />
-                </VAvatar>
-              </template>
-              <p class="mb-0">
-                {{ invoice.invoiceStatus }}
-              </p>
-              <p class="mb-0">
-                Balance: {{ invoice.balance }}
-              </p>
-              <p class="mb-0">
-                Due date: {{ invoice.dueDate }}
-              </p>
-            </VTooltip>
-          </td>
-
-          <!-- 👉 Client Avatar and Email -->
-          <td>
-            <div class="d-flex align-center">
-              <VAvatar
-                size="33"
-                variant="tonal"
-                :color="resolveInvoiceStatusVariantAndIcon(invoice.invoiceStatus).variant"
-                class="me-3"
-              >
-                <VImg
-                  v-if="invoice.avatar.length"
-                  :src="invoice.avatar"
-                />
-                <span v-else>{{ avatarText(invoice.client.name) }}</span>
-              </VAvatar>
-              <div class="d-flex flex-column">
-                <h6 class="text-sm font-weight-medium mb-0">
-                  {{ invoice.client.name }}
-                </h6>
-                <span class="text-sm">{{ invoice.client.companyEmail }}</span>
-              </div>
-            </div>
-          </td>
-
-          <!-- 👉 total -->
-          <td>${{ invoice.total }}</td>
-
-          <!-- 👉 Date -->
-          <td>{{ invoice.issuedDate }}</td>
-
-          <!-- 👉 Balance -->
-          <td>
-            <VChip v-bind="resolveInvoiceBalanceVariant(invoice.balance, invoice.total).chip">
-              {{ resolveInvoiceBalanceVariant(invoice.balance, invoice.total).status }}
-            </VChip>
-          </td>
-
-          <!-- 👉 Actions -->
-          <td style="width: 7.5rem;">
-            <VBtn
-              icon
-              variant="text"
-              color="default"
-              size="x-small"
+      <!-- status -->
+      <template #item.status="{ item }">
+        <VTooltip>
+          <template #activator="{ props }">
+            <VAvatar
+              :size="28"
+              v-bind="props"
+              :color="resolveInvoiceStatusVariantAndIcon(item.invoiceStatus).variant"
+              variant="tonal"
             >
               <VIcon
-                size="22"
-                icon="tabler-mail"
+                size="16"
+                :icon="resolveInvoiceStatusVariantAndIcon(item.invoiceStatus).icon"
               />
-            </VBtn>
+            </VAvatar>
+          </template>
+          <p class="mb-0">
+            {{ item.invoiceStatus }}
+          </p>
+          <p class="mb-0">
+            Balance: {{ item.balance }}
+          </p>
+          <p class="mb-0">
+            Due date: {{ item.dueDate }}
+          </p>
+        </VTooltip>
+      </template>
 
-            <VBtn
-              icon
-              variant="text"
-              color="default"
-              size="x-small"
-              :to="{ name: 'apps-invoice-preview-id', params: { id: invoice.id } }"
-            >
-              <VIcon
-                size="22"
-                icon="tabler-eye"
-              />
-            </VBtn>
-
-            <VBtn
-              icon
-              variant="text"
-              color="default"
-              size="x-small"
-            >
-              <VIcon
-                size="22"
-                icon="tabler-dots-vertical"
-              />
-              <VMenu activator="parent">
-                <VList density="compact">
-                  <VListItem value="#">
-                    <template #prepend>
-                      <VIcon
-                        size="24"
-                        class="me-3"
-                        icon="tabler-download"
-                      />
-                    </template>
-
-                    <VListItemTitle>Download</VListItemTitle>
-                  </VListItem>
-
-                  <VListItem :to="{ name: 'apps-invoice-edit-id', params: { id: invoice.id } }">
-                    <template #prepend>
-                      <VIcon
-                        size="24"
-                        class="me-3"
-                        icon="tabler-pencil"
-                      />
-                    </template>
-
-                    <VListItemTitle>Edit</VListItemTitle>
-                  </VListItem>
-                  <VListItem value="#">
-                    <template #prepend>
-                      <VIcon
-                        size="24"
-                        class="me-3"
-                        icon="tabler-stack"
-                      />
-                    </template>
-
-                    <VListItemTitle>Duplicate</VListItemTitle>
-                  </VListItem>
-                </VList>
-              </VMenu>
-            </VBtn>
-          </td>
-        </tr>
-      </tbody>
-
-      <!-- 👉 table footer  -->
-      <tfoot v-show="!invoices.length">
-        <tr>
-          <td
-            colspan="8"
-            class="text-center text-body-1"
+      <!-- client -->
+      <template #item.client="{ item }">
+        <div class="d-flex align-center">
+          <VAvatar
+            size="34"
+            :color="!item.avatar.length ? resolveInvoiceStatusVariantAndIcon(item.invoiceStatus).variant : undefined"
+            :variant="!item.avatar.length ? 'tonal' : undefined"
+            class="me-3"
           >
-            No data available
-          </td>
-        </tr>
-      </tfoot>
-    </VTable>
+            <VImg
+              v-if="item.avatar.length"
+              :src="item.avatar"
+            />
+            <span v-else>{{ avatarText(item.client.name) }}</span>
+          </VAvatar>
+          <div class="d-flex flex-column">
+            <RouterLink
+              class="font-weight-medium text-body-1 text-high-emphasis mb-0 text-link"
+              :to="{ name: 'pages-user-profile-tab', params: { tab: 'profile' } }"
+            >
+              {{ item.client.name }}
+            </RouterLink>
+            <span class="text-body-2">{{ item.client.companyEmail }}</span>
+          </div>
+        </div>
+      </template>
+
+      <!-- Total -->
+      <template #item.total="{ item }">
+        ${{ item.total }}
+      </template>
+
+      <!-- Issued Date -->
+      <template #item.date="{ item }">
+        {{ item.issuedDate }}
+      </template>
+
+      <!-- Balance -->
+      <template #item.balance="{ item }">
+        <VChip
+          v-if="typeof ((resolveInvoiceBalanceVariant(item.balance, item.total)).status) === 'string'"
+          :color="resolveInvoiceBalanceVariant(item.balance, item.total).chip.color"
+          size="small"
+          label
+        >
+          {{ (resolveInvoiceBalanceVariant(item.balance, item.total)).status }}
+        </VChip>
+        <div
+          v-else
+          class="text-body-1 text-high-emphasis"
+        >
+          {{ Number((resolveInvoiceBalanceVariant(item.balance, item.total)).status) > 0 ? `$${(resolveInvoiceBalanceVariant(item.balance, item.total)).status}` : `-$${Math.abs(Number((resolveInvoiceBalanceVariant(item.balance, item.total)).status))}` }}
+        </div>
+      </template>
+
+      <!-- Actions -->
+      <template #item.actions="{ item }">
+        <IconBtn @click="deleteInvoice(item.id)">
+          <VIcon
+            icon="tabler-trash"
+            size="20"
+          />
+        </IconBtn>
+
+        <IconBtn :to="{ name: 'apps-invoice-preview-id', params: { id: item.id } }">
+          <VIcon
+            icon="tabler-eye"
+            size="20"
+          />
+        </IconBtn>
+        <IconBtn>
+          <VIcon
+            icon="tabler-dots-vertical"
+            size="20"
+          />
+        </IconBtn>
+      </template>
+
+      <template #bottom>
+        <TablePagination
+          v-model:page="page"
+          :items-per-page="itemsPerPage"
+          :total-items="totalInvoices"
+        />
+      </template>
+    </VDataTableServer>
     <!-- !SECTION -->
-
-    <VDivider />
-
-    <!-- SECTION Pagination -->
-    <VCardText class="d-flex align-center flex-wrap justify-space-between gap-4 py-4">
-      <!-- 👉  Pagination meta -->
-      <span class="text-sm text-disabled">{{ paginationData }}</span>
-
-      <!-- 👉 Pagination -->
-      <VPagination
-        v-model="currentPage"
-        size="small"
-        :total-visible="5"
-        :length="totalPage"
-        @next="selectedRows = []"
-        @prev="selectedRows = []"
-      />
-    </VCardText>
-  <!-- !SECTION -->
   </VCard>
 </template>
 
 <style lang="scss">
 #invoice-list {
-  .invoice-list-status {
-    inline-size: 15rem;
+  .invoice-list-actions {
+    inline-size: 8rem;
   }
 
   .invoice-list-search {

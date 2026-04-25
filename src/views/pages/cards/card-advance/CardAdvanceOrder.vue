@@ -1,250 +1,351 @@
 <script setup lang="ts">
-const currentActiveTab = ref('New')
-
-const orders = [
-  {
-    tabName: 'New',
-    timeline1: [
-      {
-        icon: 'tabler-circle-check',
-        type: 'SENDER',
-        name: 'Myrtle Ullrich',
-        address: '101 Boulder, California(CA), 95959',
-      },
-      {
-        icon: 'tabler-map-pin',
-        type: 'RECEIVER',
-        name: 'Barry Schowalter',
-        address: '939 Orange, California(CA),92118',
-      },
-
-    ],
-    timeline2: [
-      {
-        icon: 'tabler-circle-check',
-        type: 'SENDER',
-        name: 'Veronica Herman',
-        address: '162 Windsor, California(CA), 95492',
-      },
-      {
-        icon: 'tabler-map-pin',
-        type: 'RECEIVER',
-        name: 'Helen Jacobs',
-        address: '487 Sunset, California(CA), 94043',
-      },
-
-    ],
-  },
-  {
-    tabName: 'Preparing',
-    timeline1: [
-      {
-        icon: 'tabler-circle-check',
-        type: 'SENDER',
-        name: 'Barry Schowalter',
-        address: '939 Orange, California(CA),92118',
-      },
-      {
-        icon: 'tabler-map-pin',
-        type: 'RECEIVER',
-        name: 'Myrtle Ullrich',
-        address: '101 Boulder, California(CA), 95959',
-      },
-
-    ],
-    timeline2: [
-      {
-        icon: 'tabler-circle-check',
-        type: 'SENDER',
-        name: 'Veronica Herman',
-        address: '162 Windsor, California(CA), 95492',
-      },
-      {
-        icon: 'tabler-map-pin',
-        type: 'RECEIVER',
-        name: 'Helen Jacobs',
-        address: '487 Sunset, California(CA), 94043',
-      },
-
-    ],
-  },
-  {
-    tabName: 'Shipping',
-    timeline1: [
-      {
-        icon: 'tabler-circle-check',
-        type: 'SENDER',
-        name: 'Veronica Herman',
-        address: '101 Boulder, California(CA), 95959',
-      },
-      {
-        icon: 'tabler-map-pin',
-        type: 'RECEIVER',
-        name: 'Barry Schowalter',
-        address: '939 Orange, California(CA),92118',
-      },
-
-    ],
-    timeline2: [
-      {
-        icon: 'tabler-circle-check',
-        type: 'SENDER',
-        name: 'Myrtle Ullrich',
-        address: '162 Windsor, California(CA), 95492',
-      },
-      {
-        icon: 'tabler-map-pin',
-        type: 'RECEIVER',
-        name: 'Helen Jacobs',
-        address: '487 Sunset, California(CA), 94043',
-      },
-
-    ],
-  },
-]
+const currentTab = ref('New')
+const tabsData = ['New', 'Preparing', 'Shipping']
 </script>
 
 <template>
-  <VCard
-    title="Orders"
-    subtitle="62 Deliveries in Progress"
-  >
-    <template #append>
-      <div class="mt-n4 me-n2">
-        <VBtn
-          icon
-          color="default"
-          size="x-small"
-          variant="plain"
-        >
-          <VIcon
-            size="22"
-            icon="tabler-dots-vertical"
-          />
-
-          <VMenu activator="parent">
-            <VList>
-              <VListItem
-                v-for="(item, index) in ['Refresh', 'Download', 'View All']"
-                :key="index"
-                :value="index"
-              >
-                <VListItemTitle>{{ item }}</VListItemTitle>
-              </VListItem>
-            </VList>
-          </VMenu>
-        </VBtn>
-      </div>
-    </template>
+  <VCard class="country-order-card">
+    <VCardItem
+      title="Orders by countries"
+      subtitle="62 deliveries in progress"
+      class="pb-4"
+    >
+      <template #append>
+        <MoreBtn />
+      </template>
+    </VCardItem>
 
     <VTabs
-      v-model="currentActiveTab"
+      v-model="currentTab"
       grow
+      class="disable-tab-transition"
     >
       <VTab
-        v-for="order in orders"
-        :key="order.tabName"
-        :value="order.tabName"
+        v-for="(tab, index) in tabsData"
+        :key="index"
       >
-        {{ order.tabName }}
+        {{ tab }}
       </VTab>
     </VTabs>
-    <VDivider />
 
     <VCardText>
-      <VWindow
-        v-model="currentActiveTab"
-        class="disable-tab-transition"
-      >
-        <VWindowItem
-          v-for="order in orders"
-          :key="order.tabName"
-          :value="order.tabName"
-        >
-          <VTimeline
-            side="end"
-            align="start"
-            truncate-line="both"
-            density="compact"
-            class="v-timeline-density-compact"
-          >
-            <VTimelineItem
-              v-for="item in order.timeline1"
-              :key="item.icon"
-              fill-dot
-              size="x-small"
+      <VWindow v-model="currentTab">
+        <VWindowItem>
+          <div>
+            <VTimeline
+              align="start"
+              truncate-line="both"
+              side="end"
+              density="compact"
+              line-thickness="1"
+              class="v-timeline--variant-outlined"
             >
-              <template #icon>
-                <div
-                  class="v-timeline-avatar-wrapper rounded-circle"
-                  style="background-color: rgb(var(--v-theme-surface)) ;"
-                >
-                  <VAvatar>
-                    <VIcon
-                      size="22"
-                      :icon="item.icon"
-                      :color="item.type === 'SENDER' ? 'success' : 'primary'"
-                    />
-                  </VAvatar>
+              <VTimelineItem
+                icon="tabler-circle-check"
+                dot-color="rgba(var(--v-theme-surface))"
+                icon-color="success"
+                fill-dot
+                size="20"
+                :elevation="0"
+              >
+                <div class="text-body-2 text-uppercase text-success">
+                  Sender
                 </div>
-              </template>
-              <p :class="`text-sm text-${item.type === 'SENDER' ? 'success' : 'primary'} mb-0`">
-                {{ item.type }}
-              </p>
-              <p class="font-weight-semibold mb-0">
-                {{ item.name }}
-              </p>
-              <p class="text-disabled mb-0">
-                {{ item.address }}
-              </p>
-            </VTimelineItem>
-          </VTimeline>
-
-          <VDivider
-            class="my-3"
-            style="border-style: dashed;"
-          />
-
-          <VTimeline
-            side="end"
-            align="start"
-            truncate-line="both"
-            density="compact"
-            class="v-timeline-density-compact"
-          >
-            <VTimelineItem
-              v-for="item in order.timeline2"
-              :key="item.icon"
-              fill-dot
-              size="x-small"
+                <div class="app-timeline-title">
+                  Myrtle Ullrich
+                </div>
+                <div class="app-timeline-text">
+                  101 Boulder, California(CA), 95959
+                </div>
+              </VTimelineItem>
+              <VTimelineItem
+                icon="tabler-map-pin"
+                dot-color="rgba(var(--v-theme-surface))"
+                icon-color="primary"
+                fill-dot
+                size="20"
+                :elevation="0"
+              >
+                <div class="text-body-2 text-primary text-uppercase">
+                  Receiver
+                </div>
+                <div class="app-timeline-title">
+                  Barry Schowalter
+                </div>
+                <div class="app-timeline-text">
+                  939 Orange, California(CA), 92118
+                </div>
+              </VTimelineItem>
+            </VTimeline>
+            <VDivider
+              class="my-4"
+              style="border-style: dashed;"
+            />
+            <VTimeline
+              align="start"
+              truncate-line="both"
+              side="end"
+              density="compact"
+              line-thickness="1"
+              class="v-timeline--variant-outlined"
             >
-              <template #icon>
-                <div
-                  class="v-timeline-avatar-wrapper rounded-circle"
-                  style="background-color: rgb(var(--v-theme-surface)) ;"
-                >
-                  <VAvatar>
-                    <VIcon
-                      size="22"
-                      :icon="item.icon"
-                      :color="item.type === 'SENDER' ? 'success' : 'primary'"
-                    />
-                  </VAvatar>
+              <VTimelineItem
+                icon="tabler-circle-check"
+                dot-color="rgba(var(--v-theme-surface))"
+                icon-color="success"
+                fill-dot
+                size="20"
+                :elevation="0"
+              >
+                <div class="text-body-2 text-uppercase text-success">
+                  Sender
                 </div>
-              </template>
-              <p :class="`text-sm text-${item.type === 'SENDER' ? 'success' : 'primary'} mb-0`">
-                {{ item.type }}
-              </p>
-              <p class="font-weight-semibold mb-0">
-                {{ item.name }}
-              </p>
-              <p class="text-disabled mb-0">
-                {{ item.address }}
-              </p>
-            </VTimelineItem>
-          </VTimeline>
+                <div class="app-timeline-title">
+                  Veronica Herman
+                </div>
+                <div class="app-timeline-text">
+                  162  Windsor, California(CA), 95492
+                </div>
+              </VTimelineItem>
+
+              <VTimelineItem
+                icon="tabler-map-pin"
+                dot-color="rgba(var(--v-theme-surface))"
+                icon-color="primary"
+                fill-dot
+                size="20"
+                :elevation="0"
+              >
+                <div class="text-body-2 text-primary text-uppercase">
+                  Receiver
+                </div>
+                <div class="app-timeline-title">
+                  Helen Jacobs
+                </div>
+                <div class="app-timeline-text">
+                  487 Sunset, California(CA), 94043
+                </div>
+              </VTimelineItem>
+            </VTimeline>
+          </div>
+        </VWindowItem>
+
+        <VWindowItem>
+          <div>
+            <VTimeline
+              align="start"
+              truncate-line="both"
+              side="end"
+              density="compact"
+              line-thickness="1"
+              class="v-timeline--variant-outlined"
+            >
+              <VTimelineItem
+                icon="tabler-circle-check"
+                dot-color="rgba(var(--v-theme-surface))"
+                icon-color="success"
+                fill-dot
+                size="20"
+                :elevation="0"
+              >
+                <div class="text-body-2 text-uppercase text-success">
+                  Sender
+                </div>
+                <div class="app-timeline-title">
+                  Myrtle Ullrich
+                </div>
+                <div class="app-timeline-text">
+                  101 Boulder, California(CA), 95959
+                </div>
+              </VTimelineItem>
+              <VTimelineItem
+                icon="tabler-map-pin"
+                dot-color="rgba(var(--v-theme-surface))"
+                icon-color="primary"
+                fill-dot
+                size="20"
+                :elevation="0"
+              >
+                <div class="text-body-2 text-primary text-uppercase">
+                  Receiver
+                </div>
+                <div class="app-timeline-title">
+                  Barry Schowalter
+                </div>
+                <div class="app-timeline-text">
+                  939 Orange, California(CA), 92118
+                </div>
+              </VTimelineItem>
+            </VTimeline>
+            <VDivider
+              class="my-4"
+              style="border-style: dashed;"
+            />
+            <VTimeline
+              align="start"
+              truncate-line="both"
+              side="end"
+              density="compact"
+              line-thickness="1"
+              class="v-timeline--variant-outlined"
+            >
+              <VTimelineItem
+                icon="tabler-circle-check"
+                dot-color="rgba(var(--v-theme-surface))"
+                icon-color="success"
+                fill-dot
+                size="20"
+                :elevation="0"
+              >
+                <div class="text-body-2 text-uppercase text-success">
+                  Sender
+                </div>
+                <div class="app-timeline-title">
+                  Veronica Herman
+                </div>
+                <div class="app-timeline-text">
+                  162  Windsor, California(CA), 95492
+                </div>
+              </VTimelineItem>
+
+              <VTimelineItem
+                icon="tabler-map-pin"
+                dot-color="rgba(var(--v-theme-surface))"
+                icon-color="primary"
+                fill-dot
+                size="20"
+                :elevation="0"
+              >
+                <div class="text-body-2 text-primary text-uppercase">
+                  Receiver
+                </div>
+                <div class="app-timeline-title">
+                  Helen Jacobs
+                </div>
+                <div class="app-timeline-text">
+                  487 Sunset, California(CA), 94043
+                </div>
+              </VTimelineItem>
+            </VTimeline>
+          </div>
+        </VWindowItem>
+
+        <VWindowItem>
+          <div>
+            <VTimeline
+              align="start"
+              truncate-line="both"
+              side="end"
+              density="compact"
+              line-thickness="1"
+              class="v-timeline--variant-outlined"
+            >
+              <VTimelineItem
+                icon="tabler-circle-check"
+                dot-color="rgba(var(--v-theme-surface))"
+                icon-color="success"
+                fill-dot
+                size="20"
+                :elevation="0"
+              >
+                <div class="text-body-2 text-uppercase text-success">
+                  Sender
+                </div>
+                <div class="app-timeline-title">
+                  Myrtle Ullrich
+                </div>
+                <div class="app-timeline-text">
+                  101 Boulder, California(CA), 95959
+                </div>
+              </VTimelineItem>
+              <VTimelineItem
+                icon="tabler-map-pin"
+                dot-color="rgba(var(--v-theme-surface))"
+                icon-color="primary"
+                fill-dot
+                size="20"
+                :elevation="0"
+              >
+                <div class="text-body-2 text-primary text-uppercase">
+                  Receiver
+                </div>
+                <div class="app-timeline-title">
+                  Barry Schowalter
+                </div>
+                <div class="app-timeline-text">
+                  939 Orange, California(CA), 92118
+                </div>
+              </VTimelineItem>
+            </VTimeline>
+            <VDivider
+              class="my-4"
+              style="border-style: dashed;"
+            />
+            <VTimeline
+              align="start"
+              truncate-line="both"
+              side="end"
+              density="compact"
+              line-thickness="1"
+              class="v-timeline--variant-outlined"
+            >
+              <VTimelineItem
+                icon="tabler-circle-check"
+                dot-color="rgba(var(--v-theme-surface))"
+                icon-color="success"
+                fill-dot
+                size="20"
+                :elevation="0"
+              >
+                <div class="text-body-2 text-uppercase text-success">
+                  Sender
+                </div>
+                <div class="app-timeline-title">
+                  Veronica Herman
+                </div>
+                <div class="app-timeline-text">
+                  162  Windsor, California(CA), 95492
+                </div>
+              </VTimelineItem>
+
+              <VTimelineItem
+                icon="tabler-map-pin"
+                dot-color="rgba(var(--v-theme-surface))"
+                icon-color="primary"
+                fill-dot
+                size="20"
+                :elevation="0"
+              >
+                <div class="text-body-2 text-primary text-uppercase">
+                  Receiver
+                </div>
+                <div class="app-timeline-title">
+                  Helen Jacobs
+                </div>
+                <div class="app-timeline-text">
+                  487 Sunset, California(CA), 94043
+                </div>
+              </VTimelineItem>
+            </VTimeline>
+          </div>
         </VWindowItem>
       </VWindow>
     </VCardText>
   </VCard>
 </template>
+
+<style lang="scss">
+.country-order-card {
+  .v-timeline .v-timeline-divider__dot .v-timeline-divider__inner-dot {
+    box-shadow: none !important;
+  }
+
+  .v-timeline-item {
+    .v-timeline-divider {
+      .v-timeline-divider__dot {
+        background: none !important;
+      }
+    }
+  }
+}
+</style>

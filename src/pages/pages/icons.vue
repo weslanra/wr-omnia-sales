@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 const iconsList = [
-  'tabler-2fa',
-  'tabler-3d-cube-sphere-off',
-  'tabler-3d-cube-sphere',
-  'tabler-3d-rotate',
+  'tabler-album',
+  'tabler-binary-tree-2',
+  'tabler-brand-airtable',
+  'tabler-device-gamepad-2',
   'tabler-a-b-2',
   'tabler-a-b-off',
   'tabler-a-b',
@@ -105,7 +105,7 @@ const iconsList = [
   'tabler-arrow-big-right-line',
   'tabler-arrow-big-right-lines',
   'tabler-arrow-big-right',
-  'tabler-arrow-big-top',
+  'tabler-arrow-up',
   'tabler-arrow-big-up-line',
   'tabler-arrow-big-up-lines',
   'tabler-arrow-bounce',
@@ -159,12 +159,12 @@ const iconsList = [
     <!-- more icons -->
     <div class="text-center">
       <VBtn
-        href="https://materialdesignicons.com/"
+        href="https://tablericons.com/"
         rel="noopener noreferrer"
         color="primary"
         target="_blank"
       >
-        View All Material Design Icons
+        View All Tabler Icons
       </VBtn>
     </div>
   </div>

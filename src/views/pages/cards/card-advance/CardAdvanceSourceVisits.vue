@@ -29,7 +29,7 @@ const sourceVisits = [
     profitLoss: -0.4,
   },
   {
-    avatarIcon: 'tabler-discount-2',
+    avatarIcon: 'tabler-discount',
     title: 'ADVT',
     subtitle: 'Google ADVT',
     stats: '2.15k',
@@ -43,40 +43,27 @@ const sourceVisits = [
     profitLoss: 6.2,
   },
 ]
+
+const moreList = [
+  { title: 'Refresh', value: 'refresh' },
+  { title: 'Download', value: 'Download' },
+  { title: 'View All', value: 'View All' },
+]
 </script>
 
 <template>
-  <VCard
-    title="Source Visits"
-    subtitle="38.4k Visitors"
-  >
-    <template #append>
-      <div class="mt-n4 me-n2">
-        <VBtn
-          icon
-          color="default"
-          size="x-small"
-          variant="plain"
-        >
-          <VIcon
-            size="22"
-            icon="tabler-dots-vertical"
-          />
-
-          <VMenu activator="parent">
-            <VList>
-              <VListItem
-                v-for="(item, index) in ['Refresh', 'Download', 'View All']"
-                :key="index"
-                :value="index"
-              >
-                <VListItemTitle>{{ item }}</VListItemTitle>
-              </VListItem>
-            </VList>
-          </VMenu>
-        </VBtn>
-      </div>
-    </template>
+  <VCard>
+    <VCardItem>
+      <VCardTitle>Source Visits</VCardTitle>
+      <VCardSubtitle>
+        38.4k Visitors
+      </VCardSubtitle>
+      <template #append>
+        <div class="mt-n4 me-n2">
+          <MoreBtn :menu-list="moreList" />
+        </div>
+      </template>
+    </VCardItem>
 
     <VCardText>
       <VList class="card-list">
@@ -86,27 +73,34 @@ const sourceVisits = [
         >
           <template #prepend>
             <VAvatar
-              size="34"
+              size="38"
               color="secondary"
               variant="tonal"
+              class="me-1"
               rounded
             >
-              <VIcon :icon="visit.avatarIcon" />
+              <VIcon
+                :icon="visit.avatarIcon"
+                size="22"
+              />
             </VAvatar>
           </template>
 
-          <VListItemTitle class="font-weight-semibold">
+          <VListItemTitle class="font-weight-medium me-4">
             {{ visit.title }}
           </VListItemTitle>
-          <VListItemSubtitle>
+          <VListItemSubtitle class="me-4">
             {{ visit.subtitle }}
           </VListItemSubtitle>
 
           <template #append>
-            <div class="d-flex align-center">
-              <span class="me-2">{{ visit.stats }}</span>
+            <div class="d-flex align-center gap-x-4">
+              <div class="text-body-1">
+                {{ visit.stats }}
+              </div>
               <VChip
                 label
+                size="small"
                 :color="visit.profitLoss > 0 ? 'success' : 'error'"
               >
                 {{ visit.profitLoss > 0 ? '+' : '' }}
@@ -122,6 +116,6 @@ const sourceVisits = [
 
 <style lang="scss" scoped>
 .card-list {
-  --v-card-list-gap: 19px;
+  --v-card-list-gap: 16px;
 }
 </style>

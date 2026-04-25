@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import VueApexCharts from 'vue3-apexcharts'
 import { useTheme } from 'vuetify'
 import { hexToRgb } from '@layouts/utils'
 
@@ -32,7 +31,7 @@ const chartConfigs = computed(() => {
         plotOptions: {
           bar: {
             columnWidth: '32%',
-            startingShape: 'rounded',
+            borderRadiusApplication: 'end',
             borderRadius: 4,
             distributed: true,
             dataLabels: {
@@ -52,7 +51,7 @@ const chartConfigs = computed(() => {
         colors: [
           labelPrimaryColor,
           labelPrimaryColor,
-          currentTheme.primary,
+          `rgba(${hexToRgb(currentTheme.primary)}, 1)`,
           labelPrimaryColor,
           labelPrimaryColor,
           labelPrimaryColor,
@@ -91,7 +90,7 @@ const chartConfigs = computed(() => {
           labels: {
             style: {
               colors: labelColor,
-              fontSize: '14px',
+              fontSize: '13px',
               fontFamily: 'Public Sans',
             },
           },
@@ -100,10 +99,10 @@ const chartConfigs = computed(() => {
           labels: {
             offsetX: -15,
             formatter(val: number) {
-              return `$${parseInt(val / 1)}k`
+              return `${(val / 1)}k`
             },
             style: {
-              fontSize: '14px',
+              fontSize: '13px',
               colors: labelColor,
               fontFamily: 'Public Sans',
             },
@@ -172,7 +171,7 @@ const chartConfigs = computed(() => {
         plotOptions: {
           bar: {
             columnWidth: '32%',
-            startingShape: 'rounded',
+            borderRadiusApplication: 'end',
             borderRadius: 4,
             distributed: true,
             dataLabels: {
@@ -196,13 +195,13 @@ const chartConfigs = computed(() => {
           labelPrimaryColor,
           labelPrimaryColor,
           labelPrimaryColor,
-          currentTheme.primary,
+          `rgba(${hexToRgb(currentTheme.primary)}, 1)`,
           labelPrimaryColor,
           labelPrimaryColor,
         ],
         dataLabels: {
           enabled: true,
-          formatter(val: any) {
+          formatter(val: number) {
             return `${val}k`
           },
           offsetY: -25,
@@ -231,7 +230,7 @@ const chartConfigs = computed(() => {
           labels: {
             style: {
               colors: labelColor,
-              fontSize: '14px',
+              fontSize: '13px',
               fontFamily: 'Public Sans',
             },
           },
@@ -240,10 +239,10 @@ const chartConfigs = computed(() => {
           labels: {
             offsetX: -15,
             formatter(val: number) {
-              return `$${parseInt(val / 1)}k`
+              return `${(val / 1)}k`
             },
             style: {
-              fontSize: '14px',
+              fontSize: '13px',
               colors: labelColor,
               fontFamily: 'Public Sans',
             },
@@ -311,7 +310,7 @@ const chartConfigs = computed(() => {
         plotOptions: {
           bar: {
             columnWidth: '32%',
-            startingShape: 'rounded',
+            borderRadiusApplication: 'end',
             borderRadius: 4,
             distributed: true,
             dataLabels: {
@@ -333,7 +332,7 @@ const chartConfigs = computed(() => {
           labelPrimaryColor,
           labelPrimaryColor,
           labelPrimaryColor,
-          currentTheme.primary,
+          `rgba(${hexToRgb(currentTheme.primary)}, 1)`,
           labelPrimaryColor,
           labelPrimaryColor,
           labelPrimaryColor,
@@ -341,7 +340,7 @@ const chartConfigs = computed(() => {
         ],
         dataLabels: {
           enabled: true,
-          formatter(val: any) {
+          formatter(val: number) {
             return `${val}k`
           },
           offsetY: -25,
@@ -370,7 +369,7 @@ const chartConfigs = computed(() => {
           labels: {
             style: {
               colors: labelColor,
-              fontSize: '14px',
+              fontSize: '13px',
               fontFamily: 'Public Sans',
             },
           },
@@ -378,11 +377,11 @@ const chartConfigs = computed(() => {
         yaxis: {
           labels: {
             offsetX: -15,
-            formatter(val: unknown) {
-              return `$${parseInt(val / 1)}k`
+            formatter(val: number) {
+              return `${(val / 1)}k`
             },
             style: {
-              fontSize: '14px',
+              fontSize: '13px',
               colors: labelColor,
               fontFamily: 'Public Sans',
             },
@@ -450,9 +449,9 @@ const chartConfigs = computed(() => {
         plotOptions: {
           bar: {
             columnWidth: '32%',
-            startingShape: 'rounded',
-            borderRadius: 4,
+            borderRadius: 6,
             distributed: true,
+            borderRadiusApplication: 'end',
             dataLabels: {
               position: 'top',
             },
@@ -476,11 +475,11 @@ const chartConfigs = computed(() => {
           labelPrimaryColor,
           labelPrimaryColor,
           labelPrimaryColor,
-          currentTheme.primary,
+          `rgba(${hexToRgb(currentTheme.primary)}, 1)`,
         ],
         dataLabels: {
           enabled: true,
-          formatter(val: any) {
+          formatter(val: number) {
             return `${val}k`
           },
           offsetY: -25,
@@ -509,7 +508,7 @@ const chartConfigs = computed(() => {
           labels: {
             style: {
               colors: labelColor,
-              fontSize: '14px',
+              fontSize: '13px',
               fontFamily: 'Public Sans',
             },
           },
@@ -518,10 +517,10 @@ const chartConfigs = computed(() => {
           labels: {
             offsetX: -15,
             formatter(val: number) {
-              return `$${parseInt(val / 1)}k`
+              return `${(val / 1)}k`
             },
             style: {
-              fontSize: '14px',
+              fontSize: '13px',
               colors: labelColor,
               fontFamily: 'Public Sans',
             },
@@ -577,6 +576,11 @@ const chartConfigs = computed(() => {
     },
   ]
 })
+
+const moreList = [
+  { title: 'View More', value: 'View More' },
+  { title: 'Delete', value: 'Delete' },
+]
 </script>
 
 <template>
@@ -586,29 +590,10 @@ const chartConfigs = computed(() => {
   >
     <template #append>
       <div class="mt-n4 me-n2">
-        <VBtn
-          icon
-          size="x-small"
-          variant="plain"
-          color="default"
-        >
-          <VIcon
-            size="22"
-            icon="tabler-dots-vertical"
-          />
-
-          <VMenu activator="parent">
-            <VList>
-              <VListItem
-                v-for="(item, index) in ['View More', 'Delete']"
-                :key="index"
-                :value="index"
-              >
-                <VListItemTitle>{{ item }}</VListItemTitle>
-              </VListItem>
-            </VList>
-          </VMenu>
-        </VBtn>
+        <MoreBtn
+          size="small"
+          :menu-list="moreList"
+        />
       </div>
     </template>
 
@@ -617,6 +602,7 @@ const chartConfigs = computed(() => {
         v-model="currentTab"
         show-arrows
         mandatory
+        class="mb-10"
       >
         <VSlideGroupItem
           v-for="(report, index) in chartConfigs"
@@ -625,41 +611,45 @@ const chartConfigs = computed(() => {
           :value="index"
         >
           <div
-            style=" width: 110px;height: 94px;"
+            style="block-size: 100px; inline-size: 110px;"
             :style="isSelected ? 'border-color:rgb(var(--v-theme-primary)) !important' : ''"
             :class="isSelected ? 'border' : 'border border-dashed'"
-            class="d-flex flex-column justify-center align-center cursor-pointer rounded px-5 py-2 me-6"
+            class="d-flex flex-column justify-center align-center cursor-pointer rounded py-4 px-5 me-4"
             @click="toggle"
           >
             <VAvatar
               rounded
               size="38"
-              :color="isSelected ? 'primary' : 'secondary'"
+              :color="isSelected ? 'primary' : ''"
               variant="tonal"
               class="mb-2"
             >
-              <VIcon :icon="report.icon" />
+              <VIcon
+                size="22"
+                :icon="report.icon"
+              />
             </VAvatar>
-            <p class="mb-0">
+            <h6 class="text-base font-weight-medium mb-0">
               {{ report.title }}
-            </p>
+            </h6>
           </div>
         </VSlideGroupItem>
 
         <!-- 👉 slider more -->
         <VSlideGroupItem>
           <div
-            style=" width: 110px;height: 94px;"
-            class="d-flex flex-column justify-center align-center rounded me-6 border border-dashed"
+            style="block-size: 100px; inline-size: 110px;"
+            class="d-flex flex-column justify-center align-center rounded border border-dashed py-4 px-5"
           >
             <VAvatar
               rounded
               size="38"
-              color="default"
               variant="tonal"
-              class="text-disabled"
             >
-              <VIcon icon="tabler-plus" />
+              <VIcon
+                size="22"
+                icon="tabler-plus"
+              />
             </VAvatar>
           </div>
         </VSlideGroupItem>
@@ -670,7 +660,7 @@ const chartConfigs = computed(() => {
         :key="currentTab"
         :options="chartConfigs[Number(currentTab)].chartOptions"
         :series="chartConfigs[Number(currentTab)].series"
-        height="240"
+        height="230"
         class="mt-3"
       />
     </VCardText>

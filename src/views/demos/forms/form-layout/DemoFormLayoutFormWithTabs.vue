@@ -34,11 +34,13 @@ const isCPasswordVisible = ref(false)
       Social Links
     </VTab>
   </VTabs>
-  <VDivider />
 
   <VCard flat>
     <VCardText>
-      <VWindow v-model="tab">
+      <VWindow
+        v-model="tab"
+        class="disable-tab-transition"
+      >
         <VWindowItem value="personal-info">
           <VForm class="mt-2">
             <VRow>
@@ -46,9 +48,10 @@ const isCPasswordVisible = ref(false)
                 md="6"
                 cols="12"
               >
-                <VTextField
+                <AppTextField
                   v-model="firstName"
                   label="First name"
+                  placeholder="John"
                 />
               </VCol>
 
@@ -56,9 +59,10 @@ const isCPasswordVisible = ref(false)
                 md="6"
                 cols="12"
               >
-                <VTextField
+                <AppTextField
                   v-model="lastName"
                   label="Last name"
+                  placeholder="Doe"
                 />
               </VCol>
 
@@ -66,10 +70,11 @@ const isCPasswordVisible = ref(false)
                 cols="12"
                 md="6"
               >
-                <VSelect
+                <AppSelect
                   v-model="country"
                   :items="countryList"
                   label="Country"
+                  placeholder="Select Country"
                 />
               </VCol>
 
@@ -77,33 +82,35 @@ const isCPasswordVisible = ref(false)
                 cols="12"
                 md="6"
               >
-                <VSelect
+                <AppSelect
                   v-model="languages"
                   :items="languageList"
                   multiple
                   chips
                   clearable
                   label="Language"
+                  placeholder="Select Language"
                 />
               </VCol>
               <VCol
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppDateTimePicker
                   v-model="birthDate"
                   label="Birth Date"
-                  placeholder="YYYY-MM-DD"
+                  placeholder="Select Birth Date"
                 />
               </VCol>
               <VCol
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppTextField
                   v-model="phoneNo"
                   type="number"
                   label="Phone No."
+                  placeholder="+1 123 456 7890"
                 />
               </VCol>
             </VRow>
@@ -117,9 +124,10 @@ const isCPasswordVisible = ref(false)
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppTextField
                   v-model="username"
                   label="Username"
+                  placeholder="Johndoe"
                 />
               </VCol>
 
@@ -127,10 +135,11 @@ const isCPasswordVisible = ref(false)
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppTextField
                   v-model="email"
                   label="Email"
                   suffix="@example.com"
+                  placeholder="johndoe@email.com"
                 />
               </VCol>
 
@@ -138,11 +147,12 @@ const isCPasswordVisible = ref(false)
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppTextField
                   v-model="password"
                   label="Password"
+                  placeholder="············"
                   :type="isPasswordVisible ? 'text' : 'password'"
-                  :append-inner-icon="isPasswordVisible ? 'tabler-eye' : 'tabler-eye-off'"
+                  :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 />
               </VCol>
@@ -151,11 +161,12 @@ const isCPasswordVisible = ref(false)
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppTextField
                   v-model="cPassword"
                   label="Confirm Password"
+                  placeholder="············"
                   :type="isCPasswordVisible ? 'text' : 'password'"
-                  :append-inner-icon="isCPasswordVisible ? 'tabler-eye' : 'tabler-eye-off'"
+                  :append-inner-icon="isCPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isCPasswordVisible = !isCPasswordVisible"
                 />
               </VCol>
@@ -170,54 +181,60 @@ const isCPasswordVisible = ref(false)
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppTextField
                   v-model="twitterLink"
                   label="Twitter"
+                  placeholder="https://twitter.com/username"
                 />
               </VCol>
               <VCol
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppTextField
                   v-model="facebookLink"
                   label="Facebook"
+                  placeholder="https://facebook.com/username"
                 />
               </VCol>
               <VCol
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppTextField
                   v-model="googlePlusLink"
                   label="Google+"
+                  placeholder="https://plus.google.com/username"
                 />
               </VCol>
               <VCol
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppTextField
                   v-model="linkedInLink"
                   label="LinkedIn"
+                  placeholder="https://linkedin.com/username"
                 />
               </VCol>
               <VCol
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppTextField
                   v-model="instagramLink"
                   label="Instagram"
+                  placeholder="https://instagram.com/username"
                 />
               </VCol>
               <VCol
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppTextField
                   v-model="quoraLink"
                   label="Quora"
+                  placeholder="https://quora.com/username"
                 />
               </VCol>
             </VRow>

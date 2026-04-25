@@ -5,40 +5,35 @@
 
       <template #append>
         <div class="me-n3">
-          <VBtn
-            icon
-            variant="plain"
-            size="x-small"
-            color="default"
-          >
-            <VIcon
-              size="22"
-              icon="tabler-dots-vertical"
-            />
-          </VBtn>
+          <IconBtn>
+            <VIcon icon="tabler-dots-vertical" />
+          </IconBtn>
         </div>
       </template>
     </VCardItem>
 
     <VCardText>
-      <div class="d-flex justify-space-between mb-2">
-        <h6 class="text-base">
+      <div class="d-flex justify-space-between align-center mb-2">
+        <h6 class="text-h6">
           Subscribers Gained
         </h6>
         <VChip
           label
           color="success"
+          size="small"
         >
-          <span class="font-weight-semibold">+92k</span>
+          +92k
         </VChip>
       </div>
 
-      <div class="d-flex justify-space-between mb-1">
-        <span class="text-base">
+      <div class="d-flex justify-space-between align-center mb-1">
+        <div class="text-base">
           1.2k new subscriber
-        </span>
+        </div>
 
-        <span class="text-disabled">85%</span>
+        <div class="text-disabled text-sm">
+          85%
+        </div>
       </div>
 
       <VProgressLinear
@@ -48,24 +43,27 @@
         rounded
       />
 
-      <div class="d-flex justify-space-between mb-2 mt-6">
-        <h6 class="text-base">
+      <div class="d-flex justify-space-between align-center mb-2 mt-6">
+        <h6 class="text-h6">
           Orders Received
         </h6>
         <VChip
           label
+          size="small"
           color="success"
         >
-          <span class="font-weight-semibold">+38k</span>
+          +38k
         </VChip>
       </div>
 
       <div class="d-flex justify-space-between mb-1">
-        <span class="text-base">
+        <div class="text-base">
           2.4k new orders
-        </span>
+        </div>
 
-        <span class="text-disabled">65%</span>
+        <div class="text-disabled text-sm">
+          65%
+        </div>
       </div>
 
       <VProgressLinear

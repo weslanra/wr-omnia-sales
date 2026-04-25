@@ -5,7 +5,7 @@ import dribbble from '@images/icons/brands/dribbble.png'
 import facebook from '@images/icons/brands/facebook.png'
 import github from '@images/icons/brands/github.png'
 import google from '@images/icons/brands/google.png'
-import intagram from '@images/icons/brands/instagram.png'
+import linkedin from '@images/icons/brands/linkedin.png'
 import mailchimp from '@images/icons/brands/mailchimp.png'
 import slack from '@images/icons/brands/slack.png'
 import twitter from '@images/icons/brands/twitter.png'
@@ -32,6 +32,7 @@ const connectedAccounts = ref([
   {
     logo: mailchimp,
     name: 'MailChimp',
+    color: 'yellow',
     subtitle: 'Email marketing service',
     connected: true,
   },
@@ -57,9 +58,9 @@ const socialAccounts = ref([
     connected: true,
   },
   {
-    logo: intagram,
-    name: 'Instagram',
-    links: { username: '@Pixinvent', link: 'https://www.instagram.com/pixinvents/' },
+    logo: linkedin,
+    name: 'LinkedIn',
+    links: { username: '@Pixinvent', link: 'https://in.linkedin.com/in/pixinvent-creative-studio-561a4713b' },
     connected: true,
   },
   {
@@ -77,112 +78,126 @@ const socialAccounts = ref([
 </script>
 
 <template>
-  <VRow>
-    <!-- 👉 Connected Accounts -->
-    <VCol
-      cols="12"
-      md="6"
-    >
-      <VCard title="Connected Accounts">
-        <VCardText>
-          <p class="mt-n4 mb-6 text-sm">
-            Display content from your connected accounts on your site
-          </p>
-          <VList class="card-list">
-            <VListItem
-              v-for="item in connectedAccounts"
-              :key="item.logo"
-              :title="item.name"
-            >
-              <template #prepend>
-                <VAvatar start>
-                  <VImg
-                    :src="item.logo"
-                    height="30"
-                  />
-                </VAvatar>
-              </template>
-
-              <VListItemSubtitle class="text-xs">
-                {{ item.subtitle }}
-              </VListItemSubtitle>
-
-              <template #append>
-                <VListItemAction>
-                  <VSwitch
-                    v-model="item.connected"
-                    density="compact"
-                    class="me-1"
-                  />
-                </VListItemAction>
-              </template>
-            </VListItem>
-          </VList>
-        </VCardText>
-      </VCard>
-    </VCol>
-
-    <!-- 👉 Social Accounts -->
-    <VCol
-      cols="12"
-      md="6"
-    >
-      <VCard title="Social Accounts">
-        <VCardText>
-          <p class="mt-n4 mb-6 text-sm">
-            Display content from social accounts on your site
-          </p>
-          <VList class="card-list">
-            <VListItem
-              v-for="item in socialAccounts"
-              :key="item.logo"
-              :title="item.name"
-            >
-              <template #prepend>
-                <VAvatar start>
-                  <VImg
-                    :src="item.logo"
-                    height="30"
-                  />
-                </VAvatar>
-              </template>
-
-              <VListItemSubtitle
-                v-if="item.links?.link"
-                tag="a"
-                :href="item.links?.link"
-                style="opacity: 1;"
+  <VCard>
+    <VRow>
+      <VCol
+        cols="12"
+        md="6"
+        class="pe-md-0 pb-0 pb-md-3"
+      >
+        <!-- 👉 Connected Accounts -->
+        <VCard
+          title="Connected Accounts"
+          subtitle="Display content from your connected accounts on your site"
+          flat
+        >
+          <VCardText>
+            <VList class="card-list">
+              <VListItem
+                v-for="item in connectedAccounts"
+                :key="item.logo"
               >
-                {{ item.links?.username }}
-              </VListItemSubtitle>
-
-              <VListItemSubtitle
-                v-else
-                class="text-xs"
-              >
-                Not Connected
-              </VListItemSubtitle>
-
-              <template #append>
-                <VListItemAction>
-                  <VBtn
-                    icon
-                    variant="tonal"
-                    size="x-small"
-                    :color="item.connected ? 'error' : 'secondary'"
-                    class="rounded"
-                  >
-                    <VIcon
-                      size="20"
-                      :icon="item.connected ? 'tabler-trash' : 'tabler-link' "
+                <template #prepend>
+                  <VAvatar start>
+                    <img
+                      :src="item.logo"
+                      height="32"
+                    >
+                  </VAvatar>
+                </template>
+                <VListItemTitle>
+                  <h6 class="text-h6">
+                    {{ item.name }}
+                  </h6>
+                </VListItemTitle>
+                <VListItemSubtitle class="text-xs">
+                  {{ item.subtitle }}
+                </VListItemSubtitle>
+                <template #append>
+                  <VListItemAction>
+                    <VSwitch
+                      v-model="item.connected"
+                      density="compact"
+                      class="me-1"
                     />
-                  </VBtn>
-                </VListItemAction>
-              </template>
-            </VListItem>
-          </VList>
-        </VCardText>
-      </VCard>
-    </VCol>
-  </VRow>
+                  </VListItemAction>
+                </template>
+              </VListItem>
+            </VList>
+          </VCardText>
+        </VCard>
+      </VCol>
+      <VCol
+        cols="12"
+        md="6"
+        class="ps-md-0 pt-0 pt-md-3"
+      >
+        <!-- 👉 Social Accounts -->
+        <VCard
+          title="Social Accounts"
+          subtitle="Display content from social accounts on your site"
+          flat
+        >
+          <VCardText>
+            <VList class="card-list">
+              <VListItem
+                v-for="item in socialAccounts"
+                :key="item.logo"
+              >
+                <template #prepend>
+                  <VAvatar
+                    rounded
+                    start
+                  >
+                    <img
+                      :src="item.logo"
+                      height="32"
+                    >
+                  </VAvatar>
+                </template>
+                <VListItemTitle>
+                  <h6 class="text-h6">
+                    {{ item.name }}
+                  </h6>
+                </VListItemTitle>
+                <VListItemSubtitle v-if="item.links?.link">
+                  <a
+                    :href="item.links.link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >{{ item.links?.username }}</a>
+                </VListItemSubtitle>
+                <VListItemSubtitle
+                  v-else
+                  class="text-xs"
+                >
+                  Not Connected
+                </VListItemSubtitle>
+                <template #append>
+                  <VListItemAction>
+                    <IconBtn
+                      variant="tonal"
+                      :color="item.connected ? 'error' : 'secondary'"
+                      class="rounded"
+                    >
+                      <VIcon
+                        size="22"
+                        :icon="item.connected ? 'tabler-trash' : 'tabler-link' "
+                      />
+                    </IconBtn>
+                  </VListItemAction>
+                </template>
+              </VListItem>
+            </VList>
+          </VCardText>
+        </VCard>
+      </VCol>
+    </VRow>
+  </VCard>
 </template>
+
+<style lang="scss">
+.card-list {
+  --v-card-list-gap: 16px;
+}
+</style>

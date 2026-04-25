@@ -14,8 +14,7 @@ import CardStatisticsSalesOverview from '@/views/pages/cards/card-statistics/Car
 import CardStatisticsSessionsBarWithGapCharts from '@/views/pages/cards/card-statistics/CardStatisticsSessionsBarWithGapCharts.vue'
 import CardStatisticsTotalProfitLineCharts from '@/views/pages/cards/card-statistics/CardStatisticsTotalProfitLineCharts.vue'
 import CardStatisticsTransactions from '@/views/pages/cards/card-statistics/CardStatisticsTransactions.vue'
-import CardStatisticsHorizontal from '@core/components/CardStatisticsHorizontal.vue'
-import CardStatisticsVertical from '@core/components/CardStatisticsVertical.vue'
+import CardStatisticsVehicleCharts from '@/views/pages/cards/card-statistics/CardStatisticsVehicleCharts.vue'
 
 const vuetifyTheme = useTheme()
 const currentTheme = vuetifyTheme.current.value.colors
@@ -40,7 +39,7 @@ const statisticsHorizontal = [
     stats: '0.2%',
   },
   {
-    title: 'Total Profit',
+    title: 'Issues Found',
     color: 'warning',
     icon: 'tabler-alert-octagon',
     stats: '128',
@@ -450,6 +449,11 @@ const simpleStatisticsDemoCards = [
       <CardStatisticsImpressionLineCharts />
     </VCol>
 
+    <!-- 👉 Card Statistics Vehicles Charts -->
+    <VCol cols="12">
+      <CardStatisticsVehicleCharts />
+    </VCol>
+
     <!-- 👉 Horizontal Cards -->
     <VCol
       v-for="statistics in statisticsHorizontal"
@@ -522,23 +526,27 @@ const simpleStatisticsDemoCards = [
             :color="demo.color"
             variant="tonal"
             rounded
-            size="42"
+            size="44"
           >
-            <VIcon :icon="demo.icon" />
+            <VIcon
+              :icon="demo.icon"
+              size="28"
+            />
           </VAvatar>
 
-          <h6 class="text-h6 mt-3">
+          <h5 class="text-h5 mt-3">
             {{ demo.title }}
-          </h6>
-          <p class="text-sm text-disabled mt-1 mb-0">
+          </h5>
+          <p class="text-disabled my-1">
             {{ demo.subTitle }}
           </p>
-          <p class="mt-1 mb-2">
+          <p class="mb-3 text-high-emphasis">
             {{ demo.stat }}
           </p>
           <VChip
             :color="demo.color"
             label
+            size="small"
           >
             {{ demo.change }}
           </VChip>

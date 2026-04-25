@@ -1,150 +1,159 @@
 <script lang="ts" setup>
+import avatar1 from '@images/avatars/avatar-1.png'
 import avatar2 from '@images/avatars/avatar-2.png'
+import avatar3 from '@images/avatars/avatar-3.png'
+import pdf from '@images/icons/project-icons/pdf.png'
 </script>
 
 <template>
   <VCard>
     <VCardItem>
       <template #prepend>
-        <VIcon icon="tabler-timeline" />
+        <VIcon
+          icon="tabler-chart-bar"
+          size="24"
+          class="me-2"
+        />
       </template>
 
       <VCardTitle>Activity Timeline</VCardTitle>
-
-      <template #append>
-        <div>
-          <VBtn
-            icon
-            color="default"
-            variant="text"
-            size="x-small"
-          >
-            <VIcon
-              size="20"
-              icon="tabler-dots-vertical"
-              class="text-disabled"
-            />
-
-            <VMenu activator="parent">
-              <VList density="compact">
-                <VListItem
-                  v-for="(item, index) in ['Share timeline', 'Suggest edits0', 'Report bug']"
-                  :key="index"
-                  :value="index"
-                >
-                  <VListItemTitle>{{ item }}</VListItemTitle>
-                </VListItem>
-              </VList>
-            </VMenu>
-          </VBtn>
-        </div>
-      </template>
     </VCardItem>
 
     <VCardText>
       <VTimeline
-        density="compact"
+        side="end"
         align="start"
-        truncate-line="both"
-        class="v-timeline-density-compact"
+        line-inset="8"
+        truncate-line="start"
+        density="compact"
       >
-        <VTimelineItem
-          dot-color="warning"
-          size="x-small"
-        >
-          <div class="d-flex justify-space-between align-center flex-wrap">
-            <h4 class="text-base font-weight-semibold me-1 mb-1">
-              Client Meeting
-            </h4>
-            <span class="text-sm text-disabled text-no-wrap">Today</span>
-          </div>
-          <p class="mb-2">
-            Project meeting with john @10:15am
-          </p>
-
-          <div class="d-flex align-center mt-3">
-            <VAvatar
-              size="38"
-              class="me-3"
-              :image="avatar2"
-            />
-            <div>
-              <h6 class="text-base font-weight-semibold ">
-                Lester McCarthy (Client)
-              </h6>
-              <span>
-                CEO of Infidel
-              </span>
-            </div>
-          </div>
-        </VTimelineItem>
-
+        <!-- SECTION Timeline Item: Flight -->
         <VTimelineItem
           dot-color="primary"
           size="x-small"
         >
-          <div class="d-flex justify-space-between align-center flex-wrap">
-            <h4 class="text-base font-weight-semibold me-1 mb-1">
-              Create a new project for client 😎
-            </h4>
-            <span class="text-sm text-disabled text-no-wrap">2 Day Ago</span>
+          <!-- 👉 Header -->
+          <div class="d-flex justify-space-between align-center gap-2 flex-wrap mb-2">
+            <span class="app-timeline-title">
+              12 Invoices have been paid
+            </span>
+            <span class="app-timeline-meta">12 min ago</span>
           </div>
 
-          <p class="mb-1">
-            Add files to new design folder
-          </p>
-        </VTimelineItem>
+          <!-- 👉 Content -->
+          <div class="app-timeline-text mt-1">
+            Invoices have been paid to the company
+          </div>
 
+          <div class="d-inline-flex align-center timeline-chip mt-2">
+            <img
+              :src="pdf"
+              height="20"
+              class="me-2"
+              alt="img"
+            >
+            <span class="app-timeline-text font-weight-medium">
+              invoice.pdf
+            </span>
+          </div>
+        </VTimelineItem>
+        <!-- !SECTION -->
+
+        <!-- SECTION Timeline Item: Interview Schedule -->
         <VTimelineItem
+          size="x-small"
+          dot-color="success"
+        >
+          <!-- 👉 Header -->
+          <div class="d-flex justify-space-between align-center flex-wrap mb-2">
+            <div class="app-timeline-title">
+              Client Meeting
+            </div>
+            <span class="app-timeline-meta">45 min ago</span>
+          </div>
+
+          <div class="app-timeline-text mt-1">
+            Project meeting with john @10:15am
+          </div>
+
+          <!-- 👉 Person -->
+          <div class="d-flex justify-space-between align-center flex-wrap">
+            <!-- 👉 Avatar & Personal Info -->
+            <div class="d-flex align-center mt-2">
+              <VAvatar
+                size="32"
+                class="me-2"
+                :image="avatar1"
+              />
+              <div class="d-flex flex-column">
+                <p class="text-sm font-weight-medium text-medium-emphasis mb-0">
+                  Lester McCarthy (Client)
+                </p>
+                <span class="text-sm">CEO of ThemeSelection</span>
+              </div>
+            </div>
+          </div>
+        </VTimelineItem>
+        <!-- !SECTION -->
+
+        <!-- SECTION Design Review -->
+        <VTimelineItem
+          size="x-small"
           dot-color="info"
-          size="x-small"
         >
-          <div class="d-flex justify-space-between align-center flex-wrap">
-            <h4 class="text-base font-weight-semibold me-1 mb-1">
-              Shared 2 New Project Files
-            </h4>
-            <span class="text-sm text-disabled text-no-wrap">6 Day Ago</span>
+          <!-- 👉 Header -->
+          <div class="d-flex justify-space-between align-center flex-wrap mb-2">
+            <span class="app-timeline-title">
+              Create a new project for client
+            </span>
+            <span class="app-timeline-meta">2 Day Ago</span>
           </div>
-          <p class="mb-0">
-            Sent by Mollie Dixon
-          </p>
-          <div class="d-flex align-center mt-3">
-            <VIcon
-              color="warning"
-              icon="tabler-file-text"
-              size="20"
-              class="me-2"
-            />
-            <h6 class="font-weight-semibold text-sm me-3">
-              App Guidelines
-            </h6>
 
-            <VIcon
-              color="success"
-              icon="tabler-table"
-              size="20"
-              class="me-2"
-            />
-            <h6 class="font-weight-semibold text-sm">
-              Testing Results
-            </h6>
+          <!-- 👉 Content -->
+          <p class="app-timeline-text mt-1 mb-2">
+            6 team members in a project
+          </p>
+
+          <div class="v-avatar-group demo-avatar-group">
+            <VAvatar :size="40">
+              <VImg :src="avatar1" />
+              <VTooltip
+                activator="parent"
+                location="top"
+              >
+                John Doe
+              </VTooltip>
+            </VAvatar>
+
+            <VAvatar :size="40">
+              <VImg :src="avatar2" />
+              <VTooltip
+                activator="parent"
+                location="top"
+              >
+                Jennie Obrien
+              </VTooltip>
+            </VAvatar>
+
+            <VAvatar :size="40">
+              <VImg :src="avatar3" />
+              <VTooltip
+                activator="parent"
+                location="top"
+              >
+                Peter Harper
+              </VTooltip>
+            </VAvatar>
+
+            <VAvatar
+              :size="40"
+              :color="$vuetify.theme.current.dark ? '#373b50' : '#eeedf0'"
+            >
+              +3
+            </VAvatar>
           </div>
         </VTimelineItem>
-
-        <VTimelineItem
-          dot-color="secondary"
-          size="x-small"
-        >
-          <div class="d-flex justify-space-between align-center flex-wrap">
-            <h4 class="text-base font-weight-semibold me-1 mb-1">
-              Project status updated
-            </h4>
-            <span class="text-sm text-disabled text-no-wrap">10 Day Ago</span>
-          </div>
-          <p class="mb-1">
-            WooCommerce iOS App Completed
-          </p>
-        </VTimelineItem>
+        <!-- !SECTION -->
       </VTimeline>
     </VCardText>
   </VCard>

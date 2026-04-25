@@ -35,6 +35,13 @@ const serverKeys = [
   },
 ]
 
+const recentDevicesHeaders = [
+  { title: 'BROWSER', key: 'browser' },
+  { title: 'DEVICE', key: 'device' },
+  { title: 'LOCATION', key: 'location' },
+  { title: 'RECENT ACTIVITY', key: 'recentActivity' },
+]
+
 const recentDevices = [
   {
     browser: 'Chrome on Windows',
@@ -58,7 +65,7 @@ const recentDevices = [
     deviceIcon: { icon: 'tabler-brand-android', color: 'success' },
   },
   {
-    browser: 'Chrome on MacOS',
+    browser: 'Chrome on macOS',
     device: 'Apple iMac',
     location: 'New York, NY',
     recentActivity: '28 Apr 2022, 18:20',
@@ -91,17 +98,19 @@ const isOneTimePasswordDialogVisible = ref(false)
         <VForm>
           <VCardText class="pt-0">
             <!-- 👉 Current Password -->
-            <VRow class="mb-3">
+            <VRow>
               <VCol
                 cols="12"
                 md="6"
               >
                 <!-- 👉 current password -->
-                <VTextField
+                <AppTextField
                   v-model="currentPassword"
                   :type="isCurrentPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isCurrentPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   label="Current Password"
+                  autocomplete="on"
+                  placeholder="············"
                   @click:append-inner="isCurrentPasswordVisible = !isCurrentPasswordVisible"
                 />
               </VCol>
@@ -114,11 +123,13 @@ const isOneTimePasswordDialogVisible = ref(false)
                 md="6"
               >
                 <!-- 👉 new password -->
-                <VTextField
+                <AppTextField
                   v-model="newPassword"
                   :type="isNewPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isNewPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   label="New Password"
+                  autocomplete="on"
+                  placeholder="············"
                   @click:append-inner="isNewPasswordVisible = !isNewPasswordVisible"
                 />
               </VCol>
@@ -128,11 +139,13 @@ const isOneTimePasswordDialogVisible = ref(false)
                 md="6"
               >
                 <!-- 👉 confirm password -->
-                <VTextField
+                <AppTextField
                   v-model="confirmPassword"
                   :type="isConfirmPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isConfirmPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   label="Confirm New Password"
+                  autocomplete="on"
+                  placeholder="············"
                   @click:append-inner="isConfirmPasswordVisible = !isConfirmPasswordVisible"
                 />
               </VCol>
@@ -141,7 +154,7 @@ const isOneTimePasswordDialogVisible = ref(false)
 
           <!-- 👉 Password Requirements -->
           <VCardText>
-            <h6 class="text-base font-weight-medium mb-3">
+            <h6 class="text-h6 text-medium-emphasis mb-4">
               Password Requirements:
             </h6>
 
@@ -154,9 +167,8 @@ const isOneTimePasswordDialogVisible = ref(false)
               >
                 <template #prepend>
                   <VIcon
-                    size="8"
-                    icon="tabler-circle"
-                    class="me-3"
+                    size="10"
+                    icon="tabler-circle-filled"
                   />
                 </template>
               </VListItem>
@@ -184,12 +196,11 @@ const isOneTimePasswordDialogVisible = ref(false)
     <VCol cols="12">
       <VCard title="Two-steps verification">
         <VCardText>
-          <h6 class="text-base font-weight-semibold mb-3">
+          <h5 class="text-h5 text-medium-emphasis mb-4">
             Two factor authentication is not enabled yet.
-          </h6>
-          <p>
+          </h5>
+          <p class="mb-6">
             Two-factor authentication adds an additional layer of security to your account by
-            <br>
             requiring more than just a password to log in.
             <a
               href="javascript:void(0)"
@@ -198,7 +209,7 @@ const isOneTimePasswordDialogVisible = ref(false)
           </p>
 
           <VBtn @click="isOneTimePasswordDialogVisible = true">
-            Enable two-FA
+            Enable two-factor authentication
           </VBtn>
         </VCardText>
       </VCard>
@@ -216,20 +227,24 @@ const isOneTimePasswordDialogVisible = ref(false)
             order-md="0"
             order="1"
           >
-            <VCardText>
-              <VForm @submit.prevent="() => {}">
+            <VCardText class="pt-1">
+              <VForm @submit.prevent="() => { }">
                 <VRow>
                   <!-- 👉 Choose API Key -->
                   <VCol cols="12">
-                    <VSelect
+                    <AppSelect
                       label="Choose the API key type you want to create"
+                      placeholder="Select API key type"
                       :items="['Full Control', 'Modify', 'Read & Execute', 'List Folder Contents', 'Read Only', 'Read & Write']"
                     />
                   </VCol>
 
                   <!-- 👉 Name the API Key -->
                   <VCol cols="12">
-                    <VTextField label="Name the API key" />
+                    <AppTextField
+                      label="Name the API key"
+                      placeholder="Name the API key"
+                    />
                   </VCol>
 
                   <!-- 👉 Create Key Button -->
@@ -256,87 +271,64 @@ const isOneTimePasswordDialogVisible = ref(false)
           >
             <VImg
               :src="laptopGirl"
-              :width="200"
-              :style="$vuetify.display.smAndDown ? '' : 'position: absolute; bottom: 0;'"
+              :width="$vuetify.display.smAndDown ? '150' : '200'"
+              :style="$vuetify.display.smAndDown ? 'margin-block-end: 24px' : 'position: absolute; bottom: 0;'"
             />
           </VCol>
         </VRow>
       </VCard>
-    <!-- !SECTION -->
+      <!-- !SECTION -->
     </VCol>
 
     <VCol cols="12">
       <!-- SECTION: API Keys List -->
-      <VCard title="API Key List &amp; Access">
+      <VCard>
+        <VCardItem class="pb-4">
+          <VCardTitle>API Key List & Access</VCardTitle>
+        </VCardItem>
         <VCardText>
-          An API key is a simple encrypted string that identifies an application without any principal. They are useful for accessing public data anonymously, and are used to associate API requests with your project for quota and billing.
+          An API key is a simple encrypted string that identifies an application without any principal. They are useful
+          for accessing public data anonymously, and are used to associate API requests with your project for quota and
+          billing.
         </VCardText>
 
         <!-- 👉 Server Status -->
-        <VCardText class="d-flex flex-column gap-y-4">
+        <VCardText class="d-flex flex-column gap-y-6">
           <VCard
             v-for="serverKey in serverKeys"
             :key="serverKey.key"
             flat
-            variant="tonal"
             class="pa-4"
+            color="rgba(var(--v-theme-on-surface),var(--v-hover-opacity))"
           >
-            <VBtn
-              icon
-              variant="plain"
-              size="25"
-              color="default"
-              class="position-absolute server-close-btn"
-            >
-              <VIcon icon="tabler-dots-vertical" />
-
-              <VMenu activator="parent">
-                <VList>
-                  <VListItem
-                    v-for="(item, index) in [{ icon: 'tabler-pencil', text: 'Edit' }, { icon: 'tabler-trash', text: 'Delete' }]"
-                    :key="index"
-                    :value="index"
-                    :title="item.text"
-                  >
-                    <template #prepend>
-                      <VIcon
-                        :icon="item.icon"
-                        class="me-2"
-                      />
-                    </template>
-                  </VListItem>
-                </VList>
-              </VMenu>
-            </VBtn>
-
-            <div class="d-flex align-center flex-wrap mb-3">
-              <h6 class="text-h6 me-3">
-                {{ serverKey.name }}
-              </h6>
-
-              <VChip
-                label
-                color="primary"
-                size="small"
-              >
-                {{ serverKey.permission }}
-              </VChip>
-            </div>
-
-            <div class="d-flex align-center text-base font-weight-semibold mb-2">
-              <h6 class="text-base me-3">
-                {{ serverKey.key }}
-              </h6>
-
-              <div class="cursor-pointer">
-                <VIcon
-                  icon="tabler-copy"
-                  class="text-disabled"
-                />
+            <div class="d-flex flex-column gap-y-2">
+              <div class="d-flex align-center flex-wrap">
+                <h5 class="text-h5 me-3">
+                  {{ serverKey.name }}
+                </h5>
+                <VChip
+                  label
+                  color="primary"
+                  size="small"
+                >
+                  {{ serverKey.permission }}
+                </VChip>
+              </div>
+              <div class="d-flex align-center text-base font-weight-medium">
+                <h6 class="text-h6 text-medium-emphasis me-3">
+                  {{ serverKey.key }}
+                </h6>
+                <div class="cursor-pointer">
+                  <VIcon
+                    icon="tabler-copy"
+                    size="20"
+                  />
+                </div>
+              </div>
+              <div class="text-disabled">
+                Created on {{ serverKey.createdOn }}
               </div>
             </div>
-
-            <span>Created on {{ serverKey.createdOn }}</span>
           </VCard>
         </VCardText>
       </VCard>
@@ -349,57 +341,41 @@ const isOneTimePasswordDialogVisible = ref(false)
       <VCard title="Recent Devices">
         <VDivider />
 
-        <VTable class="text-no-wrap">
-          <thead>
-            <tr>
-              <th scope="col">
-                BROWSER
-              </th>
-              <th scope="col">
-                DEVICE
-              </th>
-              <th scope="col">
-                LOCATION
-              </th>
-              <th scope="col">
-                RECENT ACTIVITIES
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="device in recentDevices"
-              :key="device.recentActivity"
-            >
-              <td class="d-flex align-center">
-                <VIcon
-                  start
-                  :icon="device.deviceIcon.icon"
-                  :color="device.deviceIcon.color"
-                />
-                <h6 class="text-base font-weight-semibold">
-                  {{ device.browser }}
-                </h6>
-              </td>
-              <td>{{ device.device }}</td>
-              <td>{{ device.location }}</td>
-              <td>{{ device.recentActivity }}</td>
-            </tr>
-          </tbody>
-        </VTable>
+        <VDataTable
+          :headers="recentDevicesHeaders"
+          :items="recentDevices"
+          hide-default-footer
+          class="text-no-wrap"
+        >
+          <template #item.browser="{ item }">
+            <div class="d-flex">
+              <VIcon
+                start
+                size="22"
+                :icon="item.deviceIcon.icon"
+                :color="item.deviceIcon.color"
+              />
+              <div class="text-high-emphasis text-body-1 font-weight-medium">
+                {{ item.browser }}
+              </div>
+            </div>
+          </template>
+          <!-- TODO Refactor this after vuetify provides proper solution for removing default footer -->
+          <template #bottom />
+        </VDataTable>
       </VCard>
     </VCol>
     <!-- !SECTION -->
   </VRow>
 
   <!-- SECTION Enable One time password -->
-  <EnableOneTimePasswordDialog v-model:isDialogVisible="isOneTimePasswordDialogVisible" />
+  <TwoFactorAuthDialog v-model:isDialogVisible="isOneTimePasswordDialogVisible" />
   <!-- !SECTION -->
 </template>
 
 <style lang="scss" scoped>
 .card-list {
-  --v-card-list-gap: 5px;
+  --v-card-list-gap: 16px;
 }
 
 .server-close-btn {

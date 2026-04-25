@@ -33,9 +33,10 @@ const interest = ref<string[]>([])
             sm="6"
             md="4"
           >
-            <VTextField
+            <AppTextField
               v-model="firstName"
               label="First Name"
+              placeholder="John"
             />
           </VCol>
           <VCol
@@ -43,9 +44,10 @@ const interest = ref<string[]>([])
             sm="6"
             md="4"
           >
-            <VTextField
+            <AppTextField
               v-model="middleName"
               label="Middle Name"
+              placeholder="peter"
             />
           </VCol>
           <VCol
@@ -53,44 +55,48 @@ const interest = ref<string[]>([])
             sm="6"
             md="4"
           >
-            <VTextField
+            <AppTextField
               v-model="lastName"
               label="Last Name"
               persistent-hint
+              placeholder="Doe"
             />
           </VCol>
           <VCol cols="12">
-            <VTextField
+            <AppTextField
               v-model="email"
               label="Email"
+              placeholder="johndoe@email.com"
             />
           </VCol>
           <VCol cols="12">
-            <VTextField
+            <AppTextField
               v-model="password"
               label="Password"
+              autocomplete="on"
               type="password"
+              placeholder="············"
             />
           </VCol>
           <VCol
             cols="12"
             sm="6"
           >
-            <VSelect
+            <AppTextField
               v-model="age"
-              :items="['0-17', '18-29', '30-54', '54+']"
               label="Age"
+              type="number"
+              placeholder="18"
             />
           </VCol>
           <VCol
             cols="12"
             sm="6"
           >
-            <VAutocomplete
+            <AppTextField
               v-model="interest"
-              multiple
-              :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
               label="Interests"
+              placeholder="Sports, Music, Movies"
             />
           </VCol>
         </VRow>

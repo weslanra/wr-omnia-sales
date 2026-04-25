@@ -4,9 +4,10 @@ const textareaValue = ref('The Woodman set to work at once, and so sharp was his
 </script>
 
 <template>
-  <VTextarea
+  <AppTextarea
     v-model="textareaValue"
     label="Auto Grow"
+    placeholder="Placeholder Text"
     auto-grow
   />
 </template>
@@ -16,9 +17,10 @@ const textareaValue = ref('The Woodman set to work at once, and so sharp was his
 </script>
 
 <template>
-  <VTextarea
+  <AppTextarea
     v-model="textareaValue"
     label="Auto Grow"
+    placeholder="Placeholder Text"
     auto-grow
   />
 </template>
@@ -27,27 +29,35 @@ const textareaValue = ref('The Woodman set to work at once, and so sharp was his
 
 export const basic = {
   ts: `<template>
-  <VTextarea label="Default" />
+  <AppTextarea
+    label="Default"
+    placeholder="Placeholder Text"
+  />
 </template>
 `,
   js: `<template>
-  <VTextarea label="Default" />
+  <AppTextarea
+    label="Default"
+    placeholder="Placeholder Text"
+  />
 </template>
 `,
 }
 
 export const browserAutocomplete = {
   ts: `<template>
-  <VTextarea
+  <AppTextarea
     autocomplete="email"
     label="Email"
+    placeholder="johndoe@email.com"
   />
 </template>
 `,
   js: `<template>
-  <VTextarea
+  <AppTextarea
     autocomplete="email"
     label="Email"
+    placeholder="johndoe@email.com"
   />
 </template>
 `,
@@ -59,11 +69,12 @@ const textareaValue = ref('This is clearable text.')
 </script>
 
 <template>
-  <VTextarea
+  <AppTextarea
     v-model="textareaValue"
     clearable
     clear-icon="tabler-circle-x"
     label="Text"
+    placeholder="Placeholder Text"
   />
 </template>
 `,
@@ -72,11 +83,12 @@ const textareaValue = ref('This is clearable text.')
 </script>
 
 <template>
-  <VTextarea
+  <AppTextarea
     v-model="textareaValue"
     clearable
     clear-icon="tabler-circle-x"
     label="Text"
+    placeholder="Placeholder Text"
   />
 </template>
 `,
@@ -88,10 +100,11 @@ const textareaValue = ref('Hello!')
 </script>
 
 <template>
-  <VTextarea
+  <AppTextarea
     v-model="textareaValue"
     counter
     label="Text"
+    placeholder="Placeholder Text"
   />
 </template>
 `,
@@ -100,10 +113,11 @@ const textareaValue = ref('Hello!')
 </script>
 
 <template>
-  <VTextarea
+  <AppTextarea
     v-model="textareaValue"
     counter
     label="Text"
+    placeholder="Placeholder Text"
   />
 </template>
 `,
@@ -113,33 +127,37 @@ export const icons = {
   ts: `<template>
   <VRow>
     <VCol cols="12">
-      <VTextarea
+      <AppTextarea
         label="prepend-icon"
         rows="1"
+        placeholder="Placeholder Text"
         prepend-icon="tabler-message-2"
       />
     </VCol>
 
     <VCol cols="12">
-      <VTextarea
+      <AppTextarea
         append-icon="tabler-message-2"
+        placeholder="Placeholder Text"
         label="append-icon"
         rows="1"
       />
     </VCol>
 
     <VCol cols="12">
-      <VTextarea
+      <AppTextarea
         prepend-inner-icon="tabler-message-2"
         label="prepend-inner-icon"
+        placeholder="Placeholder Text"
         rows="1"
       />
     </VCol>
 
     <VCol cols="12">
-      <VTextarea
+      <AppTextarea
         append-inner-icon="tabler-message-2"
         label="append-inner-icon"
+        placeholder="Placeholder Text"
         rows="1"
       />
     </VCol>
@@ -149,33 +167,37 @@ export const icons = {
   js: `<template>
   <VRow>
     <VCol cols="12">
-      <VTextarea
+      <AppTextarea
         label="prepend-icon"
         rows="1"
+        placeholder="Placeholder Text"
         prepend-icon="tabler-message-2"
       />
     </VCol>
 
     <VCol cols="12">
-      <VTextarea
+      <AppTextarea
         append-icon="tabler-message-2"
+        placeholder="Placeholder Text"
         label="append-icon"
         rows="1"
       />
     </VCol>
 
     <VCol cols="12">
-      <VTextarea
+      <AppTextarea
         prepend-inner-icon="tabler-message-2"
         label="prepend-inner-icon"
+        placeholder="Placeholder Text"
         rows="1"
       />
     </VCol>
 
     <VCol cols="12">
-      <VTextarea
+      <AppTextarea
         append-inner-icon="tabler-message-2"
         label="append-inner-icon"
+        placeholder="Placeholder Text"
         rows="1"
       />
     </VCol>
@@ -190,11 +212,12 @@ const value = ref('Marshmallow tiramisu pie dessert gingerbread tart caramels ma
 </script>
 
 <template>
-  <VTextarea
+  <AppTextarea
     v-model="value"
     label="Text"
     no-resize
     rows="2"
+    placeholder="Placeholder Text"
   />
 </template>
 `,
@@ -203,11 +226,12 @@ const value = ref('Marshmallow tiramisu pie dessert gingerbread tart caramels ma
 </script>
 
 <template>
-  <VTextarea
+  <AppTextarea
     v-model="value"
     label="Text"
     no-resize
     rows="2"
+    placeholder="Placeholder Text"
   />
 </template>
 `,
@@ -220,11 +244,12 @@ export const rows = {
       cols="12"
       sm="6"
     >
-      <VTextarea
+      <AppTextarea
         label="One row"
         auto-grow
         rows="1"
         row-height="15"
+        placeholder="Placeholder Text"
       />
     </VCol>
 
@@ -232,10 +257,11 @@ export const rows = {
       cols="12"
       sm="6"
     >
-      <VTextarea
+      <AppTextarea
         auto-grow
         label="Two rows"
         rows="2"
+        placeholder="Placeholder Text"
         row-height="20"
       />
     </VCol>
@@ -244,10 +270,11 @@ export const rows = {
       cols="12"
       sm="6"
     >
-      <VTextarea
+      <AppTextarea
         label="Three rows"
         auto-grow
         rows="3"
+        placeholder="Placeholder Text"
         row-height="25"
       />
     </VCol>
@@ -256,9 +283,10 @@ export const rows = {
       cols="12"
       sm="6"
     >
-      <VTextarea
+      <AppTextarea
         auto-grow
         label="Four rows"
+        placeholder="Placeholder Text"
         rows="4"
         row-height="30"
       />
@@ -272,11 +300,12 @@ export const rows = {
       cols="12"
       sm="6"
     >
-      <VTextarea
+      <AppTextarea
         label="One row"
         auto-grow
         rows="1"
         row-height="15"
+        placeholder="Placeholder Text"
       />
     </VCol>
 
@@ -284,10 +313,11 @@ export const rows = {
       cols="12"
       sm="6"
     >
-      <VTextarea
+      <AppTextarea
         auto-grow
         label="Two rows"
         rows="2"
+        placeholder="Placeholder Text"
         row-height="20"
       />
     </VCol>
@@ -296,10 +326,11 @@ export const rows = {
       cols="12"
       sm="6"
     >
-      <VTextarea
+      <AppTextarea
         label="Three rows"
         auto-grow
         rows="3"
+        placeholder="Placeholder Text"
         row-height="25"
       />
     </VCol>
@@ -308,9 +339,10 @@ export const rows = {
       cols="12"
       sm="6"
     >
-      <VTextarea
+      <AppTextarea
         auto-grow
         label="Four rows"
+        placeholder="Placeholder Text"
         rows="4"
         row-height="30"
       />
@@ -324,19 +356,21 @@ export const states = {
   ts: `<template>
   <VRow>
     <VCol cols="12">
-      <VTextarea
+      <AppTextarea
         disabled
         label="Disabled"
         hint="Hint text"
+        placeholder="Placeholder Text"
         rows="2"
       />
     </VCol>
 
     <VCol cols="12">
-      <VTextarea
+      <AppTextarea
         readonly
         rows="2"
         label="Readonly"
+        placeholder="Placeholder Text"
         hint="Hint text"
       />
     </VCol>
@@ -346,19 +380,21 @@ export const states = {
   js: `<template>
   <VRow>
     <VCol cols="12">
-      <VTextarea
+      <AppTextarea
         disabled
         label="Disabled"
         hint="Hint text"
+        placeholder="Placeholder Text"
         rows="2"
       />
     </VCol>
 
     <VCol cols="12">
-      <VTextarea
+      <AppTextarea
         readonly
         rows="2"
         label="Readonly"
+        placeholder="Placeholder Text"
         hint="Hint text"
       />
     </VCol>
@@ -374,11 +410,12 @@ const rules = [(v: string) => v.length <= 25 || 'Max 25 characters']
 </script>
 
 <template>
-  <VTextarea
+  <AppTextarea
     v-model="textareaValue"
     label="Validation"
     :rules="rules"
     rows="2"
+    placeholder="Placeholder Text"
   />
 </template>
 `,
@@ -388,11 +425,12 @@ const rules = [v => v.length <= 25 || 'Max 25 characters']
 </script>
 
 <template>
-  <VTextarea
+  <AppTextarea
     v-model="textareaValue"
     label="Validation"
     :rules="rules"
     rows="2"
+    placeholder="Placeholder Text"
   />
 </template>
 `,
@@ -408,6 +446,7 @@ export const variant = {
       <VTextarea
         label="Default"
         rows="2"
+        placeholder="Placeholder Text"
       />
     </VCol>
 
@@ -417,6 +456,7 @@ export const variant = {
     >
       <VTextarea
         label="Solo"
+        placeholder="Placeholder Text"
         rows="2"
         variant="solo"
       />
@@ -429,6 +469,7 @@ export const variant = {
       <VTextarea
         label="Filled"
         rows="2"
+        placeholder="Placeholder Text"
         variant="filled"
       />
     </VCol>
@@ -440,6 +481,7 @@ export const variant = {
       <VTextarea
         label="Outlined"
         rows="2"
+        placeholder="Placeholder Text"
         variant="outlined"
       />
     </VCol>
@@ -451,6 +493,7 @@ export const variant = {
       <VTextarea
         label="Underlined"
         rows="2"
+        placeholder="Placeholder Text"
         variant="underlined"
       />
     </VCol>
@@ -462,6 +505,7 @@ export const variant = {
       <VTextarea
         label="Plain"
         rows="2"
+        placeholder="Placeholder Text"
         variant="plain"
       />
     </VCol>
@@ -477,6 +521,7 @@ export const variant = {
       <VTextarea
         label="Default"
         rows="2"
+        placeholder="Placeholder Text"
       />
     </VCol>
 
@@ -486,6 +531,7 @@ export const variant = {
     >
       <VTextarea
         label="Solo"
+        placeholder="Placeholder Text"
         rows="2"
         variant="solo"
       />
@@ -498,6 +544,7 @@ export const variant = {
       <VTextarea
         label="Filled"
         rows="2"
+        placeholder="Placeholder Text"
         variant="filled"
       />
     </VCol>
@@ -509,6 +556,7 @@ export const variant = {
       <VTextarea
         label="Outlined"
         rows="2"
+        placeholder="Placeholder Text"
         variant="outlined"
       />
     </VCol>
@@ -520,6 +568,7 @@ export const variant = {
       <VTextarea
         label="Underlined"
         rows="2"
+        placeholder="Placeholder Text"
         variant="underlined"
       />
     </VCol>
@@ -531,6 +580,7 @@ export const variant = {
       <VTextarea
         label="Plain"
         rows="2"
+        placeholder="Placeholder Text"
         variant="plain"
       />
     </VCol>
@@ -538,4 +588,3 @@ export const variant = {
 </template>
 `,
 }
-

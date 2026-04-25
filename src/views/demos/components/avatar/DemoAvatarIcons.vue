@@ -1,46 +1,33 @@
 <template>
   <div class="demo-space-x">
-    <VAvatar color="primary">
-      <VIcon
-        size="20"
-        icon="tabler-home"
-      />
-    </VAvatar>
+    <VAvatar
+      color="primary"
+      icon="tabler-home"
+    />
 
-    <VAvatar color="secondary">
-      <VIcon
-        color="white"
-        size="20"
-        icon="tabler-cloud"
-      />
-    </VAvatar>
+    <VAvatar
+      color="secondary"
+      icon="tabler-cloud"
+    />
 
-    <VAvatar color="success">
-      <VIcon
-        size="20"
-        icon="tabler-bell"
-      />
-    </VAvatar>
+    <VAvatar
+      color="success"
+      icon="tabler-bell"
+    />
 
-    <VAvatar color="info">
-      <VIcon
-        size="20"
-        icon="tabler-user"
-      />
-    </VAvatar>
+    <VAvatar
+      color="info"
+      icon="tabler-user"
+    />
 
-    <VAvatar color="warning">
-      <VIcon
-        size="20"
-        icon="tabler-alert-circle"
-      />
-    </VAvatar>
+    <VAvatar
+      color="warning"
+      icon="tabler-alert-circle"
+    />
 
-    <VAvatar color="error">
-      <VIcon
-        size="20"
-        icon="tabler-message"
-      />
-    </VAvatar>
+    <VAvatar
+      color="error"
+      icon="tabler-message"
+    />
   </div>
 </template>

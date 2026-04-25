@@ -5,9 +5,10 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
 </script>
 
 <template>
-  <VCombobox
+  <AppCombobox
     v-model="selectedItem"
     :items="items"
+    placeholder="deployment"
   />
 </template>
 `,
@@ -23,9 +24,10 @@ const items = [
 </script>
 
 <template>
-  <VCombobox
+  <AppCombobox
     v-model="selectedItem"
     :items="items"
+    placeholder="deployment"
   />
 </template>
 `,
@@ -38,11 +40,12 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
 </script>
 
 <template>
-  <VCombobox
+  <AppCombobox
     v-model="select"
     :items="items"
     label="Combobox"
     multiple
+    placeholder="deployment"
     clearable
   />
 </template>
@@ -62,11 +65,12 @@ const items = [
 </script>
 
 <template>
-  <VCombobox
+  <AppCombobox
     v-model="select"
     :items="items"
     label="Combobox"
     multiple
+    placeholder="deployment"
     clearable
   />
 </template>
@@ -80,11 +84,12 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
 </script>
 
 <template>
-  <VCombobox
+  <AppCombobox
     v-model="select"
     :items="items"
     label="Combobox"
     density="compact"
+    placeholder="deployment"
     multiple
   />
 </template>
@@ -104,11 +109,12 @@ const items = [
 </script>
 
 <template>
-  <VCombobox
+  <AppCombobox
     v-model="select"
     :items="items"
     label="Combobox"
     density="compact"
+    placeholder="deployment"
     multiple
   />
 </template>
@@ -124,18 +130,20 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
 <template>
   <VRow>
     <VCol cols="12">
-      <VCombobox
+      <AppCombobox
         v-model="selectedItem"
         :items="items"
+        placeholder="deployment"
         label="Select a favorite activity or create a new one"
         multiple
       />
     </VCol>
 
     <VCol cols="12">
-      <VCombobox
+      <AppCombobox
         v-model="selectedItem"
         :items="items"
+        placeholder="deployment"
         label="I use chips"
         multiple
         chips
@@ -143,8 +151,9 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
     </VCol>
 
     <VCol cols="12">
-      <VCombobox
+      <AppCombobox
         v-model="selectedItem"
+        placeholder="deployment"
         label="I'm readonly"
         chips
         multiple
@@ -153,24 +162,29 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
     </VCol>
 
     <VCol cols="12">
-      <VCombobox
+      <AppCombobox
         v-model="selectedItem"
         :items="items"
+        placeholder="deployment"
         label="I use selection slot"
         multiple
       >
         <template #selection="{ item }">
-          <VChip class="mt-1">
-            <VAvatar
-              start
-              color="primary"
-            >
-              {{ String(item.title).charAt(0).toUpperCase() }}
-            </VAvatar>
+          <VChip size="small">
+            <template #prepend>
+              <VAvatar
+                start
+                color="primary"
+                size="16"
+              >
+                {{ String(item.title).charAt(0).toUpperCase() }}
+              </VAvatar>
+            </template>
+
             {{ item.title }}
           </VChip>
         </template>
-      </VCombobox>
+      </AppCombobox>
     </VCol>
   </VRow>
 </template>
@@ -192,18 +206,20 @@ const items = [
 <template>
   <VRow>
     <VCol cols="12">
-      <VCombobox
+      <AppCombobox
         v-model="selectedItem"
         :items="items"
+        placeholder="deployment"
         label="Select a favorite activity or create a new one"
         multiple
       />
     </VCol>
 
     <VCol cols="12">
-      <VCombobox
+      <AppCombobox
         v-model="selectedItem"
         :items="items"
+        placeholder="deployment"
         label="I use chips"
         multiple
         chips
@@ -211,8 +227,9 @@ const items = [
     </VCol>
 
     <VCol cols="12">
-      <VCombobox
+      <AppCombobox
         v-model="selectedItem"
+        placeholder="deployment"
         label="I'm readonly"
         chips
         multiple
@@ -221,24 +238,29 @@ const items = [
     </VCol>
 
     <VCol cols="12">
-      <VCombobox
+      <AppCombobox
         v-model="selectedItem"
         :items="items"
+        placeholder="deployment"
         label="I use selection slot"
         multiple
       >
         <template #selection="{ item }">
-          <VChip class="mt-1">
-            <VAvatar
-              start
-              color="primary"
-            >
-              {{ String(item.title).charAt(0).toUpperCase() }}
-            </VAvatar>
+          <VChip size="small">
+            <template #prepend>
+              <VAvatar
+                start
+                color="primary"
+                size="16"
+              >
+                {{ String(item.title).charAt(0).toUpperCase() }}
+              </VAvatar>
+            </template>
+
             {{ item.title }}
           </VChip>
         </template>
-      </VCombobox>
+      </AppCombobox>
     </VCol>
   </VRow>
 </template>
@@ -258,12 +280,13 @@ watch(selectedList, value => {
 </script>
 
 <template>
-  <VCombobox
+  <AppCombobox
     v-model="selectedList"
     v-model:search-input="search"
     :items="items"
     hide-selected
     :hide-no-data="false"
+    placeholder="deployment"
     hint="Maximum of 5 tags"
     label="Add some tags"
     multiple
@@ -276,7 +299,7 @@ watch(selectedList, value => {
         </VListItemTitle>
       </VListItem>
     </template>
-  </VCombobox>
+  </AppCombobox>
 </template>
 `,
   js: `<script setup>
@@ -297,12 +320,13 @@ watch(selectedList, value => {
 </script>
 
 <template>
-  <VCombobox
+  <AppCombobox
     v-model="selectedList"
     v-model:search-input="search"
     :items="items"
     hide-selected
     :hide-no-data="false"
+    placeholder="deployment"
     hint="Maximum of 5 tags"
     label="Add some tags"
     multiple
@@ -315,7 +339,7 @@ watch(selectedList, value => {
         </VListItemTitle>
       </VListItem>
     </template>
-  </VCombobox>
+  </AppCombobox>
 </template>
 `,
 }
@@ -333,7 +357,7 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
         v-model="selectedItem"
         :items="items"
         multiple
-        chips
+        placeholder="deployment"
         variant="solo"
         label="solo"
       />
@@ -342,8 +366,8 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
       <VCombobox
         v-model="selectedItem"
         multiple
-        chips
         :items="items"
+        placeholder="deployment"
         variant="outlined"
         label="Outlined"
       />
@@ -352,8 +376,8 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
       <VCombobox
         v-model="selectedItem"
         multiple
-        chips
         :items="items"
+        placeholder="deployment"
         variant="underlined"
         label="Underlined"
       />
@@ -362,8 +386,8 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
       <VCombobox
         v-model="selectedItem"
         multiple
-        chips
         :items="items"
+        placeholder="deployment"
         variant="filled"
         label="Filled"
       />
@@ -372,9 +396,9 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
       <VCombobox
         v-model="selectedItem"
         multiple
-        chips
         :items="items"
         variant="plain"
+        placeholder="deployment"
         label="Plain"
       />
     </VCol>
@@ -399,7 +423,7 @@ const items = [
         v-model="selectedItem"
         :items="items"
         multiple
-        chips
+        placeholder="deployment"
         variant="solo"
         label="solo"
       />
@@ -408,8 +432,8 @@ const items = [
       <VCombobox
         v-model="selectedItem"
         multiple
-        chips
         :items="items"
+        placeholder="deployment"
         variant="outlined"
         label="Outlined"
       />
@@ -418,8 +442,8 @@ const items = [
       <VCombobox
         v-model="selectedItem"
         multiple
-        chips
         :items="items"
+        placeholder="deployment"
         variant="underlined"
         label="Underlined"
       />
@@ -428,8 +452,8 @@ const items = [
       <VCombobox
         v-model="selectedItem"
         multiple
-        chips
         :items="items"
+        placeholder="deployment"
         variant="filled"
         label="Filled"
       />
@@ -438,9 +462,9 @@ const items = [
       <VCombobox
         v-model="selectedItem"
         multiple
-        chips
         :items="items"
         variant="plain"
+        placeholder="deployment"
         label="Plain"
       />
     </VCol>
@@ -448,4 +472,3 @@ const items = [
 </template>
 `,
 }
-

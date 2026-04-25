@@ -1,24 +1,30 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
-import type { ProjectsTab } from '@/@fake-db/types'
-import axios from '@axios'
+import type { ProjectsTab } from '@db/pages/profile/types'
 
-const router = useRoute()
+const router = useRoute('pages-user-profile-tab')
 const projectData = ref<ProjectsTab[]>([])
 
-const fetchProjectData = () => {
+const fetchProjectData = async () => {
   if (router.params.tab === 'projects') {
-    axios.get('/pages/profile', {
-      params: {
+    const data = await $api('/pages/profile', {
+      query: {
         tab: router.params.tab,
       },
-    }).then(response => {
-      projectData.value = response.data
-    })
+    }).catch(err => console.log(err))
+
+    projectData.value = data
   }
 }
 
 watch(router, fetchProjectData, { immediate: true })
+
+const moreList = [
+  { title: 'Rename Project', value: 'Rename Project' },
+  { title: 'View Details', value: 'View Details' },
+  { title: 'Add to favorites', value: 'Add to favorites' },
+  { type: 'divider', class: 'my-2' },
+  { title: 'Leave Project', value: 'Leave Project', class: 'text-error' },
+]
 </script>
 
 <template>
@@ -31,73 +37,53 @@ watch(router, fetchProjectData, { immediate: true })
       lg="4"
     >
       <VCard>
-        <VCardItem>
+        <VCardItem class="pb-4">
           <template #prepend>
-            <VAvatar :image="data.avatar" />
+            <VAvatar
+              :image="data.avatar"
+              size="38"
+              class="me-2"
+            />
           </template>
 
-          <VCardTitle>Social Banners</VCardTitle>
-          <p class="mb-0">
-            <span class="font-weight-medium me-1">Client:</span>
-            <span>Christian Jimenez</span>
-          </p>
+          <VCardTitle>{{ data.title }}</VCardTitle>
+          <span class="mb-0 text-body-1 d-flex align-center">
+            <div class="font-weight-medium me-1">
+              Client:
+            </div>
+            <div>{{ data.client }}</div>
+          </span>
 
           <template #append>
-            <div class="mt-n8 me-n3">
-              <VBtn
-                icon
-                variant="text"
-                color="default"
-                size="x-small"
-              >
-                <VIcon
-                  size="20"
-                  icon="tabler-dots-vertical"
-                  class="text-disabled"
-                />
-
-                <VMenu activator="parent">
-                  <VList density="compact">
-                    <VListItem
-                      v-for="(item, index) in ['Rename Project', 'View Details', 'Add to favorites']"
-                      :key="index"
-                      :value="index"
-                    >
-                      <VListItemTitle>{{ item }}</VListItemTitle>
-                    </VListItem>
-                    <VDivider class="my-2" />
-                    <VListItem
-                      title="Leave Project"
-                      value="Leave Project"
-                      class="text-error"
-                    />
-                  </VList>
-                </VMenu>
-              </VBtn>
+            <div class="mt-n2">
+              <MoreBtn
+                item-props
+                :menu-list="moreList"
+              />
             </div>
           </template>
         </VCardItem>
 
         <VCardText>
           <div class="d-flex align-center justify-space-between flex-wrap gap-x-2 gap-y-4">
-            <div class="pa-2 bg-light-secondary rounded">
+            <div class="px-3 py-2 bg-var-theme-background rounded">
               <h6 class="text-base font-weight-medium">
                 {{ data.budgetSpent }} <span class="text-body-1">/ {{ data.budget }}</span>
               </h6>
-              <span>Total Budget</span>
+              <div>Total Budget</div>
             </div>
 
             <div>
               <h6 class="text-base font-weight-medium">
                 Start Date: <span class="text-body-1">{{ data.startDate }}</span>
               </h6>
-              <h6 class="text-base font-weight-medium mb-1">
+              <h6 class="text-base font-weight-medium">
                 Deadline: <span class="text-body-1">{{ data.deadline }}</span>
               </h6>
             </div>
           </div>
 
-          <p class="mt-4 mb-0">
+          <p class="mt-4 mb-0 clamp-text">
             {{ data.description }}
           </p>
         </VCardText>
@@ -106,8 +92,10 @@ watch(router, fetchProjectData, { immediate: true })
 
         <VCardText>
           <div class="d-flex align-center justify-space-between flex-wrap gap-2">
-            <h6 class="text-base font-weight-semibold">
-              All Hours: <span class="text-body-1">{{ data.hours }}</span>
+            <h6 class="text-base font-weight-medium">
+              All Hours: <span class="text-body-1">
+                {{ data.hours }}
+              </span>
             </h6>
 
             <VChip
@@ -119,9 +107,9 @@ watch(router, fetchProjectData, { immediate: true })
             </VChip>
           </div>
 
-          <div class="d-flex align-center justify-space-between flex-wrap text-sm mt-4 mb-2">
+          <div class="d-flex align-center justify-space-between flex-wrap text-caption text-medium-emphasis mt-4 mb-2">
             <span>Task: {{ data.tasks }}</span>
-            <span>95% Completed</span>
+            <span>{{ Math.round((data.completedTask / data.totalTask) * 100) }}% Completed</span>
           </div>
           <VProgressLinear
             rounded
@@ -132,9 +120,9 @@ watch(router, fetchProjectData, { immediate: true })
             color="primary"
           />
 
-          <div class="d-flex align-center justify-space-between flex-wrap gap-2 mt-3">
+          <div class="d-flex align-center justify-space-between flex-wrap gap-2 mt-4">
             <div class="d-flex align-center">
-              <div class="v-avatar-group me-2">
+              <div class="v-avatar-group me-3">
                 <VAvatar
                   v-for="avatar in data.avatarGroup"
                   :key="avatar.name"
@@ -142,17 +130,18 @@ watch(router, fetchProjectData, { immediate: true })
                   :size="32"
                 />
               </div>
-              <span class="text-xs">
-                280 members
+              <span class="text-body-2 text-disabled">
+                {{ data.members }}
               </span>
             </div>
 
-            <span>
+            <span class="d-flex align-center">
               <VIcon
                 icon="tabler-message-dots"
-                class="me-1"
+                class="me-1 text-disabled"
+                size="24"
               />
-              <span>{{ data.comments }}</span>
+              <div class="text-disabled text-body-1">{{ data.comments }}</div>
             </span>
           </div>
         </VCardText>

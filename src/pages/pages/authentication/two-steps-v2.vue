@@ -1,42 +1,76 @@
 <script setup lang="ts">
-import authV2ForgotPasswordIllustrationDark from '@images/pages/auth-v2-two-step-illustration-dark.png'
-import authV2ForgotPasswordIllustrationLight from '@images/pages/auth-v2-two-step-illustration-light.png'
+import { useGenerateImageVariant } from '@core/composable/useGenerateImageVariant'
+import authV2TwoStepIllustrationDark from '@images/pages/auth-v2-two-step-illustration-dark.png'
+import authV2TwoStepIllustrationLight from '@images/pages/auth-v2-two-step-illustration-light.png'
 import authV2MaskDark from '@images/pages/misc-mask-dark.png'
 import authV2MaskLight from '@images/pages/misc-mask-light.png'
-import { useGenerateImageVariant } from '@core/composable/useGenerateImageVariant'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
 
+definePage({
+  meta: {
+    layout: 'blank',
+  },
+})
+
 const authThemeImg = useGenerateImageVariant(
-  authV2ForgotPasswordIllustrationLight,
-  authV2ForgotPasswordIllustrationDark,
+  authV2TwoStepIllustrationLight,
+  authV2TwoStepIllustrationDark,
 )
 
 const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
+
+const router = useRouter()
+const otp = ref('')
+const isOtpInserted = ref(false)
+
+const onFinish = () => {
+  isOtpInserted.value = true
+
+  setTimeout(() => {
+    isOtpInserted.value = false
+    router.push('/')
+  }, 2000)
+}
 </script>
 
 <template>
+  <RouterLink to="/">
+    <div class="auth-logo d-flex align-center gap-x-3">
+      <VNodeRenderer :nodes="themeConfig.app.logo" />
+      <h1 class="auth-title">
+        {{ themeConfig.app.title }}
+      </h1>
+    </div>
+  </RouterLink>
+
   <VRow
-    class="auth-wrapper"
+    class="auth-wrapper bg-surface"
     no-gutters
   >
     <VCol
       md="8"
       class="d-none d-md-flex"
     >
-      <div class="position-relative auth-bg rounded-lg w-100 ma-8 me-0">
-        <div class="d-flex align-center justify-center w-100 h-100">
+      <div class="position-relative bg-background w-100 me-0">
+        <div
+          class="d-flex align-center justify-center w-100 h-100"
+          style="padding-inline: 150px;"
+        >
           <VImg
-            max-width="418"
+            max-width="468"
             :src="authThemeImg"
             class="auth-illustration mt-16 mb-2"
           />
         </div>
 
-        <VImg
-          class="auth-footer-mask"
+        <img
+          class="auth-footer-mask flip-in-rtl"
           :src="authThemeMask"
-        />
+          alt="auth-footer-mask"
+          height="280"
+          width="100"
+        >
       </div>
     </VCol>
 
@@ -48,21 +82,16 @@ const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
       <VCard
         flat
         :max-width="500"
-        class="mt-12 mt-sm-0 pa-4"
+        class="mt-12 mt-sm-0 pa-6"
       >
         <VCardText>
-          <VNodeRenderer
-            :nodes="themeConfig.app.logo"
-            class="mb-6"
-          />
-
-          <h5 class="text-h5 font-weight-semibold mb-1">
+          <h4 class="text-h4 mb-1">
             Two Step Verification 💬
-          </h5>
-          <p class="mb-2">
+          </h4>
+          <p class="mb-1">
             We sent a verification code to your mobile. Enter the code from the mobile in the field below.
           </p>
-          <h6 class="text-base font-weight-semibold">
+          <h6 class="text-h6">
             ******1234
           </h6>
         </VCardText>
@@ -72,13 +101,24 @@ const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
             <VRow>
               <!-- email -->
               <VCol cols="12">
-                <AppOtpInput />
+                <h6 class="text-body-1">
+                  Type your 6 digit security code
+                </h6>
+                <VOtpInput
+                  v-model="otp"
+                  :disabled="isOtpInserted"
+                  type="number"
+                  class="pa-0"
+                  @finish="onFinish"
+                />
               </VCol>
 
               <!-- reset password -->
               <VCol cols="12">
                 <VBtn
                   block
+                  :loading="isOtpInserted"
+                  :disabled="isOtpInserted"
                   type="submit"
                 >
                   Verify my account
@@ -102,9 +142,10 @@ const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
 
 <style lang="scss">
 @use "@core/scss/template/pages/page-auth.scss";
-</style>
 
-<route lang="yaml">
-meta:
-  layout: blank
-</route>
+.v-otp-input {
+  .v-otp-input__content {
+    padding-inline: 0;
+  }
+}
+</style>

@@ -105,9 +105,10 @@ const interest = ref<string[]>([])
             sm="6"
             md="4"
           >
-            <VTextField
+            <AppTextField
               v-model="firstName"
               label="First Name"
+              placeholder="John"
             />
           </VCol>
           <VCol
@@ -115,9 +116,10 @@ const interest = ref<string[]>([])
             sm="6"
             md="4"
           >
-            <VTextField
+            <AppTextField
               v-model="middleName"
               label="Middle Name"
+              placeholder="peter"
             />
           </VCol>
           <VCol
@@ -125,44 +127,48 @@ const interest = ref<string[]>([])
             sm="6"
             md="4"
           >
-            <VTextField
+            <AppTextField
               v-model="lastName"
               label="Last Name"
               persistent-hint
+              placeholder="Doe"
             />
           </VCol>
           <VCol cols="12">
-            <VTextField
+            <AppTextField
               v-model="email"
               label="Email"
+              placeholder="johndoe@email.com"
             />
           </VCol>
           <VCol cols="12">
-            <VTextField
+            <AppTextField
               v-model="password"
               label="Password"
+              autocomplete="on"
               type="password"
+              placeholder="············"
             />
           </VCol>
           <VCol
             cols="12"
             sm="6"
           >
-            <VSelect
+            <AppTextField
               v-model="age"
-              :items="['0-17', '18-29', '30-54', '54+']"
               label="Age"
+              type="number"
+              placeholder="18"
             />
           </VCol>
           <VCol
             cols="12"
             sm="6"
           >
-            <VAutocomplete
+            <AppTextField
               v-model="interest"
-              multiple
-              :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
               label="Interests"
+              placeholder="Sports, Music, Movies"
             />
           </VCol>
         </VRow>
@@ -219,9 +225,10 @@ const interest = ref([])
             sm="6"
             md="4"
           >
-            <VTextField
+            <AppTextField
               v-model="firstName"
               label="First Name"
+              placeholder="John"
             />
           </VCol>
           <VCol
@@ -229,9 +236,10 @@ const interest = ref([])
             sm="6"
             md="4"
           >
-            <VTextField
+            <AppTextField
               v-model="middleName"
               label="Middle Name"
+              placeholder="peter"
             />
           </VCol>
           <VCol
@@ -239,44 +247,48 @@ const interest = ref([])
             sm="6"
             md="4"
           >
-            <VTextField
+            <AppTextField
               v-model="lastName"
               label="Last Name"
               persistent-hint
+              placeholder="Doe"
             />
           </VCol>
           <VCol cols="12">
-            <VTextField
+            <AppTextField
               v-model="email"
               label="Email"
+              placeholder="johndoe@email.com"
             />
           </VCol>
           <VCol cols="12">
-            <VTextField
+            <AppTextField
               v-model="password"
               label="Password"
+              autocomplete="on"
               type="password"
+              placeholder="············"
             />
           </VCol>
           <VCol
             cols="12"
             sm="6"
           >
-            <VSelect
+            <AppTextField
               v-model="age"
-              :items="['0-17', '18-29', '30-54', '54+']"
               label="Age"
+              type="number"
+              placeholder="18"
             />
           </VCol>
           <VCol
             cols="12"
             sm="6"
           >
-            <VAutocomplete
+            <AppTextField
               v-model="interest"
-              multiple
-              :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
               label="Interests"
+              placeholder="Sports, Music, Movies"
             />
           </VCol>
         </VRow>
@@ -369,6 +381,7 @@ const isDialogVisible = ref(false)
       <VList
         lines="two"
         select-strategy="classic"
+        class="full-screen-dialog-list"
       >
         <VListSubheader>General</VListSubheader>
 
@@ -496,6 +509,7 @@ const isDialogVisible = ref(false)
       <VList
         lines="two"
         select-strategy="classic"
+        class="full-screen-dialog-list"
       >
         <VListSubheader>General</VListSubheader>
 
@@ -593,8 +607,9 @@ watch(isDialogVisible, value => {
         Please stand by
         <VProgressLinear
           indeterminate
-          color="white"
-          class="mb-0"
+          bg-color="rgba(var(--v-theme-surface), 0.1)"
+          :height="8"
+          class="mb-0 mt-4"
         />
       </VCardText>
     </VCard>
@@ -635,8 +650,9 @@ watch(isDialogVisible, value => {
         Please stand by
         <VProgressLinear
           indeterminate
-          color="white"
-          class="mb-0"
+          bg-color="rgba(var(--v-theme-surface), 0.1)"
+          :height="8"
+          class="mb-0 mt-4"
         />
       </VCardText>
     </VCard>
@@ -662,13 +678,7 @@ const isDialogTwoShow = ref(false)
     class="v-dialog-sm"
   >
     <!-- Dialog close btn -->
-    <VBtn
-      icon
-      class="v-dialog-close-btn"
-      @click="isDialogVisible = !isDialogVisible"
-    >
-      <VIcon icon="tabler-x" />
-    </VBtn>
+    <DialogCloseBtn @click="isDialogVisible = false" />
 
     <VCard title="Dialog">
       <VCardText>
@@ -696,7 +706,7 @@ const isDialogTwoShow = ref(false)
     class="v-dialog-sm"
   >
     <!-- Dialog close btn -->
-    <DialogCloseBtn @click="isDialogVisible = !isDialogVisible" />
+    <DialogCloseBtn @click="isDialogTwoShow = false" />
 
     <VCard title="Dialog 2">
       <VCardText>I'm a nested dialog.</VCardText>
@@ -726,13 +736,7 @@ const isDialogTwoShow = ref(false)
     class="v-dialog-sm"
   >
     <!-- Dialog close btn -->
-    <VBtn
-      icon
-      class="v-dialog-close-btn"
-      @click="isDialogVisible = !isDialogVisible"
-    >
-      <VIcon icon="tabler-x" />
-    </VBtn>
+    <DialogCloseBtn @click="isDialogVisible = false" />
 
     <VCard title="Dialog">
       <VCardText>
@@ -760,7 +764,7 @@ const isDialogTwoShow = ref(false)
     class="v-dialog-sm"
   >
     <!-- Dialog close btn -->
-    <DialogCloseBtn @click="isDialogVisible = !isDialogVisible" />
+    <DialogCloseBtn @click="isDialogTwoShow = false" />
 
     <VCard title="Dialog 2">
       <VCardText>I'm a nested dialog.</VCardText>
@@ -976,7 +980,6 @@ const countryList = [
   { label: 'Bahamas, The', value: 'bahamas' },
   { label: 'Bahrain', value: 'bahrain' },
   { label: 'Bangladesh', value: 'bangladesh' },
-
   { label: 'Barbados', value: 'barbados' },
   { label: 'Belarus', value: 'belarus' },
   { label: 'Belgium', value: 'belgium' },
@@ -985,7 +988,6 @@ const countryList = [
   { label: 'Bhutan', value: 'bhutan' },
   { label: 'Bolivia', value: 'bolivia' },
   { label: 'Bosnia and Herzegovina', value: 'bosnia' },
-
   { label: 'Botswana', value: 'botswana' },
   { label: 'Brazil', value: 'brazil' },
   { label: 'Brunei', value: 'brunei' },
@@ -1002,6 +1004,7 @@ const isDialogVisible = ref(false)
     v-model="isDialogVisible"
     scrollable
     max-width="350"
+    content-class="scrollable-dialog"
   >
     <!-- Dialog Activator -->
     <template #activator="{ props }">
@@ -1020,7 +1023,7 @@ const isDialogVisible = ref(false)
       </VCardItem>
 
       <VDivider />
-      <VCardText style="height: 300px;">
+      <VCardText style="block-size: 300px;">
         <VRadioGroup
           v-model="selectedCountry"
           :inline="false"
@@ -1037,7 +1040,7 @@ const isDialogVisible = ref(false)
 
       <VDivider />
 
-      <VCardText class="d-flex justify-end flex-wrap gap-3 pt-5">
+      <VCardText class="d-flex justify-end flex-wrap gap-3 pt-5 overflow-visible">
         <VBtn
           color="secondary"
           variant="tonal"
@@ -1052,6 +1055,12 @@ const isDialogVisible = ref(false)
     </VCard>
   </VDialog>
 </template>
+
+<style lang="scss">
+.scrollable-dialog {
+  overflow: visible !important;
+}
+</style>
 `,
   js: `<script setup>
 const countryList = [
@@ -1130,6 +1139,7 @@ const isDialogVisible = ref(false)
     v-model="isDialogVisible"
     scrollable
     max-width="350"
+    content-class="scrollable-dialog"
   >
     <!-- Dialog Activator -->
     <template #activator="{ props }">
@@ -1148,7 +1158,7 @@ const isDialogVisible = ref(false)
       </VCardItem>
 
       <VDivider />
-      <VCardText style="height: 300px;">
+      <VCardText style="block-size: 300px;">
         <VRadioGroup
           v-model="selectedCountry"
           :inline="false"
@@ -1165,7 +1175,7 @@ const isDialogVisible = ref(false)
 
       <VDivider />
 
-      <VCardText class="d-flex justify-end flex-wrap gap-3 pt-5">
+      <VCardText class="d-flex justify-end flex-wrap gap-3 pt-5 overflow-visible">
         <VBtn
           color="secondary"
           variant="tonal"
@@ -1180,6 +1190,11 @@ const isDialogVisible = ref(false)
     </VCard>
   </VDialog>
 </template>
+
+<style lang="scss">
+.scrollable-dialog {
+  overflow: visible !important;
+}
+</style>
 `,
 }
-

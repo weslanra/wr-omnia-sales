@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-import type { VForm } from 'vuetify/components'
+import type { VForm } from 'vuetify/components/VForm'
 
-import type { UserProperties } from '@/@fake-db/types'
-import { emailValidator, requiredValidator } from '@validators'
+import type { UserProperties } from '@db/apps/users/types'
 
 interface Emit {
   (e: 'update:isDrawerOpen', value: boolean): void
@@ -21,9 +20,10 @@ const emit = defineEmits<Emit>()
 const isFormValid = ref(false)
 const refForm = ref<VForm>()
 const fullName = ref('')
+const userName = ref('')
 const email = ref('')
 const company = ref('')
-const country = ref('')
+const country = ref()
 const contact = ref('')
 const role = ref()
 const plan = ref()
@@ -79,28 +79,12 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
     @update:model-value="handleDrawerModelValueUpdate"
   >
     <!-- 👉 Title -->
-    <div class="d-flex align-center pa-6 pb-1">
-      <h6 class="text-h6">
-        Add User
-      </h6>
+    <AppDrawerHeaderSection
+      title="Add New User"
+      @cancel="closeNavigationDrawer"
+    />
 
-      <VSpacer />
-
-      <!-- 👉 Close btn -->
-      <VBtn
-        variant="tonal"
-        color="default"
-        icon
-        size="32"
-        class="rounded"
-        @click="closeNavigationDrawer"
-      >
-        <VIcon
-          size="18"
-          icon="tabler-x"
-        />
-      </VBTn>
-    </div>
+    <VDivider />
 
     <PerfectScrollbar :options="{ wheelPropagation: false }">
       <VCard flat>
@@ -114,55 +98,72 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
             <VRow>
               <!-- 👉 Full name -->
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="fullName"
                   :rules="[requiredValidator]"
                   label="Full Name"
+                  placeholder="John Doe"
+                />
+              </VCol>
+
+              <!-- 👉 Username -->
+              <VCol cols="12">
+                <AppTextField
+                  v-model="userName"
+                  :rules="[requiredValidator]"
+                  label="Username"
+                  placeholder="Johndoe"
                 />
               </VCol>
 
               <!-- 👉 Email -->
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="email"
                   :rules="[requiredValidator, emailValidator]"
                   label="Email"
+                  placeholder="johndoe@email.com"
                 />
               </VCol>
 
               <!-- 👉 company -->
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="company"
                   :rules="[requiredValidator]"
                   label="Company"
+                  placeholder="PixInvent"
                 />
               </VCol>
 
               <!-- 👉 Country -->
               <VCol cols="12">
-                <VTextField
+                <AppSelect
                   v-model="country"
+                  label="Select Country"
+                  placeholder="Select Country"
                   :rules="[requiredValidator]"
-                  label="Country"
+                  :items="['USA', 'UK', 'India', 'Australia']"
                 />
               </VCol>
 
               <!-- 👉 Contact -->
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="contact"
                   type="number"
                   :rules="[requiredValidator]"
                   label="Contact"
+                  placeholder="+1-541-754-3010"
                 />
               </VCol>
 
               <!-- 👉 Role -->
               <VCol cols="12">
-                <VSelect
+                <AppSelect
                   v-model="role"
                   label="Select Role"
+                  placeholder="Select Role"
                   :rules="[requiredValidator]"
                   :items="['Admin', 'Author', 'Editor', 'Maintainer', 'Subscriber']"
                 />
@@ -170,9 +171,10 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
 
               <!-- 👉 Plan -->
               <VCol cols="12">
-                <VSelect
+                <AppSelect
                   v-model="plan"
                   label="Select Plan"
+                  placeholder="Select Plan"
                   :rules="[requiredValidator]"
                   :items="['Basic', 'Company', 'Enterprise', 'Team']"
                 />
@@ -180,9 +182,10 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
 
               <!-- 👉 Status -->
               <VCol cols="12">
-                <VSelect
+                <AppSelect
                   v-model="status"
                   label="Select Status"
+                  placeholder="Select Status"
                   :rules="[requiredValidator]"
                   :items="[{ title: 'Active', value: 'active' }, { title: 'Inactive', value: 'inactive' }, { title: 'Pending', value: 'pending' }]"
                 />
@@ -199,7 +202,7 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                 <VBtn
                   type="reset"
                   variant="tonal"
-                  color="secondary"
+                  color="error"
                   @click="closeNavigationDrawer"
                 >
                   Cancel

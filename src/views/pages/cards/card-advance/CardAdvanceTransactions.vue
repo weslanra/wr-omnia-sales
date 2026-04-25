@@ -9,7 +9,7 @@ const transitions = [
     profit: false,
   },
   {
-    avatarIcon: 'tabler-browser-check',
+    avatarIcon: 'tabler-building-bank',
     avatarColor: 'success',
     title: 'Bank Transfer',
     subtitle: 'Add Money',
@@ -19,7 +19,7 @@ const transitions = [
   {
     avatarIcon: 'tabler-brand-paypal',
     avatarColor: 'error',
-    title: 'Paypal',
+    title: 'PayPal',
     subtitle: 'Client Payment',
     stats: '+$268',
     profit: true,
@@ -43,19 +43,25 @@ const transitions = [
   {
     avatarIcon: 'tabler-brand-paypal',
     avatarColor: 'error',
-    title: 'Paypal',
+    title: 'PayPal',
     subtitle: 'Client Payment',
     stats: '+$126',
     profit: true,
   },
   {
-    avatarIcon: 'tabler-browser-check',
+    avatarIcon: 'tabler-building-bank',
     avatarColor: 'success',
     title: 'Bank Transfer',
     subtitle: 'Pay Office Rent',
     stats: '-$1290',
     profit: false,
   },
+]
+
+const moreList = [
+  { title: 'Refresh', value: 'refresh' },
+  { title: 'Download', value: 'Download' },
+  { title: 'View All', value: 'View All' },
 ]
 </script>
 
@@ -66,29 +72,7 @@ const transitions = [
   >
     <template #append>
       <div class="mt-n4 me-n2">
-        <VBtn
-          icon
-          color="default"
-          size="x-small"
-          variant="plain"
-        >
-          <VIcon
-            size="22"
-            icon="tabler-dots-vertical"
-          />
-
-          <VMenu activator="parent">
-            <VList>
-              <VListItem
-                v-for="(item, index) in ['Refresh', 'Download', 'View All']"
-                :key="index"
-                :value="index"
-              >
-                <VListItemTitle>{{ item }}</VListItemTitle>
-              </VListItem>
-            </VList>
-          </VMenu>
-        </VBtn>
+        <MoreBtn :menu-list="moreList" />
       </div>
     </template>
 
@@ -103,13 +87,17 @@ const transitions = [
               size="34"
               :color="transition.avatarColor"
               variant="tonal"
+              class="me-1"
               rounded
             >
-              <VIcon :icon="transition.avatarIcon" />
+              <VIcon
+                :icon="transition.avatarIcon"
+                size="22"
+              />
             </VAvatar>
           </template>
 
-          <VListItemTitle class="font-weight-semibold">
+          <VListItemTitle class="font-weight-medium">
             {{ transition.title }}
           </VListItemTitle>
           <VListItemSubtitle>
@@ -118,7 +106,7 @@ const transitions = [
 
           <template #append>
             <div class="d-flex align-center">
-              <span :class="`${transition.profit ? 'text-success' : 'text-error'} me-2`">{{ transition.stats }}</span>
+              <span :class="`${transition.profit ? 'text-success' : 'text-error'} font-weight-medium me-2`">{{ transition.stats }}</span>
             </div>
           </template>
         </VListItem>
@@ -126,3 +114,9 @@ const transitions = [
     </VCardText>
   </VCard>
 </template>
+
+<style lang="scss" scoped>
+.card-list {
+  --v-card-list-gap: 16px;
+}
+</style>

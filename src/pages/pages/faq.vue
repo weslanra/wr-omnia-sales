@@ -1,23 +1,20 @@
 <script setup lang="ts">
-import type { FaqCategory } from '@/@fake-db/types'
+import type { FaqCategory } from '@db/pages/faq/types'
+
 import sittingGirlWithLaptop from '@images/illustrations/sitting-girl-with-laptop.png'
-import axios from '@axios'
-import AppSearchHeader from '@core/components/AppSearchHeader.vue'
 
 const faqSearchQuery = ref('')
 
 const faqs = ref<FaqCategory[]>([])
 
-const fetchFaqs = () => {
-  return axios.get('/pages/faqs', {
-    params: {
+const fetchFaqs = async () => {
+  const data = await $api('/pages/faq', {
+    query: {
       q: faqSearchQuery.value,
     },
-  }).then(response => {
-    faqs.value = response.data
-  }).catch(error => {
-    console.error(error)
-  })
+  }).catch(err => console.log(err))
+
+  faqs.value = data
 }
 
 const activeTab = ref('Payment')
@@ -44,10 +41,12 @@ const contactUs = [
   <section>
     <!-- 👉 Search -->
     <AppSearchHeader
-      v-model="faqSearchQuery"
       title="Hello, how can we help?"
-      subtitle="or select a category to quickly find the help you require"
-      custom-class="mb-7"
+      subtitle="or choose a category to quickly find the help you need"
+      custom-class="mb-6"
+      placeholder="Search Articles..."
+      density="comfortable"
+      is-reverse
     />
 
     <!-- 👉 Faq sections and questions -->
@@ -70,7 +69,6 @@ const contactUs = [
             v-for="faq in faqs"
             :key="faq.faqTitle"
             :value="faq.faqTitle"
-            class="text-high-emphasis"
           >
             <VIcon
               :icon="faq.faqIcon"
@@ -83,7 +81,7 @@ const contactUs = [
         <VImg
           :width="245"
           :src="sittingGirlWithLaptop"
-          class="d-none d-sm-block mt-10 mx-auto"
+          class="d-none d-sm-block mt-4 mx-auto"
         />
       </VCol>
 
@@ -102,25 +100,27 @@ const contactUs = [
             :key="faq.faqTitle"
             :value="faq.faqTitle"
           >
-            <div class="d-flex align-center mb-6">
+            <div class="d-flex align-center mb-4">
               <VAvatar
                 rounded
                 color="primary"
                 variant="tonal"
-                class="me-3"
-                size="large"
+                class="me-4"
+                size="50"
               >
                 <VIcon
-                  :size="32"
+                  :size="30"
                   :icon="faq.faqIcon"
                 />
               </VAvatar>
 
               <div>
-                <h6 class="text-h6">
+                <h5 class="text-h5">
                   {{ faq.faqTitle }}
-                </h6>
-                <span class="text-sm">{{ faq.faqSubtitle }}</span>
+                </h5>
+                <div class="text-body-1">
+                  {{ faq.faqSubtitle }}
+                </div>
               </div>
             </div>
 
@@ -156,25 +156,25 @@ const contactUs = [
     </VRow>
 
     <!-- 👉 You still have a question? -->
-    <div class="text-center pt-15">
+    <div class="text-center pt-16">
       <VChip
         label
         color="primary"
         size="small"
         class="mb-2"
       >
-        QUESTION?
+        Question
       </VChip>
 
-      <h5 class="text-h5 mb-2">
+      <h4 class="text-h4 mb-2">
         You still have a question?
-      </h5>
-      <p>
+      </h4>
+      <p class="text-body-1 mb-6">
         If you can't find question in our FAQ, you can contact us. We'll answer you shortly!
       </p>
 
       <!-- contacts -->
-      <VRow class="mt-4">
+      <VRow class="mt-9">
         <VCol
           v-for="contact in contactUs"
           :key="contact.icon"
@@ -183,23 +183,26 @@ const contactUs = [
         >
           <VCard
             flat
-            variant="tonal"
+            style="background-color: rgba(var(--v-theme-on-surface), var(--v-hover-opacity));"
           >
-            <VCardText>
+            <VCardText class="pb-4">
               <VAvatar
                 rounded
                 color="primary"
                 variant="tonal"
-                class="me-3"
+                size="46"
               >
-                <VIcon :icon="contact.icon" />
+                <VIcon
+                  :icon="contact.icon"
+                  size="26"
+                />
               </VAvatar>
             </VCardText>
             <VCardText>
-              <h6 class="text-h6 mb-2">
+              <h5 class="text-h5 mb-1">
                 {{ contact.via }}
-              </h6>
-              <span>{{ contact.tagLine }}</span>
+              </h5>
+              <div>{{ contact.tagLine }}</div>
             </VCardText>
           </VCard>
         </VCol>

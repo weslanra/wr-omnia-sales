@@ -35,13 +35,14 @@ const selectedNotification = ref('Only when I\'m online')
   <VCard>
     <VCardItem>
       <VCardTitle>Recent Devices</VCardTitle>
-      <p class="text-sm mt-2 mb-0">
-        We need permission from your browser to show notifications. <span class="font-weight-bold">Request Permission</span>
+      <p class="text-body-1 mb-0">
+        We need permission from your browser to show notifications. <span class="text-primary cursor-pointer">Request Permission</span>
       </p>
     </VCardItem>
 
-    <VCardText>
-      <VTable class="text-no-wrap rounded border">
+    <VCardText class="px-0">
+      <VDivider />
+      <VTable class="text-no-wrap rounded">
         <thead>
           <tr>
             <th scope="col">
@@ -63,7 +64,7 @@ const selectedNotification = ref('Only when I\'m online')
             v-for="device in recentDevices"
             :key="device.type"
           >
-            <td>
+            <td class="text-body-1 text-high-emphasis">
               {{ device.type }}
             </td>
             <td>
@@ -78,12 +79,12 @@ const selectedNotification = ref('Only when I\'m online')
           </tr>
         </tbody>
       </VTable>
+      <VDivider />
     </VCardText>
-    <VDivider />
 
     <VCardText>
       <VForm @submit.prevent="() => {}">
-        <h6 class="text-base font-weight-medium mb-3">
+        <h6 class="text-body-1 font-weight-medium mb-6">
           When should we send you notifications?
         </h6>
 
@@ -92,15 +93,16 @@ const selectedNotification = ref('Only when I\'m online')
             cols="12"
             sm="6"
           >
-            <VSelect
+            <AppSelect
               v-model="selectedNotification"
               mandatory
+              placeholder="Select an option"
               :items="['Only when I\'m online', 'Anytime']"
             />
           </VCol>
         </VRow>
 
-        <div class="d-flex flex-wrap gap-4 mt-4">
+        <div class="d-flex flex-wrap gap-4 mt-6">
           <VBtn type="submit">
             Save Changes
           </VBtn>
@@ -109,7 +111,7 @@ const selectedNotification = ref('Only when I\'m online')
             variant="tonal"
             type="reset"
           >
-            Reset
+            Discard
           </VBtn>
         </div>
       </VForm>

@@ -3,8 +3,9 @@ const items = ['Foo', 'Bar', 'Fizz', 'Buzz']
 </script>
 
 <template>
-  <VSelect
+  <AppSelect
     :items="items"
     label="Standard"
+    placeholder="Select Item"
   />
 </template>

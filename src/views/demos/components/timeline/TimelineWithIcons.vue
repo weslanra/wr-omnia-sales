@@ -1,485 +1,395 @@
 <script setup lang="ts">
-import avatar1 from '@images/avatars/avatar-1.png'
-import avatar2 from '@images/avatars/avatar-2.png'
-import pumaShoes from '@images/pages/puma-shoes.jpeg'
+import avatar8 from '@images/avatars/avatar-8.png'
+import xls from '@images/icons/file/xls.png'
+import pdf from '@images/icons/project-icons/pdf.png'
+import aviato from '@images/logos/aviato.png'
+import bitbank from '@images/logos/bitbank.png'
+import zipcar from '@images/logos/zipcar.png'
+import TimelineRectangle1 from '@images/pages/TimelineRectangle1.png'
+import TimelineRectangle2 from '@images/pages/TimelineRectangle2.png'
+import TimelineRectangle3 from '@images/pages/TimelineRectangle3.png'
+import TimelineRectangle4 from '@images/pages/TimelineRectangle4.png'
 
-const serverSwitch = ref(false)
+const albumImages = [
+  TimelineRectangle1,
+  TimelineRectangle2,
+  TimelineRectangle3,
+  TimelineRectangle4,
+]
+
+const earnings = [
+  {
+    avatar: zipcar,
+    title: 'Zipcar',
+    subtitle: 'Vuejs, React & HTML',
+    amount: '$24,895.65',
+    progress: 'primary',
+  },
+  {
+    avatar: bitbank,
+    title: 'Bitbank',
+    subtitle: 'Sketch, Figma & XD',
+    amount: '$8,6500.20',
+    progress: 'info',
+  },
+  {
+    avatar: aviato,
+    title: 'Aviato',
+    subtitle: 'HTML & Anguler',
+    amount: '$1,2450.80',
+    progress: 'secondary',
+  },
+]
 </script>
 
 <template>
-  <VCard
-    variant="text"
-    title="Timeline With Icons"
-  >
-    <VCardText>
-      <VTimeline
-        align="start"
-        justify="center"
-        truncate-line="both"
-        :density="$vuetify.display.smAndDown ? 'compact' : 'default'"
+  <div class="my-6">
+    <div>
+      <h5 class="text-h5">
+        Timeline with icons
+      </h5>
+    </div>
+    <VTimeline
+      align="start"
+      line-inset="19"
+      truncate-line="start"
+      justify="center"
+      :density="$vuetify.display.smAndDown ? 'compact' : 'default'"
+      class="mt-4"
+    >
+      <!-- SECTION Timeline Item: Document -->
+      <VTimelineItem
+        fill-dot
+        size="small"
       >
-        <!-- SECTION Timeline Item: Flight -->
-        <VTimelineItem
-          size="x-small"
-          fill-dot
-        >
-          <template #icon>
-            <div class="v-timeline-avatar-wrapper rounded-circle">
-              <VAvatar size="x-small">
-                <VIcon
-                  size="20"
-                  icon="tabler-plane-tilt"
-                  color="primary"
-                />
-              </VAvatar>
+        <template #opposite>
+          <span class="app-timeline-meta">
+            2 month's ago
+          </span>
+        </template>
+        <template #icon>
+          <div class="v-timeline-avatar-wrapper rounded-circle">
+            <VAvatar
+              size="32"
+              color="error"
+              variant="tonal"
+            >
+              <VIcon
+                icon="tabler-file"
+                size="20"
+              />
+            </VAvatar>
+          </div>
+        </template>
+        <!-- 👉 Header -->
+        <VCard class="mb-10 mt-n4">
+          <VCardItem class="pb-4">
+            <VCardTitle>You've uploaded doc pdf to the Themeselection project</VCardTitle>
+          </VCardItem>
+          <VCardText>
+            <!-- 👉 Content -->
+            <p class="app-timeline-text mb-3">
+              he process of recording the key project details and producing the documents that are required to implement it successfully. Simply put, it's an umbrella term which includes all the documents created over the course of the project.
+            </p>
+            <div class="d-inline-flex align-items-center timeline-chip">
+              <img
+                :src="pdf"
+                height="20"
+                class="me-2"
+                alt="img"
+              >
+              <span class="app-timeline-text font-weight-medium">
+                documentation.pdf
+              </span>
             </div>
-          </template>
-
-          <VCard>
-            <VCardText>
-              <!-- 👉 Header -->
-              <div class="d-flex justify-space-between">
-                <h6 class="text-base font-weight-semibold mb-1 me-3">
-                  Get on the flight
-                </h6>
-                <small class="text-sm">Wednesday</small>
-              </div>
-
-              <!-- 👉 Content -->
-              <p class="mb-1">
-                <span>Charles de Gaulle Airport, Paris</span>
-                <VIcon
-                  size="20"
-                  icon="tabler-arrow-right"
-                  class="mx-2"
-                />
-                <span>Heathrow Airport, London</span>
-              </p>
-
-              <p class="mb-2">
-                6:30 AM
-              </p>
-
-              <div class="d-flex align-center">
-                <VIcon
-                  color="primary"
-                  icon="tabler-link"
-                  size="20"
-                  class="me-1"
-                />
-                <h6 class="text-primary font-weight-semibold text-sm">
-                  booking-card.pdf
-                </h6>
-              </div>
-            </VCardText>
-          </VCard>
-        </VTimelineItem>
-        <!-- !SECTION -->
-
-        <!-- SECTION Timeline Item: Interview -->
-        <VTimelineItem
-          size="x-small"
-          fill-dot
-        >
-          <template #icon>
-            <div class="v-timeline-avatar-wrapper rounded-circle">
-              <VAvatar size="x-small">
-                <VIcon
-                  size="20"
-                  icon="tabler-clock"
-                  color="success"
-                />
-              </VAvatar>
+          </VCardText>
+        </VCard>
+      </VTimelineItem>
+      <!-- !SECTION -->
+      <!-- SECTION Timeline Item: Image Album -->
+      <VTimelineItem
+        fill-dot
+        size="small"
+      >
+        <template #opposite>
+          <span class="app-timeline-meta">
+            24 day's ago
+          </span>
+        </template>
+        <template #icon>
+          <div class="v-timeline-avatar-wrapper rounded-circle">
+            <VAvatar
+              size="32"
+              color="success"
+              variant="tonal"
+            >
+              <VIcon
+                size="20"
+                icon="tabler-photo"
+              />
+            </VAvatar>
+          </div>
+        </template>
+        <VCard class="mb-10 mt-n4">
+          <VCardItem class="pb-4">
+            <VCardTitle>Heather added 4 images to the Team album</VCardTitle>
+          </VCardItem>
+          <VCardText>
+            <p class="mb-3">
+              In the Select Image for Project dialog box, choose one of the following: Under the Upload New Image section
+            </p>
+            <div class="d-flex gap-4 flex-wrap">
+              <template
+                v-for="(img, i) in albumImages"
+                :key="i"
+              >
+                <VImg :src="img" />
+              </template>
             </div>
-          </template>
-
-          <VCard>
-            <VCardText>
-              <!-- 👉 Header -->
-              <div class="d-flex justify-space-between">
-                <h6 class="text-base font-weight-semibold mb-1">
-                  Interview Schedule
-                </h6>
-                <small class="text-sm text-no-wrap">April, 18</small>
-              </div>
-
-              <p class="mb-0">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus quos, voluptates voluptas rem veniam expedita.
-              </p>
-
-              <!-- 👉 Divider -->
-              <VDivider class="my-4" />
-
-              <!-- 👉 Person -->
-              <div class="d-flex justify-space-between align-center flex-wrap gap-4">
-                <!-- 👉 Avatar & Personal Info -->
-                <span class="d-flex align-bottom">
-                  <VAvatar
-                    size="40"
-                    :image="avatar2"
-                    class="me-3"
-                  />
-                  <div class="d-flex flex-column">
-                    <h6 class="text-sm font-weight-semibold">Rebecca Godman</h6>
-                    <span>Javascript Developer</span>
-                  </div>
-                </span>
-
-                <!-- 👉 Person Actions -->
-                <div>
-                  <VBtn
-                    icon
-                    size="x-small"
-                    variant="text"
-                    color="default"
-                  >
-                    <VIcon
-                      icon="tabler-message"
-                      size="20"
-                    />
-                  </VBtn>
-                  <VBtn
-                    icon
-                    size="x-small"
-                    variant="text"
-                    color="default"
-                  >
-                    <VIcon
-                      icon="tabler-phone"
-                      size="20"
-                    />
-                  </VBtn>
-                </div>
-              </div>
-            </VCardText>
-          </VCard>
-        </VTimelineItem>
-        <!-- !SECTION -->
-
-        <!-- SECTION Timeline Item: Puma Shoes -->
-        <VTimelineItem
-          fill-dot
-          size="x-small"
-        >
-          <template #icon>
-            <div class="v-timeline-avatar-wrapper rounded-circle">
-              <VAvatar size="x-small">
-                <VIcon
-                  size="20"
-                  icon="tabler-shopping-cart"
-                  color="warning"
-                />
-              </VAvatar>
-            </div>
-          </template>
-
-          <VCard>
-            <VCardText>
-              <div class="d-flex align-start flex-sm-row flex-column mb-3">
-                <VImg
-                  height="62"
-                  width="62"
-                  :src="pumaShoes"
-                  class="rounded me-4"
-                />
-
-                <div>
-                  <!-- 👉 Header -->
-                  <div class="d-flex justify-space-between">
-                    <h6 class="mb-1 font-weight-semibold text-base me-3">
-                      Sold Puma POPX Blue Color
-                    </h6>
-                    <small class="text-sm text-no-wrap">January, 10</small>
-                  </div>
-                  <span>PUMA presents the latest shoes from its collection. Light &amp; comfortable made with highly durable material.</span>
-                </div>
-              </div>
-
-              <!-- 👉 Timeline Item: Meta Content -->
-              <div class="d-flex justify-space-between flex-sm-row flex-column gap-3">
-                <div class="text-sm-center">
-                  <h6 class="text-base font-weight-semibold">
-                    Customer
-                  </h6>
-                  <span>Micheal Scott</span>
-                </div>
-
-                <div class="text-sm-center">
-                  <h6 class="text-base font-weight-semibold">
-                    Price
-                  </h6>
-                  <span>$375.00</span>
-                </div>
-
-                <div class="text-sm-center">
-                  <h6 class="text-base font-weight-semibold">
-                    Quantity
-                  </h6>
-                  <span>1</span>
-                </div>
-              </div>
-            </VCardText>
-          </VCard>
-        </VTimelineItem>
-        <!-- !SECTION -->
-
-        <!-- SECTION Timeline Item: Design Review -->
-        <VTimelineItem
-          size="x-small"
-          fill-dot
-        >
-          <template #icon>
-            <div class="v-timeline-avatar-wrapper rounded-circle">
-              <VAvatar size="x-small">
-                <VIcon
-                  size="20"
-                  icon="tabler-edit"
-                  color="info"
-                />
-              </VAvatar>
-            </div>
-          </template>
-
-          <VCard>
-            <VCardText>
-              <!-- 👉 Header -->
-              <div class="d-flex justify-space-between">
-                <h6 class="mb-1 text-base font-weight-semibold">
-                  Design Review
-                </h6>
-                <small class="text-sm text-no-wrap">September, 20</small>
-              </div>
-
-              <!-- 👉 Content -->
-              <p>
-                Weekly review of freshly prepared design for our new application.
-              </p>
-              <div class="d-flex align-center">
+          </VCardText>
+        </VCard>
+      </VTimelineItem>
+      <!-- !SECTION -->
+      <!-- SECTION Timeline Item: Review -->
+      <VTimelineItem
+        fill-dot
+        size="small"
+      >
+        <template #opposite>
+          <span class="app-timeline-meta">
+            6 day's ago
+          </span>
+        </template>
+        <template #icon>
+          <div class="v-timeline-avatar-wrapper rounded-circle">
+            <VAvatar
+              size="32"
+              color="warning"
+              variant="tonal"
+            >
+              <VIcon
+                size="20"
+                icon="tabler-star"
+              />
+            </VAvatar>
+          </div>
+        </template>
+        <VCard class="mb-10 mt-n4">
+          <VCardItem class="pb-4">
+            <VCardTitle>
+              Loretta write a review on Themeselection
+            </VCardTitle>
+          </VCardItem>
+          <VCardText>
+            <div>
+              <div class="d-flex align-center mb-3">
                 <VAvatar
-                  size="40"
-                  :image="avatar1"
-                  class="me-3"
+                  size="38"
+                  class="me-4"
+                  :image="avatar8"
                 />
-                <h6 class="text-sm font-weight-semibold">
-                  John Doe (Client)
-                </h6>
-              </div>
-            </VCardText>
-          </VCard>
-        </VTimelineItem>
-        <!-- !SECTION -->
-
-        <!-- SECTION Timeline Item: Ubuntu Server -->
-        <VTimelineItem
-          size="x-small"
-          fill-dot
-        >
-          <template #icon>
-            <div class="v-timeline-avatar-wrapper rounded-circle">
-              <VAvatar size="x-small">
-                <VIcon
-                  size="20"
-                  icon="tabler-server"
-                  color="error"
-                />
-              </VAvatar>
-            </div>
-          </template>
-
-          <VCard>
-            <VCardText>
-              <!-- 👉 Header -->
-              <div class="d-flex justify-space-between">
-                <h6 class="mb-1 text-base font-weight-semibold">
-                  Ubuntu Server
-                </h6>
-
-                <VChip
-                  color="error"
-                  size="small"
-                >
-                  Inactive
-                </VChip>
-              </div>
-
-              <!-- 👉 Content -->
-              <table class="w-100 mt-3">
-                <tr>
-                  <td class="d-flex align-center pb-2">
-                    <VIcon
-                      icon="tabler-world"
-                      class="me-1"
-                    />
-                    <span>IP Address</span>
-                  </td>
-
-                  <td class="text-right">
-                    192.654.8.566
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="d-flex align-center pb-2">
-                    <VIcon
-                      icon="tabler-cpu"
-                      class="me-1"
-                    />
-                    <span>CPU</span>
-                  </td>
-
-                  <td class="text-right">
-                    4 Cores
-                  </td>
-                </tr>
-
-                <tr>
-                  <td class="d-flex align-center pb-2">
-                    <VIcon
-                      icon="tabler-cpu-2"
-                      class="me-1"
-                    />
-                    <span>Memory</span>
-                  </td>
-
-                  <td class="text-right">
-                    2 GB
-                  </td>
-                </tr>
-              </table>
-
-              <VDivider class="mt-3" />
-
-              <div class="d-flex justify-space-between align-end">
                 <div>
-                  <VBtn
-                    size="x-small"
-                    variant="text"
-                    color="default"
-                    icon
-                  >
-                    <VIcon
-                      icon="tabler-share"
-                      size="20"
-                    />
-                  </VBtn>
-                  <VBtn
-                    size="x-small"
-                    variant="text"
-                    color="default"
-                    icon
-                  >
-                    <VIcon
-                      icon="tabler-reload"
-                      size="20"
-                    />
-                  </VBtn>
-                </div>
-
-                <VSwitch v-model="serverSwitch" />
-              </div>
-            </VCardText>
-          </VCard>
-        </VTimelineItem>
-        <!-- !SECTION -->
-
-        <!-- SECTION Timeline Item: Location -->
-        <VTimelineItem
-          size="x-small"
-          fill-dot
-        >
-          <template #icon>
-            <div class="v-timeline-avatar-wrapper rounded-circle">
-              <VAvatar size="x-small">
-                <VIcon
-                  size="20"
-                  icon="tabler-map-pin"
-                  color="success"
-                />
-              </VAvatar>
-            </div>
-          </template>
-
-          <VCard>
-            <VCardText>
-              <!-- 👉 Header -->
-              <div class="d-flex justify-space-between">
-                <div class="d-flex align-end mb-3">
-                  <VIcon
-                    icon="tabler-map-pin"
-                    class="me-1"
-                  />
-                  <h6 class="text-base font-weight-semibold">
-                    <span>Location</span>
+                  <h6 class="text-h6">
+                    Loretta Moore
                   </h6>
+                  <div class="text-body-2">
+                    CTO of Airbnb
+                  </div>
                 </div>
-
+              </div>
+              <div class="d-flex align-center justify-space-between flex-wrap mb-3">
+                <VRating
+                  :model-value="5"
+                  class="timeline-rating"
+                />
                 <VChip
-                  color="error"
+                  color="success"
                   size="small"
+                  label
                 >
-                  High
+                  <template #prepend>
+                    <VAvatar
+                      start
+                      :image="avatar8"
+                      size="16"
+                    />
+                  </template>
+                  VERIFIED BUYER
                 </VChip>
               </div>
-
-              <!-- 👉 Content -->
-              <h6 class="mb-0 text-sm font-weight-semibold">
-                Find location for the company celebration.
-              </h6>
-              <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
-
-              <VDivider />
-
-              <div class="d-flex justify-space-between mt-4 flex-wrap">
-                <div>
-                  <VBtn
-                    size="x-small"
-                    variant="text"
-                    color="default"
-                    icon
-                  >
-                    <VIcon
-                      size="20"
-                      icon="tabler-link"
-                    />
-                  </VBtn>
-
-                  <VBtn
-                    size="x-small"
-                    variant="text"
-                    color="default"
-                    icon
-                  >
-                    <VIcon
-                      size="20"
-                      icon="tabler-message"
-                    />
-                  </VBtn>
-                  <VBtn
-                    size="x-small"
-                    variant="text"
-                    color="default"
-                    icon
-                  >
-                    <VIcon
-                      size="20"
-                      icon="tabler-user"
-                    />
-                  </VBtn>
-                </div>
-
-                <span class="text-sm">Due date: 15th Jan</span>
+              <div class="text-body-1">
+                I wish I could select more than one main reason for rating this. I love how they constantly work on to make the template better. I am so thankful for this. Also, in the past, they had responded well to my tickets. Thank you for this great theme, for such an amazing support, for the better updates. I wish I could rate this for so many times. I highly recommend this template!
               </div>
-            </VCardText>
-          </VCard>
-        </VTimelineItem>
-        <!-- !SECTION -->
-      </VTimeline>
-    </VCardText>
-  </VCard>
+            </div>
+          </VCardText>
+        </VCard>
+      </VTimelineItem>
+      <!-- !SECTION -->
+      <!-- SECTION Timeline Item: Earning Report -->
+      <VTimelineItem
+        fill-dot
+        size="small"
+      >
+        <template #opposite>
+          <span class="app-timeline-meta">
+            2 day's ago
+          </span>
+        </template>
+        <template #icon>
+          <div class="v-timeline-avatar-wrapper rounded-circle">
+            <VAvatar
+              size="32"
+              color="info"
+              variant="tonal"
+            >
+              <VIcon
+                size="20"
+                icon="tabler-chart-pie"
+              />
+            </VAvatar>
+          </div>
+        </template>
+        <VCard class="mb-10 mt-n4">
+          <VCardItem class="pb-4">
+            <VCardTitle>Julia stiles shared an earnings report</VCardTitle>
+          </VCardItem>
+          <VCardText>
+            <div class="mb-3">
+              <div class="d-flex align-center">
+                <h4 class="text-h4">
+                  $24,895
+                </h4>
+                <span class="text-success d-flex">
+                  <VIcon
+                    size="24"
+                    icon="tabler-caret-up-filled"
+                  />
+                  <div class="align-self-center text-body-2 font-weight-medium text-success">10%</div>
+                </span>
+              </div>
+              <div class="text-body-2">
+                Compared to $84,325 last year
+              </div>
+            </div>
+            <VList class="card-list">
+              <VListItem
+                v-for="earning in earnings"
+                :key="earning.title"
+              >
+                <template #prepend>
+                  <VAvatar
+                    rounded
+                    :image="earning.avatar"
+                  />
+                </template>
+                <VListItemTitle>
+                  <div class="text-body-1 font-weight-medium text-high-emphasis">
+                    {{ earning.title }}
+                  </div>
+                </VListItemTitle>
+                <VListItemSubtitle>
+                  <div class="text-body-2">
+                    {{ earning.subtitle }}
+                  </div>
+                </VListItemSubtitle>
+                <template #append>
+                  <div>
+                    <h6 class="text-h6 mb-2">
+                      {{ earning.amount }}
+                    </h6>
+                    <VProgressLinear
+                      :color="earning.progress"
+                      model-value="80"
+                      height="4"
+                    />
+                  </div>
+                </template>
+              </VListItem>
+            </VList>
+          </VCardText>
+        </VCard>
+      </VTimelineItem>
+      <!-- !SECTION -->
+      <!-- SECTION Timeline Item: Progress Report -->
+      <VTimelineItem
+        fill-dot
+        size="small"
+      >
+        <template #icon>
+          <div class="v-timeline-avatar-wrapper rounded-circle">
+            <VAvatar
+              size="32"
+              color="primary"
+              variant="tonal"
+            >
+              <VIcon
+                size="18"
+                icon="tabler-folder"
+              />
+            </VAvatar>
+          </div>
+        </template>
+        <template #opposite>
+          <span class="app-timeline-meta">
+            2 day's ago
+          </span>
+        </template>
+        <VCard class="mb-10 mt-n4">
+          <VCardItem class="pb-4">
+            <VCardTitle>josh johnson shared Nuxt js project progress report</VCardTitle>
+          </VCardItem>
+          <VCardText>
+            <p class="mb-3">
+              The structure and process are defined in the project organization considering the attainment of the corporate objectives and therefore also project objectives. The components of the project process are
+            </p>
+            <div class="d-inline-flex align-items-center timeline-chip mb-3">
+              <img
+                :src="xls"
+                height="20"
+                class="me-2"
+                alt="img"
+              >
+              <span class="app-timeline-text font-weight-medium">
+                progress-report.xls
+              </span>
+            </div>
+            <div class="d-flex gap-2 align-center">
+              <div class="flex-grow-1">
+                <VProgressLinear
+                  :model-value="34"
+                  color="primary"
+                />
+              </div>
+              <div class="text-body-2 font-weight-medium">
+                34%
+              </div>
+            </div>
+          </VCardText>
+        </VCard>
+      </VTimelineItem>
+      <!-- !SECTION -->
+    </VTimeline>
+  </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .v-timeline-avatar-wrapper {
-  background-color: rgb(var(--v-theme-background));
+  background-color: rgb(var(--v-theme-surface));
+}
+
+.timeline-rating {
+  .v-rating__item {
+    .v-btn--icon {
+      --v-btn-height: 28px;
+
+      .v-btn__content {
+        .v-icon {
+          block-size: 28px !important;
+          font-size: 28px !important;
+          inline-size: 28px !important;
+        }
+      }
+    }
+  }
 }
 </style>

@@ -8,7 +8,9 @@
       small chip
     </VChip>
 
-    <VChip>Default</VChip>
+    <VChip size="default">
+      Default
+    </VChip>
 
     <VChip size="large">
       large chip

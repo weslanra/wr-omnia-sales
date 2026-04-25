@@ -3,64 +3,36 @@
     <VAvatar
       rounded="0"
       color="primary"
-    >
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+      icon="tabler-user"
+    />
 
     <VAvatar
       rounded="sm"
       color="secondary"
-    >
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+      icon="tabler-user"
+    />
 
     <VAvatar
       rounded
       color="success"
-    >
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+      icon="tabler-user"
+    />
 
     <VAvatar
       rounded="lg"
       color="info"
-    >
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+      icon="tabler-user"
+    />
 
     <VAvatar
       rounded="xl"
       color="warning"
-    >
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+      icon="tabler-user"
+    />
 
-    <VAvatar color="error">
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+    <VAvatar
+      color="error"
+      icon="tabler-user"
+    />
   </div>
 </template>

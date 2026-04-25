@@ -48,7 +48,7 @@ const folders = [
           variant="tonal"
         >
           <VIcon
-            :size="26"
+            :size="22"
             icon="tabler-folder"
           />
         </VAvatar>
@@ -81,7 +81,7 @@ const folders = [
           variant="tonal"
         >
           <VIcon
-            :size="26"
+            :size="22"
             :icon="file.icon"
           />
         </VAvatar>

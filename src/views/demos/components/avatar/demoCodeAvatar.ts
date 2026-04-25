@@ -2,27 +2,27 @@ export const colors = {
   ts: `<template>
   <div class="demo-space-x">
     <VAvatar color="primary">
-      <span>PI</span>
+      PI
     </VAvatar>
 
     <VAvatar color="secondary">
-      <span class="text-white">SE</span>
+      SE
     </VAvatar>
 
     <VAvatar color="success">
-      <span>SU</span>
+      SU
     </VAvatar>
 
     <VAvatar color="info">
-      <span>IN</span>
+      IN
     </VAvatar>
 
     <VAvatar color="warning">
-      <span>WA</span>
+      WA
     </VAvatar>
 
     <VAvatar color="error">
-      <span>ER</span>
+      ER
     </VAvatar>
   </div>
 </template>
@@ -30,27 +30,27 @@ export const colors = {
   js: `<template>
   <div class="demo-space-x">
     <VAvatar color="primary">
-      <span>PI</span>
+      PI
     </VAvatar>
 
     <VAvatar color="secondary">
-      <span class="text-white">SE</span>
+      SE
     </VAvatar>
 
     <VAvatar color="success">
-      <span>SU</span>
+      SU
     </VAvatar>
 
     <VAvatar color="info">
-      <span>IN</span>
+      IN
     </VAvatar>
 
     <VAvatar color="warning">
-      <span>WA</span>
+      WA
     </VAvatar>
 
     <VAvatar color="error">
-      <span>ER</span>
+      ER
     </VAvatar>
   </div>
 </template>
@@ -68,68 +68,87 @@ import avatar6 from '@images/avatars/avatar-6.png'
 </script>
 
 <template>
-  <div class="v-avatar-group">
-    <VAvatar :size="45">
+  <div class="v-avatar-group demo-avatar-group">
+    <VAvatar :size="40">
       <VImg :src="avatar1" />
       <VTooltip
         activator="parent"
-        location="start"
+        location="top"
       >
         John Doe
       </VTooltip>
     </VAvatar>
 
-    <VAvatar :size="45">
+    <VAvatar :size="40">
       <VImg :src="avatar2" />
       <VTooltip
         activator="parent"
-        location="start"
+        location="top"
       >
         Jennie Obrien
       </VTooltip>
     </VAvatar>
 
-    <VAvatar :size="45">
+    <VAvatar :size="40">
       <VImg :src="avatar3" />
       <VTooltip
         activator="parent"
-        location="start"
+        location="top"
       >
         Peter Harper
       </VTooltip>
     </VAvatar>
 
-    <VAvatar :size="45">
+    <VAvatar :size="40">
       <VImg :src="avatar4" />
       <VTooltip
         activator="parent"
-        location="start"
+        location="top"
       >
         Vivian Padilla
       </VTooltip>
     </VAvatar>
 
-    <VAvatar :size="45">
+    <VAvatar :size="40">
       <VImg :src="avatar5" />
       <VTooltip
         activator="parent"
-        location="start"
+        location="top"
       >
         Scott Wells
       </VTooltip>
     </VAvatar>
 
-    <VAvatar :size="45">
+    <VAvatar :size="40">
       <VImg :src="avatar6" />
       <VTooltip
         activator="parent"
-        location="start"
+        location="top"
       >
         Angel Bishop
       </VTooltip>
     </VAvatar>
+
+    <VAvatar
+      :size="40"
+      :color="$vuetify.theme.current.dark ? '#373b50' : '#eeedf0'"
+    >
+      +3
+    </VAvatar>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.demo-avatar-group {
+  &.v-avatar-group {
+    .v-avatar {
+      &:last-child {
+        border: none;
+      }
+    }
+  }
+}
+</style>
 `,
   js: `<script setup>
 import avatar1 from '@images/avatars/avatar-1.png'
@@ -141,163 +160,156 @@ import avatar6 from '@images/avatars/avatar-6.png'
 </script>
 
 <template>
-  <div class="v-avatar-group">
-    <VAvatar :size="45">
+  <div class="v-avatar-group demo-avatar-group">
+    <VAvatar :size="40">
       <VImg :src="avatar1" />
       <VTooltip
         activator="parent"
-        location="start"
+        location="top"
       >
         John Doe
       </VTooltip>
     </VAvatar>
 
-    <VAvatar :size="45">
+    <VAvatar :size="40">
       <VImg :src="avatar2" />
       <VTooltip
         activator="parent"
-        location="start"
+        location="top"
       >
         Jennie Obrien
       </VTooltip>
     </VAvatar>
 
-    <VAvatar :size="45">
+    <VAvatar :size="40">
       <VImg :src="avatar3" />
       <VTooltip
         activator="parent"
-        location="start"
+        location="top"
       >
         Peter Harper
       </VTooltip>
     </VAvatar>
 
-    <VAvatar :size="45">
+    <VAvatar :size="40">
       <VImg :src="avatar4" />
       <VTooltip
         activator="parent"
-        location="start"
+        location="top"
       >
         Vivian Padilla
       </VTooltip>
     </VAvatar>
 
-    <VAvatar :size="45">
+    <VAvatar :size="40">
       <VImg :src="avatar5" />
       <VTooltip
         activator="parent"
-        location="start"
+        location="top"
       >
         Scott Wells
       </VTooltip>
     </VAvatar>
 
-    <VAvatar :size="45">
+    <VAvatar :size="40">
       <VImg :src="avatar6" />
       <VTooltip
         activator="parent"
-        location="start"
+        location="top"
       >
         Angel Bishop
       </VTooltip>
     </VAvatar>
+
+    <VAvatar
+      :size="40"
+      :color="$vuetify.theme.current.dark ? '#373b50' : '#eeedf0'"
+    >
+      +3
+    </VAvatar>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.demo-avatar-group {
+  &.v-avatar-group {
+    .v-avatar {
+      &:last-child {
+        border: none;
+      }
+    }
+  }
+}
+</style>
 `,
 }
 
 export const icons = {
   ts: `<template>
   <div class="demo-space-x">
-    <VAvatar color="primary">
-      <VIcon
-        size="20"
-        icon="tabler-home"
-      />
-    </VAvatar>
+    <VAvatar
+      color="primary"
+      icon="tabler-home"
+    />
 
-    <VAvatar color="secondary">
-      <VIcon
-        color="white"
-        size="20"
-        icon="tabler-cloud"
-      />
-    </VAvatar>
+    <VAvatar
+      color="secondary"
+      icon="tabler-cloud"
+    />
 
-    <VAvatar color="success">
-      <VIcon
-        size="20"
-        icon="tabler-bell"
-      />
-    </VAvatar>
+    <VAvatar
+      color="success"
+      icon="tabler-bell"
+    />
 
-    <VAvatar color="info">
-      <VIcon
-        size="20"
-        icon="tabler-user"
-      />
-    </VAvatar>
+    <VAvatar
+      color="info"
+      icon="tabler-user"
+    />
 
-    <VAvatar color="warning">
-      <VIcon
-        size="20"
-        icon="tabler-alert-circle"
-      />
-    </VAvatar>
+    <VAvatar
+      color="warning"
+      icon="tabler-alert-circle"
+    />
 
-    <VAvatar color="error">
-      <VIcon
-        size="20"
-        icon="tabler-message"
-      />
-    </VAvatar>
+    <VAvatar
+      color="error"
+      icon="tabler-message"
+    />
   </div>
 </template>
 `,
   js: `<template>
   <div class="demo-space-x">
-    <VAvatar color="primary">
-      <VIcon
-        size="20"
-        icon="tabler-home"
-      />
-    </VAvatar>
+    <VAvatar
+      color="primary"
+      icon="tabler-home"
+    />
 
-    <VAvatar color="secondary">
-      <VIcon
-        color="white"
-        size="20"
-        icon="tabler-cloud"
-      />
-    </VAvatar>
+    <VAvatar
+      color="secondary"
+      icon="tabler-cloud"
+    />
 
-    <VAvatar color="success">
-      <VIcon
-        size="20"
-        icon="tabler-bell"
-      />
-    </VAvatar>
+    <VAvatar
+      color="success"
+      icon="tabler-bell"
+    />
 
-    <VAvatar color="info">
-      <VIcon
-        size="20"
-        icon="tabler-user"
-      />
-    </VAvatar>
+    <VAvatar
+      color="info"
+      icon="tabler-user"
+    />
 
-    <VAvatar color="warning">
-      <VIcon
-        size="20"
-        icon="tabler-alert-circle"
-      />
-    </VAvatar>
+    <VAvatar
+      color="warning"
+      icon="tabler-alert-circle"
+    />
 
-    <VAvatar color="error">
-      <VIcon
-        size="20"
-        icon="tabler-message"
-      />
-    </VAvatar>
+    <VAvatar
+      color="error"
+      icon="tabler-message"
+    />
   </div>
 </template>
 `,
@@ -315,28 +327,17 @@ import avatar6 from '@images/avatars/avatar-6.png'
 
 <template>
   <div class="demo-space-x">
-    <VAvatar>
-      <VImg :src="avatar1" />
-    </VAvatar>
+    <VAvatar :image="avatar1" />
 
-    <VAvatar>
-      <VImg :src="avatar2" />
-    </VAvatar>
+    <VAvatar :image="avatar2" />
 
-    <VAvatar>
-      <VImg :src="avatar3" />
-    </VAvatar>
-    <VAvatar>
-      <VImg :src="avatar4" />
-    </VAvatar>
+    <VAvatar :image="avatar3" />
 
-    <VAvatar>
-      <VImg :src="avatar5" />
-    </VAvatar>
+    <VAvatar :image="avatar4" />
 
-    <VAvatar>
-      <VImg :src="avatar6" />
-    </VAvatar>
+    <VAvatar :image="avatar5" />
+
+    <VAvatar :image="avatar6" />
   </div>
 </template>
 `,
@@ -351,28 +352,17 @@ import avatar6 from '@images/avatars/avatar-6.png'
 
 <template>
   <div class="demo-space-x">
-    <VAvatar>
-      <VImg :src="avatar1" />
-    </VAvatar>
+    <VAvatar :image="avatar1" />
 
-    <VAvatar>
-      <VImg :src="avatar2" />
-    </VAvatar>
+    <VAvatar :image="avatar2" />
 
-    <VAvatar>
-      <VImg :src="avatar3" />
-    </VAvatar>
-    <VAvatar>
-      <VImg :src="avatar4" />
-    </VAvatar>
+    <VAvatar :image="avatar3" />
 
-    <VAvatar>
-      <VImg :src="avatar5" />
-    </VAvatar>
+    <VAvatar :image="avatar4" />
 
-    <VAvatar>
-      <VImg :src="avatar6" />
-    </VAvatar>
+    <VAvatar :image="avatar5" />
+
+    <VAvatar :image="avatar6" />
   </div>
 </template>
 `,
@@ -384,65 +374,37 @@ export const rounded = {
     <VAvatar
       rounded="0"
       color="primary"
-    >
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+      icon="tabler-user"
+    />
 
     <VAvatar
       rounded="sm"
       color="secondary"
-    >
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+      icon="tabler-user"
+    />
 
     <VAvatar
       rounded
       color="success"
-    >
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+      icon="tabler-user"
+    />
 
     <VAvatar
       rounded="lg"
       color="info"
-    >
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+      icon="tabler-user"
+    />
 
     <VAvatar
       rounded="xl"
       color="warning"
-    >
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+      icon="tabler-user"
+    />
 
-    <VAvatar color="error">
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+    <VAvatar
+      color="error"
+      icon="tabler-user"
+    />
   </div>
 </template>
 `,
@@ -451,65 +413,37 @@ export const rounded = {
     <VAvatar
       rounded="0"
       color="primary"
-    >
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+      icon="tabler-user"
+    />
 
     <VAvatar
       rounded="sm"
       color="secondary"
-    >
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+      icon="tabler-user"
+    />
 
     <VAvatar
       rounded
       color="success"
-    >
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+      icon="tabler-user"
+    />
 
     <VAvatar
       rounded="lg"
       color="info"
-    >
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+      icon="tabler-user"
+    />
 
     <VAvatar
       rounded="xl"
       color="warning"
-    >
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+      icon="tabler-user"
+    />
 
-    <VAvatar color="error">
-      <VIcon
-        color="white"
-        size="25"
-        icon="tabler-user"
-      />
-    </VAvatar>
+    <VAvatar
+      color="error"
+      icon="tabler-user"
+    />
   </div>
 </template>
 `,
@@ -529,25 +463,25 @@ export const sizes = {
       color="secondary"
       size="small"
     >
-      <span>PI</span>
+      PI
     </VAvatar>
 
     <VAvatar color="success">
-      <span>PI</span>
+      PI
     </VAvatar>
 
     <VAvatar
       color="info"
       size="large"
     >
-      <span class="text-h6 text-white">PI</span>
+      <span class="text-lg">PI</span>
     </VAvatar>
 
     <VAvatar
       color="error"
       size="x-large"
     >
-      <span class="text-h5 text-white">PI</span>
+      <span class="text-lg">PI</span>
     </VAvatar>
   </div>
 </template>
@@ -565,25 +499,25 @@ export const sizes = {
       color="secondary"
       size="small"
     >
-      <span>PI</span>
+      PI
     </VAvatar>
 
     <VAvatar color="success">
-      <span>PI</span>
+      PI
     </VAvatar>
 
     <VAvatar
       color="info"
       size="large"
     >
-      <span class="text-h6 text-white">PI</span>
+      <span class="text-lg">PI</span>
     </VAvatar>
 
     <VAvatar
       color="error"
       size="x-large"
     >
-      <span class="text-h5 text-white">PI</span>
+      <span class="text-lg">PI</span>
     </VAvatar>
   </div>
 </template>
@@ -597,37 +531,38 @@ export const tonal = {
       color="primary"
       variant="tonal"
     >
-      <span>PI</span>
+      PI
     </VAvatar>
+
     <VAvatar
       color="secondary"
       variant="tonal"
     >
-      <span>SE</span>
+      SE
     </VAvatar>
     <VAvatar
       color="success"
       variant="tonal"
     >
-      <span>SU</span>
+      SU
     </VAvatar>
     <VAvatar
       color="info"
       variant="tonal"
     >
-      <span>IN</span>
+      IN
     </VAvatar>
     <VAvatar
       color="warning"
       variant="tonal"
     >
-      <span>WA</span>
+      WA
     </VAvatar>
     <VAvatar
       color="error"
       variant="tonal"
     >
-      <span>ER</span>
+      ER
     </VAvatar>
   </div>
 </template>
@@ -638,40 +573,40 @@ export const tonal = {
       color="primary"
       variant="tonal"
     >
-      <span>PI</span>
+      PI
     </VAvatar>
+
     <VAvatar
       color="secondary"
       variant="tonal"
     >
-      <span>SE</span>
+      SE
     </VAvatar>
     <VAvatar
       color="success"
       variant="tonal"
     >
-      <span>SU</span>
+      SU
     </VAvatar>
     <VAvatar
       color="info"
       variant="tonal"
     >
-      <span>IN</span>
+      IN
     </VAvatar>
     <VAvatar
       color="warning"
       variant="tonal"
     >
-      <span>WA</span>
+      WA
     </VAvatar>
     <VAvatar
       color="error"
       variant="tonal"
     >
-      <span>ER</span>
+      ER
     </VAvatar>
   </div>
 </template>
 `,
 }
-

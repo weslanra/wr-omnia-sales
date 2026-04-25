@@ -28,15 +28,14 @@ const notifications = ref([
 </script>
 
 <template>
-  <VCard class="user-tab-notification">
-    <VCardItem>
-      <VCardTitle>Notifications</VCardTitle>
-      <p class="text-sm mt-2 mb-0">
-        You will receive notification for the below selected items.
-      </p>
-    </VCardItem>
-    <VCardText>
-      <VTable class="border rounded text-no-wrap">
+  <VCard
+    class="user-tab-notification"
+    title="Notifications"
+    subtitle="You will receive notification for the below selected items."
+  >
+    <VCardText class="px-0">
+      <VDivider />
+      <VTable class="text-no-wrap">
         <thead>
           <tr>
             <th scope="col">
@@ -59,14 +58,14 @@ const notifications = ref([
             v-for="notification in notifications"
             :key="notification.type"
           >
-            <td>{{ notification.type }}</td>
+            <td class="text-high-emphasis">
+              {{ notification.type }}
+            </td>
             <td>
               <VCheckbox v-model="notification.email" />
             </td>
             <td>
-              <VCheckbox
-                v-model="notification.browser"
-              />
+              <VCheckbox v-model="notification.browser" />
             </td>
             <td>
               <VCheckbox v-model="notification.app" />
@@ -74,6 +73,7 @@ const notifications = ref([
           </tr>
         </tbody>
       </VTable>
+      <VDivider />
     </VCardText>
 
     <VCardText class="d-flex flex-wrap gap-4">

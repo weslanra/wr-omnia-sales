@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const currentTab = ref(0)
+const currentTab = ref(1)
 const items = ['Appetizers', 'Entrees', 'Deserts', 'Cocktails']
 const tabItemText = 'Chocolate cake marshmallow toffee sweet caramels tootsie roll chocolate bar. Chocolate candy lemon drops cupcake macaroon liquorice. Icing tiramisu cake pastry jujubes lollipop gummies sugar plum pie.'
 const totalTabs = items.length
@@ -16,48 +16,46 @@ const nextTab = () => {
 </script>
 
 <template>
-  <VTabs
-    v-model="currentTab"
-    grow
-  >
-    <VTab
-      v-for="item in items.length"
-      :key="item"
-      :value="item"
+  <VCard>
+    <VTabs
+      v-model="currentTab"
+      grow
     >
-      {{ items[item - 1] }}
-    </VTab>
-  </VTabs>
-  <VDivider />
+      <VTab
+        v-for="item in items.length"
+        :key="item"
+        :value="item"
+      >
+        {{ items[item - 1] }}
+      </VTab>
+    </VTabs>
 
-  <VWindow
-    v-model="currentTab"
-    class="mt-5"
-  >
-    <VWindowItem
-      v-for="item in items.length"
-      :key="item"
-      :value="item"
-    >
-      {{ tabItemText }}
-    </VWindowItem>
-  </VWindow>
+    <VCardText>
+      <VWindow v-model="currentTab">
+        <VWindowItem
+          v-for="item in items.length"
+          :key="item"
+          :value="item"
+        >
+          {{ tabItemText }}
+        </VWindowItem>
+      </VWindow>
 
-  <div class="text-center">
-    <VBtn
-      variant="text"
-      :disabled="currentTab === 1"
-      @click="preTab"
-    >
-      Previous
-    </VBtn>
+      <div class="d-flex justify-center gap-4 mt-3">
+        <VBtn
+          :disabled="currentTab === 1"
+          @click="preTab"
+        >
+          Previous
+        </VBtn>
 
-    <VBtn
-      variant="text"
-      :disabled="currentTab === totalTabs"
-      @click="nextTab"
-    >
-      Next
-    </VBtn>
-  </div>
+        <VBtn
+          :disabled="currentTab === totalTabs"
+          @click="nextTab"
+        >
+          Next
+        </VBtn>
+      </div>
+    </VCardText>
+  </VCard>
 </template>

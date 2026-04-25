@@ -55,12 +55,12 @@ import * as demoCode from '@/views/demos/components/chip/demoCodeChip'
     >
       <!-- 👉 Label -->
       <AppCardCode
-        title="Label"
-        :code="demoCode.label"
+        title="Rounded"
+        :code="demoCode.rounded"
       >
-        <p>Label chips use the <code>v-card</code> border-radius. Use <code>label</code> prop to create label chips.</p>
+        <p>To use the rounded chip, set <code>label</code> props value to <strong>false</strong>.</p>
 
-        <DemoChipLabel />
+        <DemoChipRounded />
       </AppCardCode>
     </VCol>
 

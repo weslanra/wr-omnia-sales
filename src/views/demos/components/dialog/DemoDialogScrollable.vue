@@ -3,7 +3,6 @@ const countryList = [
   { label: 'Bahamas, The', value: 'bahamas' },
   { label: 'Bahrain', value: 'bahrain' },
   { label: 'Bangladesh', value: 'bangladesh' },
-
   { label: 'Barbados', value: 'barbados' },
   { label: 'Belarus', value: 'belarus' },
   { label: 'Belgium', value: 'belgium' },
@@ -12,7 +11,6 @@ const countryList = [
   { label: 'Bhutan', value: 'bhutan' },
   { label: 'Bolivia', value: 'bolivia' },
   { label: 'Bosnia and Herzegovina', value: 'bosnia' },
-
   { label: 'Botswana', value: 'botswana' },
   { label: 'Brazil', value: 'brazil' },
   { label: 'Brunei', value: 'brunei' },
@@ -29,6 +27,7 @@ const isDialogVisible = ref(false)
     v-model="isDialogVisible"
     scrollable
     max-width="350"
+    content-class="scrollable-dialog"
   >
     <!-- Dialog Activator -->
     <template #activator="{ props }">
@@ -47,7 +46,7 @@ const isDialogVisible = ref(false)
       </VCardItem>
 
       <VDivider />
-      <VCardText style="height: 300px;">
+      <VCardText style="block-size: 300px;">
         <VRadioGroup
           v-model="selectedCountry"
           :inline="false"
@@ -64,7 +63,7 @@ const isDialogVisible = ref(false)
 
       <VDivider />
 
-      <VCardText class="d-flex justify-end flex-wrap gap-3 pt-5">
+      <VCardText class="d-flex justify-end flex-wrap gap-3 pt-5 overflow-visible">
         <VBtn
           color="secondary"
           variant="tonal"
@@ -79,3 +78,9 @@ const isDialogVisible = ref(false)
     </VCard>
   </VDialog>
 </template>
+
+<style lang="scss">
+.scrollable-dialog {
+  overflow: visible !important;
+}
+</style>

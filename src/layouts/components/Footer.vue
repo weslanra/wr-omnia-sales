@@ -1,12 +1,12 @@
 <template>
-  <div class="h-100 d-flex align-center justify-space-between">
+  <div class="h-100 d-flex align-center justify-md-space-between justify-center">
     <!-- 👉 Footer: left content -->
-    <span class="d-flex align-center">
+    <span class="d-flex align-center text-medium-emphasis">
       &copy;
       {{ new Date().getFullYear() }}
       Made With
       <VIcon
-        icon="tabler-heart"
+        icon="tabler-heart-filled"
         color="error"
         size="1.25rem"
         class="mx-1"
@@ -25,13 +25,17 @@
         target="noopener noreferrer"
       >License</a>
       <a
-        href="https://pixinvent.com/"
+        href="https://1.envato.market/pixinvent_portfolio"
         target="noopener noreferrer"
       >More Themes</a>
       <a
-        href="https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/documentation/"
+        href="https://demos.pixinvent.com/vuexy-vuejs-admin-template/documentation/"
         target="noopener noreferrer"
       >Documentation</a>
+      <a
+        href="https://pixinvent.ticksy.com/"
+        target="noopener noreferrer"
+      >Support</a>
     </span>
   </div>
 </template>

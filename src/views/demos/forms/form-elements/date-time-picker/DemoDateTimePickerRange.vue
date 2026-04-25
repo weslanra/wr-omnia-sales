@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const dateRange = ref('')
 </script>
 
@@ -8,6 +6,7 @@ const dateRange = ref('')
   <AppDateTimePicker
     v-model="dateRange"
     label="Range"
+    placeholder="Select date"
     :config="{ mode: 'range' }"
   />
 </template>

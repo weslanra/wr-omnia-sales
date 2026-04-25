@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import VueApexCharts from 'vue3-apexcharts'
 import { useTheme } from 'vuetify'
 import { hexToRgb } from '@layouts/utils'
 
@@ -41,7 +40,7 @@ const chartOptions = computed(() => {
     dataLabels: {
       enabled: false,
       formatter(val: string) {
-        return `${parseInt(val)}%`
+        return `${Number.parseInt(val)}%`
       },
     },
     legend: {
@@ -77,7 +76,7 @@ const chartOptions = computed(() => {
               fontWeight: 600,
               offsetY: -15,
               formatter(val: string) {
-                return `${parseInt(val)}%`
+                return `${Number.parseInt(val)}%`
               },
             },
             name: {
@@ -104,28 +103,31 @@ const chartOptions = computed(() => {
 </script>
 
 <template>
-  <VCard>
+  <VCard class="overflow-visible">
     <VCardText class="d-flex justify-space-between">
       <div class="d-flex flex-column">
         <div class="mb-auto">
-          <h6 class="text-h6 text-no-wrap">
+          <h5 class="text-h5 text-no-wrap">
             Generated Leads
-          </h6>
-          <span class="text-sm">Monthly Report</span>
+          </h5>
+          <div class="text-body-1">
+            Monthly Report
+          </div>
         </div>
 
         <div>
-          <h5 class="text-h5 mb-1">
+          <h3 class="text-h3">
             4,350
-          </h5>
-          <div class="text-sm">
+          </h3>
+          <div class="d-flex gap-x-1 align-center">
             <VIcon
               icon="tabler-chevron-up"
-              size="16"
+              size="20"
               color="success"
-              class="me-2"
             />
-            <span class="text-success">15.8% </span>
+            <div class="text-base text-success">
+              15.8%
+            </div>
           </div>
         </div>
       </div>

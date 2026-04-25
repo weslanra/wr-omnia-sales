@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { VNodeRenderer } from '@/@layouts/components/VNodeRenderer'
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 import { useGenerateImageVariant } from '@core/composable/useGenerateImageVariant'
-import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
 
 import authV2RegisterIllustrationBorderedDark from '@images/pages/auth-v2-register-illustration-bordered-dark.png'
@@ -10,6 +10,12 @@ import authV2RegisterIllustrationDark from '@images/pages/auth-v2-register-illus
 import authV2RegisterIllustrationLight from '@images/pages/auth-v2-register-illustration-light.png'
 import authV2MaskDark from '@images/pages/misc-mask-dark.png'
 import authV2MaskLight from '@images/pages/misc-mask-light.png'
+
+definePage({
+  meta: {
+    layout: 'blank',
+  },
+})
 
 const form = ref({
   username: '',
@@ -29,48 +35,59 @@ const isPasswordVisible = ref(false)
 </script>
 
 <template>
+  <RouterLink to="/">
+    <div class="auth-logo d-flex align-center gap-x-3">
+      <VNodeRenderer :nodes="themeConfig.app.logo" />
+      <h1 class="auth-title">
+        {{ themeConfig.app.title }}
+      </h1>
+    </div>
+  </RouterLink>
+
   <VRow
     no-gutters
-    class="auth-wrapper"
+    class="auth-wrapper bg-surface"
   >
     <VCol
       md="8"
       class="d-none d-md-flex"
     >
-      <div class="position-relative auth-bg rounded-lg w-100 ma-8 me-0">
-        <div class="d-flex align-center justify-center w-100 h-100">
+      <div class="position-relative bg-background w-100 me-0">
+        <div
+          class="d-flex align-center justify-center w-100 h-100"
+          style="padding-inline: 100px;"
+        >
           <VImg
-            max-width="441"
+            max-width="500"
             :src="imageVariant"
             class="auth-illustration mt-16 mb-2"
           />
         </div>
 
-        <VImg
-          class="auth-footer-mask"
+        <img
+          class="auth-footer-mask flip-in-rtl"
           :src="authThemeMask"
-        />
+          alt="auth-footer-mask"
+          height="280"
+          width="100"
+        >
       </div>
     </VCol>
 
     <VCol
       cols="12"
       md="4"
-      class="auth-card-v2  d-flex align-center justify-center"
+      class="auth-card-v2 d-flex align-center justify-center"
     >
       <VCard
         flat
         :max-width="500"
-        class="mt-12 mt-sm-0 pa-4"
+        class="mt-12 pa-6"
       >
         <VCardText>
-          <VNodeRenderer
-            :nodes="themeConfig.app.logo"
-            class="mb-6"
-          />
-          <h5 class="text-h5 font-weight-semibold mb-1">
+          <h4 class="text-h4 mb-1">
             Adventure starts here 🚀
-          </h5>
+          </h4>
           <p class="mb-0">
             Make your app management easy and fun!
           </p>
@@ -81,32 +98,36 @@ const isPasswordVisible = ref(false)
             <VRow>
               <!-- Username -->
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="form.username"
+                  autofocus
                   label="Username"
+                  placeholder="Johndoe"
                 />
               </VCol>
 
               <!-- email -->
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="form.email"
                   label="Email"
                   type="email"
+                  placeholder="johndoe@email.com"
                 />
               </VCol>
 
               <!-- password -->
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="form.password"
                   label="Password"
+                  placeholder="············"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 />
 
-                <div class="d-flex align-center mt-2 mb-4">
+                <div class="d-flex align-center my-6">
                   <VCheckbox
                     id="privacy-policy"
                     v-model="form.privacyPolicies"
@@ -116,7 +137,7 @@ const isPasswordVisible = ref(false)
                     for="privacy-policy"
                     style="opacity: 1;"
                   >
-                    <span class="me-1">I agree to</span>
+                    <span class="me-1 text-high-emphasis">I agree to</span>
                     <a
                       href="javascript:void(0)"
                       class="text-primary"
@@ -137,9 +158,9 @@ const isPasswordVisible = ref(false)
                 cols="12"
                 class="text-center text-base"
               >
-                <span>Already have an account?</span>
+                <span class="d-inline-block">Already have an account?</span>
                 <RouterLink
-                  class="text-primary ms-2"
+                  class="text-primary ms-1 d-inline-block"
                   :to="{ name: 'pages-authentication-login-v2' }"
                 >
                   Sign in instead
@@ -173,8 +194,3 @@ const isPasswordVisible = ref(false)
 <style lang="scss">
 @use "@core/scss/template/pages/page-auth.scss";
 </style>
-
-<route lang="yaml">
-meta:
-  layout: blank
-</route>

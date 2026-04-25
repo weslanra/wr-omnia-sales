@@ -1,14 +1,30 @@
 export const basic = {
   ts: `<template>
-  <VAlert color="primary">
-    Good Morning! Start your day with some alerts.
-  </VAlert>
+  <div class="demo-space-y">
+    <VAlert color="primary">
+      Good Morning! Start your day with some alerts.
+    </VAlert>
+    <VAlert
+      title="Alert Title"
+      type="error"
+      closable
+      text="Alert Text"
+    />
+  </div>
 </template>
 `,
   js: `<template>
-  <VAlert color="primary">
-    Good Morning! Start your day with some alerts.
-  </VAlert>
+  <div class="demo-space-y">
+    <VAlert color="primary">
+      Good Morning! Start your day with some alerts.
+    </VAlert>
+    <VAlert
+      title="Alert Title"
+      type="error"
+      closable
+      text="Alert Text"
+    />
+  </div>
 </template>
 `,
 }
@@ -361,6 +377,7 @@ const alertShadow = ref(5)
     :min="0"
     :step="1"
     thumb-label
+    class="mb-2"
   />
 
   <VAlert
@@ -383,6 +400,7 @@ const alertShadow = ref(5)
     :min="0"
     :step="1"
     thumb-label
+    class="mb-2"
   />
 
   <VAlert
@@ -406,15 +424,17 @@ export const icons = {
     </VAlert>
 
     <VAlert
-      color="secondary"
+      color="primary"
       icon="tabler-device-desktop-analytics"
+      variant="tonal"
     >
       Phasellus blandit leo ut odio. Morbi mattis ullamcorper velit.
     </VAlert>
 
     <VAlert
-      color="success"
+      color="primary"
       icon="tabler-brand-vue"
+      variant="outlined"
     >
       Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.
     </VAlert>
@@ -431,15 +451,17 @@ export const icons = {
     </VAlert>
 
     <VAlert
-      color="secondary"
+      color="primary"
       icon="tabler-device-desktop-analytics"
+      variant="tonal"
     >
       Phasellus blandit leo ut odio. Morbi mattis ullamcorper velit.
     </VAlert>
 
     <VAlert
-      color="success"
+      color="primary"
       icon="tabler-brand-vue"
+      variant="outlined"
     >
       Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus.
     </VAlert>
@@ -800,4 +822,3 @@ const isAlertVisible = ref(true)
 </style>
 `,
 }
-

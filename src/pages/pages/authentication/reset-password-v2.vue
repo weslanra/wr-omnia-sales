@@ -8,6 +8,12 @@ import authV2ResetPasswordIllustrationLight from '@images/pages/auth-v2-reset-pa
 import authV2MaskDark from '@images/pages/misc-mask-dark.png'
 import authV2MaskLight from '@images/pages/misc-mask-light.png'
 
+definePage({
+  meta: {
+    layout: 'blank',
+  },
+})
+
 const form = ref({
   newPassword: '',
   confirmPassword: '',
@@ -24,27 +30,42 @@ const isConfirmPasswordVisible = ref(false)
 </script>
 
 <template>
+  <RouterLink to="/">
+    <div class="auth-logo d-flex align-center gap-x-3">
+      <VNodeRenderer :nodes="themeConfig.app.logo" />
+      <h1 class="auth-title">
+        {{ themeConfig.app.title }}
+      </h1>
+    </div>
+  </RouterLink>
+
   <VRow
     no-gutters
-    class="auth-wrapper"
+    class="auth-wrapper bg-surface"
   >
     <VCol
       md="8"
       class="d-none d-md-flex"
     >
-      <div class="position-relative auth-bg rounded-lg w-100 ma-8 me-0">
-        <div class="d-flex align-center justify-center w-100 h-100">
+      <div class="position-relative bg-background w-100 me-0">
+        <div
+          class="d-flex align-center justify-center w-100 h-100"
+          style="padding-inline: 150px;"
+        >
           <VImg
-            max-width="400"
+            max-width="451"
             :src="authThemeImg"
             class="auth-illustration mt-16 mb-2"
           />
         </div>
 
-        <VImg
-          class="auth-footer-mask"
+        <img
+          class="auth-footer-mask flip-in-rtl"
           :src="authThemeMask"
-        />
+          alt="auth-footer-mask"
+          height="280"
+          width="100"
+        >
       </div>
     </VCol>
 
@@ -56,19 +77,14 @@ const isConfirmPasswordVisible = ref(false)
       <VCard
         flat
         :max-width="500"
-        class="mt-12 mt-sm-0 pa-4"
+        class="mt-12 mt-sm-0 pa-6"
       >
         <VCardText>
-          <VNodeRenderer
-            :nodes="themeConfig.app.logo"
-            class="mb-6"
-          />
-
-          <h5 class="text-h5 font-weight-semibold mb-1">
+          <h4 class="text-h4 mb-1">
             Reset Password 🔒
-          </h5>
+          </h4>
           <p class="mb-0">
-            for <span class="font-weight-bold">john.doe@email.com</span>
+            Your new password must be different from previously used passwords
           </p>
         </VCardText>
 
@@ -77,9 +93,11 @@ const isConfirmPasswordVisible = ref(false)
             <VRow>
               <!-- password -->
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="form.newPassword"
+                  autofocus
                   label="New Password"
+                  placeholder="············"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
@@ -88,9 +106,10 @@ const isConfirmPasswordVisible = ref(false)
 
               <!-- Confirm Password -->
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="form.confirmPassword"
                   label="Confirm Password"
+                  placeholder="············"
                   :type="isConfirmPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isConfirmPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isConfirmPasswordVisible = !isConfirmPasswordVisible"
@@ -115,7 +134,8 @@ const isConfirmPasswordVisible = ref(false)
                 >
                   <VIcon
                     icon="tabler-chevron-left"
-                    class="flip-in-rtl"
+                    size="20"
+                    class="me-1 flip-in-rtl"
                   />
                   <span>Back to login</span>
                 </RouterLink>
@@ -131,8 +151,3 @@ const isConfirmPasswordVisible = ref(false)
 <style lang="scss">
 @use "@core/scss/template/pages/page-auth.scss";
 </style>
-
-<route lang="yaml">
-meta:
-  layout: blank
-</route>

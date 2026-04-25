@@ -404,14 +404,13 @@ const menu = ref(false)
       </VBtn>
     </template>
 
-    <VCard
-      max-width="300"
-    >
+    <VCard max-width="300">
       <VList>
         <VListItem
           :prepend-avatar="avatar1"
           title="John Leider"
           subtitle="Founder of Vuetify"
+          class="mx-0"
         />
       </VList>
 
@@ -423,9 +422,9 @@ const menu = ref(false)
       </VCardText>
 
       <VCardActions>
-        <VBtn icon="tabler-heart" />
-        <VBtn icon="tabler-bookmark" />
-        <VBtn icon="tabler-thumb-down" />
+        <IconBtn icon="tabler-heart" />
+        <IconBtn icon="tabler-bookmark" />
+        <IconBtn icon="tabler-thumb-down" />
       </VCardActions>
     </VCard>
   </VMenu>
@@ -448,14 +447,13 @@ const menu = ref(false)
       </VBtn>
     </template>
 
-    <VCard
-      max-width="300"
-    >
+    <VCard max-width="300">
       <VList>
         <VListItem
           :prepend-avatar="avatar1"
           title="John Leider"
           subtitle="Founder of Vuetify"
+          class="mx-0"
         />
       </VList>
 
@@ -467,13 +465,12 @@ const menu = ref(false)
       </VCardText>
 
       <VCardActions>
-        <VBtn icon="tabler-heart" />
-        <VBtn icon="tabler-bookmark" />
-        <VBtn icon="tabler-thumb-down" />
+        <IconBtn icon="tabler-heart" />
+        <IconBtn icon="tabler-bookmark" />
+        <IconBtn icon="tabler-thumb-down" />
       </VCardActions>
     </VCard>
   </VMenu>
 </template>
 `,
 }
-

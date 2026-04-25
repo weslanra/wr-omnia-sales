@@ -57,59 +57,46 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
     @update:model-value="handleDrawerModelValueUpdate"
   >
     <!-- 👉 Header -->
-    <div class="d-flex align-center pa-6 pb-1">
-      <h6 class="text-h6">
-        Send Invoice
-      </h6>
-
-      <VSpacer />
-
-      <VBtn
-        icon
-        size="32"
-        color="default"
-        variant="tonal"
-        class="rounded"
-        @click="handleDrawerModelValueUpdate(false)"
-      >
-        <VIcon
-          size="18"
-          icon="tabler-x"
-        />
-      </VBtn>
-    </div>
-
+    <AppDrawerHeaderSection
+      title="Send Invoice"
+      @cancel="$emit('update:isDrawerOpen', false)"
+    />
+    <VDivider />
     <PerfectScrollbar :options="{ wheelPropagation: false }">
       <VCard flat>
         <VCardText>
           <VForm @submit.prevent="onSubmit">
             <VRow>
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="emailFrom"
-                  label="Form"
+                  label="From"
+                  placeholder="sender@email.com"
                 />
               </VCol>
 
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="emailTo"
                   label="To"
+                  placeholder="receiver@email.com"
                 />
               </VCol>
 
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="invoiceSubject"
                   label="Subject"
+                  placeholder="Invoice of purchased Admin Templates"
                 />
               </VCol>
 
               <VCol cols="12">
-                <VTextarea
+                <AppTextarea
                   v-model="paymentMessage"
                   rows="10"
                   label="Message"
+                  placeholder="Thank you for your business, always a pleasure to work with you!"
                 />
               </VCol>
 

@@ -13,7 +13,7 @@ const items = [
 
 <template>
   <VList
-    density="compact"
+    density="comfortable"
     :items="items"
   />
 </template>

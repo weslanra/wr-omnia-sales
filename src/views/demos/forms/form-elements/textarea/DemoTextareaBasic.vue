@@ -1,3 +1,6 @@
 <template>
-  <VTextarea label="Default" />
+  <AppTextarea
+    label="Default"
+    placeholder="Placeholder Text"
+  />
 </template>

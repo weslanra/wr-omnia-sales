@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import VueApexCharts from 'vue3-apexcharts'
 import { useTheme } from 'vuetify'
 import { hexToRgb } from '@layouts/utils'
 
@@ -26,13 +25,13 @@ const chartOptions = computed(() => {
     plotOptions: {
       bar: {
         barHeight: '100%',
-        columnWidth: '25px',
+        columnWidth: '25%',
         startingShape: 'rounded',
         endingShape: 'rounded',
-        borderRadius: 6,
+        borderRadius: 4,
       },
     },
-    colors: [currentTheme.warning],
+    colors: [`rgba(${hexToRgb(currentTheme.warning)}, 1)`],
     grid: {
       show: false,
       padding: {
@@ -62,7 +61,7 @@ const chartOptions = computed(() => {
       labels: {
         style: {
           colors: `rgba(${hexToRgb(currentTheme['on-surface'])},${variableTheme['disabled-opacity']})`,
-          fontSize: '14px',
+          fontSize: '13px',
           fontFamily: 'Public sans',
         },
         show: true,
@@ -79,7 +78,7 @@ const chartOptions = computed(() => {
         options: {
           plotOptions: {
             bar: {
-              borderRadius: 5,
+              borderRadius: 4,
             },
           },
         },
@@ -90,7 +89,7 @@ const chartOptions = computed(() => {
           plotOptions: {
             bar: {
               columnWidth: '25%',
-              borderRadius: 9,
+              borderRadius: 6,
             },
           },
         },
@@ -100,7 +99,7 @@ const chartOptions = computed(() => {
         options: {
           plotOptions: {
             bar: {
-              borderRadius: 8,
+              borderRadius: 6,
               columnWidth: '25%',
             },
           },
@@ -133,7 +132,7 @@ const chartOptions = computed(() => {
           plotOptions: {
             bar: {
               columnWidth: '25%',
-              borderRadius: 10,
+              borderRadius: 8,
             },
           },
         },
@@ -144,7 +143,7 @@ const chartOptions = computed(() => {
           plotOptions: {
             bar: {
               columnWidth: '24%',
-              borderRadius: 8,
+              borderRadius: 6,
             },
           },
         },
@@ -169,17 +168,20 @@ const chartOptions = computed(() => {
     <VCardText>
       <div class="d-flex justify-space-between">
         <div>
-          <h5 class="text-h5">
+          <h4 class="text-h4">
             2.84k
-          </h5>
-          <span class="text-sm text-disabled">Avg Daily Traffic</span>
+          </h4>
+          <div class="text-subtitle-2">
+            Avg Daily Traffic
+          </div>
         </div>
 
         <VChip
           label
           color="success"
+          size="small"
         >
-          <span class="font-weight-semibold">+92k</span>
+          <span class="font-weight-medium">+15%</span>
         </VChip>
       </div>
 

@@ -5,9 +5,7 @@ const toggleExclusive = ref(1)
 <template>
   <VBtnToggle
     v-model="toggleExclusive"
-    divided
-    color="primary"
-    variant="outlined"
+    density="comfortable"
   >
     <VBtn icon="tabler-align-left" />
     <VBtn icon="tabler-align-center" />

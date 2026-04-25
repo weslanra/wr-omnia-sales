@@ -3,9 +3,10 @@ const items = ['Foo', 'Bar', 'Fizz', 'Buzz']
 </script>
 
 <template>
-  <VSelect
+  <AppSelect
     :items="items"
     :menu-props="{ transition: 'scroll-y-transition' }"
     label="Label"
+    placeholder="Select Item"
   />
 </template>

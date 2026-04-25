@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import VueApexCharts from 'vue3-apexcharts'
 import { useTheme } from 'vuetify'
 import { hexToRgb } from '@layouts/utils'
 
@@ -47,7 +46,7 @@ const chartOptions = computed(() => {
       `rgba(${hexToRgb(currentTheme.primary)},${variableTheme['dragged-opacity']})`,
       `rgba(${hexToRgb(currentTheme.primary)},${variableTheme['dragged-opacity']})`,
       `rgba(${hexToRgb(currentTheme.primary)},${variableTheme['dragged-opacity']})`,
-      currentTheme.primary,
+      `rgba(${hexToRgb(currentTheme.primary)}, 1)`,
       `rgba(${hexToRgb(currentTheme.primary)},${variableTheme['dragged-opacity']})`,
       `rgba(${hexToRgb(currentTheme.primary)},${variableTheme['dragged-opacity']})`,
     ],
@@ -68,7 +67,7 @@ const chartOptions = computed(() => {
       labels: {
         style: {
           colors: `rgba(${hexToRgb(currentTheme['on-surface'])},${variableTheme['disabled-opacity']})`,
-          fontSize: '14px',
+          fontSize: '13px',
           fontFamily: 'Public Sans',
         },
       },
@@ -117,39 +116,22 @@ const earningsReports = [
     progress: '65',
   },
 ]
+
+const moreList = [
+  { title: 'View More', value: 'View More' },
+  { title: 'Delete', value: 'Delete' },
+]
 </script>
 
 <template>
   <VCard>
-    <VCardItem class="pb-0">
+    <VCardItem class="pb-sm-0">
       <VCardTitle>Earning Reports</VCardTitle>
       <VCardSubtitle>Weekly Earnings Overview</VCardSubtitle>
 
       <template #append>
         <div class="mt-n4 me-n2">
-          <VBtn
-            icon
-            size="x-small"
-            variant="plain"
-            color="default"
-          >
-            <VIcon
-              size="22"
-              icon="tabler-dots-vertical"
-            />
-
-            <VMenu activator="parent">
-              <VList>
-                <VListItem
-                  v-for="(item, index) in ['View More', 'Delete']"
-                  :key="index"
-                  :value="index"
-                >
-                  <VListItemTitle>{{ item }}</VListItemTitle>
-                </VListItem>
-              </VList>
-            </VMenu>
-          </VBtn>
+          <MoreBtn :menu-list="moreList" />
         </div>
       </template>
     </VCardItem>
@@ -158,38 +140,42 @@ const earningsReports = [
       <VRow>
         <VCol
           cols="12"
-          sm="4"
-          class="d-flex flex-column align-self-end"
+          sm="5"
+          lg="6"
+          class="d-flex flex-column align-self-center"
         >
-          <div class="d-flex align-center gap-2 mb-2 pb-1 flex-wrap">
-            <h4 class="text-h4">
+          <div class="d-flex align-center gap-2 mb-3 flex-wrap">
+            <h4 class="text-h2">
               $468
             </h4>
             <VChip
               label
+              size="small"
               color="success"
             >
               +4.2%
             </VChip>
           </div>
 
-          <span class="text-sm text-disabled">You informed of this week compared to last week</span>
+          <span class="text-sm text-medium-emphasis">
+            You informed of this week compared to last week
+          </span>
         </VCol>
 
         <VCol
           cols="12"
-          sm="8"
-          class="pt-0"
+          sm="7"
+          lg="6"
         >
           <VueApexCharts
             :options="chartOptions"
             :series="series"
-            height="190"
+            height="161"
           />
         </VCol>
       </VRow>
 
-      <div class="border rounded mt-3 pa-4">
+      <div class="border rounded mt-5 pa-5">
         <VRow>
           <VCol
             v-for="report in earningsReports"
@@ -200,25 +186,28 @@ const earningsReports = [
             <div class="d-flex align-center">
               <VAvatar
                 rounded
-                size="30"
+                size="26"
                 :color="report.color"
                 variant="tonal"
                 class="me-2"
               >
-                <VIcon :icon="report.icon" />
+                <VIcon
+                  size="18"
+                  :icon="report.icon"
+                />
               </VAvatar>
 
-              <h6 class="text-base font-weight-medium">
+              <h6 class="text-base font-weight-regular">
                 {{ report.title }}
               </h6>
             </div>
-            <h6 class="text-h6 my-3">
+            <h6 class="text-h4 my-2">
               {{ report.amount }}
             </h6>
             <VProgressLinear
               :model-value="report.progress"
               :color="report.color"
-              height="8"
+              height="4"
               rounded
               rounded-bar
             />

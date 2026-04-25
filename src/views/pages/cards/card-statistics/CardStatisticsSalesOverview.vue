@@ -2,12 +2,16 @@
   <VCard>
     <VCardText>
       <div class="d-flex align-center justify-space-between">
-        <span class="text-sm text-disabled">Sales Overview</span>
-        <span class="text-success">+18.2%</span>
+        <div class="text-body-1">
+          Sales Overview
+        </div>
+        <div class="text-success font-weight-medium">
+          +18.2%
+        </div>
       </div>
-      <h5 class="text-h5">
+      <h4 class="text-h4">
         $42.5k
-      </h5>
+      </h4>
     </VCardText>
 
     <VCardText>
@@ -17,7 +21,7 @@
             <VAvatar
               color="info"
               variant="tonal"
-              :size="30"
+              :size="24"
               rounded
               class="me-2"
             >
@@ -29,10 +33,12 @@
 
             <span>Order</span>
           </div>
-          <h6 class="text-h6">
+          <h5 class="text-h5">
             62.2%
-          </h6>
-          <span class="text-sm">6,440</span>
+          </h5>
+          <div class="text-body-2 text-disabled">
+            6,440
+          </div>
         </VCol>
 
         <VCol cols="2">
@@ -42,11 +48,15 @@
               class="mx-auto"
             />
 
-            <div class="pa-1">
-              <VChip size="20">
-                <span class="text-xs pa-1">VS</span>
-              </VChip>
-            </div>
+            <VAvatar
+              size="24"
+              color="rgba(var(--v-theme-on-surface), var(--v-hover-opacity))"
+              class="my-2"
+            >
+              <div class="text-overline text-disabled">
+                VS
+              </div>
+            </VAvatar>
 
             <VDivider
               vertical
@@ -65,7 +75,7 @@
             <VAvatar
               color="primary"
               variant="tonal"
-              :size="30"
+              :size="24"
               rounded
             >
               <VIcon
@@ -74,18 +84,22 @@
               />
             </VAvatar>
           </div>
-          <h6 class="text-h6">
+          <h5 class="text-h5">
             25.5%
-          </h6>
-          <span class="text-sm">12,749</span>
+          </h5>
+          <div class="text-body-2 text-disabled">
+            12,749
+          </div>
         </VCol>
       </VRow>
 
       <div class="mt-6">
         <VProgressLinear
-          model-value="80"
-          color="info"
-          height="8"
+          model-value="72"
+          color="#00CFE8"
+          height="10"
+          bg-color="primary"
+          :rounded-bar="false"
           rounded
         />
       </div>

@@ -98,7 +98,7 @@ import * as demoCode from '@/views/demos/components/button/demoCodeButton'
         title="Icon Only"
         :code="demoCode.iconOnly"
       >
-        <p>Use <code>icon</code> prop to create button with icon only. This property makes the button rounded and applies the text prop styles.</p>
+        <p>Use <code>VIcon</code> component inside button to create buttons that looks like rest of the theme.</p>
         <DemoButtonIconOnly />
       </AppCardCode>
     </VCol>

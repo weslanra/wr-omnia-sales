@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import InvoiceProductEdit from './InvoiceProductEdit.vue'
-import type { InvoiceData } from './types'
-import { useInvoiceStore } from './useInvoiceStore'
-import type { Client } from '@/@fake-db/types'
+import type { InvoiceData, PurchasedProduct } from './types'
+import type { Client } from '@db/apps/invoice/types'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
 
@@ -12,22 +11,34 @@ interface Props {
 
 const props = defineProps<Props>()
 
-const invoiceListStore = useInvoiceStore()
+const emit = defineEmits<{
+  (e: 'push', value: PurchasedProduct): void
+  (e: 'remove', id: number): void
+}>()
+
+const invoice = ref(props.data.invoice)
+const salesperson = ref(props.data.salesperson)
+const thanksNote = ref(props.data.thanksNote)
+const note = ref(props.data.note)
 
 // 👉 Clients
 const clients = ref<Client[]>([])
 
 // 👉 fetchClients
-invoiceListStore.fetchClients().then(response => {
-  clients.value = response.data
-}).catch(err => {
-  console.log(err)
-})
+const fetchClients = async () => {
+  const { data, error } = await useApi<any>('/apps/invoice/clients')
+
+  if (error.value)
+    console.log(error.value)
+  else
+    clients.value = data.value
+}
+
+fetchClients()
 
 // 👉 Add item function
 const addItem = () => {
-  // eslint-disable-next-line vue/no-mutating-props
-  props.data.purchasedProducts.push({
+  emit('push', {
     title: 'App Design',
     cost: 24,
     hours: 1,
@@ -37,186 +48,179 @@ const addItem = () => {
 
 // 👉 Remove Product edit section
 const removeProduct = (id: number) => {
-  // eslint-disable-next-line vue/no-mutating-props
-  props.data.purchasedProducts.splice(id, 1)
+  emit('remove', id)
 }
 </script>
 
 <template>
-  <VCard>
+  <VCard class="pa-6 pa-sm-12">
     <!-- SECTION Header -->
-    <!--  eslint-disable vue/no-mutating-props -->
-    <VCardText class="d-flex flex-wrap justify-space-between flex-column flex-sm-row">
+    <div class="d-flex flex-wrap justify-space-between flex-column rounded bg-var-theme-background flex-sm-row gap-6 pa-6 mb-6">
       <!-- 👉 Left Content -->
-      <div class="ma-sm-4">
-        <div class="d-flex align-center mb-6">
+      <div>
+        <div class="d-flex align-center app-logo mb-6">
           <!-- 👉 Logo -->
-          <VNodeRenderer
-            :nodes="themeConfig.app.logo"
-            class="me-3"
-          />
+          <VNodeRenderer :nodes="themeConfig.app.logo" />
 
           <!-- 👉 Title -->
-          <h6 class="font-weight-bold text-xl">
+          <h6 class="app-logo-title">
             {{ themeConfig.app.title }}
           </h6>
         </div>
 
         <!-- 👉 Address -->
-        <p class="mb-0">
+        <p class="text-high-emphasis mb-0">
           Office 149, 450 South Brand Brooklyn
         </p>
-        <p class="mb-0">
+        <p class="text-high-emphasis mb-0">
           San Diego County, CA 91905, USA
         </p>
-        <p class="mb-0">
+        <p class="text-high-emphasis mb-0">
           +1 (123) 456 7891, +44 (876) 543 2198
         </p>
       </div>
 
       <!-- 👉 Right Content -->
-      <div class="mt-4 ma-sm-4">
+      <div class="d-flex flex-column gap-2">
         <!-- 👉 Invoice Id -->
-        <h6 class="d-flex align-center font-weight-medium justify-sm-end text-xl mb-3">
-          <span class="me-3">Invoice</span>
-
+        <div class="d-flex align-start align-sm-center gap-x-4 font-weight-medium text-lg flex-column flex-sm-row">
+          <span
+            class="text-high-emphasis text-sm-end"
+            style="inline-size: 5.625rem ;"
+          >Invoice:</span>
           <span>
-            <VTextField
-              v-model="props.data.invoice.id"
+            <AppTextField
+              v-model="invoice.id"
               disabled
               prefix="#"
-              density="compact"
-              style="width: 8.9rem;"
+              style="inline-size: 9.5rem;"
             />
           </span>
-        </h6>
+        </div>
 
         <!-- 👉 Issue Date -->
-        <p class="d-flex align-center justify-sm-end mb-3">
-          <span class="me-3">Date Issued</span>
+        <div class="d-flex gap-x-4 align-start align-sm-center flex-column flex-sm-row">
+          <span
+            class="text-high-emphasis text-sm-end"
+            style="inline-size: 5.625rem;"
+          >Date Issued:</span>
 
-          <span>
+          <span style="inline-size: 9.5rem;">
             <AppDateTimePicker
-              v-model="props.data.invoice.issuedDate"
-              density="compact"
+              v-model="invoice.issuedDate"
               placeholder="YYYY-MM-DD"
-              style="width: 8.9rem;"
               :config="{ position: 'auto right' }"
             />
           </span>
-        </p>
+        </div>
 
         <!-- 👉 Due Date -->
-        <p class="d-flex align-center justify-sm-end mb-0">
-          <span class="me-3">Due Date</span>
-
-          <span>
+        <div class="d-flex gap-x-4 align-start align-sm-center flex-column flex-sm-row">
+          <span
+            class="text-high-emphasis text-sm-end"
+            style="inline-size: 5.625rem;"
+          >Due Date:</span>
+          <span style="min-inline-size: 9.5rem;">
             <AppDateTimePicker
-              v-model="props.data.invoice.dueDate"
-              density="compact"
+              v-model="invoice.dueDate"
               placeholder="YYYY-MM-DD"
-              style="width: 8.9rem;"
               :config="{ position: 'auto right' }"
             />
           </span>
-        </p>
+        </div>
       </div>
-    </VCardText>
+    </div>
     <!-- !SECTION -->
 
-    <VDivider />
-
-    <VCardText class="d-flex flex-wrap justify-space-between flex-column flex-sm-row gap-4">
-      <div
-        class="ma-sm-4"
-        style="width: 15.5rem;"
-      >
-        <h6 class="text-sm font-weight-medium mb-3">
+    <VRow>
+      <VCol class="text-no-wrap">
+        <h6 class="text-h6 mb-4">
           Invoice To:
         </h6>
 
         <VSelect
-          v-model="props.data.invoice.client"
+          v-model="invoice.client"
           :items="clients"
           item-title="name"
           item-value="name"
-          placeholder="Select Customer"
+          placeholder="Select Client"
           return-object
-          class="mb-6"
-          density="compact"
+          class="mb-4"
+          style="inline-size: 11.875rem;"
         />
-        <p class="mb-1">
-          {{ props.data.invoice.client.name }}
-        </p>
-        <p class="mb-1">
-          {{ props.data.invoice.client.company }}
-        </p>
-        <p
-          v-if="props.data.invoice.client.address"
-          class="mb-1"
-        >
-          {{ props.data.invoice.client.address }}, {{ props.data.invoice.client.country }}
-        </p>
-        <p class="mb-1">
-          {{ props.data.invoice.client.contact }}
+        <p class="mb-0">
+          {{ invoice.client.name }}
         </p>
         <p class="mb-0">
-          {{ props.data.invoice.client.companyEmail }}
+          {{ invoice.client.company }}
         </p>
-      </div>
+        <p
+          v-if="invoice.client.address"
+          class="mb-0"
+        >
+          {{ invoice.client.address }}, {{ invoice.client.country }}
+        </p>
+        <p class="mb-0">
+          {{ invoice.client.contact }}
+        </p>
+        <p class="mb-0">
+          {{ invoice.client.companyEmail }}
+        </p>
+      </VCol>
 
-      <div class="ma-sm-4">
-        <h6 class="text-sm font-weight-medium mb-3">
+      <VCol class="text-no-wrap">
+        <h6 class="text-h6 mb-4">
           Bill To:
         </h6>
 
         <table>
           <tbody>
             <tr>
-              <td class="pe-6">
+              <td class="pe-4">
                 Total Due:
               </td>
-              <td class="font-weight-semibold">
-                {{ props.data.paymentDetails.totalDue }}
-              </td>
+              <td>{{ props.data.paymentDetails.totalDue }}</td>
             </tr>
             <tr>
-              <td class="pe-6">
+              <td class="pe-4">
                 Bank Name:
               </td>
               <td>{{ props.data.paymentDetails.bankName }}</td>
             </tr>
             <tr>
-              <td class="pe-6">
+              <td class="pe-4">
                 Country:
               </td>
               <td>{{ props.data.paymentDetails.country }}</td>
             </tr>
             <tr>
-              <td class="pe-6">
+              <td class="pe-4">
                 IBAN:
               </td>
-              <td>{{ props.data.paymentDetails.iban }}</td>
+              <td>
+                <p class="text-wrap me-4">
+                  {{ props.data.paymentDetails.iban }}
+                </p>
+              </td>
             </tr>
             <tr>
-              <td class="pe-6">
+              <td class="pe-4">
                 SWIFT Code:
               </td>
               <td>{{ props.data.paymentDetails.swiftCode }}</td>
             </tr>
           </tbody>
         </table>
-      </div>
-    </VCardText>
+      </VCol>
+    </VRow>
 
-    <VDivider />
-
+    <VDivider class="my-6 border-dashed" />
     <!-- 👉 Add purchased products -->
-    <VCardText class="add-products-form">
+    <div class="add-products-form">
       <div
         v-for="(product, index) in props.data.purchasedProducts"
         :key="product.title"
-        class="ma-sm-4"
+        class="mb-4"
       >
         <InvoiceProductEdit
           :id="index"
@@ -225,83 +229,103 @@ const removeProduct = (id: number) => {
         />
       </div>
 
-      <div class="mt-4 ma-sm-4">
-        <VBtn @click="addItem">
-          Add Item
-        </VBtn>
-      </div>
-    </VCardText>
+      <VBtn
+        size="small"
+        prepend-icon="tabler-plus"
+        @click="addItem"
+      >
+        Add Item
+      </VBtn>
+    </div>
 
-    <VDivider />
+    <VDivider class="my-6 border-dashed" />
 
     <!-- 👉 Total Amount -->
-    <VCardText class="d-flex justify-space-between flex-wrap flex-column flex-sm-row">
-      <div class="mx-sm-4 my-2">
+    <div class="d-flex justify-space-between flex-wrap flex-column flex-sm-row">
+      <div class="mb-6 mb-sm-0">
         <div class="d-flex align-center mb-4">
-          <h6 class="text-sm font-weight-semibold me-2">
+          <h6 class="text-h6 me-2">
             Salesperson:
           </h6>
-          <VTextField
-            v-model="props.data.salesperson"
-            style="width: 10rem;"
+          <AppTextField
+            v-model="salesperson"
+            style="inline-size: 8rem;"
+            placeholder="John Doe"
           />
         </div>
 
-        <VTextField
-          v-model="props.data.thanksNote"
+        <AppTextField
+          v-model="thanksNote"
           placeholder="Thanks for your business"
         />
       </div>
 
-      <div class="my-2 mx-sm-4">
-        <table>
-          <tr>
-            <td class="text-end">
-              <div class="me-5">
-                <p class="mb-2">
-                  Subtotal:
-                </p>
-                <p class="mb-2">
-                  Discount:
-                </p>
-                <p class="mb-2">
-                  Tax:
-                </p>
-                <p class="mb-2">
-                  Total:
-                </p>
-              </div>
-            </td>
+      <div>
+        <table class="w-100">
+          <tbody>
+            <tr>
+              <td class="pe-16">
+                Subtotal:
+              </td>
+              <td :class="$vuetify.locale.isRtl ? 'text-start' : 'text-end'">
+                <h6 class="text-h6">
+                  $1800
+                </h6>
+              </td>
+            </tr>
+            <tr>
+              <td class="pe-16">
+                Discount:
+              </td>
+              <td :class="$vuetify.locale.isRtl ? 'text-start' : 'text-end'">
+                <h6 class="text-h6">
+                  $28
+                </h6>
+              </td>
+            </tr>
+            <tr>
+              <td class="pe-16">
+                Tax:
+              </td>
+              <td :class="$vuetify.locale.isRtl ? 'text-start' : 'text-end'">
+                <h6 class="text-h6">
+                  21%
+                </h6>
+              </td>
+            </tr>
+          </tbody>
+        </table>
 
-            <td class="font-weight-semibold">
-              <p class="mb-2">
-                $154.25
-              </p>
-              <p class="mb-2">
-                $00.00
-              </p>
-              <p class="mb-2">
-                $50.00
-              </p>
-              <p class="mb-2">
-                $204.25
-              </p>
-            </td>
-          </tr>
+        <VDivider class="mt-4 mb-3" />
+
+        <table class="w-100">
+          <tbody>
+            <tr>
+              <td class="pe-16">
+                Total:
+              </td>
+              <td :class="$vuetify.locale.isRtl ? 'text-start' : 'text-end'">
+                <h6 class="text-h6">
+                  $1690
+                </h6>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
-    </VCardText>
+    </div>
 
-    <VDivider />
+    <VDivider class="my-6 border-dashed" />
 
-    <VCardText class="mx-sm-4">
-      <p class="font-weight-semibold mb-2">
+    <div>
+      <h6 class="text-h6 mb-2">
         Note:
-      </p>
+      </h6>
       <VTextarea
-        v-model="props.data.note"
+        v-model="note"
+        placeholder="Write note here..."
         :rows="2"
       />
-    </VCardText>
+    </div>
   </VCard>
 </template>

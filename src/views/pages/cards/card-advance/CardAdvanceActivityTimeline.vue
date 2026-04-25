@@ -1,159 +1,172 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import avatar1 from '@images/avatars/avatar-1.png'
 import avatar2 from '@images/avatars/avatar-2.png'
+import avatar3 from '@images/avatars/avatar-3.png'
+import pdf from '@images/icons/project-icons/pdf.png'
+
+const moreList = [
+  { title: 'Refresh', value: 'refresh' },
+  { title: 'Download', value: 'Download' },
+  { title: 'View All', value: 'View All' },
+]
 </script>
 
 <template>
-  <VCard title="Activity Timeline">
-    <template #append>
-      <div class="me-n2">
-        <VBtn
-          icon
-          color="default"
-          size="x-small"
-          variant="plain"
-        >
-          <VIcon
-            size="22"
-            icon="tabler-dots-vertical"
-          />
+  <VCard>
+    <VCardItem>
+      <template #prepend>
+        <VIcon
+          icon="tabler-list-details"
+          size="24"
+          color="high-emphasis"
+          class="me-1"
+        />
+      </template>
 
-          <VMenu activator="parent">
-            <VList>
-              <VListItem
-                v-for="(item, index) in ['Refresh', 'Download', 'View All']"
-                :key="index"
-                :value="index"
-              >
-                <VListItemTitle>{{ item }}</VListItemTitle>
-              </VListItem>
-            </VList>
-          </VMenu>
-        </VBtn>
-      </div>
-    </template>
+      <VCardTitle>Activity Timeline</VCardTitle>
+
+      <template #append>
+        <div class="me-n2">
+          <MoreBtn :menu-list="moreList" />
+        </div>
+      </template>
+    </VCardItem>
 
     <VCardText>
       <VTimeline
         side="end"
         align="start"
-        truncate-line="both"
+        line-inset="8"
+        truncate-line="start"
         density="compact"
-        class="v-timeline-density-compact"
       >
+        <!-- SECTION Timeline Item: Flight -->
         <VTimelineItem
           dot-color="primary"
           size="x-small"
         >
           <!-- 👉 Header -->
-          <div class="d-flex justify-space-between">
-            <h6 class="text-base font-weight-semibold me-3">
-              Client Meeting
-            </h6>
-            <span class="text-sm text-disabled">Today</span>
+          <div class="d-flex justify-space-between align-center gap-2 flex-wrap mb-2">
+            <span class="app-timeline-title">
+              12 Invoices have been paid
+            </span>
+            <span class="app-timeline-meta">12 min ago</span>
           </div>
 
           <!-- 👉 Content -->
-          <p class="mb-1">
+          <div class="app-timeline-text mt-1">
+            Invoices have been paid to the company
+          </div>
+
+          <div class="d-inline-flex align-center timeline-chip mt-2">
+            <img
+              :src="pdf"
+              height="20"
+              class="me-2"
+              alt="img"
+            >
+            <span class="app-timeline-text font-weight-medium">
+              invoice.pdf
+            </span>
+          </div>
+        </VTimelineItem>
+        <!-- !SECTION -->
+
+        <!-- SECTION Timeline Item: Interview Schedule -->
+        <VTimelineItem
+          size="x-small"
+          dot-color="success"
+        >
+          <!-- 👉 Header -->
+          <div class="d-flex justify-space-between align-center flex-wrap mb-2">
+            <div class="app-timeline-title">
+              Client Meeting
+            </div>
+            <span class="app-timeline-meta">45 min ago</span>
+          </div>
+
+          <div class="app-timeline-text mt-1">
             Project meeting with john @10:15am
-          </p>
-          <div class="d-flex align-center">
-            <VAvatar
-              :image="avatar1"
-              class="me-3"
-            />
-            <div>
-              <p class="font-weight-semibold mb-0">
-                Lester McCarthy (Client)
-              </p>
-              <span>CEO of Infibeam</span>
+          </div>
+
+          <!-- 👉 Person -->
+          <div class="d-flex justify-space-between align-center flex-wrap">
+            <!-- 👉 Avatar & Personal Info -->
+            <div class="d-flex align-center mt-2">
+              <VAvatar
+                size="32"
+                class="me-2"
+                :image="avatar1"
+              />
+              <div class="d-flex flex-column">
+                <p class="text-sm font-weight-medium text-medium-emphasis mb-0">
+                  Lester McCarthy (Client)
+                </p>
+                <span class="text-sm">CEO of ThemeSelection</span>
+              </div>
             </div>
           </div>
         </VTimelineItem>
+        <!-- !SECTION -->
 
+        <!-- SECTION Design Review -->
         <VTimelineItem
-          dot-color="success"
           size="x-small"
-        >
-          <!-- 👉 Header -->
-          <div class="d-flex justify-space-between">
-            <h6 class="text-base font-weight-semibold me-3">
-              Create a new project for client
-            </h6>
-            <span class="text-sm text-disabled">2 Day Ago</span>
-          </div>
-
-          <!-- 👉 Content -->
-          <p class="mb-1">
-            Add files to new design folder
-          </p>
-        </VTimelineItem>
-
-        <VTimelineItem
-          dot-color="error"
-          size="x-small"
-        >
-          <!-- 👉 Header -->
-          <div class="d-flex justify-space-between">
-            <h6 class="text-base font-weight-semibold me-3">
-              Shared 2 New Project Files
-            </h6>
-            <span class="text-sm text-disabled">6 Day Ago</span>
-          </div>
-
-          <!-- 👉 Content -->
-          <p class="mb-1">
-            <span class="me-2">Sent by Mollie Dixon</span>
-            <VAvatar
-              :image="avatar2"
-              size="20"
-            />
-          </p>
-          <div class="d-flex align-center">
-            <a
-              href="#"
-              class="d-flex align-center me-4"
-            >
-              <VIcon
-                start
-                size="18"
-                color="warning"
-                icon="tabler-file-description"
-              />
-              <h6 class="font-weight-semibold text-base">App Guidelines</h6>
-            </a>
-            <a
-              href="#"
-              class="d-flex align-center"
-            >
-              <VIcon
-                start
-                size="18"
-                color="success"
-                icon="tabler-table"
-              />
-              <h6 class="font-weight-semibold text-base">Testing Results</h6>
-            </a>
-          </div>
-        </VTimelineItem>
-
-        <VTimelineItem
           dot-color="info"
-          size="x-small"
         >
           <!-- 👉 Header -->
-          <div class="d-flex justify-space-between">
-            <h6 class="text-base font-weight-semibold me-3">
-              Project status updated
-            </h6>
-            <span class="text-sm text-disabled">10 Day Ago</span>
+          <div class="d-flex justify-space-between align-center flex-wrap mb-2">
+            <span class="app-timeline-title">
+              Create a new project for client
+            </span>
+            <span class="app-timeline-meta">2 Day Ago</span>
           </div>
 
           <!-- 👉 Content -->
-          <p class="mb-1">
-            Ecommerce iOS App Completed
+          <p class="app-timeline-text mt-1 mb-2">
+            6 team members in a project
           </p>
+
+          <div class="v-avatar-group demo-avatar-group">
+            <VAvatar :size="40">
+              <VImg :src="avatar1" />
+              <VTooltip
+                activator="parent"
+                location="top"
+              >
+                John Doe
+              </VTooltip>
+            </VAvatar>
+
+            <VAvatar :size="40">
+              <VImg :src="avatar2" />
+              <VTooltip
+                activator="parent"
+                location="top"
+              >
+                Jennie Obrien
+              </VTooltip>
+            </VAvatar>
+
+            <VAvatar :size="40">
+              <VImg :src="avatar3" />
+              <VTooltip
+                activator="parent"
+                location="top"
+              >
+                Peter Harper
+              </VTooltip>
+            </VAvatar>
+
+            <VAvatar
+              :size="40"
+              :color="$vuetify.theme.current.dark ? '#373b50' : '#eeedf0'"
+            >
+              +3
+            </VAvatar>
+          </div>
         </VTimelineItem>
+        <!-- !SECTION -->
       </VTimeline>
     </VCardText>
   </VCard>

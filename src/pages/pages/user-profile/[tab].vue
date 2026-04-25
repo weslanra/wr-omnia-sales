@@ -1,14 +1,23 @@
 <script lang="ts" setup>
-import { useRoute } from 'vue-router'
+import UserProfileHeader from '@/views/pages/user-profile/UserProfileHeader.vue'
 import UserConnections from '@/views/pages/user-profile/connections/index.vue'
 import UserProfile from '@/views/pages/user-profile/profile/index.vue'
 import UserProjects from '@/views/pages/user-profile/projects/index.vue'
 import UserTeam from '@/views/pages/user-profile/team/index.vue'
-import UserProfileHeader from '@/views/pages/user-profile/UserProfileHeader.vue'
 
-const route = useRoute()
+definePage({
+  meta: {
+    navActiveLink: 'pages-user-profile-tab',
+    key: 'tab',
+  },
+})
 
-const activeTab = ref(route.params.tab)
+const route = useRoute('pages-user-profile-tab')
+
+const activeTab = computed({
+  get: () => route.params.tab,
+  set: () => route.params.tab,
+})
 
 // tabs
 const tabs = [
@@ -21,11 +30,11 @@ const tabs = [
 
 <template>
   <div>
-    <UserProfileHeader class="mb-5" />
+    <UserProfileHeader />
 
     <VTabs
       v-model="activeTab"
-      class="v-tabs-pill"
+      class="v-tabs-pill my-2"
     >
       <VTab
         v-for="item in tabs"
@@ -44,7 +53,7 @@ const tabs = [
 
     <VWindow
       v-model="activeTab"
-      class="mt-5 disable-tab-transition"
+      class="disable-tab-transition"
       :touch="false"
     >
       <!-- Profile -->
@@ -69,8 +78,3 @@ const tabs = [
     </VWindow>
   </div>
 </template>
-
-<route lang="yaml">
-meta:
-  navActiveLink: pages-user-profile-tab
-</route>

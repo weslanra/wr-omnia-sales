@@ -66,40 +66,26 @@ const resolveStatus: Status = {
   Rejected: 'error',
   Pending: 'secondary',
 }
+
+const moreList = [
+  { title: 'Refresh', value: 'refresh' },
+  { title: 'Download', value: 'Download' },
+  { title: 'View All', value: 'View All' },
+]
+
+const getPaddingStyle = (index: number) => index ? 'padding-block-end: 1.5rem;' : 'padding-block: 1.5rem;'
 </script>
 
 <template>
   <VCard title="Last Transaction">
     <template #append>
       <div class="me-n2">
-        <VBtn
-          icon
-          color="default"
-          size="x-small"
-          variant="plain"
-        >
-          <VIcon
-            size="22"
-            icon="tabler-dots-vertical"
-          />
-
-          <VMenu activator="parent">
-            <VList>
-              <VListItem
-                v-for="(item, index) in ['Refresh', 'Download', 'View All']"
-                :key="index"
-                :value="index"
-              >
-                <VListItemTitle>{{ item }}</VListItemTitle>
-              </VListItem>
-            </VList>
-          </VMenu>
-        </VBtn>
+        <MoreBtn :menu-list="moreList" />
       </div>
     </template>
 
     <VDivider />
-    <VTable class="text-no-wrap">
+    <VTable class="text-no-wrap transaction-table">
       <thead>
         <tr>
           <th>CARD</th>
@@ -111,19 +97,19 @@ const resolveStatus: Status = {
 
       <tbody>
         <tr
-          v-for="transition in lastTransitions"
-          :key="transition.lastDigit"
+          v-for="(transition, index) in lastTransitions"
+          :key="index"
         >
-          <td style="padding-block: 0.61rem;">
+          <td :style="getPaddingStyle(index)">
             <div class="d-flex align-center">
-              <div class="me-3">
+              <div class="me-4">
                 <VImg
                   :src="transition.cardImg"
                   width="50"
                 />
               </div>
               <div>
-                <p class="font-weight-semibold text-base mb-0">
+                <p class="font-weight-medium text-base mb-0 text-high-emphasis">
                   {{ transition.lastDigit }}
                 </p>
                 <p class="text-sm mb-0">
@@ -132,25 +118,37 @@ const resolveStatus: Status = {
               </div>
             </div>
           </td>
-          <td style="padding-block: 0.61rem;">
-            <p class="font-weight-semibold text-base mb-0">
+          <td :style="getPaddingStyle(index)">
+            <p class="text-high-emphasis text-base mb-0">
               Sent
             </p>
             <span class="text-sm">{{ transition.sentDate }}</span>
           </td>
-          <td style="padding-block: 0.61rem;">
+          <td :style="getPaddingStyle(index)">
             <VChip
               label
               :color="resolveStatus[transition.status]"
+              size="small"
             >
               {{ transition.status }}
             </VChip>
           </td>
-          <td style="padding-block: 0.61rem;">
-            <span class="font-weight-semibold text-base">{{ transition.trend }}</span>
+          <td :style="getPaddingStyle(index)">
+            <div class="text-high-emphasis text-base">
+              {{ transition.trend }}
+            </div>
           </td>
         </tr>
       </tbody>
     </VTable>
   </VCard>
 </template>
+
+<style lang="scss">
+.transaction-table {
+  &.v-table .v-table__wrapper > table > tbody > tr:not(:last-child) > td,
+  &.v-table .v-table__wrapper > table > tbody > tr:not(:last-child) > th {
+    border-block-end: none !important;
+  }
+}
+</style>

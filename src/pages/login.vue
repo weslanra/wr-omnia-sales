@@ -1,146 +1,170 @@
+<!-- ❗Errors in the form are set on line 60 -->
 <script setup lang="ts">
-import type { LoginResponse } from '@/@fake-db/types'
-import { useAppAbility } from '@/plugins/casl/useAppAbility'
-import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
-import axios from '@axios'
-import { useGenerateImageVariant } from '@core/composable/useGenerateImageVariant'
-import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
-import { themeConfig } from '@themeConfig'
-import { emailValidator, requiredValidator } from '@validators'
-import { VForm } from 'vuetify/components'
+import AuthProvider from "@/views/pages/authentication/AuthProvider.vue";
+import { useGenerateImageVariant } from "@core/composable/useGenerateImageVariant";
+import authV2LoginIllustrationBorderedDark from "@images/pages/auth-v2-login-illustration-bordered-dark.png";
+import authV2LoginIllustrationBorderedLight from "@images/pages/auth-v2-login-illustration-bordered-light.png";
+import authV2LoginIllustrationDark from "@images/pages/auth-v2-login-illustration-dark.png";
+import authV2LoginIllustrationLight from "@images/pages/auth-v2-login-illustration-light.png";
+import authV2MaskDark from "@images/pages/misc-mask-dark.png";
+import authV2MaskLight from "@images/pages/misc-mask-light.png";
+import { VNodeRenderer } from "@layouts/components/VNodeRenderer";
+import { themeConfig } from "@themeConfig";
+import { VForm } from "vuetify/components/VForm";
 
-import authV2LoginIllustrationBorderedDark from '@images/pages/auth-v2-login-illustration-bordered-dark.png'
-import authV2LoginIllustrationBorderedLight from '@images/pages/auth-v2-login-illustration-bordered-light.png'
-import authV2LoginIllustrationDark from '@images/pages/auth-v2-login-illustration-dark.png'
-import authV2LoginIllustrationLight from '@images/pages/auth-v2-login-illustration-light.png'
-import authV2MaskDark from '@images/pages/misc-mask-dark.png'
-import authV2MaskLight from '@images/pages/misc-mask-light.png'
+const authThemeImg = useGenerateImageVariant(
+  authV2LoginIllustrationLight,
+  authV2LoginIllustrationDark,
+  authV2LoginIllustrationBorderedLight,
+  authV2LoginIllustrationBorderedDark,
+  true
+);
 
-const authThemeImg = useGenerateImageVariant(authV2LoginIllustrationLight, authV2LoginIllustrationDark, authV2LoginIllustrationBorderedLight, authV2LoginIllustrationBorderedDark, true)
+const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark);
 
-const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
+definePage({
+  meta: {
+    layout: "blank",
+    unauthenticatedOnly: true,
+  },
+});
 
-const isPasswordVisible = ref(false)
+const isPasswordVisible = ref(false);
 
-const route = useRoute()
-const router = useRouter()
+const route = useRoute();
+const router = useRouter();
 
-const ability = useAppAbility()
+const ability = useAbility();
 
 const errors = ref<Record<string, string | undefined>>({
   email: undefined,
   password: undefined,
-})
+});
 
-const refVForm = ref<VForm>()
-const email = ref('admin@demo.com')
-const password = ref('admin')
-const rememberMe = ref(false)
+const refVForm = ref<VForm>();
 
-const login = () => {
-  axios.post<LoginResponse>('/auth/login', { email: email.value, password: password.value })
-    .then(r => {
-      const { accessToken, userData, userAbilities } = r.data
+const credentials = ref({
+  email: "admin@demo.com",
+  password: "admin",
+});
 
-      localStorage.setItem('userAbilities', JSON.stringify(userAbilities))
-      ability.update(userAbilities)
+const rememberMe = ref(false);
+const loading = ref(false);
 
-      localStorage.setItem('userData', JSON.stringify(userData))
-      localStorage.setItem('accessToken', JSON.stringify(accessToken))
+const login = async () => {
+  loading.value = true;
+  try {
+    const res = await $api("/auth/login", {
+      method: "POST",
+      body: {
+        email: credentials.value.email,
+        password: credentials.value.password,
+      },
+      onResponseError({ response }) {
+        errors.value = response._data.errors;
+      },
+    });
 
-      // Redirect to `to` query if exist or redirect to index route
-      router.replace(route.query.to ? String(route.query.to) : '/')
-    })
-    .catch(e => {
-      const { errors: formErrors } = e.response.data
+    const { accessToken, userData, userAbilityRules } = res;
 
-      errors.value = formErrors
-      console.error(e.response.data)
-    })
-}
+    useCookie("userAbilityRules").value = userAbilityRules;
+    ability.update(userAbilityRules);
+
+    useCookie("userData").value = userData;
+    useCookie("accessToken").value = accessToken;
+
+    // Redirect to `to` query if exist or redirect to index route
+    // ❗ nextTick is required to wait for DOM updates and later redirect
+    await nextTick(() => {
+      router.replace(route.query.to ? String(route.query.to) : "/");
+    });
+  } catch (err) {
+    console.error(err);
+  }
+
+  loading.value = false;
+};
 
 const onSubmit = () => {
-  refVForm.value?.validate()
-    .then(({ valid: isValid }) => {
-      if (isValid)
-        login()
-    })
-}
+  refVForm.value?.validate().then(({ valid: isValid }) => {
+    if (isValid) login();
+  });
+};
 </script>
 
 <template>
-  <VRow
-    no-gutters
-    class="auth-wrapper"
-  >
-    <VCol
-      lg="8"
-      class="d-none d-lg-flex"
-    >
-      <div class="position-relative auth-bg rounded-lg w-100 ma-8 me-0">
-        <div class="d-flex align-center justify-center w-100 h-100">
+  <RouterLink to="/">
+    <div class="auth-logo d-flex align-center gap-x-3">
+      <VNodeRenderer :nodes="themeConfig.app.logo" />
+      <h1 class="auth-title">
+        {{ themeConfig.app.title }}
+      </h1>
+    </div>
+  </RouterLink>
+
+  <VRow no-gutters class="auth-wrapper bg-surface">
+    <VCol md="8" class="d-none d-md-flex">
+      <div class="position-relative bg-background w-100 me-0">
+        <div
+          class="d-flex align-center justify-center w-100 h-100"
+          style="padding-inline: 6.25rem;"
+        >
           <VImg
-            max-width="505"
+            max-width="613"
             :src="authThemeImg"
             class="auth-illustration mt-16 mb-2"
           />
         </div>
 
-        <VImg
-          :src="authThemeMask"
+        <img
           class="auth-footer-mask"
+          :src="authThemeMask"
+          alt="auth-footer-mask"
+          height="280"
+          width="100"
         />
       </div>
     </VCol>
 
     <VCol
       cols="12"
-      lg="4"
-      class="d-flex align-center justify-center"
+      md="4"
+      class="auth-card-v2 d-flex align-center justify-center"
     >
-      <VCard
-        flat
-        :max-width="500"
-        class="mt-12 mt-sm-0 pa-4"
-      >
+      <VCard flat :max-width="500" class="mt-12 mt-sm-0 pa-4">
         <VCardText>
-          <VNodeRenderer
-            :nodes="themeConfig.app.logo"
-            class="mb-6"
-          />
-
-          <h5 class="text-h5 font-weight-semibold mb-1">
-            Bem-vindo ao {{ themeConfig.app.title }}! 👋🏻
-          </h5>
+          <h4 class="text-h4 mb-1">
+            Welcome to
+            <span class="text-capitalize"> {{ themeConfig.app.title }} </span>!
+            👋🏻
+          </h4>
           <p class="mb-0">
-            Por favor, entre na sua conta e comece a aventura
+            Please sign-in to your account and start the adventure
           </p>
         </VCardText>
         <VCardText>
-          <VAlert
-            color="primary"
-            variant="tonal"
-          >
-            <p class="text-caption mb-2">
-              Admin Email: <strong>admin@demo.com</strong> / Pass: <strong>admin</strong>
+          <VAlert color="primary" variant="tonal">
+            <p class="text-sm mb-2">
+              Admin Email: <strong>admin@demo.com</strong> / Pass:
+              <strong>admin</strong>
             </p>
-            <p class="text-caption mb-0">
-              Client Email: <strong>client@demo.com</strong> / Pass: <strong>client</strong>
+            <p class="text-sm mb-0">
+              Client Email: <strong>client@demo.com</strong> / Pass:
+              <strong>client</strong>
             </p>
           </VAlert>
         </VCardText>
         <VCardText>
-          <VForm
-            ref="refVForm"
-            @submit.prevent="onSubmit"
-          >
+          <VForm ref="refVForm" @submit.prevent="onSubmit">
             <VRow>
               <!-- email -->
               <VCol cols="12">
-                <VTextField
-                  v-model="email"
-                  label="E-mail"
+                <AppTextField
+                  v-model="credentials.email"
+                  label="Email"
+                  placeholder="johndoe@email.com"
                   type="email"
+                  autofocus
                   :rules="[requiredValidator, emailValidator]"
                   :error-messages="errors.email"
                 />
@@ -148,64 +172,52 @@ const onSubmit = () => {
 
               <!-- password -->
               <VCol cols="12">
-                <VTextField
-                  v-model="password"
-                  label="Senha"
+                <AppTextField
+                  v-model="credentials.password"
+                  label="Password"
+                  placeholder="············"
                   :rules="[requiredValidator]"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   :error-messages="errors.password"
-                  :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
+                  :append-inner-icon="
+                    isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'
+                  "
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 />
 
-                <div class="d-flex align-center flex-wrap justify-space-between mt-2 mb-4">
-                  <VCheckbox
-                    v-model="rememberMe"
-                    label="Remember me"
-                  />
+                <div
+                  class="d-flex align-center flex-wrap justify-space-between my-6"
+                >
+                  <VCheckbox v-model="rememberMe" label="Remember me" />
                   <RouterLink
                     class="text-primary ms-2 mb-1"
                     :to="{ name: 'forgot-password' }"
                   >
-                    Esqueceu sua senha?
+                    Forgot Password?
                   </RouterLink>
                 </div>
 
-                <VBtn
-                  block
-                  type="submit"
-                >
-                  Login
-                </VBtn>
+                <VBtn block type="submit" :loading="loading"> Login </VBtn>
               </VCol>
 
               <!-- create account -->
-              <VCol
-                cols="12"
-                class="text-center"
-              >
-                <span>Não tem uma conta?</span>
+              <VCol cols="12" class="text-center">
+                <span>New on our platform?</span>
                 <RouterLink
-                  class="text-primary ms-2"
+                  class="text-primary ms-1"
                   :to="{ name: 'register' }"
                 >
-                  Cadastre-se
+                  Create an account
                 </RouterLink>
               </VCol>
-              <VCol
-                cols="12"
-                class="d-flex align-center"
-              >
+              <VCol cols="12" class="d-flex align-center">
                 <VDivider />
-                <span class="mx-4">ou</span>
+                <span class="mx-4">or</span>
                 <VDivider />
               </VCol>
 
               <!-- auth providers -->
-              <VCol
-                cols="12"
-                class="text-center"
-              >
+              <VCol cols="12" class="text-center">
                 <AuthProvider />
               </VCol>
             </VRow>
@@ -219,11 +231,3 @@ const onSubmit = () => {
 <style lang="scss">
 @use "@core/scss/template/pages/page-auth.scss";
 </style>
-
-<route lang="yaml">
-meta:
-  layout: blank
-  action: read
-  subject: Auth
-  redirectIfLoggedIn: true
-</route>

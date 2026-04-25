@@ -1,7 +1,5 @@
 export const basic = {
   ts: `<script setup lang="ts">
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const date = ref('')
 </script>
 
@@ -9,13 +7,11 @@ const date = ref('')
   <AppDateTimePicker
     v-model="date"
     label="Default"
+    placeholder="Select date"
   />
 </template>
-
 `,
   js: `<script setup>
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const date = ref('')
 </script>
 
@@ -23,16 +19,14 @@ const date = ref('')
   <AppDateTimePicker
     v-model="date"
     label="Default"
+    placeholder="Select date"
   />
 </template>
-
 `,
 }
 
 export const dateAndTime = {
   ts: `<script setup lang="ts">
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const date = ref('')
 </script>
 
@@ -40,13 +34,12 @@ const date = ref('')
   <AppDateTimePicker
     v-model="date"
     label="Date & TIme"
+    placeholder="Select date and time"
     :config="{ enableTime: true, dateFormat: 'Y-m-d H:i' }"
   />
 </template>
 `,
   js: `<script setup>
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const date = ref('')
 </script>
 
@@ -54,6 +47,7 @@ const date = ref('')
   <AppDateTimePicker
     v-model="date"
     label="Date & TIme"
+    placeholder="Select date and time"
     :config="{ enableTime: true, dateFormat: 'Y-m-d H:i' }"
   />
 </template>
@@ -62,8 +56,6 @@ const date = ref('')
 
 export const disabledRange = {
   ts: `<script setup lang="ts">
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const now = new Date()
 const currentMonth = now.toLocaleString('default', { month: '2-digit' })
 const currentYear = now.getFullYear()
@@ -74,13 +66,12 @@ const date = ref('')
   <AppDateTimePicker
     v-model="date"
     label="Disabled Range"
+    placeholder="Select date"
     :config="{ dateFormat: 'Y-m-d', disable: [{ from: \`\${currentYear}-\${currentMonth}-20\`, to: \`\${currentYear}-\${currentMonth}-25\` }] }"
   />
 </template>
 `,
   js: `<script setup>
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const now = new Date()
 const currentMonth = now.toLocaleString('default', { month: '2-digit' })
 const currentYear = now.getFullYear()
@@ -91,6 +82,7 @@ const date = ref('')
   <AppDateTimePicker
     v-model="date"
     label="Disabled Range"
+    placeholder="Select date"
     :config="{ dateFormat: 'Y-m-d', disable: [{ from: \`\${currentYear}-\${currentMonth}-20\`, to: \`\${currentYear}-\${currentMonth}-25\` }] }"
   />
 </template>
@@ -99,8 +91,6 @@ const date = ref('')
 
 export const humanFriendly = {
   ts: `<script setup lang="ts">
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const date = ref('')
 </script>
 
@@ -108,13 +98,12 @@ const date = ref('')
   <AppDateTimePicker
     v-model="date"
     label="Human Friendly"
-    :config="{ altInput: true, altFormat: 'F j, Y', dateFormat: 'Y-m-d' }"
+    placeholder="Select date"
+    :config="{ dateFormat: 'F j, Y' }"
   />
 </template>
 `,
   js: `<script setup>
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const date = ref('')
 </script>
 
@@ -122,7 +111,8 @@ const date = ref('')
   <AppDateTimePicker
     v-model="date"
     label="Human Friendly"
-    :config="{ altInput: true, altFormat: 'F j, Y', dateFormat: 'Y-m-d' }"
+    placeholder="Select date"
+    :config="{ dateFormat: 'F j, Y' }"
   />
 </template>
 `,
@@ -130,8 +120,6 @@ const date = ref('')
 
 export const inline = {
   ts: `<script setup lang="ts">
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const date = ref('')
 </script>
 
@@ -139,13 +127,12 @@ const date = ref('')
   <AppDateTimePicker
     v-model="date"
     label="Inline"
+    placeholder="Select Date"
     :config="{ inline: true }"
   />
 </template>
 `,
   js: `<script setup>
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const date = ref('')
 </script>
 
@@ -153,6 +140,7 @@ const date = ref('')
   <AppDateTimePicker
     v-model="date"
     label="Inline"
+    placeholder="Select Date"
     :config="{ inline: true }"
   />
 </template>
@@ -161,8 +149,6 @@ const date = ref('')
 
 export const multipleDates = {
   ts: `<script setup lang="ts">
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const multipleDate = ref('')
 </script>
 
@@ -170,13 +156,12 @@ const multipleDate = ref('')
   <AppDateTimePicker
     v-model="multipleDate"
     label="Multiple Dates"
+    placeholder="Select date"
     :config="{ mode: 'multiple', dateFormat: 'Y-m-d' }"
   />
 </template>
 `,
   js: `<script setup>
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const multipleDate = ref('')
 </script>
 
@@ -184,6 +169,7 @@ const multipleDate = ref('')
   <AppDateTimePicker
     v-model="multipleDate"
     label="Multiple Dates"
+    placeholder="Select date"
     :config="{ mode: 'multiple', dateFormat: 'Y-m-d' }"
   />
 </template>
@@ -192,8 +178,6 @@ const multipleDate = ref('')
 
 export const range = {
   ts: `<script setup lang="ts">
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const dateRange = ref('')
 </script>
 
@@ -201,13 +185,12 @@ const dateRange = ref('')
   <AppDateTimePicker
     v-model="dateRange"
     label="Range"
+    placeholder="Select date"
     :config="{ mode: 'range' }"
   />
 </template>
 `,
   js: `<script setup>
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const dateRange = ref('')
 </script>
 
@@ -215,6 +198,7 @@ const dateRange = ref('')
   <AppDateTimePicker
     v-model="dateRange"
     label="Range"
+    placeholder="Select date"
     :config="{ mode: 'range' }"
   />
 </template>
@@ -223,8 +207,6 @@ const dateRange = ref('')
 
 export const timePicker = {
   ts: `<script setup lang="ts">
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const time = ref('')
 </script>
 
@@ -232,13 +214,12 @@ const time = ref('')
   <AppDateTimePicker
     v-model="time"
     label="Time picker"
+    placeholder="Select time"
     :config="{ enableTime: true, noCalendar: true, dateFormat: 'H:i' }"
   />
 </template>
 `,
   js: `<script setup>
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const time = ref('')
 </script>
 
@@ -246,9 +227,9 @@ const time = ref('')
   <AppDateTimePicker
     v-model="time"
     label="Time picker"
+    placeholder="Select time"
     :config="{ enableTime: true, noCalendar: true, dateFormat: 'H:i' }"
   />
 </template>
 `,
 }
-

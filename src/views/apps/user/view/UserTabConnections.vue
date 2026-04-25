@@ -25,7 +25,7 @@ const connectedAccounts = ref([
   },
   {
     img: github,
-    title: 'Github',
+    title: 'GitHub',
     text: 'Manage your Git repositories',
     connected: true,
   },
@@ -52,13 +52,13 @@ const socialAccounts = ref([
   {
     img: twitter,
     title: 'Twitter',
-    link: 'https://twitter.com/theme_selection',
-    username: '@Theme_Selection',
+    link: 'https://twitter.com/pixinvents',
+    username: '@Pixinvent',
     connected: true,
   },
   {
     img: linkedin,
-    title: 'Linkedin',
+    title: 'LinkedIn',
     link: 'https://www.linkedin.com/company/pixinvent',
     username: '@Pixinvent',
     connected: true,
@@ -80,24 +80,28 @@ const socialAccounts = ref([
   <VRow>
     <!-- 👉 connected accounts -->
     <VCol cols="12">
-      <VCard title="Connected Accounts">
+      <VCard
+        title="Connected Accounts"
+        subtitle="Display content from your connected accounts on your site"
+      >
         <VCardText>
-          <p class="text-sm mt-n6 mb-6">
-            Display content from your connected accounts on your site
-          </p>
-
           <VList class="card-list">
             <VListItem
               v-for="account in connectedAccounts"
               :key="account.title"
-              :title="account.title"
               :subtitle="account.text"
             >
+              <template #title>
+                <h6 class="text-h6">
+                  {{ account.title }}
+                </h6>
+              </template>
               <template #prepend>
                 <VAvatar
                   start
-                  :size="35"
+                  :size="36"
                   :image="account.img"
+                  class="me-1"
                 />
               </template>
 
@@ -116,23 +120,25 @@ const socialAccounts = ref([
 
     <!-- 👉 social accounts -->
     <VCol cols="12">
-      <VCard title="Social Accounts">
+      <VCard
+        title="Social Accounts"
+        subtitle="Display content from social accounts on your site"
+      >
         <VCardText>
-          <p class="text-sm mb-6 mt-n6">
-            Display content from social accounts on your site
-          </p>
-
           <VList class="card-list">
             <VListItem
               v-for="(account) in socialAccounts"
               :key="account.title"
-              :title="account.title"
             >
+              <h6 class="text-h6">
+                {{ account.title }}
+              </h6>
               <template #prepend>
                 <VAvatar
                   start
-                  size="35"
+                  size="36"
                   rounded="0"
+                  class="me-1"
                   :image="account.img"
                 />
               </template>
@@ -152,18 +158,13 @@ const socialAccounts = ref([
               </VListItemSubtitle>
 
               <template #append>
-                <VBtn
-                  icon
-                  :color="account.connected ? 'error' : 'secondary'"
+                <IconBtn
                   variant="tonal"
-                  size="small"
+                  :color="account.connected ? 'error' : 'secondary'"
                   class="rounded"
                 >
-                  <VIcon
-                    size="22"
-                    :icon="account.connected ? 'tabler-trash' : 'tabler-link'"
-                  />
-                </VBtn>
+                  <VIcon :icon="account.connected ? 'tabler-trash' : 'tabler-link'" />
+                </IconBtn>
               </template>
             </VListItem>
           </VList>
@@ -172,3 +173,9 @@ const socialAccounts = ref([
     </VCol>
   </VRow>
 </template>
+
+<style lang="scss" scoped>
+.card-list {
+  --v-card-list-gap: 16px;
+}
+</style>

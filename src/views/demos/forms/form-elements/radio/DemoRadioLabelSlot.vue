@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const radios = ref('Duckduckgo')
+const radios = ref('DuckDuckGo')
 </script>
 
 <template>
@@ -10,13 +10,21 @@ const radios = ref('Duckduckgo')
 
     <VRadio value="Google">
       <template #label>
-        <div>Of course it's <strong class="text-success">Google</strong></div>
+        <div>
+          Of course it's <span class="text-success">
+            Google
+          </span>
+        </div>
       </template>
     </VRadio>
 
-    <VRadio value="Duckduckgo">
+    <VRadio value="DuckDuckGo">
       <template #label>
-        <div>Definitely <strong class="text-primary">Duckduckgo</strong></div>
+        <div>
+          Definitely <span class="text-primary">
+            DuckDuckGo
+          </span>
+        </div>
       </template>
     </VRadio>
   </VRadioGroup>

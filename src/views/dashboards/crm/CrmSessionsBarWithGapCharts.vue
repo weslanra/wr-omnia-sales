@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import VueApexCharts from 'vue3-apexcharts'
 import { useTheme } from 'vuetify'
+import { hexToRgb } from '@layouts/utils'
 
 const vuetifyTheme = useTheme()
 
@@ -21,7 +21,6 @@ const chartOptions = computed(() => {
   return {
     chart: {
       type: 'bar',
-      height: 90,
       parentHeightOffset: 0,
       stacked: true,
       toolbar: {
@@ -63,14 +62,14 @@ const chartOptions = computed(() => {
     legend: {
       show: false,
     },
-    colors: [currentTheme.primary, currentTheme.success],
+    colors: [`rgba(${hexToRgb(currentTheme.primary)},1)`, `rgba(${hexToRgb(currentTheme.success)},1)`],
     grid: {
       show: false,
       padding: {
         top: -41,
         right: -5,
         left: -3,
-        bottom: -22,
+        bottom: -15,
       },
     },
     xaxis: {
@@ -160,7 +159,7 @@ const chartOptions = computed(() => {
           plotOptions: {
             bar: {
               borderRadius: 12,
-              columnWidth: '25%',
+              columnWidth: '20%',
             },
           },
           chart: {
@@ -209,25 +208,27 @@ const chartOptions = computed(() => {
   <VCard>
     <VCardText>
       <div>
-        <h6 class="text-h6">
+        <h5 class="text-h5">
           Sessions
-        </h6>
-        <span class="text-body-2">Last Month</span>
+        </h5>
+        <p class="mb-0 text-sm text-disabled">
+          This Month
+        </p>
       </div>
 
       <VueApexCharts
         :options="chartOptions"
         :series="series"
-        :height="82"
+        :height="75"
       />
 
       <div class="d-flex align-center justify-space-between mt-4">
-        <h6 class="text-h6 text-center font-weight-semibold">
+        <h4 class="text-h4">
           45.1k
-        </h6>
-        <span class="text-sm text-success">
+        </h4>
+        <p class="mb-0 text-sm text-success">
           +12.6%
-        </span>
+        </p>
       </div>
     </VCardText>
   </VCard>

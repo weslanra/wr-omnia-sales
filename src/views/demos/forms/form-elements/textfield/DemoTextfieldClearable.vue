@@ -1,5 +1,6 @@
 <template>
-  <VTextField
+  <AppTextField
+    placeholder="Placeholder Text"
     label="Regular"
     clearable
   />

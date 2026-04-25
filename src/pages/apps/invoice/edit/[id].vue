@@ -4,27 +4,26 @@ import InvoiceEditable from '@/views/apps/invoice/InvoiceEditable.vue'
 import InvoiceSendInvoiceDrawer from '@/views/apps/invoice/InvoiceSendInvoiceDrawer.vue'
 
 // Type: Invoice data
-import type { InvoiceData } from '@/views/apps/invoice/types'
-
-// Store
-import { useInvoiceStore } from '@/views/apps/invoice/useInvoiceStore'
-
-const invoiceListStore = useInvoiceStore()
-const route = useRoute()
+import type { InvoiceData, PurchasedProduct } from '@/views/apps/invoice/types'
 
 const invoiceData = ref<InvoiceData>()
+const route = useRoute('apps-invoice-edit-id')
 
 // 👉 fetchInvoice
-invoiceListStore.fetchInvoice(Number(route.params.id)).then(response => {
+
+const { data: invoiceDetails } = await useApi<any>(`/apps/invoice/${route.params.id}`)
+
+if (invoiceDetails.value) {
   invoiceData.value = {
-    invoice: response.data.invoice,
-    paymentDetails: response.data.paymentDetails,
+    invoice: invoiceDetails.value.invoice,
+    paymentDetails: invoiceDetails.value.paymentDetails,
 
     /*
       We are adding some extra data in response for data purpose
       Your response will contain this extra data
       Purpose is to make it more API friendly and less static as possible
     */
+
     purchasedProducts: [
       {
         title: 'App Design',
@@ -38,9 +37,15 @@ invoiceListStore.fetchInvoice(Number(route.params.id)).then(response => {
     salesperson: 'Tom Cook',
     thanksNote: 'Thanks for your business',
   }
-}).catch(error => {
-  console.log(error)
-})
+}
+
+const addProduct = (value: PurchasedProduct) => {
+  invoiceData.value?.purchasedProducts.push(value)
+}
+
+const removeProduct = (id: number) => {
+  invoiceData.value?.purchasedProducts.splice(id, 1)
+}
 
 const isSendSidebarActive = ref(false)
 const isAddPaymentSidebarActive = ref(false)
@@ -52,14 +57,18 @@ const paymentMethods = ['Bank Account', 'PayPal', 'UPI Transfer']
 </script>
 
 <template>
-  <VRow>
-    <!-- 👉 InvoiceEditable   -->
+  <VRow v-if="invoiceData && invoiceData?.invoice ">
+    <!-- 👉 InvoiceEditable -->
     <VCol
-      v-if="invoiceData?.invoice"
       cols="12"
       md="9"
     >
-      <InvoiceEditable :data="invoiceData" />
+      <InvoiceEditable
+        v-if="invoiceData?.invoice"
+        :data="invoiceData"
+        @push="addProduct"
+        @remove="removeProduct"
+      />
     </VCol>
 
     <!-- 👉 Right Column: Invoice Action -->
@@ -73,42 +82,37 @@ const paymentMethods = ['Bank Account', 'PayPal', 'UPI Transfer']
           <VBtn
             block
             prepend-icon="tabler-send"
-            class="mb-2"
+            class="mb-4"
             @click="isSendSidebarActive = true"
           >
             Send Invoice
           </VBtn>
 
-          <div class="d-flex gap-2">
-            <div class="w-50">
-              <!-- 👉  Preview button -->
-              <VBtn
-                block
-                color="secondary"
-                variant="tonal"
-                class="mb-2"
-                :to="{ name: 'apps-invoice-preview-id', params: { id: route.params.id } }"
-              >
-                Preview
-              </VBtn>
-            </div>
+          <div class="d-flex flex-wrap gap-4">
+            <!-- 👉  Preview button -->
+            <VBtn
+              color="secondary"
+              variant="tonal"
+              class="flex-grow-1"
+              :to="{ name: 'apps-invoice-preview-id', params: { id: route.params.id } }"
+            >
+              Preview
+            </VBtn>
 
-            <div class="w-50">
-              <!-- 👉 Save button -->
-              <VBtn
-                block
-                color="secondary"
-                variant="tonal"
-                class="mb-2"
-              >
-                Save
-              </VBtn>
-            </div>
+            <!-- 👉 Save button -->
+            <VBtn
+              color="secondary"
+              variant="tonal"
+              class="mb-4 flex-grow-1"
+            >
+              Save
+            </VBtn>
           </div>
 
           <!-- 👉 Add Payment trigger button -->
           <VBtn
             block
+            color="success"
             prepend-icon="tabler-currency-dollar"
             @click="isAddPaymentSidebarActive = true"
           >
@@ -118,11 +122,11 @@ const paymentMethods = ['Bank Account', 'PayPal', 'UPI Transfer']
       </VCard>
 
       <!-- 👉 Accept payment via  -->
-      <VSelect
+      <AppSelect
         v-model="selectedPaymentMethod"
         :items="paymentMethods"
         label="Accept Payment Via"
-        class="mb-6"
+        class="mb-4"
       />
 
       <!-- 👉 Payment Terms -->
@@ -171,5 +175,13 @@ const paymentMethods = ['Bank Account', 'PayPal', 'UPI Transfer']
     <!-- 👉 Invoice add payment drawer -->
     <InvoiceAddPaymentDrawer v-model:isDrawerOpen="isAddPaymentSidebarActive" />
   </VRow>
-</template>
 
+  <section v-else>
+    <VAlert
+      type="error"
+      variant="tonal"
+    >
+      Invoice with ID  {{ route.params.id }} not found!
+    </VAlert>
+  </section>
+</template>

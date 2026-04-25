@@ -22,14 +22,15 @@ const sendMessage = () => {
 </script>
 
 <template>
-  <VTextField
+  <AppTextField
     v-model="message"
     clearable
     type="text"
     label="Message"
     color="primary"
+    placeholder="Hey!!"
     clear-icon="tabler-circle-x"
-    :append-icon="message ? 'tabler-arrow-big-right-lines' : 'tabler-microphone'"
+    :append-icon="message ? $vuetify.locale.isRtl ? 'tabler-arrow-big-left-lines' : 'tabler-arrow-big-right-lines' : 'tabler-microphone'"
     :append-inner-icon="marker ? 'tabler-map-pin' : 'tabler-map-pin-off'"
     @click:append-inner="toggleMarker"
     @click:append="sendMessage"

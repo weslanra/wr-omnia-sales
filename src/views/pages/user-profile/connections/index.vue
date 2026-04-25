@@ -1,20 +1,18 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
-import type { ConnectionsTab } from '@/@fake-db/types'
-import axios from '@axios'
+import type { ConnectionsTab } from '@db/pages/profile/types'
 
-const router = useRoute()
+const router = useRoute('pages-user-profile-tab')
 const connectionData = ref<ConnectionsTab[]>([])
 
-const fetchProjectData = () => {
+const fetchProjectData = async () => {
   if (router.params.tab === 'connections') {
-    axios.get('/pages/profile', {
-      params: {
+    const data = await $api('/pages/profile', {
+      query: {
         tab: router.params.tab,
       },
-    }).then(response => {
-      connectionData.value = response.data
-    })
+    }).catch(err => console.log(err))
+
+    connectionData.value = data
   }
 }
 
@@ -32,53 +30,35 @@ watch(router, fetchProjectData, { immediate: true })
     >
       <VCard>
         <div class="vertical-more">
-          <VBtn
-            icon
-            variant="text"
-            color="default"
-            size="x-small"
-          >
-            <VIcon
-              size="20  "
-              icon="tabler-dots-vertical"
-              class="text-disabled"
-            />
-
-            <VMenu activator="parent">
-              <VList density="compact">
-                <VListItem
-                  v-for="(item, index) in ['Share connection', 'Block connection']"
-                  :key="index"
-                  :value="index"
-                >
-                  <VListItemTitle>{{ item }}</VListItemTitle>
-                </VListItem>
-
-                <VDivider class="my-2" />
-
-                <VListItem
-                  title="Delete"
-                  value="Delete"
-                  class="text-error"
-                />
-              </VList>
-            </VMenu>
-          </VBtn>
+          <MoreBtn
+            :menu-list="[
+              { title: 'Share connection', value: 'Share connection' },
+              { title: 'Block connection', value: 'Block connection' },
+              { type: 'divider', class: 'my-2' },
+              { title: 'Delete', value: 'Delete', class: 'text-error' },
+            ]"
+            item-props
+          />
         </div>
 
         <VCardItem>
-          <VCardTitle class="d-flex flex-column align-center justify-center">
+          <VCardTitle class="d-flex flex-column align-center justify-center gap-y-6">
             <VAvatar
               size="100"
               :image="data.avatar"
+              class="mt-5"
             />
 
-            <p class="mt-4 mb-0">
-              {{ data.name }}
-            </p>
-            <span class="text-body-1">{{ data.designation }}</span>
+            <div class="text-center">
+              <h5 class="text-h5">
+                {{ data.name }}
+              </h5>
+              <h6 class="text-body-1">
+                {{ data.designation }}
+              </h6>
+            </div>
 
-            <div class="d-flex align-center flex-wrap gap-2 mt-2">
+            <div class="d-flex align-center flex-wrap gap-4">
               <VChip
                 v-for="chip in data.chips"
                 :key="chip.title"
@@ -93,47 +73,50 @@ watch(router, fetchProjectData, { immediate: true })
         </VCardItem>
 
         <VCardText>
-          <div class="d-flex justify-space-around">
+          <div class="d-flex justify-space-around mb-2">
             <div class="text-center">
-              <h6 class="text-h6 font-weight-semibold">
+              <h5 class="text-h5">
                 {{ data.projects }}
-              </h6>
-              <span class="text-body-1">Projects</span>
+              </h5>
+              <div class="text-body-1">
+                Projects
+              </div>
             </div>
             <div class="text-center">
-              <h6 class="text-h6">
+              <h5 class="text-h5">
                 {{ data.tasks }}
-              </h6>
-              <span class="text-body-1">Tasks</span>
+              </h5>
+              <div class="text-body-1">
+                Tasks
+              </div>
             </div>
             <div class="text-center">
-              <h6 class="text-h6">
+              <h5 class="text-h5">
                 {{ data.connections }}
-              </h6>
-              <span class="text-body-1">Connections</span>
+              </h5>
+              <div class="text-body-1">
+                Connections
+              </div>
             </div>
           </div>
 
-          <div class="d-flex justify-center gap-4 mt-5">
+          <div class="d-flex justify-center gap-4 mt-6">
             <VBtn
               :prepend-icon="data.isConnected ? 'tabler-user-check' : 'tabler-user-plus'"
               :variant="data.isConnected ? 'elevated' : 'tonal'"
             >
-              Connected
+              {{ data.isConnected ? 'connected' : 'connect' }}
             </VBtn>
 
-            <VBtn
-              icon
+            <IconBtn
               variant="tonal"
-              color="default"
-              size="small"
               class="rounded"
             >
               <VIcon
-                size="22"
                 icon="tabler-mail"
+                color="secondary"
               />
-            </VBtn>
+            </IconBtn>
           </div>
         </VCardText>
       </VCard>

@@ -1,12 +1,16 @@
 export default [
   {
     title: 'Forms',
-    icon: { icon: 'tabler-checks' },
+    icon: { icon: 'tabler-forms' },
     children: [
       {
         title: 'Form Elements',
         icon: { icon: 'tabler-copy' },
         children: [
+          {
+            title: 'Autocomplete',
+            to: 'forms-autocomplete',
+          },
           {
             title: 'Checkbox',
             to: 'forms-checkbox',
@@ -20,12 +24,20 @@ export default [
             to: 'forms-date-time-picker',
           },
           {
+            title: 'Editors',
+            to: 'forms-editors',
+          },
+          {
             title: 'File Input',
             to: 'forms-file-input',
           },
           {
             title: 'Radio',
             to: 'forms-radio',
+          },
+          {
+            title: 'Custom Input',
+            to: 'forms-custom-input',
           },
           {
             title: 'Range Slider',
@@ -58,6 +70,14 @@ export default [
         title: 'Form Layouts',
         icon: { icon: 'tabler-circle-check' },
         to: 'forms-form-layouts',
+      },
+      {
+        title: 'Form Wizard',
+        icon: { icon: 'tabler-align-center' },
+        children: [
+          { title: 'Numbered', to: 'forms-form-wizard-numbered' },
+          { title: 'Icons', to: 'forms-form-wizard-icons' },
+        ],
       },
       {
         title: 'Form Validation',

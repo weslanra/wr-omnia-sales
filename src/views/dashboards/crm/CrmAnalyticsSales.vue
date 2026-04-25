@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import VueApexCharts from 'vue3-apexcharts'
 import { useTheme } from 'vuetify'
 import { hexToRgb } from '@layouts/utils'
 
@@ -22,7 +21,7 @@ const chartOptions = computed(() => {
 
   const borderColor = `rgba(${hexToRgb(String(variableTheme['border-color']))},${variableTheme['border-opacity']})`
   const labelColor = `rgba(${hexToRgb(currentTheme['on-surface'])},${variableTheme['disabled-opacity']})`
-  const legendColor = `rgba(${hexToRgb(currentTheme['on-background'])},${variableTheme['high-emphasis-opacity']})`
+  const legendColor = `rgba(${hexToRgb(currentTheme['on-background'])},${variableTheme['medium-emphasis-opacity']})`
 
   return {
     chart: {
@@ -45,16 +44,16 @@ const chartOptions = computed(() => {
     },
     legend: {
       show: true,
-      fontSize: '14px',
+      fontSize: '13px',
       position: 'bottom',
       labels: {
         colors: legendColor,
         useSeriesColors: false,
       },
       markers: {
-        height: 10,
-        width: 10,
-        offsetX: -3,
+        height: 12,
+        width: 12,
+        offsetX: -8,
       },
       itemMargin: {
         horizontal: 10,
@@ -83,7 +82,7 @@ const chartOptions = computed(() => {
         show: true,
         style: {
           colors: [labelColor, labelColor, labelColor, labelColor, labelColor, labelColor],
-          fontSize: '14px',
+          fontSize: '13px',
           fontFamily: 'Public Sans',
         },
       },
@@ -106,39 +105,25 @@ const chartOptions = computed(() => {
     ],
   }
 })
+
+const moreList = [
+  { title: 'View More', value: 'View More' },
+  { title: 'Delete', value: 'Delete' },
+]
 </script>
 
 <template>
   <VCard>
-    <VCardItem class="pb-0">
+    <VCardItem class="pb-4">
       <VCardTitle>Sales</VCardTitle>
       <VCardSubtitle>Last 6 Months</VCardSubtitle>
 
       <template #append>
         <div class="mt-n4 me-n2">
-          <VBtn
-            icon
-            size="x-small"
-            variant="plain"
-            color="default"
-          >
-            <VIcon
-              size="22"
-              icon="tabler-dots-vertical"
-            />
-
-            <VMenu activator="parent">
-              <VList>
-                <VListItem
-                  v-for="(item, index) in ['View More', 'Delete']"
-                  :key="index"
-                  :value="index"
-                >
-                  <VListItemTitle>{{ item }}</VListItemTitle>
-                </VListItem>
-              </VList>
-            </VMenu>
-          </VBtn>
+          <MoreBtn
+            size="small"
+            :menu-list="moreList"
+          />
         </div>
       </template>
     </VCardItem>
@@ -147,7 +132,7 @@ const chartOptions = computed(() => {
       <VueApexCharts
         :options="chartOptions"
         :series="series"
-        height="355"
+        height="290"
       />
     </VCardText>
   </VCard>

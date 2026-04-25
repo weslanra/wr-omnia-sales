@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import VueApexCharts from 'vue3-apexcharts'
 import { useTheme } from 'vuetify'
 import { hexToRgb } from '@layouts/utils'
 
@@ -52,7 +51,7 @@ const chartOptions = computed(() => {
       labelPrimaryColor,
       labelPrimaryColor,
       labelPrimaryColor,
-      currentTheme.primary,
+      `rgba(${hexToRgb(currentTheme.primary)}, 1)`,
       labelPrimaryColor,
       labelPrimaryColor,
     ],
@@ -73,7 +72,7 @@ const chartOptions = computed(() => {
       labels: {
         style: {
           colors: labelColor,
-          fontSize: '14px',
+          fontSize: '13px',
         },
       },
     },
@@ -111,6 +110,12 @@ const earningReports = [
     percentage: '52.8%',
   },
 ]
+
+const moreList = [
+  { title: 'Refresh', value: 'refresh' },
+  { title: 'Download', value: 'Download' },
+  { title: 'View All', value: 'View All' },
+]
 </script>
 
 <template>
@@ -120,34 +125,15 @@ const earningReports = [
   >
     <template #append>
       <div class="mt-n4 me-n2">
-        <VBtn
-          icon
-          color="default"
-          size="x-small"
-          variant="plain"
-        >
-          <VIcon
-            size="22"
-            icon="tabler-dots-vertical"
-          />
-
-          <VMenu activator="parent">
-            <VList>
-              <VListItem
-                v-for="(item, index) in ['Refresh', 'Download', 'View All']"
-                :key="index"
-                :value="index"
-              >
-                <VListItemTitle>{{ item }}</VListItemTitle>
-              </VListItem>
-            </VList>
-          </VMenu>
-        </VBtn>
+        <MoreBtn
+          size="small"
+          :menu-list="moreList"
+        />
       </div>
     </template>
 
-    <VCardText class="pb-0">
-      <VList class="card-list mb-3">
+    <VCardText>
+      <VList class="card-list mb-5">
         <VListItem
           v-for="report in earningReports"
           :key="report.title"
@@ -158,25 +144,29 @@ const earningReports = [
               size="34"
               variant="tonal"
               :color="report.avatarColor"
+              class="me-1"
             >
-              <VIcon :icon="report.avatarIcon" />
+              <VIcon
+                :icon="report.avatarIcon"
+                size="22"
+              />
             </VAvatar>
           </template>
 
-          <VListItemTitle class="font-weight-medium">
+          <VListItemTitle class="font-weight-medium me-4">
             {{ report.title }}
           </VListItemTitle>
-          <VListItemSubtitle>
+          <VListItemSubtitle class="me-4">
             {{ report.subtitle }}
           </VListItemSubtitle>
 
           <template #append>
             <div class="d-flex align-center text-body-2">
-              <span class="me-1">{{ report.earnings }}</span>
+              <span class="me-4">{{ report.earnings }}</span>
               <VIcon
                 color="success"
                 icon="tabler-chevron-up"
-                size="18"
+                size="20"
                 class="me-1"
               />
               <span class="text-disabled">{{ report.percentage }}</span>
@@ -185,11 +175,19 @@ const earningReports = [
         </VListItem>
       </VList>
 
-      <VueApexCharts
-        :options="chartOptions"
-        :series="series"
-        :height="245"
-      />
+      <div>
+        <VueApexCharts
+          :options="chartOptions"
+          :series="series"
+          :height="196"
+        />
+      </div>
     </VCardText>
   </VCard>
 </template>
+
+<style lang="scss" scoped>
+.card-list {
+  --v-card-list-gap: 1.25rem;
+}
+</style>

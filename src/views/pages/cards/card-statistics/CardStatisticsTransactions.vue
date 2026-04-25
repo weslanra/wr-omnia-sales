@@ -28,9 +28,9 @@ const statistics = [
 </script>
 
 <template>
-  <VCard title="Transactions">
+  <VCard title="Statistics">
     <template #append>
-      <span class="text-sm text-disabled">Updated 1 month ago</span>
+      <span class="text-disabled text-subtitle-2">Updated 1 month ago</span>
     </template>
 
     <VCardText>
@@ -41,24 +41,23 @@ const statistics = [
           cols="6"
           md="3"
         >
-          <div class="d-flex">
+          <div class="d-flex gap-x-4 align-center">
             <VAvatar
               :color="item.color"
               variant="tonal"
-              size="42"
-              class="me-3"
+              size="40"
+              rounded
             >
-              <VIcon
-                size="24"
-                :icon="item.icon"
-              />
+              <VIcon :icon="item.icon" />
             </VAvatar>
 
             <div class="d-flex flex-column">
-              <span class="text-h6 font-weight-medium">{{ item.stats }}</span>
-              <span class="text-caption">
+              <h5 class="text-h5">
+                {{ item.stats }}
+              </h5>
+              <div class="text-body-2">
                 {{ item.title }}
-              </span>
+              </div>
             </div>
           </div>
         </VCol>

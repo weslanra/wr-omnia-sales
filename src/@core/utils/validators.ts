@@ -1,4 +1,4 @@
-import { isEmpty, isEmptyArray, isNullOrUndefined } from './index'
+import { isEmpty, isEmptyArray, isNullOrUndefined } from './helpers'
 
 // 👉 Required Validator
 export const requiredValidator = (value: unknown) => {
@@ -13,7 +13,7 @@ export const emailValidator = (value: unknown) => {
   if (isEmpty(value))
     return true
 
-  const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  const re = /^(?:[^<>()[\]\\.,;:\s@"]+(?:\.[^<>()[\]\\.,;:\s@"]+)*|".+")@(?:\[\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\]|(?:[a-z\-\d]+\.)+[a-z]{2,})$/i
 
   if (Array.isArray(value))
     return value.every(val => re.test(String(val))) || 'The Email field must be a valid email'
@@ -27,11 +27,7 @@ export const passwordValidator = (password: string) => {
 
   const validPassword = regExp.test(password)
 
-  return (
-    // eslint-disable-next-line operator-linebreak
-    validPassword ||
-    'Field must contain at least one uppercase, lowercase, special character and digit with min 8 chars'
-  )
+  return validPassword || 'Field must contain at least one uppercase, lowercase, special character and digit with min 8 chars'
 }
 
 // 👉 Confirm Password Validator
@@ -52,9 +48,9 @@ export const integerValidator = (value: unknown) => {
     return true
 
   if (Array.isArray(value))
-    return value.every(val => /^-?[0-9]+$/.test(String(val))) || 'This field must be an integer'
+    return value.every(val => /^-?\d+$/.test(String(val))) || 'This field must be an integer'
 
-  return /^-?[0-9]+$/.test(String(value)) || 'This field must be an integer'
+  return /^-?\d+$/.test(String(value)) || 'This field must be an integer'
 }
 
 // 👉 Regex Validator
@@ -85,7 +81,7 @@ export const urlValidator = (value: unknown) => {
   if (isEmpty(value))
     return true
 
-  const re = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/
+  const re = /^https?:\/\/[^\s$.?#].\S*$/
 
   return re.test(String(value)) || 'URL is invalid'
 }
@@ -95,7 +91,7 @@ export const lengthValidator = (value: unknown, length: number) => {
   if (isEmpty(value))
     return true
 
-  return String(value).length === length || `The Min Character field must be at least ${length} characters`
+  return String(value).length === length || `"The length of the Characters field must be ${length} characters."`
 }
 
 // 👉 Alpha-dash Validator
@@ -105,5 +101,5 @@ export const alphaDashValidator = (value: unknown) => {
 
   const valueAsString = String(value)
 
-  return /^[0-9A-Z_-]*$/i.test(valueAsString) || 'All Character are not valid'
+  return /^[\w-]*$/.test(valueAsString) || 'All Character are not valid'
 }

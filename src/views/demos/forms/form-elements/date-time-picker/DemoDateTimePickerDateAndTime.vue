@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const date = ref('')
 </script>
 
@@ -8,6 +6,7 @@ const date = ref('')
   <AppDateTimePicker
     v-model="date"
     label="Date & TIme"
+    placeholder="Select date and time"
     :config="{ enableTime: true, dateFormat: 'Y-m-d H:i' }"
   />
 </template>

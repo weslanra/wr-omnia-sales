@@ -10,7 +10,7 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
         v-model="selectedItem"
         :items="items"
         multiple
-        chips
+        placeholder="deployment"
         variant="solo"
         label="solo"
       />
@@ -19,8 +19,8 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
       <VCombobox
         v-model="selectedItem"
         multiple
-        chips
         :items="items"
+        placeholder="deployment"
         variant="outlined"
         label="Outlined"
       />
@@ -29,8 +29,8 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
       <VCombobox
         v-model="selectedItem"
         multiple
-        chips
         :items="items"
+        placeholder="deployment"
         variant="underlined"
         label="Underlined"
       />
@@ -39,8 +39,8 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
       <VCombobox
         v-model="selectedItem"
         multiple
-        chips
         :items="items"
+        placeholder="deployment"
         variant="filled"
         label="Filled"
       />
@@ -49,9 +49,9 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
       <VCombobox
         v-model="selectedItem"
         multiple
-        chips
         :items="items"
         variant="plain"
+        placeholder="deployment"
         label="Plain"
       />
     </VCol>

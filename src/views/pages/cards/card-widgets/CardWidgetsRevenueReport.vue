@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import VueApexCharts from 'vue3-apexcharts'
 import { useTheme } from 'vuetify'
 import { hexToRgb } from '@layouts/utils'
 
@@ -52,11 +51,11 @@ const chartOptions = computed(() => {
           horizontal: false,
           columnWidth: '40%',
           borderRadius: 8,
-          startingShape: 'rounded',
-          endingShape: 'rounded',
+          borderRadiusApplication: 'around',
+          borderRadiusWhenStacked: 'all',
         },
       },
-      colors: [currentTheme.primary, currentTheme.warning],
+      colors: ['rgba(var(--v-theme-primary),1)', 'rgba(var(--v-theme-warning),1)'],
       dataLabels: {
         enabled: false,
       },
@@ -68,9 +67,10 @@ const chartOptions = computed(() => {
       },
       legend: {
         show: true,
-        horizontalAlign: 'left',
+        horizontalAlign: 'right',
         position: 'top',
         fontFamily: 'Public Sans',
+        fontSize: '13px',
         markers: {
           height: 12,
           width: 12,
@@ -96,7 +96,7 @@ const chartOptions = computed(() => {
         categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
         labels: {
           style: {
-            fontSize: '14px',
+            fontSize: '13px',
             colors: labelColor,
             fontFamily: 'Public Sans',
           },
@@ -112,7 +112,7 @@ const chartOptions = computed(() => {
         labels: {
           offsetX: -16,
           style: {
-            fontSize: '14px',
+            fontSize: '13px',
             colors: labelColor,
             fontFamily: 'Public Sans',
           },
@@ -133,7 +133,7 @@ const chartOptions = computed(() => {
           },
         },
         {
-          breakpoint: 1441,
+          breakpoint: 1526,
           options: {
             plotOptions: {
               bar: {
@@ -143,11 +143,11 @@ const chartOptions = computed(() => {
           },
         },
         {
-          breakpoint: 1280,
+          breakpoint: 1359,
           options: {
             plotOptions: {
               bar: {
-                columnWidth: '38%',
+                columnWidth: '60%',
               },
             },
           },
@@ -170,7 +170,8 @@ const chartOptions = computed(() => {
           options: {
             plotOptions: {
               bar: {
-                columnWidth: '38%',
+                columnWidth: '60%',
+                borderRadius: 6,
               },
             },
           },
@@ -181,6 +182,18 @@ const chartOptions = computed(() => {
             plotOptions: {
               bar: {
                 columnWidth: '48%',
+                borderRadius: 6,
+              },
+            },
+          },
+        },
+        {
+          breakpoint: 776,
+          options: {
+            plotOptions: {
+              bar: {
+                columnWidth: '68%',
+                borderRadius: 6,
               },
             },
           },
@@ -191,6 +204,7 @@ const chartOptions = computed(() => {
             plotOptions: {
               bar: {
                 columnWidth: '70%',
+                borderRadius: 6,
               },
             },
             chart: {
@@ -209,6 +223,7 @@ const chartOptions = computed(() => {
             plotOptions: {
               bar: {
                 columnWidth: '88%',
+                borderRadius: 6,
               },
             },
           },
@@ -277,7 +292,7 @@ const chartOptions = computed(() => {
 </script>
 
 <template>
-  <VCard>
+  <VCard class="revenue-report">
     <VRow no-gutters>
       <VCol
         cols="12"
@@ -285,8 +300,8 @@ const chartOptions = computed(() => {
         lg="8"
         :class="$vuetify.display.smAndUp ? 'border-e' : 'border-b'"
       >
-        <VCardText class="pe-2">
-          <h6 class="text-h6 mb-6">
+        <VCardText>
+          <h6 class="text-h5 mb-sm-n8">
             Revenue Report
           </h6>
 
@@ -302,9 +317,9 @@ const chartOptions = computed(() => {
         cols="12"
         sm="4"
       >
-        <VCardText class="d-flex flex-column justify-center align-center text-center ps-2 h-100">
+        <VCardText class="d-flex flex-column justify-center align-center text-center h-100">
           <VBtn
-            variant="outlined"
+            variant="tonal"
             size="small"
             class="d-flex mx-auto"
           >
@@ -328,12 +343,12 @@ const chartOptions = computed(() => {
             </VMenu>
           </VBtn>
 
-          <div class="d-flex flex-column mt-6">
-            <h5 class="font-weight-semibold text-h5">
+          <div class="d-flex flex-column my-8">
+            <h5 class="font-weight-medium text-h3">
               $25,825
             </h5>
-            <p>
-              <span class="text-high-emphasis font-weight-semibold me-1">Budget:</span>
+            <p class="mb-0">
+              <span class="text-high-emphasis font-weight-medium me-1">Budget:</span>
               <span>56,800</span>
             </p>
           </div>
@@ -344,7 +359,7 @@ const chartOptions = computed(() => {
             height="100"
           />
 
-          <VBtn class="mt-4">
+          <VBtn class="mt-8">
             Increase Budget
           </VBtn>
         </VCardText>
@@ -353,3 +368,17 @@ const chartOptions = computed(() => {
   </VCard>
 </template>
 
+<style lang="scss">
+.revenue-report {
+  .apexcharts-legend {
+    gap: 1rem;
+  }
+
+  @media (max-width: 599px) {
+    .apexcharts-legend.apx-legend-position-top.apexcharts-align-right {
+      justify-content: flex-start;
+      padding: 0;
+    }
+  }
+}
+</style>

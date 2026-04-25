@@ -1,67 +1,49 @@
-<script setup lang="ts">
+<script setup lang="ts" generic="T extends unknown">
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
-import { VList, VListItem, VListSubheader } from 'vuetify/components'
+import { VList, VListItem } from 'vuetify/components/VList'
 
 interface Emit {
   (e: 'update:isDialogVisible', value: boolean): void
-  (e: 'update:searchQuery', value: string): void
-  (e: 'itemSelected', value: any): void
-}
-
-interface Suggestion {
-  icon: string
-  title: string
-  url: object
-}
-
-interface Suggestions {
-  title: string
-  content: Suggestion[]
+  (e: 'search', value: string): void
 }
 
 interface Props {
   isDialogVisible: boolean
-  searchQuery: string
-  searchResults: any[]
-  suggestions?: Suggestions[]
-  noDataSuggestion?: Suggestion[]
+  searchResults: T[]
+  isLoading?: boolean
 }
 
 const props = defineProps<Props>()
 const emit = defineEmits<Emit>()
 
 // 👉 Hotkey
-const { ctrl_k, meta_k } = useMagicKeys()
+// eslint-disable-next-line camelcase
+const { ctrl_k, meta_k } = useMagicKeys({
+  passive: false,
+  onEventFired(e) {
+    if (e.ctrlKey && e.key === 'k' && e.type === 'keydown')
+      e.preventDefault()
+  },
+})
 
 const refSearchList = ref<VList>()
-const searchQuery = ref(structuredClone(toRaw(props.searchQuery)))
 const refSearchInput = ref<HTMLInputElement>()
-const isLocalDialogVisible = ref(structuredClone(toRaw(props.isDialogVisible)))
-const searchResults = ref(structuredClone(toRaw(props.searchResults)))
-
-// 👉 Watching props change
-watch(props, () => {
-  isLocalDialogVisible.value = structuredClone(toRaw(props.isDialogVisible))
-  searchResults.value = structuredClone(toRaw(props.searchResults))
-  searchQuery.value = structuredClone(toRaw(props.searchQuery))
-})
+const searchQueryLocal = ref('')
 
 // 👉 watching control + / to open dialog
-watch([ctrl_k, meta_k], () => {
-  isLocalDialogVisible.value = true
+/* eslint-disable camelcase */
+watch([
+  ctrl_k, meta_k,
+], () => {
   emit('update:isDialogVisible', true)
 })
+/* eslint-enable */
 
 // 👉 clear search result and close the dialog
 const clearSearchAndCloseDialog = () => {
+  searchQueryLocal.value = ''
   emit('update:isDialogVisible', false)
-  emit('update:searchQuery', '')
 }
-
-watchEffect(() => {
-  if (!searchQuery.value.length)
-    searchResults.value = []
-})
 
 // 👉 get fucus on search list
 const getFocusOnSearchList = (e: KeyboardEvent) => {
@@ -76,36 +58,22 @@ const getFocusOnSearchList = (e: KeyboardEvent) => {
 }
 
 const dialogModelValueUpdate = (val: boolean) => {
+  searchQueryLocal.value = ''
   emit('update:isDialogVisible', val)
-  emit('update:searchQuery', '')
 }
 
-// 👉 resolve categories name
-const resolveCategories = (val: string) => {
-  if (val === 'dashboards')
-    return 'Dashboards'
-
-  if (val === 'appsPages')
-    return 'Apps & Pages'
-
-  if (val === 'userInterface')
-    return 'User Interface'
-
-  if (val === 'formsTables')
-    return 'Forms Tables'
-
-  if (val === 'chartsMisc')
-    return 'Charts Misc'
-
-  return 'Misc'
-}
+// 👉 clear search query when redirect to another page
+watch(
+  () => props.isDialogVisible,
+  () => { searchQueryLocal.value = '' },
+)
 </script>
 
 <template>
   <VDialog
     max-width="600"
-    :model-value="isLocalDialogVisible"
-    :height="$vuetify.display.smAndUp ? '550' : '100%'"
+    :model-value="props.isDialogVisible"
+    :height="$vuetify.display.smAndUp ? '531' : '100%'"
     :fullscreen="$vuetify.display.width < 600"
     class="app-bar-search-dialog"
     @update:model-value="dialogModelValueUpdate"
@@ -117,59 +85,46 @@ const resolveCategories = (val: string) => {
       class="position-relative"
     >
       <VCardText
-        class="pt-1"
-        style="max-height: 65px;"
+        class="px-4"
+        style="padding-block: 1rem 1.2rem;"
       >
         <!-- 👉 Search Input -->
         <VTextField
           ref="refSearchInput"
-          v-model="searchQuery"
+          v-model="searchQueryLocal"
           autofocus
+          density="compact"
           variant="plain"
-          density="comfortable"
-          class="app-bar-autocomplete-box"
+          class="app-bar-search-input"
           @keyup.esc="clearSearchAndCloseDialog"
           @keydown="getFocusOnSearchList"
-          @update:model-value="$emit('update:searchQuery', searchQuery)"
+          @update:model-value="$emit('search', searchQueryLocal)"
         >
           <!-- 👉 Prepend Inner -->
           <template #prepend-inner>
-            <VBtn
-              icon
-              variant="text"
-              color="default"
-              size="x-small"
-              class="text-high-emphasis ms-n1"
-            >
+            <div class="d-flex align-center text-high-emphasis me-1">
               <VIcon
-                size="22"
+                size="24"
                 icon="tabler-search"
               />
-            </VBtn>
+            </div>
           </template>
 
           <!-- 👉 Append Inner -->
           <template #append-inner>
-            <div class="d-flex align-center">
+            <div class="d-flex align-start">
               <div
-                class="text-base text-disabled cursor-pointer me-2"
+                class="text-base text-disabled cursor-pointer me-3"
                 @click="clearSearchAndCloseDialog"
               >
                 [esc]
               </div>
 
-              <VBtn
-                icon
-                variant="text"
-                color="default"
-                size="x-small"
+              <VIcon
+                icon="tabler-x"
+                size="24"
                 @click="clearSearchAndCloseDialog"
-              >
-                <VIcon
-                  size="22"
-                  icon="tabler-x"
-                />
-              </VBtn>
+              />
             </div>
           </template>
         </VTextField>
@@ -183,143 +138,70 @@ const resolveCategories = (val: string) => {
         :options="{ wheelPropagation: false, suppressScrollX: true }"
         class="h-100"
       >
-        <!-- 👉 Search List -->
-        <VList
-          v-show="searchQuery.length && !!searchResults.length"
-          ref="refSearchList"
-          density="compact"
-          class="app-bar-search-list"
+        <!-- 👉 Suggestions -->
+        <div
+          v-show="!!props.searchResults && !searchQueryLocal && $slots.suggestions"
+          class="h-100"
         >
-          <!-- 👉 list Item /List Sub header -->
-          <template
-            v-for="item in searchResults"
-            :key="item.title"
-          >
-            <VListSubheader
-              v-if="'header' in item"
-              class="text-disabled"
-            >
-              {{ resolveCategories(item.title) }}
-            </VListSubheader>
+          <slot name="suggestions" />
+        </div>
 
-            <template v-else>
+        <template v-if="!isLoading">
+          <!-- 👉 Search List -->
+          <VList
+            v-show="searchQueryLocal.length && !!props.searchResults.length"
+            ref="refSearchList"
+            density="compact"
+            class="app-bar-search-list py-0"
+          >
+            <!-- 👉 list Item /List Sub header -->
+            <template
+              v-for="item in props.searchResults"
+              :key="item"
+            >
               <slot
                 name="searchResult"
                 :item="item"
               >
-                <VListItem
-                  link
-                  @click="$emit('itemSelected', item)"
-                >
-                  <template #prepend>
-                    <VIcon
-                      size="20"
-                      :icon="item.icon"
-                      class="me-3"
-                    />
-                  </template>
-
-                  <template #append>
-                    <VIcon
-                      size="20"
-                      icon="tabler-corner-down-left"
-                      class="enter-icon text-disabled"
-                    />
-                  </template>
-
-                  <VListItemTitle>
-                    {{ item.title }}
-                  </VListItemTitle>
+                <VListItem>
+                  {{ item }}
                 </VListItem>
               </slot>
             </template>
-          </template>
-        </VList>
+          </VList>
 
-        <!-- 👉 Suggestions -->
-        <div
-          v-show="!!searchResults && !searchQuery"
-          class="h-100"
-        >
-          <slot name="suggestions">
-            <VCardText class="app-bar-search-suggestions h-100 pa-10">
-              <VRow
-                v-if="props.suggestions"
-                class="gap-y-4"
-              >
-                <VCol
-                  v-for="suggestion in props.suggestions"
-                  :key="suggestion.title"
-                  cols="12"
-                  sm="6"
-                  class="ps-6"
-                >
-                  <p class="text-xs text-disabled text-uppercase">
-                    {{ suggestion.title }}
-                  </p>
+          <!-- 👉 No Data found -->
+          <div
+            v-show="!props.searchResults.length && searchQueryLocal.length"
+            class="h-100"
+          >
+            <slot name="noData">
+              <VCardText class="h-100">
+                <div class="app-bar-search-suggestions d-flex flex-column align-center justify-center text-high-emphasis pa-12">
+                  <VIcon
+                    size="64"
+                    icon="tabler-file-alert"
+                  />
+                  <div class="d-flex align-center flex-wrap justify-center gap-2 text-h5 mt-3">
+                    <span>No Result For </span>
+                    <span>"{{ searchQueryLocal }}"</span>
+                  </div>
 
-                  <VList class="card-list">
-                    <VListItem
-                      v-for="item in suggestion.content"
-                      :key="item.title"
-                      link
-                      :title="item.title"
-                      class="app-bar-search-suggestion"
-                      @click="$emit('itemSelected', item)"
-                    >
-                      <template #prepend>
-                        <VIcon
-                          :icon="item.icon"
-                          size="20"
-                          class="me-2"
-                        />
-                      </template>
-                    </VListItem>
-                  </VList>
-                </VCol>
-              </VRow>
-            </VCardText>
-          </slot>
-        </div>
-
-        <!-- 👉 No Data found -->
-        <div
-          v-show="!searchResults.length && searchQuery.length"
-          class="h-100"
-        >
-          <slot name="noData">
-            <VCardText class="h-100">
-              <div class="app-bar-search-suggestions d-flex flex-column align-center justify-center text-high-emphasis h-100">
-                <VIcon
-                  size="75"
-                  icon="tabler-file-x"
-                />
-                <h6 class="text-h6 my-3">
-                  No Result For "{{ searchQuery }}"
-                </h6>
-                <div
-                  v-if="props.noDataSuggestion"
-                  class="mt-8"
-                >
-                  <span class="d-flex justify-center text-disabled">Try searching for</span>
-                  <h6
-                    v-for="suggestion in props.noDataSuggestion"
-                    :key="suggestion.title"
-                    class="app-bar-search-suggestion text-sm font-weight-regular cursor-pointer mt-3"
-                    @click="$emit('itemSelected', suggestion)"
-                  >
-                    <VIcon
-                      size="20"
-                      :icon="suggestion.icon"
-                      class="me-3"
-                    />
-                    <span class="text-sm">{{ suggestion.title }}</span>
-                  </h6>
+                  <slot name="noDataSuggestion" />
                 </div>
-              </div>
-            </VCardText>
-          </slot>
-        </div>
+              </VCardText>
+            </slot>
+          </div>
+        </template>
+
+        <!-- 👉 Loading -->
+        <template v-if="isLoading">
+          <VSkeletonLoader
+            v-for="i in 3"
+            :key="i"
+            type="list-item-two-line"
+          />
+        </template>
       </PerfectScrollbar>
     </VCard>
   </VDialog>
@@ -334,26 +216,25 @@ const resolveCategories = (val: string) => {
   }
 }
 
-.app-bar-autocomplete-box {
-  .v-field__input {
-    padding-block-end: 0.425rem;
-    padding-block-start: 0.9375rem;
-  }
-}
-
 .app-bar-search-dialog {
-  .v-list-item-title {
-    font-size: 0.875rem !important;
+  .app-bar-search-input {
+    .v-field__input {
+      padding-block-start: 0.2rem;
+    }
   }
 
   .app-bar-search-list {
     .v-list-item,
     .v-list-subheader {
       font-size: 0.75rem;
-      padding-inline: 1.5rem !important;
+      padding-inline: 1rem;
     }
 
     .v-list-item {
+      border-radius: 6px;
+      margin-block-end: 0.125rem;
+      margin-inline: 0.5rem;
+
       .v-list-item__append {
         .enter-icon {
           visibility: hidden;
@@ -374,8 +255,17 @@ const resolveCategories = (val: string) => {
     .v-list-subheader {
       line-height: 1;
       min-block-size: auto;
-      padding-block: 0.6875rem 0.3125rem;
+      padding-block: 16px 8px;
+      padding-inline-start: 1rem;
       text-transform: uppercase;
+    }
+  }
+}
+
+@supports selector(:focus-visible) {
+  .app-bar-search-dialog {
+    .v-list-item:focus-visible::after {
+      content: none;
     }
   }
 }

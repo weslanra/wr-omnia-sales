@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 import { useChat } from './useChat'
-import type { ChatContact as TypeChatContact } from '@/@fake-db/types'
 import ChatContact from '@/views/apps/chat/ChatContact.vue'
 import { useChatStore } from '@/views/apps/chat/useChatStore'
+import type { ChatContact as TypeChatContact } from '@db/apps/chat/types'
 
 const props = defineProps<{
   search: string
@@ -14,10 +14,11 @@ const emit = defineEmits<{
   (e: 'openChatOfContact', id: TypeChatContact['id']): void
   (e: 'showUserProfile'): void
   (e: 'close'): void
+  (e: 'update:search', value: string): void
 }>()
 
 const { resolveAvatarBadgeVariant } = useChat()
-const search = useVModel(props, 'search')
+const search = useVModel(props, 'search', emit)
 
 const store = useChatStore()
 </script>
@@ -37,7 +38,7 @@ const store = useChatStore()
       bordered
     >
       <VAvatar
-        size="38"
+        size="40"
         class="cursor-pointer"
         @click="$emit('showUserProfile')"
       >
@@ -48,45 +49,36 @@ const store = useChatStore()
       </VAvatar>
     </VBadge>
 
-    <VTextField
+    <AppTextField
       v-model="search"
-      density="compact"
       placeholder="Search..."
+      prepend-inner-icon="tabler-search"
       class="ms-4 me-1 chat-list-search"
-    >
-      <template #prepend-inner>
-        <VIcon
-          size="22"
-          icon="tabler-search"
-        />
-      </template>
-    </VTextField>
+    />
 
-    <VBtn
+    <IconBtn
       v-if="$vuetify.display.smAndDown"
-      variant="text"
-      color="default"
-      icon
-      size="small"
       @click="$emit('close')"
     >
       <VIcon
-        size="24"
         icon="tabler-x"
         class="text-medium-emphasis"
       />
-    </VBtn>
+    </IconBtn>
   </div>
   <VDivider />
 
   <PerfectScrollbar
     tag="ul"
-    class="chat-contacts-list px-3"
+    class="d-flex flex-column gap-y-1 chat-contacts-list px-3 py-2 list-none"
     :options="{ wheelPropagation: false }"
   >
-    <li>
-      <span class="chat-contact-header d-block text-primary text-xl font-weight-medium">Chats</span>
+    <li class="list-none">
+      <h5 class="chat-contact-header text-primary text-h5">
+        Chats
+      </h5>
     </li>
+
     <ChatContact
       v-for="contact in store.chatsContacts"
       :key="`chat-${contact.id}`"
@@ -94,19 +86,24 @@ const store = useChatStore()
       is-chat-contact
       @click="$emit('openChatOfContact', contact.id)"
     />
+
     <span
       v-show="!store.chatsContacts.length"
       class="no-chat-items-text text-disabled"
     >No chats found</span>
-    <li>
-      <span class="chat-contact-header d-block text-primary text-xl font-weight-medium">Contacts</span>
+    <li class="list-none pt-2">
+      <h5 class="chat-contact-header text-primary text-h5">
+        Contacts
+      </h5>
     </li>
+
     <ChatContact
       v-for="contact in store.contacts"
       :key="`chat-${contact.id}`"
       :user="contact"
       @click="$emit('openChatOfContact', contact.id)"
     />
+
     <span
       v-show="!store.contacts.length"
       class="no-chat-items-text text-disabled"
@@ -116,18 +113,23 @@ const store = useChatStore()
 
 <style lang="scss">
 .chat-contacts-list {
-  --chat-content-spacing-x: 12px;
+  --chat-content-spacing-x: 16px;
 
   padding-block-end: 0.75rem;
 
   .chat-contact-header {
-    margin-block-end: 1rem;
-    margin-block-start: 1.25rem;
+    margin-block: 0.5rem 0.25rem;
   }
 
   .chat-contact-header,
   .no-chat-items-text {
     margin-inline: var(--chat-content-spacing-x);
+  }
+}
+
+.chat-list-search {
+  .v-field--focused {
+    box-shadow: none !important;
   }
 }
 </style>

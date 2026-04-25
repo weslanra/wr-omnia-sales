@@ -39,67 +39,82 @@ const paymentMethods = [
       <VExpansionPanelTitle>Delivery Address</VExpansionPanelTitle>
 
       <VExpansionPanelText>
-        <VForm @submit.prevent="() => {}">
+        <VForm
+          class="pt-4 pb-2"
+          @submit.prevent="() => {}"
+        >
           <VRow>
             <!-- 👉 Full Name -->
             <VCol
               cols="12"
               md="6"
             >
-              <VTextField label="Full Name" />
+              <AppTextField
+                label="Full Name"
+                placeholder="John Doe"
+              />
             </VCol>
-
             <!-- 👉 Phone No -->
             <VCol
               cols="12"
               md="6"
             >
-              <VTextField label="Phone No" />
+              <AppTextField
+                label="Phone No"
+                type="number"
+                placeholder="+1 123 456 7890"
+              />
             </VCol>
-
             <!-- 👉 Address -->
             <VCol cols="12">
-              <VTextarea
+              <AppTextarea
                 label="Address"
+                placeholder="1234 Main St, New York, NY 10001, USA"
                 rows="3"
               />
             </VCol>
-
             <!-- 👉 Pincode -->
             <VCol
               cols="12"
               md="6"
             >
-              <VTextField label="Pincode" />
+              <AppTextField
+                label="Pincode"
+                placeholder="123456"
+                type="number"
+              />
             </VCol>
-
             <!-- 👉 Landmark -->
             <VCol
               cols="12"
               md="6"
             >
-              <VTextField label="Landmark" />
+              <AppTextField
+                label="Landmark"
+                placeholder="Near City Mall"
+              />
             </VCol>
-
             <!-- 👉 City -->
             <VCol
               cols="12"
               md="6"
             >
-              <VTextField label="City" />
+              <AppTextField
+                label="City"
+                placeholder="New York"
+              />
             </VCol>
-
             <!-- 👉 State -->
             <VCol
               cols="12"
               md="6"
             >
-              <VSelect
+              <AppSelect
                 :items="stateList"
                 label="State"
+                placeholder="Select State"
               />
             </VCol>
-
             <!-- 👉 Address Type  -->
             <VCol cols="12">
               <VLabel class="mb-3">
@@ -135,7 +150,7 @@ const paymentMethods = [
         <!-- 👉 Radio Group -->
         <VRadioGroup
           v-model="deliveryOption"
-          class="delivery-options"
+          class="delivery-options pt-4 pb-2"
         >
           <div
             class="delivery-option d-flex rounded-t"
@@ -152,7 +167,7 @@ const paymentMethods = [
                 <h6 class="text-base font-weight-medium">
                   Standard 3-5 Days
                 </h6>
-                <h6 class="text-base font-weight-bold">
+                <h6 class="text-base font-weight-medium">
                   Free
                 </h6>
               </div>
@@ -174,7 +189,7 @@ const paymentMethods = [
                 <h5 class="text-base font-weight-medium">
                   Express
                 </h5>
-                <h6 class="text-base font-weight-bold">
+                <h6 class="text-base font-weight-medium">
                   $5.00
                 </h6>
               </div>
@@ -196,7 +211,7 @@ const paymentMethods = [
                 <h6 class="text-base font-weight-medium">
                   Overnight
                 </h6>
-                <h6 class="text-base font-weight-bold">
+                <h6 class="text-base font-weight-medium">
                   $10.00
                 </h6>
               </div>
@@ -218,7 +233,7 @@ const paymentMethods = [
             md="6"
             cols="12"
           >
-            <VForm>
+            <VForm class="pt-4 pb-2">
               <!-- 👉 Payment Method -->
               <div>
                 <VRadioGroup
@@ -243,10 +258,14 @@ const paymentMethods = [
                 </VRadioGroup>
               </div>
 
-              <VRow v-show="paymentMethod === 'credit-debit-card'">
+              <VRow v-if="paymentMethod === 'credit-debit-card'">
                 <!-- 👉 Card Number -->
                 <VCol cols="12">
-                  <VTextField label="Card Number" />
+                  <AppTextField
+                    label="Card Number"
+                    type="number"
+                    placeholder="1234 5678 9012 3456"
+                  />
                 </VCol>
 
                 <!-- 👉 Name -->
@@ -254,7 +273,10 @@ const paymentMethods = [
                   cols="12"
                   md="6"
                 >
-                  <VTextField label="Name" />
+                  <VTextField
+                    label="Name"
+                    placeholder="john doe"
+                  />
                 </VCol>
 
                 <!-- 👉 Expire Date -->
@@ -262,7 +284,10 @@ const paymentMethods = [
                   cols="6"
                   md="3"
                 >
-                  <VTextField label="Expiry Date" />
+                  <VTextField
+                    label="Expiry Date"
+                    placeholder="MM/YY"
+                  />
                 </VCol>
 
                 <!-- 👉 CVV Code -->
@@ -270,7 +295,20 @@ const paymentMethods = [
                   cols="6"
                   md="3"
                 >
-                  <VTextField label="CVV Code" />
+                  <VTextField
+                    label="CVV Code"
+                    type="number"
+                    max="3"
+                    placeholder="123"
+                  />
+                </VCol>
+              </VRow>
+
+              <VRow v-else>
+                <VCol>
+                  <div class="text-high-emphasis">
+                    Cash on Delivery is a type of payment method where the recipient make payment for the order at the time of delivery rather than in advance.
+                  </div>
                 </VCol>
               </VRow>
             </VForm>
@@ -297,6 +335,8 @@ const paymentMethods = [
 
 <style lang="scss">
 .delivery-options {
+  cursor: pointer;
+
   .v-selection-control-group {
     inline-size: 100%;
   }

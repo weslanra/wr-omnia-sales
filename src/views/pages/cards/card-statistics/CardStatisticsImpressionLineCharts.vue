@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import VueApexCharts from 'vue3-apexcharts'
 import { useTheme } from 'vuetify'
 
 const vuetifyTheme = useTheme()
@@ -63,24 +62,25 @@ const chartOptions = computed(() => {
 
 <template>
   <VCard>
+    <VCardItem class="pb-3">
+      <VCardTitle>
+        Impression
+      </VCardTitle>
+      <VCardSubtitle>
+        Expenses
+      </VCardSubtitle>
+    </VCardItem>
     <VCardText>
-      <div>
-        <h6 class="text-h6">
-          Impression
-        </h6>
-        <span class="text-sm text-disabled">This Week</span>
-      </div>
-
       <VueApexCharts
         :options="chartOptions"
         :series="series"
-        :height="90"
+        :height="68"
       />
 
-      <div class="d-flex align-center justify-space-between mt-4">
-        <h6 class="text-h6 text-center font-weight-semibold">
+      <div class="d-flex align-center justify-space-between gap-x-2 mt-3">
+        <h4 class="text-h4 text-center">
           26.1k
-        </h6>
+        </h4>
         <span class="text-sm text-error">
           -24.5%
         </span>

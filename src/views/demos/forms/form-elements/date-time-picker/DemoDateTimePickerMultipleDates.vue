@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const multipleDate = ref('')
 </script>
 
@@ -8,6 +6,7 @@ const multipleDate = ref('')
   <AppDateTimePicker
     v-model="multipleDate"
     label="Multiple Dates"
+    placeholder="Select date"
     :config="{ mode: 'multiple', dateFormat: 'Y-m-d' }"
   />
 </template>

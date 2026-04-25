@@ -84,8 +84,8 @@ const resolveStatusColor: Language = {
           <VProgressLinear
             height="6"
             rounded
+            rounded-bar
             :model-value="progress.amount"
-            bg-color="secondary"
             :color="resolveStatusColor[progress.language]"
           />
         </VListItemSubtitle>

@@ -21,12 +21,7 @@ const router = useRouter()
 </script>
 
 <template>
-  <VBtn
-    variant="text"
-    color="default"
-    size="small"
-    icon
-  >
+  <IconBtn>
     <VIcon
       size="24"
       :icon="props.togglerIcon"
@@ -34,29 +29,29 @@ const router = useRouter()
 
     <VMenu
       activator="parent"
-      offset="14px"
+      offset="12px"
       location="bottom end"
     >
       <VCard
-        width="340"
+        :width="$vuetify.display.smAndDown ? 330 : 380"
         max-height="560"
         class="d-flex flex-column"
       >
-        <VCardItem class="py-4">
-          <VCardTitle>Shortcuts</VCardTitle>
+        <VCardItem class="py-3">
+          <h6 class="text-base font-weight-medium">
+            Shortcuts
+          </h6>
 
           <template #append>
-            <VBtn
-              size="x-small"
-              variant="text"
-              color="default"
-              icon
+            <IconBtn
+              size="small"
+              color="high-emphasis"
             >
               <VIcon
-                size="22"
-                icon="tabler-layout-grid-add"
+                size="20"
+                icon="tabler-plus"
               />
-            </VBtn>
+            </IconBtn>
           </template>
         </VCardItem>
 
@@ -68,25 +63,37 @@ const router = useRouter()
               v-for="(shortcut, index) in props.shortcuts"
               :key="shortcut.title"
               cols="6"
-              class="text-center border-t cursor-pointer pa-4"
+              class="text-center border-t cursor-pointer pa-6 shortcut-icon"
               :class="(index + 1) % 2 ? 'border-e' : ''"
               @click="router.push(shortcut.to)"
             >
               <VAvatar
                 variant="tonal"
-                size="48"
+                size="50"
               >
-                <VIcon :icon="shortcut.icon" />
+                <VIcon
+                  size="26"
+                  color="high-emphasis"
+                  :icon="shortcut.icon"
+                />
               </VAvatar>
 
-              <h6 class="text-base font-weight-semibold mt-2 mb-0">
+              <h6 class="text-base font-weight-medium mt-3 mb-0">
                 {{ shortcut.title }}
               </h6>
-              <span class="text-sm">{{ shortcut.subtitle }}</span>
+              <p class="text-sm mb-0">
+                {{ shortcut.subtitle }}
+              </p>
             </VCol>
           </VRow>
         </PerfectScrollbar>
       </VCard>
     </VMenu>
-  </VBtn>
+  </IconBtn>
 </template>
+
+<style lang="scss">
+.shortcut-icon:hover {
+  background-color: rgba(var(--v-theme-on-surface), var(--v-hover-opacity));
+}
+</style>

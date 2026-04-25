@@ -97,6 +97,7 @@ watch(file, () => {
     :loading="loading"
     color="primary"
     label="File input"
+    variant="outlined"
   />
 </template>
 `,
@@ -115,6 +116,7 @@ watch(file, () => {
     :loading="loading"
     color="primary"
     label="File input"
+    variant="outlined"
   />
 </template>
 `,
@@ -175,7 +177,6 @@ const files = ref<File[]>([])
         <VChip
           label
           size="small"
-          variant="outlined"
           color="primary"
           class="me-2"
         >
@@ -206,7 +207,6 @@ const files = ref([])
         <VChip
           label
           size="small"
-          variant="outlined"
           color="primary"
           class="me-2"
         >
@@ -373,4 +373,3 @@ export const variant = {
 </template>
 `,
 }
-

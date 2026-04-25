@@ -13,5 +13,6 @@ watch(file, () => {
     :loading="loading"
     color="primary"
     label="File input"
+    variant="outlined"
   />
 </template>

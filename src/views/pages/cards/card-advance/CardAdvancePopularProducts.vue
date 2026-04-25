@@ -44,6 +44,12 @@ const popularProducts = [
     stats: '$129.48',
   },
 ]
+
+const moreList = [
+  { title: 'Refresh', value: 'refresh' },
+  { title: 'Download', value: 'Download' },
+  { title: 'View All', value: 'View All' },
+]
 </script>
 
 <template>
@@ -53,29 +59,7 @@ const popularProducts = [
   >
     <template #append>
       <div class="mt-n4 me-n2">
-        <VBtn
-          icon
-          color="default"
-          size="x-small"
-          variant="plain"
-        >
-          <VIcon
-            size="22"
-            icon="tabler-dots-vertical"
-          />
-
-          <VMenu activator="parent">
-            <VList>
-              <VListItem
-                v-for="(item, index) in ['Refresh', 'Download', 'View All']"
-                :key="index"
-                :value="index"
-              >
-                <VListItemTitle>{{ item }}</VListItemTitle>
-              </VListItem>
-            </VList>
-          </VMenu>
-        </VBtn>
+        <MoreBtn :menu-list="moreList" />
       </div>
     </template>
 
@@ -87,22 +71,23 @@ const popularProducts = [
         >
           <template #prepend>
             <VAvatar
-              size="44"
+              size="46"
               rounded
+              class="me-1"
               :image="product.avatarImg"
             />
           </template>
 
-          <VListItemTitle class="font-weight-semibold">
+          <VListItemTitle class="font-weight-medium me-4">
             {{ product.title }}
           </VListItemTitle>
-          <VListItemSubtitle class="text-disabled">
+          <VListItemSubtitle class="me-4">
             {{ product.subtitle }}
           </VListItemSubtitle>
 
           <template #append>
             <div class="d-flex align-center">
-              <span class="text-body-1 me-2">{{ product.stats }}</span>
+              <span class="text-body-1">{{ product.stats }}</span>
             </div>
           </template>
         </VListItem>
@@ -113,6 +98,6 @@ const popularProducts = [
 
 <style lang="scss" scoped>
 .card-list {
-  --v-card-list-gap: 27px;
+  --v-card-list-gap: 24px;
 }
 </style>

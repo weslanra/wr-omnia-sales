@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { avatarText, kFormatter } from '@core/utils/formatters'
-
 interface Props {
   userData: {
     id: number
     fullName: string
+    firstName: string
+    lastName: string
     company: string
+    username: string
     role: string
     country: string
     contact: string
@@ -31,18 +32,6 @@ const standardPlan = {
 const isUserInfoEditDialogVisible = ref(false)
 const isUpgradePlanDialogVisible = ref(false)
 
-// 👉 Status variant resolver
-const resolveUserStatusVariant = (stat: string) => {
-  if (stat === 'pending')
-    return 'warning'
-  if (stat === 'active')
-    return 'success'
-  if (stat === 'inactive')
-    return 'secondary'
-
-  return 'primary'
-}
-
 // 👉 Role variant resolver
 const resolveUserRoleVariant = (role: string) => {
   if (role === 'subscriber')
@@ -65,13 +54,13 @@ const resolveUserRoleVariant = (role: string) => {
     <!-- SECTION User Details -->
     <VCol cols="12">
       <VCard v-if="props.userData">
-        <VCardText class="text-center pt-15">
+        <VCardText class="text-center pt-12">
           <!-- 👉 Avatar -->
           <VAvatar
             rounded
-            :size="120"
-            color="primary"
-            variant="tonal"
+            :size="100"
+            :color="!props.userData.avatar ? 'primary' : undefined"
+            :variant="!props.userData.avatar ? 'tonal' : undefined"
           >
             <VImg
               v-if="props.userData.avatar"
@@ -79,16 +68,16 @@ const resolveUserRoleVariant = (role: string) => {
             />
             <span
               v-else
-              class="text-5xl font-weight-semibold"
+              class="text-5xl font-weight-medium"
             >
               {{ avatarText(props.userData.fullName) }}
             </span>
           </VAvatar>
 
           <!-- 👉 User fullName -->
-          <h6 class="text-h6 mt-4">
+          <h5 class="text-h5 mt-4">
             {{ props.userData.fullName }}
-          </h6>
+          </h5>
 
           <!-- 👉 Role chip -->
           <VChip
@@ -101,144 +90,147 @@ const resolveUserRoleVariant = (role: string) => {
           </VChip>
         </VCardText>
 
-        <VCardText class="d-flex justify-center flex-wrap mt-3">
-          <!-- 👉 Done task -->
-          <div class="d-flex align-center me-8 mb-2">
-            <VAvatar
-              :size="38"
-              rounded
-              color="primary"
-              variant="tonal"
-              class="me-3"
-            >
-              <VIcon
-                size="24"
-                icon="tabler-checkbox"
-              />
-            </VAvatar>
-
-            <div>
-              <h6 class="text-base font-weight-semibold">
-                {{ kFormatter(props.userData.taskDone) }}
-              </h6>
-              <span class="text-sm">Task Done</span>
-            </div>
-          </div>
-
-          <!-- 👉 Done Project -->
-          <div class="d-flex align-center me-4 mb-2">
-            <VAvatar
-              :size="38"
-              rounded
-              color="primary"
-              variant="tonal"
-              class="me-3"
-            >
-              <VIcon
-                size="24"
-                icon="tabler-briefcase"
-              />
-            </VAvatar>
-
-            <div>
-              <h6 class="text-base font-weight-semibold">
-                {{ kFormatter(props.userData.projectDone) }}
-              </h6>
-              <span class="text-sm">Project Done</span>
-            </div>
-          </div>
-        </VCardText>
-
-        <VDivider />
-
-        <!-- 👉 Details -->
         <VCardText>
-          <p class="text-sm text-uppercase text-disabled">
+          <div class="d-flex justify-space-around gap-x-6 gap-y-2 flex-wrap mb-6">
+            <!-- 👉 Done task -->
+            <div class="d-flex align-center me-8">
+              <VAvatar
+                :size="40"
+                rounded
+                color="primary"
+                variant="tonal"
+                class="me-4"
+              >
+                <VIcon
+                  icon="tabler-checkbox"
+                  size="24"
+                />
+              </VAvatar>
+              <div>
+                <h5 class="text-h5">
+                  {{ `${(props.userData.taskDone / 1000).toFixed(2)}k` }}
+                </h5>
+
+                <span class="text-sm">Task Done</span>
+              </div>
+            </div>
+
+            <!-- 👉 Done Project -->
+            <div class="d-flex align-center me-4">
+              <VAvatar
+                :size="38"
+                rounded
+                color="primary"
+                variant="tonal"
+                class="me-4"
+              >
+                <VIcon
+                  icon="tabler-briefcase"
+                  size="24"
+                />
+              </VAvatar>
+              <div>
+                <h5 class="text-h5">
+                  {{ kFormatter(props.userData.projectDone) }}
+                </h5>
+                <span class="text-sm">Project Done</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 👉 Details -->
+          <h5 class="text-h5">
             Details
-          </p>
+          </h5>
+
+          <VDivider class="my-4" />
 
           <!-- 👉 User Details list -->
           <VList class="card-list mt-2">
             <VListItem>
               <VListItemTitle>
-                <h6 class="text-base font-weight-semibold">
-                  Name:
-                  <span class="text-body-2">
+                <h6 class="text-h6">
+                  Username:
+                  <div class="d-inline-block text-body-1">
                     {{ props.userData.fullName }}
-                  </span>
+                  </div>
                 </h6>
               </VListItemTitle>
             </VListItem>
 
             <VListItem>
               <VListItemTitle>
-                <h6 class="text-base font-weight-semibold">
+                <span class="text-h6">
                   Billing Email:
-                  <span class="text-body-2">{{ props.userData.email }}</span>
-                </h6>
+                </span>
+                <span class="text-body-1">
+                  {{ props.userData.email }}
+                </span>
               </VListItemTitle>
             </VListItem>
 
             <VListItem>
               <VListItemTitle>
-                <h6 class="text-base font-weight-semibold">
+                <h6 class="text-h6">
                   Status:
-
-                  <VChip
-                    label
-                    size="small"
-                    :color="resolveUserStatusVariant(props.userData.status)"
-                    class="text-capitalize"
-                  >
+                  <div class="d-inline-block text-body-1 text-capitalize">
                     {{ props.userData.status }}
-                  </VChip>
+                  </div>
                 </h6>
               </VListItemTitle>
             </VListItem>
 
             <VListItem>
               <VListItemTitle>
-                <h6 class="text-base font-weight-semibold">
+                <h6 class="text-h6">
                   Role:
-                  <span class="text-capitalize text-body-2">{{ props.userData.role }}</span>
+                  <div class="d-inline-block text-capitalize text-body-1">
+                    {{ props.userData.role }}
+                  </div>
                 </h6>
               </VListItemTitle>
             </VListItem>
 
             <VListItem>
               <VListItemTitle>
-                <h6 class="text-base font-weight-semibold">
+                <h6 class="text-h6">
                   Tax ID:
-                  <span class="text-body-2">
+                  <div class="d-inline-block text-body-1">
                     {{ props.userData.taxId }}
-                  </span>
+                  </div>
                 </h6>
               </VListItemTitle>
             </VListItem>
 
             <VListItem>
               <VListItemTitle>
-                <h6 class="text-base font-weight-semibold">
+                <h6 class="text-h6">
                   Contact:
-                  <span class="text-body-2">{{ props.userData.contact }}</span>
+                  <div class="d-inline-block text-body-1">
+                    {{ props.userData.contact }}
+                  </div>
                 </h6>
               </VListItemTitle>
             </VListItem>
 
             <VListItem>
               <VListItemTitle>
-                <h6 class="text-base font-weight-semibold">
+                <h6 class="text-h6">
                   Language:
-                  <span class="text-body-2">{{ props.userData.language }}</span>
+                  <div class="d-inline-block text-body-1">
+                    {{ props.userData.language }}
+                  </div>
                 </h6>
               </VListItemTitle>
             </VListItem>
 
             <VListItem>
               <VListItemTitle>
-                <h6 class="text-base font-weight-semibold">
+                <h6 class="text-h6">
                   Country:
-                  <span class="text-body-2">{{ props.userData.country }}</span>
+                  <div class="d-inline-block text-body-1">
+                    {{ props.userData.country }}
+                  </div>
                 </h6>
               </VListItemTitle>
             </VListItem>
@@ -246,14 +238,14 @@ const resolveUserRoleVariant = (role: string) => {
         </VCardText>
 
         <!-- 👉 Edit and Suspend button -->
-        <VCardText class="d-flex justify-center">
+        <VCardText class="d-flex justify-center gap-x-4">
           <VBtn
             variant="elevated"
-            class="me-3"
             @click="isUserInfoEditDialogVisible = true"
           >
             Edit
           </VBtn>
+
           <VBtn
             variant="tonal"
             color="error"
@@ -274,19 +266,20 @@ const resolveUserRoleVariant = (role: string) => {
             label
             color="primary"
             size="small"
+            class="font-weight-medium"
           >
-            Standard
+            Popular
           </VChip>
 
           <VSpacer />
 
           <!-- 👉 Current Price  -->
           <div class="d-flex align-center">
-            <sup class="text-primary text-sm font-weight-regular">$</sup>
-            <h3 class="text-h3 text-primary font-weight-semibold">
+            <sup class="text-h5 text-primary mt-1">$</sup>
+            <h1 class="text-h1 text-primary">
               99
-            </h3>
-            <sub class="mt-3"><h6 class="text-sm font-weight-regular">/ month</h6></sub>
+            </h1>
+            <sub class="mt-3"><h6 class="text-h6 font-weight-regular mb-n1">/ month</h6></sub>
           </div>
         </VCardText>
 
@@ -297,24 +290,26 @@ const resolveUserRoleVariant = (role: string) => {
               v-for="benefit in standardPlan.benefits"
               :key="benefit"
             >
-              <VIcon
-                size="12"
-                color="#A8AAAE"
-                class="me-2"
-                icon="tabler-circle"
-              />
-              <span>{{ benefit }}</span>
+              <div class="d-flex align-center gap-x-2">
+                <VIcon
+                  size="10"
+                  color="secondary"
+                  icon="tabler-circle-filled"
+                />
+                <div class="text-medium-emphasis">
+                  {{ benefit }}
+                </div>
+              </div>
             </VListItem>
           </VList>
 
           <!-- 👉 Days -->
           <div class="my-6">
-            <div class="d-flex font-weight-semibold mt-3 mb-2">
-              <h6 class="text-base font-weight-semibold">
+            <div class="d-flex justify-space-between mb-1">
+              <h6 class="text-h6">
                 Days
               </h6>
-              <VSpacer />
-              <h6 class="text-base font-weight-semibold">
+              <h6 class="text-h6">
                 26 of 30 Days
               </h6>
             </div>
@@ -324,22 +319,23 @@ const resolveUserRoleVariant = (role: string) => {
               rounded
               rounded-bar
               :model-value="65"
-              height="8"
               color="primary"
             />
 
-            <p class="mt-2">
+            <p class="mt-1">
               4 days remaining
             </p>
           </div>
 
           <!-- 👉 Upgrade Plan -->
-          <VBtn
-            block
-            @click="isUpgradePlanDialogVisible = true"
-          >
-            Upgrade Plan
-          </VBtn>
+          <div class="d-flex gap-4">
+            <VBtn
+              block
+              @click="isUpgradePlanDialogVisible = true"
+            >
+              Upgrade Plan
+            </VBtn>
+          </div>
         </VCardText>
       </VCard>
     </VCol>
@@ -358,7 +354,7 @@ const resolveUserRoleVariant = (role: string) => {
 
 <style lang="scss" scoped>
 .card-list {
-  --v-card-list-gap: 0.7rem;
+  --v-card-list-gap: 0.5rem;
 }
 
 .text-capitalize {

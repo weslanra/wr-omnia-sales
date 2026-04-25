@@ -50,40 +50,30 @@ const activeProjects = [
     progressColor: 'warning',
   },
 ]
+
+const moreList = [
+  { title: 'Refresh', value: 'refresh' },
+  { title: 'Download', value: 'Download' },
+  { title: 'View All', value: 'View All' },
+]
 </script>
 
 <template>
-  <VCard
-    title="Active Projects"
-    subtitle="Average 72% completed"
-  >
-    <template #append>
-      <div class="mt-n4 me-n2">
-        <VBtn
-          icon
-          color="default"
-          size="x-small"
-          variant="plain"
-        >
-          <VIcon
-            size="22"
-            icon="tabler-dots-vertical"
+  <VCard>
+    <VCardItem>
+      <VCardTitle>Active Projects</VCardTitle>
+      <VCardSubtitle>
+        Average 72% completed
+      </VCardSubtitle>
+      <template #append>
+        <div class="mt-n4 me-n2">
+          <MoreBtn
+            size="small"
+            :menu-list="moreList"
           />
-
-          <VMenu activator="parent">
-            <VList>
-              <VListItem
-                v-for="(item, index) in ['Refresh', 'Download', 'View All']"
-                :key="index"
-                :value="index"
-              >
-                <VListItemTitle>{{ item }}</VListItemTitle>
-              </VListItem>
-            </VList>
-          </VMenu>
-        </VBtn>
-      </div>
-    </template>
+        </div>
+      </template>
+    </VCardItem>
 
     <VCardText>
       <VList class="card-list">
@@ -95,23 +85,22 @@ const activeProjects = [
             <VAvatar
               size="34"
               rounded
-              :image="project.avatarImg"
-            />
+              class="me-1"
+            >
+              <VImg :src="project.avatarImg" />
+            </VAvatar>
           </template>
 
           <VListItemTitle class="font-weight-medium">
             {{ project.title }}
           </VListItemTitle>
-          <VListItemSubtitle class="opacity-100 text-disabled">
+          <VListItemSubtitle class="me-4">
             {{ project.subtitle }}
           </VListItemSubtitle>
 
           <template #append>
-            <div class="d-flex align-center">
-              <div
-                class="me-2"
-                style="width: 4.875rem;"
-              >
+            <div class="d-flex align-center gap-x-4">
+              <div style="inline-size: 4.875rem;">
                 <VProgressLinear
                   :model-value="project.stats"
                   :color="project.progressColor"
@@ -129,3 +118,8 @@ const activeProjects = [
   </VCard>
 </template>
 
+<style lang="scss" scoped>
+.card-list {
+  --v-card-list-gap: 16px;
+}
+</style>

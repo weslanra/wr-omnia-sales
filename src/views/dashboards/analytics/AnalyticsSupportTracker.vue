@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import VueApexCharts from 'vue3-apexcharts'
 import { useTheme } from 'vuetify'
 import { hexToRgb } from '@layouts/utils'
 
@@ -31,8 +30,8 @@ const chartOptions = computed(() => {
         dataLabels: {
           name: {
             offsetY: -20,
-            color: `rgba(${hexToRgb(currentTheme['on-background'])},${variableTheme['disabled-opacity']})`,
-            fontSize: '14px',
+            color: `rgba(${hexToRgb(currentTheme['on-surface'])},${variableTheme['disabled-opacity']})`,
+            fontSize: '13px',
             fontWeight: '400',
             fontFamily: 'Public Sans',
           },
@@ -40,7 +39,7 @@ const chartOptions = computed(() => {
             offsetY: 10,
             color: `rgba(${hexToRgb(currentTheme['on-background'])},${variableTheme['high-emphasis-opacity']})`,
             fontSize: '38px',
-            fontWeight: '600',
+            fontWeight: '500',
             fontFamily: 'Public Sans',
           },
         },
@@ -102,7 +101,7 @@ const supportTicket = [
   },
   {
     avatarColor: 'info',
-    avatarIcon: 'tabler-circle-check',
+    avatarIcon: 'tabler-check',
     title: 'Open Tickets',
     subtitle: '28',
   },
@@ -114,53 +113,41 @@ const supportTicket = [
     subtitle: '1 Day',
   },
 ]
+
+const moreList = [
+  { title: 'View More', value: 'View More' },
+  { title: 'Delete', value: 'Delete' },
+]
 </script>
 
 <template>
-  <VCard
-    title="Support Tracker"
-    subtitle="Last 7 Days"
-  >
-    <template #append>
-      <div class="mt-n4 me-n2">
-        <VBtn
-          icon
-          size="x-small"
-          variant="plain"
-          color="default"
-        >
-          <VIcon
-            size="22"
-            icon="tabler-dots-vertical"
+  <VCard>
+    <VCardItem>
+      <VCardTitle>Support Tracker</VCardTitle>
+      <VCardSubtitle>Last 7 Days</VCardSubtitle>
+
+      <template #append>
+        <div class="mt-n4 me-n2">
+          <MoreBtn
+            size="small"
+            :menu-list="moreList"
           />
-          <VMenu activator="parent">
-            <VList>
-              <VListItem
-                v-for="(item, index) in ['View More', 'Delete']"
-                :key="index"
-                :value="index"
-              >
-                <VListItemTitle>{{ item }}</VListItemTitle>
-              </VListItem>
-            </VList>
-          </VMenu>
-        </VBtn>
-      </div>
-    </template>
+        </div>
+      </template>
+    </VCardItem>
 
     <VCardText>
       <VRow>
         <VCol
           cols="12"
-          md="5"
-          sm="6"
-          class="mt-auto"
+          lg="4"
+          md="4"
         >
-          <div class="mb-4">
-            <h4 class="text-4xl font-weight-semibold mb-2">
+          <div class="mb-lg-6 mb-4 mt-2">
+            <h2 class="text-h2">
               164
-            </h4>
-            <p class="text-sm">
+            </h2>
+            <p class="text-base mb-0">
               Total Tickets
             </p>
           </div>
@@ -173,7 +160,7 @@ const supportTicket = [
               <VListItemTitle class="font-weight-medium">
                 {{ ticket.title }}
               </VListItemTitle>
-              <VListItemSubtitle class="opacity-100 text-disabled">
+              <VListItemSubtitle>
                 {{ ticket.subtitle }}
               </VListItemSubtitle>
               <template #prepend>
@@ -182,8 +169,12 @@ const supportTicket = [
                   size="34"
                   :color="ticket.avatarColor"
                   variant="tonal"
+                  class="me-1"
                 >
-                  <VIcon :icon="ticket.avatarIcon" />
+                  <VIcon
+                    size="22"
+                    :icon="ticket.avatarIcon"
+                  />
                 </VAvatar>
               </template>
             </VListItem>
@@ -191,8 +182,8 @@ const supportTicket = [
         </VCol>
         <VCol
           cols="12"
-          md="7"
-          sm="6"
+          lg="8"
+          md="8"
         >
           <VueApexCharts
             :options="chartOptions"
@@ -207,6 +198,6 @@ const supportTicket = [
 
 <style lang="scss" scoped>
 .card-list {
-  --v-card-list-gap: 18px;
+  --v-card-list-gap: 16px;
 }
 </style>

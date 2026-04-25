@@ -12,43 +12,45 @@ const values = ref<typeof items[number][]>([])
     <VRow>
       <VCol cols="12">
         <!-- 👉 Username -->
-        <VTextField
+        <AppTextField
           v-model="username"
           label="Username"
-          placeholder="Username"
+          placeholder="Johndoe"
         />
       </VCol>
 
       <VCol cols="12">
         <!-- 👉 Email -->
-        <VTextField
+        <AppTextField
           v-model="email"
           label="Email"
           type="email"
-          placeholder="Email"
+          placeholder="johndoe@email.com"
         />
       </VCol>
 
       <VCol cols="12">
         <!-- 👉 Password -->
-        <VTextField
+        <AppTextField
           v-model="password"
           label="Password"
+          autocomplete="on"
           type="password"
           persistent-hint
-          placeholder="Password"
+          placeholder="············"
           hint="Your password must be 8-20 characters long."
         />
       </VCol>
 
       <VCol cols="12">
         <!-- 👉 Autocomplete -->
-        <VAutocomplete
+        <AppAutocomplete
           v-model="values"
           :items="items"
           chips
           multiple
           label="Autocomplete"
+          placeholder="Select"
         />
       </VCol>
 

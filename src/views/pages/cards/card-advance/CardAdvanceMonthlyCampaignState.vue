@@ -18,7 +18,7 @@ const monthlyCampaignState = [
   },
   {
     avatarColor: 'warning',
-    avatarIcon: 'tabler-click',
+    avatarIcon: 'tabler-mouse',
     title: 'Clicked',
     count: '967',
     stats: '1.4%',
@@ -49,40 +49,27 @@ const monthlyCampaignState = [
     statsColor: 'success',
   },
 ]
+
+const moreList = [
+  { title: 'Refresh', value: 'refresh' },
+  { title: 'Download', value: 'Download' },
+  { title: 'View All', value: 'View All' },
+]
 </script>
 
 <template>
-  <VCard
-    title="Monthly Campaign State"
-    subtitle="8.52k Social Visiters"
-  >
-    <template #append>
-      <div class="mt-n4 me-n2">
-        <VBtn
-          icon
-          color="default"
-          size="x-small"
-          variant="plain"
-        >
-          <VIcon
-            size="22"
-            icon="tabler-dots-vertical"
-          />
-
-          <VMenu activator="parent">
-            <VList>
-              <VListItem
-                v-for="(item, index) in ['Refresh', 'Download', 'View All']"
-                :key="index"
-                :value="index"
-              >
-                <VListItemTitle>{{ item }}</VListItemTitle>
-              </VListItem>
-            </VList>
-          </VMenu>
-        </VBtn>
-      </div>
-    </template>
+  <VCard>
+    <VCardItem>
+      <VCardTitle>Monthly Campaign State</VCardTitle>
+      <VCardSubtitle>
+        8.52k Social Visitors
+      </VCardSubtitle>
+      <template #append>
+        <div class="mt-n4 me-n2">
+          <MoreBtn :menu-list="moreList" />
+        </div>
+      </template>
+    </VCardItem>
 
     <VCardText>
       <VList class="card-list">
@@ -96,18 +83,28 @@ const monthlyCampaignState = [
               variant="tonal"
               size="34"
               rounded
+              class="me-1"
             >
-              <VIcon :icon="state.avatarIcon" />
+              <VIcon
+                :icon="state.avatarIcon"
+                size="22"
+              />
             </VAvatar>
           </template>
 
-          <VListItemTitle class="font-weight-semibold">
+          <VListItemTitle class="font-weight-medium me-4">
             {{ state.title }}
           </VListItemTitle>
 
           <template #append>
-            <span class="font-weight-semibold me-3">{{ state.count }}</span>
-            <span :class="`text-${state.statsColor}`">{{ state.stats }}</span>
+            <div class="d-flex gap-x-4">
+              <div class="text-body-1">
+                {{ state.count }}
+              </div>
+              <div :class="`text-${state.statsColor}`">
+                {{ state.stats }}
+              </div>
+            </div>
           </template>
         </VListItem>
       </VList>
@@ -117,6 +114,6 @@ const monthlyCampaignState = [
 
 <style lang="scss" scoped>
 .card-list {
-  --v-card-list-gap: 26px;
+  --v-card-list-gap: 1.5rem;
 }
 </style>

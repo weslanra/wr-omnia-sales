@@ -4,6 +4,7 @@ export const actionAndItemGroup = {
     lines="three"
     density="compact"
     select-strategy="classic"
+    class="action-item-group-list"
   >
     <VListSubheader>General</VListSubheader>
 
@@ -13,7 +14,7 @@ export const actionAndItemGroup = {
           <VCheckbox
             :model-value="isActive"
             color="primary"
-            class="mt-2"
+            class="mt-1"
           />
         </VListItemAction>
       </template>
@@ -28,7 +29,7 @@ export const actionAndItemGroup = {
           <VCheckbox
             :model-value="isActive"
             color="primary"
-            class="mt-2"
+            class="mt-1"
           />
         </VListItemAction>
       </template>
@@ -43,7 +44,7 @@ export const actionAndItemGroup = {
           <VCheckbox
             :model-value="isActive"
             color="primary"
-            class="mt-2"
+            class="mt-1"
           />
         </VListItemAction>
       </template>
@@ -59,6 +60,7 @@ export const actionAndItemGroup = {
     lines="three"
     density="compact"
     select-strategy="classic"
+    class="action-item-group-list"
   >
     <VListSubheader>General</VListSubheader>
 
@@ -68,7 +70,7 @@ export const actionAndItemGroup = {
           <VCheckbox
             :model-value="isActive"
             color="primary"
-            class="mt-2"
+            class="mt-1"
           />
         </VListItemAction>
       </template>
@@ -83,7 +85,7 @@ export const actionAndItemGroup = {
           <VCheckbox
             :model-value="isActive"
             color="primary"
-            class="mt-2"
+            class="mt-1"
           />
         </VListItemAction>
       </template>
@@ -98,7 +100,7 @@ export const actionAndItemGroup = {
           <VCheckbox
             :model-value="isActive"
             color="primary"
-            class="mt-2"
+            class="mt-1"
           />
         </VListItemAction>
       </template>
@@ -151,7 +153,7 @@ const items = [
 
 <template>
   <VList
-    density="compact"
+    density="comfortable"
     :items="items"
   />
 </template>
@@ -195,7 +197,7 @@ const items = [
 
 <template>
   <VList
-    density="compact"
+    density="comfortable"
     :items="items"
   />
 </template>
@@ -226,10 +228,7 @@ const items = [
       :value="item.value"
     >
       <template #prepend>
-        <VIcon
-          :icon="item.prependIcon"
-          class="me-3"
-        />
+        <VIcon :icon="item.prependIcon" />
       </template>
 
       <VListItemTitle>
@@ -290,10 +289,7 @@ const items = [
       :value="item.value"
     >
       <template #prepend>
-        <VIcon
-          :icon="item.prependIcon"
-          class="me-3"
-        />
+        <VIcon :icon="item.prependIcon" />
       </template>
 
       <VListItemTitle>
@@ -392,8 +388,8 @@ const resolveStatusColor: Language = {
           <VProgressLinear
             height="6"
             rounded
+            rounded-bar
             :model-value="progress.amount"
-            bg-color="secondary"
             :color="resolveStatusColor[progress.language]"
           />
         </VListItemSubtitle>
@@ -475,8 +471,8 @@ const resolveStatusColor = {
           <VProgressLinear
             height="6"
             rounded
+            rounded-bar
             :model-value="progress.amount"
-            bg-color="secondary"
             :color="resolveStatusColor[progress.language]"
           />
         </VListItemSubtitle>
@@ -588,7 +584,7 @@ const items = [
     <VListItem
       v-for="(item, i) in items"
       :key="i"
-      :value="item"
+      :value="item.text"
       rounded="shaped"
     >
       <template #prepend>
@@ -622,7 +618,7 @@ const items = [
     <VListItem
       v-for="(item, i) in items"
       :key="i"
-      :value="item"
+      :value="item.text"
       rounded="shaped"
     >
       <template #prepend>
@@ -806,7 +802,6 @@ import avatar1 from '@images/avatars/avatar-1.png'
 import avatar2 from '@images/avatars/avatar-2.png'
 import avatar3 from '@images/avatars/avatar-3.png'
 import avatar4 from '@images/avatars/avatar-4.png'
-import avatar5 from '@images/avatars/avatar-5.png'
 
 const items = [
   { type: 'subheader', title: 'Today' },
@@ -833,22 +828,14 @@ const items = [
     title: 'Birthday gift',
     subtitle: '<span class="text-primary">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?',
   },
-  { type: 'divider', inset: true },
-  {
-    prependAvatar: avatar5,
-    title: 'Recipe to try',
-    subtitle: '<span class="text-primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-  },
 ]
 </script>
 
 <template>
   <VList
-    id="three-line-list"
     lines="three"
     :items="items"
     item-props
-    density="compact"
   >
     <template #subtitle="{ subtitle }">
       <!-- eslint-disable-next-line vue/no-v-html -->
@@ -856,25 +843,12 @@ const items = [
     </template>
   </VList>
 </template>
-
-<style lang="scss">
-#three-line-list {
-  .v-list-item-title {
-    margin-block-end: 0.25rem;
-  }
-
-  .v-divider {
-    margin-block: 0.25rem;
-  }
-}
-</style>
 `,
   js: `<script setup>
 import avatar1 from '@images/avatars/avatar-1.png'
 import avatar2 from '@images/avatars/avatar-2.png'
 import avatar3 from '@images/avatars/avatar-3.png'
 import avatar4 from '@images/avatars/avatar-4.png'
-import avatar5 from '@images/avatars/avatar-5.png'
 
 const items = [
   {
@@ -913,25 +887,14 @@ const items = [
     title: 'Birthday gift',
     subtitle: '<span class="text-primary">Trevor Hansen</span> &mdash; Have any ideas about what we should get Heidi for her birthday?',
   },
-  {
-    type: 'divider',
-    inset: true,
-  },
-  {
-    prependAvatar: avatar5,
-    title: 'Recipe to try',
-    subtitle: '<span class="text-primary">Britta Holt</span> &mdash; We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
-  },
 ]
 </script>
 
 <template>
   <VList
-    id="three-line-list"
     lines="three"
     :items="items"
     item-props
-    density="compact"
   >
     <template #subtitle="{ subtitle }">
       <!-- eslint-disable-next-line vue/no-v-html -->
@@ -939,18 +902,6 @@ const items = [
     </template>
   </VList>
 </template>
-
-<style lang="scss">
-#three-line-list {
-  .v-list-item-title {
-    margin-block-end: 0.25rem;
-  }
-
-  .v-divider {
-    margin-block: 0.25rem;
-  }
-}
-</style>
 `,
 }
 
@@ -1005,7 +956,7 @@ const folders = [
           variant="tonal"
         >
           <VIcon
-            :size="26"
+            :size="22"
             icon="tabler-folder"
           />
         </VAvatar>
@@ -1038,7 +989,7 @@ const folders = [
           variant="tonal"
         >
           <VIcon
-            :size="26"
+            :size="22"
             :icon="file.icon"
           />
         </VAvatar>
@@ -1105,7 +1056,7 @@ const folders = [
           variant="tonal"
         >
           <VIcon
-            :size="26"
+            :size="22"
             icon="tabler-folder"
           />
         </VAvatar>
@@ -1138,7 +1089,7 @@ const folders = [
           variant="tonal"
         >
           <VIcon
-            :size="26"
+            :size="22"
             :icon="file.icon"
           />
         </VAvatar>
@@ -1337,4 +1288,3 @@ const resolveStatusColor = {
 </template>
 `,
 }
-

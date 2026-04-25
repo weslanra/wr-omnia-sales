@@ -418,12 +418,12 @@ const isMenuVisible = ref(false)
 
 export const inSelects = {
   ts: `<script lang="ts" setup>
-const chips = ref(['Programming', 'Playing video games', 'Sleeping'])
-const items = ref(['Streaming', 'Eating', 'Programming', 'Playing video games', 'Sleeping'])
+const chips = ref(['Programming', 'Playing games', 'Sleeping'])
+const items = ref(['Streaming', 'Eating', 'Programming', 'Playing games', 'Sleeping'])
 </script>
 
 <template>
-  <VCombobox
+  <AppCombobox
     v-model="chips"
     chips
     clearable
@@ -439,7 +439,7 @@ const items = ref(['Streaming', 'Eating', 'Programming', 'Playing video games', 
   js: `<script setup>
 const chips = ref([
   'Programming',
-  'Playing video games',
+  'Playing games',
   'Sleeping',
 ])
 
@@ -447,13 +447,13 @@ const items = ref([
   'Streaming',
   'Eating',
   'Programming',
-  'Playing video games',
+  'Playing games',
   'Sleeping',
 ])
 </script>
 
 <template>
-  <VCombobox
+  <AppCombobox
     v-model="chips"
     chips
     clearable
@@ -464,109 +464,6 @@ const items = ref([
     label="Your favorite hobbies"
     prepend-icon="tabler-filter"
   />
-</template>
-`,
-}
-
-export const label = {
-  ts: `<template>
-  <div class="demo-space-x">
-    <VChip label>
-      Default
-    </VChip>
-
-    <VChip
-      label
-      color="primary"
-    >
-      Primary
-    </VChip>
-
-    <VChip
-      label
-      color="secondary"
-    >
-      Secondary
-    </VChip>
-
-    <VChip
-      label
-      color="success"
-    >
-      Success
-    </VChip>
-
-    <VChip
-      label
-      color="info"
-    >
-      Info
-    </VChip>
-
-    <VChip
-      label
-      color="warning"
-    >
-      Warning
-    </VChip>
-
-    <VChip
-      label
-      color="error"
-    >
-      Error
-    </VChip>
-  </div>
-</template>
-`,
-  js: `<template>
-  <div class="demo-space-x">
-    <VChip label>
-      Default
-    </VChip>
-
-    <VChip
-      label
-      color="primary"
-    >
-      Primary
-    </VChip>
-
-    <VChip
-      label
-      color="secondary"
-    >
-      Secondary
-    </VChip>
-
-    <VChip
-      label
-      color="success"
-    >
-      Success
-    </VChip>
-
-    <VChip
-      label
-      color="info"
-    >
-      Info
-    </VChip>
-
-    <VChip
-      label
-      color="warning"
-    >
-      Warning
-    </VChip>
-
-    <VChip
-      label
-      color="error"
-    >
-      Error
-    </VChip>
-  </div>
 </template>
 `,
 }
@@ -674,6 +571,109 @@ export const outlined = {
 `,
 }
 
+export const rounded = {
+  ts: `<template>
+  <div class="demo-space-x">
+    <VChip :label="false">
+      Default
+    </VChip>
+
+    <VChip
+      :label="false"
+      color="primary"
+    >
+      Primary
+    </VChip>
+
+    <VChip
+      :label="false"
+      color="secondary"
+    >
+      Secondary
+    </VChip>
+
+    <VChip
+      :label="false"
+      color="success"
+    >
+      Success
+    </VChip>
+
+    <VChip
+      :label="false"
+      color="info"
+    >
+      Info
+    </VChip>
+
+    <VChip
+      :label="false"
+      color="warning"
+    >
+      Warning
+    </VChip>
+
+    <VChip
+      :label="false"
+      color="error"
+    >
+      Error
+    </VChip>
+  </div>
+</template>
+`,
+  js: `<template>
+  <div class="demo-space-x">
+    <VChip :label="false">
+      Default
+    </VChip>
+
+    <VChip
+      :label="false"
+      color="primary"
+    >
+      Primary
+    </VChip>
+
+    <VChip
+      :label="false"
+      color="secondary"
+    >
+      Secondary
+    </VChip>
+
+    <VChip
+      :label="false"
+      color="success"
+    >
+      Success
+    </VChip>
+
+    <VChip
+      :label="false"
+      color="info"
+    >
+      Info
+    </VChip>
+
+    <VChip
+      :label="false"
+      color="warning"
+    >
+      Warning
+    </VChip>
+
+    <VChip
+      :label="false"
+      color="error"
+    >
+      Error
+    </VChip>
+  </div>
+</template>
+`,
+}
+
 export const sizes = {
   ts: `<template>
   <div class="demo-space-x">
@@ -685,7 +685,9 @@ export const sizes = {
       small chip
     </VChip>
 
-    <VChip>Default</VChip>
+    <VChip size="default">
+      Default
+    </VChip>
 
     <VChip size="large">
       large chip
@@ -707,7 +709,9 @@ export const sizes = {
       small chip
     </VChip>
 
-    <VChip>Default</VChip>
+    <VChip size="default">
+      Default
+    </VChip>
 
     <VChip size="large">
       large chip
@@ -731,7 +735,7 @@ import avatar4 from '@images/avatars/avatar-4.png'
 
 <template>
   <div class="demo-space-x">
-    <VChip pill>
+    <VChip>
       <VAvatar
         start
         :image="avatar1"
@@ -739,7 +743,7 @@ import avatar4 from '@images/avatars/avatar-4.png'
       <span>John Doe</span>
     </VChip>
 
-    <VChip pill>
+    <VChip>
       <VAvatar
         start
         :image="avatar2"
@@ -747,15 +751,18 @@ import avatar4 from '@images/avatars/avatar-4.png'
       <span>Darcy Nooser</span>
     </VChip>
 
-    <VChip pill>
-      <VAvatar
-        start
-        :image="avatar3"
-      />
+    <VChip
+      pill
+      :label="false"
+      :prepend-avatar="avatar3"
+    >
       <span>Felicia Risker</span>
     </VChip>
 
-    <VChip pill>
+    <VChip
+      pill
+      :label="false"
+    >
       <VAvatar
         start
         :image="avatar4"
@@ -774,7 +781,7 @@ import avatar4 from '@images/avatars/avatar-4.png'
 
 <template>
   <div class="demo-space-x">
-    <VChip pill>
+    <VChip>
       <VAvatar
         start
         :image="avatar1"
@@ -782,7 +789,7 @@ import avatar4 from '@images/avatars/avatar-4.png'
       <span>John Doe</span>
     </VChip>
 
-    <VChip pill>
+    <VChip>
       <VAvatar
         start
         :image="avatar2"
@@ -790,15 +797,18 @@ import avatar4 from '@images/avatars/avatar-4.png'
       <span>Darcy Nooser</span>
     </VChip>
 
-    <VChip pill>
-      <VAvatar
-        start
-        :image="avatar3"
-      />
+    <VChip
+      pill
+      :label="false"
+      :prepend-avatar="avatar3"
+    >
       <span>Felicia Risker</span>
     </VChip>
 
-    <VChip pill>
+    <VChip
+      pill
+      :label="false"
+    >
       <VAvatar
         start
         :image="avatar4"
@@ -816,7 +826,6 @@ export const withIcon = {
     <VChip>
       <VIcon
         start
-        size="16"
         icon="tabler-user"
       />
       Account
@@ -825,7 +834,6 @@ export const withIcon = {
     <VChip color="primary">
       <VIcon
         start
-        size="16"
         icon="tabler-star"
       />
       Premium
@@ -834,7 +842,6 @@ export const withIcon = {
     <VChip color="secondary">
       <VIcon
         start
-        size="16"
         icon="tabler-cake"
       />
       1 Year
@@ -843,7 +850,6 @@ export const withIcon = {
     <VChip color="success">
       <VIcon
         start
-        size="16"
         icon="tabler-bell"
       />
       Notification
@@ -852,7 +858,6 @@ export const withIcon = {
     <VChip color="info">
       <VIcon
         start
-        size="16"
         icon="tabler-messages"
       />
       Message
@@ -861,7 +866,6 @@ export const withIcon = {
     <VChip color="warning">
       <VIcon
         start
-        size="16"
         icon="tabler-alert-triangle"
       />
       Warning
@@ -870,7 +874,6 @@ export const withIcon = {
     <VChip color="error">
       <VIcon
         start
-        size="16"
         icon="tabler-alert-circle"
       />
       Error
@@ -883,7 +886,6 @@ export const withIcon = {
     <VChip>
       <VIcon
         start
-        size="16"
         icon="tabler-user"
       />
       Account
@@ -892,7 +894,6 @@ export const withIcon = {
     <VChip color="primary">
       <VIcon
         start
-        size="16"
         icon="tabler-star"
       />
       Premium
@@ -901,7 +902,6 @@ export const withIcon = {
     <VChip color="secondary">
       <VIcon
         start
-        size="16"
         icon="tabler-cake"
       />
       1 Year
@@ -910,7 +910,6 @@ export const withIcon = {
     <VChip color="success">
       <VIcon
         start
-        size="16"
         icon="tabler-bell"
       />
       Notification
@@ -919,7 +918,6 @@ export const withIcon = {
     <VChip color="info">
       <VIcon
         start
-        size="16"
         icon="tabler-messages"
       />
       Message
@@ -928,7 +926,6 @@ export const withIcon = {
     <VChip color="warning">
       <VIcon
         start
-        size="16"
         icon="tabler-alert-triangle"
       />
       Warning
@@ -937,7 +934,6 @@ export const withIcon = {
     <VChip color="error">
       <VIcon
         start
-        size="16"
         icon="tabler-alert-circle"
       />
       Error
@@ -946,4 +942,3 @@ export const withIcon = {
 </template>
 `,
 }
-

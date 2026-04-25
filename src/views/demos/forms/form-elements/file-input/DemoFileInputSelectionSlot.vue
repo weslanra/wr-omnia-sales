@@ -18,7 +18,6 @@ const files = ref<File[]>([])
         <VChip
           label
           size="small"
-          variant="outlined"
           color="primary"
           class="me-2"
         >

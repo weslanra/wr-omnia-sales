@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import AppDateTimePicker from '@core/components/AppDateTimePicker.vue'
-
 const date = ref('')
 </script>
 
@@ -8,6 +6,7 @@ const date = ref('')
   <AppDateTimePicker
     v-model="date"
     label="Inline"
+    placeholder="Select Date"
     :config="{ inline: true }"
   />
 </template>

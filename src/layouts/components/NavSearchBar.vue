@@ -1,63 +1,68 @@
 <script setup lang="ts">
-import type { SearchHeader, SearchItem } from '@/@fake-db/types'
-import axios from '@axios'
-import { useThemeConfig } from '@core/composable/useThemeConfig'
+import Shepherd from 'shepherd.js'
+import { withQuery } from 'ufo'
+import type { RouteLocationRaw } from 'vue-router'
+import type { SearchResults } from '@db/app-bar-search/types'
+import { useConfigStore } from '@core/stores/config'
 
 interface Suggestion {
   icon: string
   title: string
-  url: object
-}
-const { appContentLayoutNav } = useThemeConfig()
-
-interface SuggestionGroup {
-  title: string
-  content: Suggestion[]
+  url: RouteLocationRaw
 }
 
 defineOptions({
   inheritAttrs: false,
 })
 
+const configStore = useConfigStore()
+
+interface SuggestionGroup {
+  title: string
+  content: Suggestion[]
+}
+
 // 👉 Is App Search Bar Visible
 const isAppSearchBarVisible = ref(false)
+const isLoading = ref(false)
 
 // 👉 Default suggestions
+
 const suggestionGroups: SuggestionGroup[] = [
   {
     title: 'Popular Searches',
     content: [
-      { icon: 'tabler-chart-donut', title: 'Analytics', url: { name: 'dashboards-analytics' } },
-      { icon: 'tabler-chart-bubble', title: 'CRM', url: { name: 'dashboards-crm' } },
-      { icon: 'tabler-file', title: 'Invoice List', url: { name: 'apps-invoice-list' } },
-      { icon: 'tabler-users', title: 'User List', url: { name: 'apps-user-list' } },
+      { icon: 'tabler-chart-bar', title: 'Analytics', url: { name: 'dashboards-analytics' } },
+      { icon: 'tabler-chart-donut-3', title: 'CRM', url: { name: 'dashboards-crm' } },
+      { icon: 'tabler-shopping-cart', title: 'eCommerce', url: { name: 'dashboards-ecommerce' } },
+      { icon: 'tabler-truck', title: 'Logistics', url: { name: 'dashboards-logistics' } },
     ],
   },
   {
     title: 'Apps & Pages',
     content: [
       { icon: 'tabler-calendar', title: 'Calendar', url: { name: 'apps-calendar' } },
-      { icon: 'tabler-file-plus', title: 'Invoice Add', url: { name: 'apps-invoice-add' } },
-      { icon: 'tabler-currency-dollar', title: 'Pricing', url: { name: 'pages-pricing' } },
-      { icon: 'tabler-user', title: 'Account Settings', url: { name: 'pages-account-settings-tab', params: { tab: 'account' } } },
+      { icon: 'tabler-lock', title: 'Roles & Permissions', url: { name: 'apps-roles' } },
+      { icon: 'tabler-settings', title: 'Account Settings', url: { name: 'pages-account-settings-tab', params: { tab: 'account' } } },
+      { icon: 'tabler-copy', title: 'Dialog Examples', url: { name: 'pages-dialog-examples' } },
     ],
   },
   {
     title: 'User Interface',
     content: [
-      { icon: 'tabler-letter-a', title: 'Typography', url: { name: 'pages-typography' } },
-      { icon: 'tabler-square', title: 'Tabs', url: { name: 'components-tabs' } },
-      { icon: 'tabler-hand-click', title: 'Buttons', url: { name: 'components-button' } },
-      { icon: 'tabler-keyboard', title: 'Statistics', url: { name: 'pages-cards-card-statistics' } },
+      { icon: 'tabler-typography', title: 'Typography', url: { name: 'pages-typography' } },
+      { icon: 'tabler-menu-2', title: 'Accordion', url: { name: 'components-expansion-panel' } },
+      { icon: 'tabler-info-triangle', title: 'Alert', url: { name: 'components-alert' } },
+      { icon: 'tabler-checkbox', title: 'Cards', url: { name: 'pages-cards-card-basic' } },
     ],
   },
   {
-    title: 'Popular Searches',
+    title: 'Forms & Tables',
     content: [
-      { icon: 'tabler-list', title: 'Select', url: { name: 'forms-select' } },
-      { icon: 'tabler-space', title: 'Combobox', url: { name: 'forms-combobox' } },
-      { icon: 'tabler-calendar', title: 'Date & Time Picker', url: { name: 'forms-date-time-picker' } },
-      { icon: 'tabler-hexagon', title: 'Rating', url: { name: 'forms-rating' } },
+      { icon: 'tabler-circle-dot', title: 'Radio', url: { name: 'forms-radio' } },
+      { icon: 'tabler-file-invoice', title: 'Form Layouts', url: { name: 'forms-form-layouts' } },
+      { icon: 'tabler-table', title: 'Table', url: { name: 'tables-data-table' } },
+      { icon: 'tabler-edit', title: 'Editor', url: { name: 'forms-editors' } },
     ],
   },
 ]
@@ -65,43 +70,51 @@ const suggestionGroups: SuggestionGroup[] = [
 // 👉 No Data suggestion
 const noDataSuggestions: Suggestion[] = [
   {
-    title: 'Analytics Dashboard',
-    icon: 'tabler-shopping-cart',
+    title: 'Analytics',
+    icon: 'tabler-chart-bar',
     url: { name: 'dashboards-analytics' },
   },
   {
-    title: 'Account Settings',
-    icon: 'tabler-user',
-    url: { name: 'pages-account-settings-tab', params: { tab: 'account' } },
+    title: 'CRM',
+    icon: 'tabler-chart-donut-3',
+    url: { name: 'dashboards-crm' },
   },
   {
-    title: 'Pricing Page',
-    icon: 'tabler-cash',
-    url: { name: 'pages-pricing' },
+    title: 'eCommerce',
+    icon: 'tabler-shopping-cart',
+    url: { name: 'dashboards-ecommerce' },
   },
 ]
 
 const searchQuery = ref('')
-const searchResult = ref<(SearchItem | SearchHeader)[]>([])
+
 const router = useRouter()
+const searchResult = ref<SearchResults[]>([])
 
-// 👉 fetch search result API
-watchEffect(() => {
-  axios.get('/app-bar/search', {
-    params: {
-      q: searchQuery.value,
-    },
-  }).then(response => {
-    searchResult.value = response.data
-  })
-})
+const fetchResults = async () => {
+  isLoading.value = true
 
-// 👉 redirect the selected page
-const redirectToSuggestedOrSearchedPage = (selected: Suggestion) => {
-  router.push(selected.url)
+  const { data } = await useApi<any>(withQuery('/app-bar/search', { q: searchQuery.value }))
 
+  searchResult.value = data.value
+
+  // ℹ️ simulate loading: we have used setTimeout for better user experience your can remove it
+  setTimeout(() => {
+    isLoading.value = false
+  }, 500)
+}
+
+watch(searchQuery, fetchResults)
+
+const closeSearchBar = () => {
   isAppSearchBarVisible.value = false
   searchQuery.value = ''
+}
+
+// 👉 redirect the selected page
+const redirectToSuggestedPage = (selected: Suggestion) => {
+  router.push(selected.url as string)
+  closeSearchBar()
 }
 
 const LazyAppBarSearch = defineAsyncComponent(() => import('@core/components/AppBarSearch.vue'))
@@ -111,26 +124,21 @@ const LazyAppBarSearch = defineAsyncComponent(() => import('@core/components/App
   <div
     class="d-flex align-center cursor-pointer"
     v-bind="$attrs"
+    style="user-select: none;"
     @click="isAppSearchBarVisible = !isAppSearchBarVisible"
   >
     <!-- 👉 Search Trigger button -->
-    <VBtn
-      icon
-      variant="text"
-      color="default"
-      size="small"
-    >
-      <VIcon
-        icon="tabler-search"
-        size="24"
-      />
-    </VBtn>
+    <!-- close active tour while opening search bar using icon -->
+    <IconBtn @click="Shepherd.activeTour?.cancel()">
+      <VIcon icon="tabler-search" />
+    </IconBtn>
 
     <span
-      v-if="appContentLayoutNav === 'vertical'"
-      class="d-none d-md-flex align-center text-disabled"
+      v-if="configStore.appContentLayoutNav === 'vertical'"
+      class="d-none d-md-flex align-center text-disabled ms-2"
+      @click="Shepherd.activeTour?.cancel()"
     >
-      <span class="me-3">Search</span>
+      <span class="me-2">Search</span>
       <span class="meta-key">&#8984;K</span>
     </span>
   </div>
@@ -138,41 +146,121 @@ const LazyAppBarSearch = defineAsyncComponent(() => import('@core/components/App
   <!-- 👉 App Bar Search -->
   <LazyAppBarSearch
     v-model:isDialogVisible="isAppSearchBarVisible"
-    v-model:search-query="searchQuery"
     :search-results="searchResult"
-    :suggestions="suggestionGroups"
-    :no-data-suggestion="noDataSuggestions"
-    @item-selected="redirectToSuggestedOrSearchedPage"
+    :is-loading="isLoading"
+    @search="searchQuery = $event"
   >
-    <!--
-      <template #suggestions>
-      use this slot if you want to override default suggestions
-      </template>
-    -->
+    <!-- suggestion -->
+    <template #suggestions>
+      <VCardText class="app-bar-search-suggestions pa-12">
+        <VRow v-if="suggestionGroups">
+          <VCol
+            v-for="suggestion in suggestionGroups"
+            :key="suggestion.title"
+            cols="12"
+            sm="6"
+          >
+            <p
+              class="custom-letter-spacing text-disabled text-uppercase py-2 px-4 mb-0"
+              style="font-size: 0.75rem; line-height: 0.875rem;"
+            >
+              {{ suggestion.title }}
+            </p>
+            <VList class="card-list">
+              <VListItem
+                v-for="item in suggestion.content"
+                :key="item.title"
+                class="app-bar-search-suggestion mx-4 mt-2"
+                @click="redirectToSuggestedPage(item)"
+              >
+                <VListItemTitle>{{ item.title }}</VListItemTitle>
+                <template #prepend>
+                  <VIcon
+                    :icon="item.icon"
+                    size="20"
+                    class="me-n1"
+                  />
+                </template>
+              </VListItem>
+            </VList>
+          </VCol>
+        </VRow>
+      </VCardText>
+    </template>
 
-    <!--
-      <template #noData>
-      use this slot to change the view of no data section
-      </template>
-    -->
+    <!-- no data suggestion -->
+    <template #noDataSuggestion>
+      <div class="mt-9">
+        <span class="d-flex justify-center text-disabled mb-2">Try searching for</span>
+        <h6
+          v-for="suggestion in noDataSuggestions"
+          :key="suggestion.title"
+          class="app-bar-search-suggestion text-h6 font-weight-regular cursor-pointer py-2 px-4"
+          @click="redirectToSuggestedPage(suggestion)"
+        >
+          <VIcon
+            size="20"
+            :icon="suggestion.icon"
+            class="me-2"
+          />
+          <span>{{ suggestion.title }}</span>
+        </h6>
+      </div>
+    </template>
 
-    <!--
-      <template #searchResult="{ item }">
-      use this slot to change the search item
-      </template>
-    -->
+    <!-- search result -->
+    <template #searchResult="{ item }">
+      <VListSubheader class="text-disabled custom-letter-spacing font-weight-regular ps-4">
+        {{ item.title }}
+      </VListSubheader>
+      <VListItem
+        v-for="list in item.children"
+        :key="list.title"
+        :to="list.url"
+        @click="closeSearchBar"
+      >
+        <template #prepend>
+          <VIcon
+            size="20"
+            :icon="list.icon"
+            class="me-n1"
+          />
+        </template>
+        <template #append>
+          <VIcon
+            size="20"
+            icon="tabler-corner-down-left"
+            class="enter-icon flip-in-rtl"
+          />
+        </template>
+        <VListItemTitle>
+          {{ list.title }}
+        </VListItemTitle>
+      </VListItem>
+    </template>
   </LazyAppBarSearch>
 </template>
 
-<style lang="scss" scoped>
-@use "@styles/variables/_vuetify.scss";
+<style lang="scss">
+@use "@styles/variables/vuetify.scss";
 
 .meta-key {
   border: thin solid rgba(var(--v-border-color), var(--v-border-opacity));
-  border-radius: vuetify.$card-border-radius;
+  border-radius: 6px;
   block-size: 1.5625rem;
+  font-size: 0.8125rem;
   line-height: 1.3125rem;
   padding-block: 0.125rem;
   padding-inline: 0.25rem;
+}
+
+.app-bar-search-dialog {
+  .custom-letter-spacing {
+    letter-spacing: 0.8px;
+  }
+
+  .card-list {
+    --v-card-list-gap: 8px;
+  }
 }
 </style>

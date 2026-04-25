@@ -83,7 +83,7 @@ const isCardDetailsVisible = ref(false)
                 v-for="avatar in avatars"
                 :key="avatar"
                 :image="avatar"
-                size="45"
+                size="38"
               />
             </div>
           </div>
@@ -145,6 +145,7 @@ const isCardDetailsVisible = ref(false)
           <div class="ma-auto pa-5">
             <VImg
               width="137"
+              height="176"
               :src="eCommerce2"
             />
           </div>
@@ -161,7 +162,7 @@ const isCardDetailsVisible = ref(false)
             </VCardText>
 
             <VCardText class="text-subtitle-1">
-              <span>Price :</span> <span class="font-weight-bold">$899</span>
+              <span>Price :</span> <span class="font-weight-medium">$899</span>
             </VCardText>
 
             <VCardActions class="justify-space-between">
@@ -170,7 +171,7 @@ const isCardDetailsVisible = ref(false)
                 <span class="ms-2">Add to cart</span>
               </VBtn>
 
-              <VBtn
+              <IconBtn
                 color="secondary"
                 icon="tabler-share"
               />
@@ -445,11 +446,11 @@ const isCardDetailsVisible = ref(false)
           </p>
         </VCardText>
 
-        <VCardActions class="justify-center">
+        <VCardText class="justify-center">
           <VBtn variant="elevated">
             Contact Now
           </VBtn>
-        </VCardActions>
+        </VCardText>
       </VCard>
     </VCol>
   </VRow>
@@ -473,5 +474,9 @@ const isCardDetailsVisible = ref(false)
   sup {
     inset-block-start: 9px;
   }
+}
+
+.v-btn {
+  transform: none;
 }
 </style>

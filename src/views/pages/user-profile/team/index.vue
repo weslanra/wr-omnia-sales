@@ -1,24 +1,30 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
-import type { TeamsTab } from '@/@fake-db/types'
-import axios from '@axios'
+import type { TeamsTab } from '@db/pages/profile/types'
 
-const router = useRoute()
+const router = useRoute('pages-user-profile-tab')
 const teamData = ref<TeamsTab[]>([])
 
-const fetchTeamData = () => {
+const fetchTeamData = async () => {
   if (router.params.tab === 'teams') {
-    axios.get('/pages/profile', {
-      params: {
+    const data = await $api('/pages/profile', {
+      query: {
         tab: router.params.tab,
       },
-    }).then(response => {
-      teamData.value = response.data
-    })
+    }).catch(err => console.log(err))
+
+    teamData.value = data
   }
 }
 
 watch(router, fetchTeamData, { immediate: true })
+
+const moreList = [
+  { title: 'Rename Project', value: 'Rename Project' },
+  { title: 'View Details', value: 'View Details' },
+  { title: 'Add to favorites', value: 'Add to favorites' },
+  { type: 'divider', class: 'my-2' },
+  { title: 'Leave Project', value: 'Leave Project', class: 'text-error' },
+]
 </script>
 
 <template>
@@ -30,63 +36,36 @@ watch(router, fetchTeamData, { immediate: true })
       md="6"
       lg="4"
     >
-      <VCard :title="team.title">
-        <template #prepend>
-          <VAvatar
-            size="38"
-            :image="team?.avatar"
-          />
-        </template>
-
-        <template #append>
-          <div class="me-n3">
-            <VBtn
-              icon
-              variant="text"
-              color="default"
-              size="x-small"
-            >
-              <VIcon
-                size="20"
-                icon="tabler-star"
-                class="text-disabled"
+      <VCard>
+        <VCardItem
+          class="pb-4"
+          :title="team.title"
+        >
+          <template #prepend>
+            <VAvatar
+              size="38"
+              :image="team?.avatar"
+            />
+          </template>
+          <template #append>
+            <div>
+              <IconBtn>
+                <VIcon
+                  size="24"
+                  icon="tabler-star"
+                  class="text-disabled"
+                />
+              </IconBtn>
+              <MoreBtn
+                :menu-list="moreList"
+                item-props
+                density="comfortable"
               />
-            </VBtn>
+            </div>
+          </template>
+        </VCardItem>
 
-            <VBtn
-              icon
-              variant="text"
-              color="default"
-              size="x-small"
-            >
-              <VIcon
-                size="20"
-                icon="tabler-dots-vertical"
-                class="text-disabled"
-              />
-
-              <VMenu activator="parent">
-                <VList density="compact">
-                  <VListItem
-                    v-for="(item, index) in ['Rename Team', 'View Details', 'Add to favorites']"
-                    :key="index"
-                    :value="index"
-                  >
-                    <VListItemTitle>{{ item }}</VListItemTitle>
-                  </VListItem>
-                  <VDivider class="my-2" />
-                  <VListItem
-                    title="Delete Team"
-                    value="Delete Team"
-                    class="text-error"
-                  />
-                </VList>
-              </VMenu>
-            </VBtn>
-          </div>
-        </template>
-
-        <VCardText>
+        <VCardText class="pb-4">
           <span class="text-base">{{ team.description }}</span>
         </VCardText>
 

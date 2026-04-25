@@ -3,7 +3,6 @@
     <VChip>
       <VIcon
         start
-        size="16"
         icon="tabler-user"
       />
       Account
@@ -12,7 +11,6 @@
     <VChip color="primary">
       <VIcon
         start
-        size="16"
         icon="tabler-star"
       />
       Premium
@@ -21,7 +19,6 @@
     <VChip color="secondary">
       <VIcon
         start
-        size="16"
         icon="tabler-cake"
       />
       1 Year
@@ -30,7 +27,6 @@
     <VChip color="success">
       <VIcon
         start
-        size="16"
         icon="tabler-bell"
       />
       Notification
@@ -39,7 +35,6 @@
     <VChip color="info">
       <VIcon
         start
-        size="16"
         icon="tabler-messages"
       />
       Message
@@ -48,7 +43,6 @@
     <VChip color="warning">
       <VIcon
         start
-        size="16"
         icon="tabler-alert-triangle"
       />
       Warning
@@ -57,7 +51,6 @@
     <VChip color="error">
       <VIcon
         start
-        size="16"
         icon="tabler-alert-circle"
       />
       Error

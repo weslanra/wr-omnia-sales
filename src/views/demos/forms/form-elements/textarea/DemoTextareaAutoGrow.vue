@@ -3,9 +3,10 @@ const textareaValue = ref('The Woodman set to work at once, and so sharp was his
 </script>
 
 <template>
-  <VTextarea
+  <AppTextarea
     v-model="textareaValue"
     label="Auto Grow"
+    placeholder="Placeholder Text"
     auto-grow
   />
 </template>

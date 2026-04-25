@@ -74,12 +74,16 @@ const panel = ref(0)
 </script>
 
 <template>
-  <VExpansionPanels v-model="panel">
+  <VExpansionPanels
+    v-model="panel"
+    class="no-icon-rotate"
+  >
     <VExpansionPanel>
       <VExpansionPanelTitle disable-icon-rotate>
         Server Down
         <template #actions>
           <VIcon
+            size="18"
             icon="tabler-alert-circle"
             color="error"
           />
@@ -91,12 +95,11 @@ const panel = ref(0)
     </VExpansionPanel>
 
     <VExpansionPanel>
-      <VExpansionPanelTitle
-        disable-icon-rotate
-      >
+      <VExpansionPanelTitle disable-icon-rotate>
         Sales report generated
         <template #actions>
           <VIcon
+            size="18"
             icon="tabler-check"
             color="success"
           />
@@ -112,6 +115,7 @@ const panel = ref(0)
         High Memory usage
         <template #actions>
           <VIcon
+            size="18"
             icon="tabler-alert-triangle"
             color="warning"
           />
@@ -129,12 +133,16 @@ const panel = ref(0)
 </script>
 
 <template>
-  <VExpansionPanels v-model="panel">
+  <VExpansionPanels
+    v-model="panel"
+    class="no-icon-rotate"
+  >
     <VExpansionPanel>
       <VExpansionPanelTitle disable-icon-rotate>
         Server Down
         <template #actions>
           <VIcon
+            size="18"
             icon="tabler-alert-circle"
             color="error"
           />
@@ -146,12 +154,11 @@ const panel = ref(0)
     </VExpansionPanel>
 
     <VExpansionPanel>
-      <VExpansionPanelTitle
-        disable-icon-rotate
-      >
+      <VExpansionPanelTitle disable-icon-rotate>
         Sales report generated
         <template #actions>
           <VIcon
+            size="18"
             icon="tabler-check"
             color="success"
           />
@@ -167,6 +174,7 @@ const panel = ref(0)
         High Memory usage
         <template #actions>
           <VIcon
+            size="18"
             icon="tabler-alert-triangle"
             color="warning"
           />
@@ -354,3 +362,53 @@ export const popout = {
 `,
 }
 
+export const withBorder = {
+  ts: `<template>
+  <VExpansionPanels
+    variant="accordion"
+    class="expansion-panels-width-border"
+  >
+    <VExpansionPanel
+      v-for="item in 4"
+      :key="item"
+      elevation="0"
+    >
+      <VExpansionPanelTitle
+        collapse-icon="tabler-minus"
+        expand-icon="tabler-plus"
+      >
+        Accordion {{ item }}
+      </VExpansionPanelTitle>
+
+      <VExpansionPanelText>
+        Sweet roll ice cream chocolate bar. Ice cream croissant sugar plum I love cupcake gingerbread liquorice cake. Bonbon tart caramels marshmallow chocolate cake icing icing danish pie.
+      </VExpansionPanelText>
+    </VExpansionPanel>
+  </VExpansionPanels>
+</template>
+`,
+  js: `<template>
+  <VExpansionPanels
+    variant="accordion"
+    class="expansion-panels-width-border"
+  >
+    <VExpansionPanel
+      v-for="item in 4"
+      :key="item"
+      elevation="0"
+    >
+      <VExpansionPanelTitle
+        collapse-icon="tabler-minus"
+        expand-icon="tabler-plus"
+      >
+        Accordion {{ item }}
+      </VExpansionPanelTitle>
+
+      <VExpansionPanelText>
+        Sweet roll ice cream chocolate bar. Ice cream croissant sugar plum I love cupcake gingerbread liquorice cake. Bonbon tart caramels marshmallow chocolate cake icing icing danish pie.
+      </VExpansionPanelText>
+    </VExpansionPanel>
+  </VExpansionPanels>
+</template>
+`,
+}

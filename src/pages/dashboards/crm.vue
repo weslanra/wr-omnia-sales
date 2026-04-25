@@ -2,17 +2,17 @@
 import CrmActiveProject from '@/views/dashboards/crm/CrmActiveProject.vue'
 import CrmActivityTimeline from '@/views/dashboards/crm/CrmActivityTimeline.vue'
 import CrmAnalyticsSales from '@/views/dashboards/crm/CrmAnalyticsSales.vue'
-import CrmBrowserStates from '@/views/dashboards/crm/CrmBrowserStates.vue'
 import CrmEarningReportsYearlyOverview from '@/views/dashboards/crm/CrmEarningReportsYearlyOverview.vue'
+import CrmOrderBarChart from '@/views/dashboards/crm/CrmOrderBarChart.vue'
 import CrmProjectStatus from '@/views/dashboards/crm/CrmProjectStatus.vue'
-import CrmRecentTransaction from '@/views/dashboards/crm/CrmRecentTransaction.vue'
+import CrmRecentTransactions from '@/views/dashboards/crm/CrmRecentTransactions.vue'
 import CrmRevenueGrowth from '@/views/dashboards/crm/CrmRevenueGrowth.vue'
 import CrmSalesAreaCharts from '@/views/dashboards/crm/CrmSalesAreaCharts.vue'
-import CrmSessionsBarWithGapCharts from '@/views/dashboards/crm/CrmSessionsBarWithGapCharts.vue'
+import CrmSalesByCountries from '@/views/dashboards/crm/CrmSalesByCountries.vue'
 
 const simpleStatisticsDemoCards = [
   {
-    icon: 'tabler-currency-dollar',
+    icon: 'tabler-credit-card',
     color: 'error',
     title: 'Total Profit',
     subTitle: 'Last week',
@@ -20,8 +20,8 @@ const simpleStatisticsDemoCards = [
     change: '-12.2%',
   },
   {
-    icon: 'tabler-chart-bar',
-    color: 'info',
+    icon: 'tabler-currency-dollar',
+    color: 'success',
     title: 'Total Sales',
     subTitle: 'Last week',
     stat: '$4,673',
@@ -31,14 +31,14 @@ const simpleStatisticsDemoCards = [
 </script>
 
 <template>
-  <VRow>
+  <VRow class="match-height">
     <VCol
       cols="12"
       md="4"
       sm="6"
       lg="2"
     >
-      <CrmSalesAreaCharts />
+      <CrmOrderBarChart />
     </VCol>
 
     <VCol
@@ -47,7 +47,7 @@ const simpleStatisticsDemoCards = [
       sm="6"
       lg="2"
     >
-      <CrmSessionsBarWithGapCharts />
+      <CrmSalesAreaCharts />
     </VCol>
 
     <VCol
@@ -64,23 +64,27 @@ const simpleStatisticsDemoCards = [
             :color="demo.color"
             variant="tonal"
             rounded
-            size="42"
+            size="44"
           >
-            <VIcon :icon="demo.icon" />
+            <VIcon
+              :icon="demo.icon"
+              size="28"
+            />
           </VAvatar>
 
-          <h6 class="text-h6 mt-3">
+          <h5 class="text-h5 mt-3">
             {{ demo.title }}
-          </h6>
-          <p class="text-sm text-disabled mt-1 mb-0">
+          </h5>
+          <p class="my-1">
             {{ demo.subTitle }}
           </p>
-          <p class="my-2">
+          <p class="mb-3 text-high-emphasis">
             {{ demo.stat }}
           </p>
           <VChip
             :color="demo.color"
             label
+            size="small"
           >
             {{ demo.change }}
           </VChip>
@@ -118,7 +122,7 @@ const simpleStatisticsDemoCards = [
       cols="12"
       md="4"
     >
-      <CrmBrowserStates />
+      <CrmSalesByCountries />
     </VCol>
 
     <!-- 👉 Project Status -->
@@ -137,12 +141,12 @@ const simpleStatisticsDemoCards = [
       <CrmActiveProject />
     </VCol>
 
-    <!-- 👉 Recent Transaction -->
+    <!-- 👉 Recent Transactions -->
     <VCol
       cols="12"
       md="6"
     >
-      <CrmRecentTransaction />
+      <CrmRecentTransactions />
     </VCol>
 
     <!-- 👉 Active timeline -->

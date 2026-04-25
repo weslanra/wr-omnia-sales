@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import VueApexCharts from 'vue3-apexcharts'
 import { useTheme } from 'vuetify'
 import { hexToRgb } from '@layouts/utils'
 
@@ -7,7 +6,7 @@ const vuetifyTheme = useTheme()
 
 const series = [
   {
-    data: [28, 10, 45, 38, 15, 30, 35, 30, 8],
+    data: [25, 40, 55, 70, 85, 70, 55],
   },
 ]
 
@@ -15,11 +14,12 @@ const chartOptions = computed(() => {
   const currentTheme = vuetifyTheme.current.value.colors
   const variableTheme = vuetifyTheme.current.value.variables
 
-  const labelSuccessColor = `rgba(${hexToRgb(currentTheme.success)},0.16)`
+  const labelSuccessColor = `rgba(${hexToRgb(currentTheme.success)},0.2)`
   const labelColor = `rgba(${hexToRgb(currentTheme['on-surface'])},${variableTheme['disabled-opacity']})`
 
   return {
     chart: {
+      height: 162,
       type: 'bar',
       parentHeightOffset: 0,
       toolbar: {
@@ -74,7 +74,7 @@ const chartOptions = computed(() => {
       labels: {
         style: {
           colors: labelColor,
-          fontSize: '14px',
+          fontSize: '13px',
           fontFamily: 'Public sans',
         },
       },
@@ -92,6 +92,17 @@ const chartOptions = computed(() => {
       },
     },
     responsive: [
+      {
+        breakpoint: 1640,
+        options: {
+          plotOptions: {
+            bar: {
+              columnWidth: '40%',
+              borderRadius: 6,
+            },
+          },
+        },
+      },
       {
         breakpoint: 1471,
         options: {
@@ -117,7 +128,8 @@ const chartOptions = computed(() => {
         options: {
           plotOptions: {
             bar: {
-              columnWidth: '60%',
+              columnWidth: '50%',
+              borderRadius: 4,
             },
           },
         },
@@ -128,7 +140,7 @@ const chartOptions = computed(() => {
           plotOptions: {
             bar: {
               columnWidth: '40%',
-              borderRadius: 8,
+              borderRadius: 4,
             },
           },
         },
@@ -149,7 +161,8 @@ const chartOptions = computed(() => {
         options: {
           plotOptions: {
             bar: {
-              columnWidth: '40%',
+              columnWidth: '30%',
+              borderRadius: 4,
             },
           },
         },
@@ -160,6 +173,7 @@ const chartOptions = computed(() => {
           plotOptions: {
             bar: {
               columnWidth: '45%',
+              borderRadius: 4,
             },
           },
         },
@@ -174,19 +188,22 @@ const chartOptions = computed(() => {
     <VCardText class="d-flex justify-space-between">
       <div class="d-flex flex-column">
         <div class="mb-auto">
-          <h6 class="text-h6 text-no-wrap">
+          <h5 class="text-h5 text-no-wrap mb-2">
             Revenue Growth
-          </h6>
-          <span class="text-sm">Weekly Report</span>
+          </h5>
+          <div class="text-body-1">
+            Weekly Report
+          </div>
         </div>
 
         <div>
-          <h5 class="text-h5 mb-1">
+          <h5 class="text-h3 mb-2">
             $4,673
           </h5>
           <VChip
             label
             color="success"
+            size="small"
           >
             +15.2%
           </VChip>
@@ -196,7 +213,7 @@ const chartOptions = computed(() => {
         <VueApexCharts
           :options="chartOptions"
           :series="series"
-          :height="165"
+          :height="162"
         />
       </div>
     </VCardText>

@@ -66,6 +66,7 @@ const isDialogVisible = ref(false)
       <VList
         lines="two"
         select-strategy="classic"
+        class="full-screen-dialog-list"
       >
         <VListSubheader>General</VListSubheader>
 

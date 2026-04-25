@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import avatar1 from '@images/avatars/avatar-14.png'
+import avatar1 from '@images/avatars/avatar-1.png'
 
 const accountData = {
   avatarImg: avatar1,
@@ -109,7 +109,7 @@ const currencies = [
 <template>
   <VRow>
     <VCol cols="12">
-      <VCard title="Profile Details">
+      <VCard>
         <VCardText class="d-flex">
           <!-- 👉 Avatar -->
           <VAvatar
@@ -120,13 +120,11 @@ const currencies = [
           />
 
           <!-- 👉 Upload Photo -->
-          <form
-            ref="refForm"
-            class="d-flex flex-column justify-center gap-4"
-          >
-            <div class="d-flex flex-wrap gap-2">
+          <form class="d-flex flex-column justify-center gap-4">
+            <div class="d-flex flex-wrap gap-4">
               <VBtn
                 color="primary"
+                size="small"
                 @click="refInputEl?.click()"
               >
                 <VIcon
@@ -147,6 +145,7 @@ const currencies = [
 
               <VBtn
                 type="reset"
+                size="small"
                 color="secondary"
                 variant="tonal"
                 @click="resetAvatar"
@@ -165,19 +164,18 @@ const currencies = [
           </form>
         </VCardText>
 
-        <VDivider />
-
         <VCardText class="pt-2">
           <!-- 👉 Form -->
-          <VForm class="mt-6">
+          <VForm class="mt-3">
             <VRow>
               <!-- 👉 First Name -->
               <VCol
                 md="6"
                 cols="12"
               >
-                <VTextField
+                <AppTextField
                   v-model="accountDataLocal.firstName"
+                  placeholder="John"
                   label="First Name"
                 />
               </VCol>
@@ -187,8 +185,9 @@ const currencies = [
                 md="6"
                 cols="12"
               >
-                <VTextField
+                <AppTextField
                   v-model="accountDataLocal.lastName"
+                  placeholder="Doe"
                   label="Last Name"
                 />
               </VCol>
@@ -198,9 +197,10 @@ const currencies = [
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppTextField
                   v-model="accountDataLocal.email"
                   label="E-mail"
+                  placeholder="johndoe@gmail.com"
                   type="email"
                 />
               </VCol>
@@ -210,9 +210,10 @@ const currencies = [
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppTextField
                   v-model="accountDataLocal.org"
                   label="Organization"
+                  placeholder="ThemeSelection"
                 />
               </VCol>
 
@@ -221,9 +222,10 @@ const currencies = [
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppTextField
                   v-model="accountDataLocal.phone"
                   label="Phone Number"
+                  placeholder="+1 (917) 543-9876"
                 />
               </VCol>
 
@@ -232,9 +234,10 @@ const currencies = [
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppTextField
                   v-model="accountDataLocal.address"
                   label="Address"
+                  placeholder="123 Main St, New York, NY 10001"
                 />
               </VCol>
 
@@ -243,9 +246,10 @@ const currencies = [
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppTextField
                   v-model="accountDataLocal.state"
                   label="State"
+                  placeholder="New York"
                 />
               </VCol>
 
@@ -254,9 +258,10 @@ const currencies = [
                 cols="12"
                 md="6"
               >
-                <VTextField
+                <AppTextField
                   v-model="accountDataLocal.zip"
                   label="Zip Code"
+                  placeholder="10001"
                 />
               </VCol>
 
@@ -265,10 +270,11 @@ const currencies = [
                 cols="12"
                 md="6"
               >
-                <VSelect
+                <AppSelect
                   v-model="accountDataLocal.country"
                   label="Country"
                   :items="['USA', 'Canada', 'UK', 'India', 'Australia']"
+                  placeholder="Select Country"
                 />
               </VCol>
 
@@ -277,9 +283,10 @@ const currencies = [
                 cols="12"
                 md="6"
               >
-                <VSelect
+                <AppSelect
                   v-model="accountDataLocal.language"
                   label="Language"
+                  placeholder="Select Language"
                   :items="['English', 'Spanish', 'Arabic', 'Hindi', 'Urdu']"
                 />
               </VCol>
@@ -289,9 +296,10 @@ const currencies = [
                 cols="12"
                 md="6"
               >
-                <VSelect
+                <AppSelect
                   v-model="accountDataLocal.timezone"
                   label="Timezone"
+                  placeholder="Select Timezone"
                   :items="timezones"
                   :menu-props="{ maxHeight: 200 }"
                 />
@@ -302,9 +310,10 @@ const currencies = [
                 cols="12"
                 md="6"
               >
-                <VSelect
+                <AppSelect
                   v-model="accountDataLocal.currency"
                   label="Currency"
+                  placeholder="Select Currency"
                   :items="currencies"
                   :menu-props="{ maxHeight: 200 }"
                 />
@@ -323,7 +332,7 @@ const currencies = [
                   type="reset"
                   @click.prevent="resetForm"
                 >
-                  Reset
+                  Cancel
                 </VBtn>
               </VCol>
             </VRow>
@@ -337,18 +346,6 @@ const currencies = [
       <VCard title="Delete Account">
         <VCardText>
           <!-- 👉 Checkbox and Button  -->
-          <VAlert
-            color="warning"
-            variant="tonal"
-            class="mb-4"
-          >
-            <VAlertTitle class="mb-1">
-              Are you sure you want to delete your account?
-            </VAlertTitle>
-            <p class="mb-0">
-              Once you delete your account, there is no going back. Please be certain.
-            </p>
-          </VAlert>
           <div>
             <VCheckbox
               v-model="isAccountDeactivated"
@@ -360,7 +357,7 @@ const currencies = [
           <VBtn
             :disabled="!isAccountDeactivated"
             color="error"
-            class="mt-3"
+            class="mt-6"
             @click="isConfirmDialogOpen = true"
           >
             Deactivate Account
@@ -373,6 +370,10 @@ const currencies = [
   <!-- Confirm Dialog -->
   <ConfirmDialog
     v-model:isDialogVisible="isConfirmDialogOpen"
-    confirmation-msg="Are you sure you want to deactivate your account?"
+    confirmation-question="Are you sure you want to deactivate your account?"
+    confirm-title="Deactivated!"
+    confirm-msg="Your account has been deactivated successfully."
+    cancel-title="Cancelled"
+    cancel-msg="Account Deactivation Cancelled!"
   />
 </template>

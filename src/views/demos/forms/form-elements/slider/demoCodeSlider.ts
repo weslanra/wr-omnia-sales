@@ -243,7 +243,7 @@ export const appendTextField = {
   ts: `<script lang="ts" setup>
 const redColorValue = ref(161)
 const greenColorValue = ref(105)
-const blueColorValue = ref(255)
+const blueColorValue = ref(225)
 </script>
 
 <template>
@@ -255,65 +255,61 @@ const blueColorValue = ref(255)
   <VRow class="mt-5">
     <VCol cols="12">
       <!-- R -->
-      <VSlider
-        v-model="redColorValue"
-        :max="255"
-        :step="1"
-        prepend-icon="tabler-letter-r"
-      >
-        <template #append>
-          <div style="width: 3rem;">
-            <VTextField
-              v-model="redColorValue"
-              type="number"
-              variant="underlined"
-              :max="255"
-            />
-          </div>
-        </template>
-      </VSlider>
+      <div class="d-flex justify-space-between">
+        <VSlider
+          v-model="redColorValue"
+          :max="255"
+          :step="1"
+          prepend-icon="tabler-letter-r"
+        />
+
+        <VTextField
+          v-model="redColorValue"
+          type="number"
+          placeholder="10"
+          :max="255"
+          style="max-inline-size: 5rem;"
+        />
+      </div>
     </VCol>
 
     <VCol cols="12">
       <!-- G -->
-      <VSlider
-        v-model="greenColorValue"
-        :max="255"
-        :step="1"
-        prepend-icon="tabler-letter-g"
-      >
-        <template #append>
-          <div style="width: 3rem;">
-            <VTextField
-              v-model="greenColorValue"
-              type="number"
-              variant="underlined"
-              :max="255"
-            />
-          </div>
-        </template>
-      </VSlider>
+      <div class="d-flex justify-space-between">
+        <VSlider
+          v-model="greenColorValue"
+          :max="255"
+          :step="1"
+          prepend-icon="tabler-letter-g"
+        />
+
+        <VTextField
+          v-model="greenColorValue"
+          type="number"
+          placeholder="20"
+          :max="255"
+          style="max-inline-size: 5rem;"
+        />
+      </div>
     </VCol>
 
     <VCol cols="12">
       <!-- B -->
-      <VSlider
-        v-model="blueColorValue"
-        :max="255"
-        :step="1"
-        prepend-icon="tabler-letter-b"
-      >
-        <template #append>
-          <div style="width: 3rem;">
-            <VTextField
-              v-model="blueColorValue"
-              type="number"
-              variant="underlined"
-              :max="255"
-            />
-          </div>
-        </template>
-      </VSlider>
+      <div class="d-flex justify-space-between">
+        <VSlider
+          v-model="blueColorValue"
+          :max="255"
+          :step="1"
+          prepend-icon="tabler-letter-b"
+        />
+        <VTextField
+          v-model="blueColorValue"
+          type="number"
+          placeholder="30"
+          :max="255"
+          style="max-inline-size: 5rem;"
+        />
+      </div>
     </VCol>
   </VRow>
 </template>
@@ -321,7 +317,7 @@ const blueColorValue = ref(255)
   js: `<script setup>
 const redColorValue = ref(161)
 const greenColorValue = ref(105)
-const blueColorValue = ref(255)
+const blueColorValue = ref(225)
 </script>
 
 <template>
@@ -333,65 +329,61 @@ const blueColorValue = ref(255)
   <VRow class="mt-5">
     <VCol cols="12">
       <!-- R -->
-      <VSlider
-        v-model="redColorValue"
-        :max="255"
-        :step="1"
-        prepend-icon="tabler-letter-r"
-      >
-        <template #append>
-          <div style="width: 3rem;">
-            <VTextField
-              v-model="redColorValue"
-              type="number"
-              variant="underlined"
-              :max="255"
-            />
-          </div>
-        </template>
-      </VSlider>
+      <div class="d-flex justify-space-between">
+        <VSlider
+          v-model="redColorValue"
+          :max="255"
+          :step="1"
+          prepend-icon="tabler-letter-r"
+        />
+
+        <VTextField
+          v-model="redColorValue"
+          type="number"
+          placeholder="10"
+          :max="255"
+          style="max-inline-size: 5rem;"
+        />
+      </div>
     </VCol>
 
     <VCol cols="12">
       <!-- G -->
-      <VSlider
-        v-model="greenColorValue"
-        :max="255"
-        :step="1"
-        prepend-icon="tabler-letter-g"
-      >
-        <template #append>
-          <div style="width: 3rem;">
-            <VTextField
-              v-model="greenColorValue"
-              type="number"
-              variant="underlined"
-              :max="255"
-            />
-          </div>
-        </template>
-      </VSlider>
+      <div class="d-flex justify-space-between">
+        <VSlider
+          v-model="greenColorValue"
+          :max="255"
+          :step="1"
+          prepend-icon="tabler-letter-g"
+        />
+
+        <VTextField
+          v-model="greenColorValue"
+          type="number"
+          placeholder="20"
+          :max="255"
+          style="max-inline-size: 5rem;"
+        />
+      </div>
     </VCol>
 
     <VCol cols="12">
       <!-- B -->
-      <VSlider
-        v-model="blueColorValue"
-        :max="255"
-        :step="1"
-        prepend-icon="tabler-letter-b"
-      >
-        <template #append>
-          <div style="width: 3rem;">
-            <VTextField
-              v-model="blueColorValue"
-              type="number"
-              variant="underlined"
-              :max="255"
-            />
-          </div>
-        </template>
-      </VSlider>
+      <div class="d-flex justify-space-between">
+        <VSlider
+          v-model="blueColorValue"
+          :max="255"
+          :step="1"
+          prepend-icon="tabler-letter-b"
+        />
+        <VTextField
+          v-model="blueColorValue"
+          type="number"
+          placeholder="30"
+          :max="255"
+          style="max-inline-size: 5rem;"
+        />
+      </div>
     </VCol>
   </VRow>
 </template>
@@ -410,9 +402,7 @@ const sliderValue = ref(30)
     </VCol>
 
     <VCol cols="12">
-      <VSlider
-        v-model="sliderValue"
-      />
+      <VSlider v-model="sliderValue" />
     </VCol>
   </VRow>
 </template>
@@ -428,9 +418,7 @@ const sliderValue = ref(30)
     </VCol>
 
     <VCol cols="12">
-      <VSlider
-        v-model="sliderValue"
-      />
+      <VSlider v-model="sliderValue" />
     </VCol>
   </VRow>
 </template>
@@ -652,21 +640,21 @@ const slider = ref(40)
 </script>
 
 <template>
-  <VSlider
-    v-model="slider"
-    :max="max"
-    :min="min"
-    :step="1"
-  >
-    <template #append>
-      <VTextField
-        v-model="slider"
-        variant="underlined"
-        type="number"
-        style="width: 60px ;"
-      />
-    </template>
-  </VSlider>
+  <div class="d-flex justify-space-between">
+    <VSlider
+      v-model="slider"
+      :max="max"
+      :min="min"
+      :step="1"
+    />
+
+    <AppTextField
+      v-model="slider"
+      type="number"
+      placeholder="10"
+      style="max-inline-size: 5rem;"
+    />
+  </div>
 </template>
 `,
   js: `<script setup>
@@ -676,21 +664,21 @@ const slider = ref(40)
 </script>
 
 <template>
-  <VSlider
-    v-model="slider"
-    :max="max"
-    :min="min"
-    :step="1"
-  >
-    <template #append>
-      <VTextField
-        v-model="slider"
-        variant="underlined"
-        type="number"
-        style="width: 60px ;"
-      />
-    </template>
-  </VSlider>
+  <div class="d-flex justify-space-between">
+    <VSlider
+      v-model="slider"
+      :max="max"
+      :min="min"
+      :step="1"
+    />
+
+    <AppTextField
+      v-model="slider"
+      type="number"
+      placeholder="10"
+      style="max-inline-size: 5rem;"
+    />
+  </div>
 </template>
 `,
 }
@@ -751,7 +739,7 @@ const value = ref(0)
 
 export const thumb = {
   ts: `<script lang="ts" setup>
-const satisfactionEmojis = ['😭', '😢', '☹️', '🙁', '😐', '🙂', '😊', '😁', '😄', '😍']
+const satisfactionEmojis = ['😭', '😢', '😔', '🙁', '😐', '🙂', '😊', '😁', '😄', '😍']
 const slider = ref(45)
 </script>
 
@@ -808,7 +796,7 @@ const slider = ref(45)
 const satisfactionEmojis = [
   '😭',
   '😢',
-  '☹️',
+  '😔',
   '🙁',
   '😐',
   '🙂',
@@ -1056,4 +1044,3 @@ const value = ref(10)
 </template>
 `,
 }
-

@@ -1,15 +1,20 @@
 <script lang="ts" setup>
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
-import { useDisplay } from 'vuetify'
-import type { ChatContact as TypeChatContact } from '@/@fake-db/types'
+import { useDisplay, useTheme } from 'vuetify'
+import { themes } from '@/plugins/vuetify/theme'
 import ChatActiveChatUserProfileSidebarContent from '@/views/apps/chat/ChatActiveChatUserProfileSidebarContent.vue'
 import ChatLeftSidebarContent from '@/views/apps/chat/ChatLeftSidebarContent.vue'
 import ChatLog from '@/views/apps/chat/ChatLog.vue'
 import ChatUserProfileSidebarContent from '@/views/apps/chat/ChatUserProfileSidebarContent.vue'
 import { useChat } from '@/views/apps/chat/useChat'
 import { useChatStore } from '@/views/apps/chat/useChatStore'
-import { useResponsiveLeftSidebar } from '@core/composable/useResponsiveSidebar'
-import { avatarText } from '@core/utils/formatters'
+import type { ChatContact as TypeChatContact } from '@db/apps/chat/types'
+
+definePage({
+  meta: {
+    layoutWrapperClasses: 'layout-content-height-fixed',
+  },
+})
 
 // composables
 const vuetifyDisplays = useDisplay()
@@ -89,10 +94,21 @@ const isActiveChatUserProfileSidebarOpen = ref(false)
 
 // file input
 const refInputEl = ref<HTMLElement>()
+
+const { name } = useTheme()
+
+const chatContentContainerBg = computed(() => {
+  let color = 'transparent'
+
+  if (themes)
+    color = themes?.[name.value].colors?.background as string
+
+  return color
+})
 </script>
 
 <template>
-  <VLayout class="chat-app-layout bg-surface">
+  <VLayout class="chat-app-layout">
     <!-- 👉 user profile sidebar -->
     <VNavigationDrawer
       v-model="isUserProfileSidebarOpen"
@@ -147,21 +163,14 @@ const refInputEl = ref<HTMLElement>()
         class="d-flex flex-column h-100"
       >
         <!-- 👉 Active chat header -->
-        <div class="active-chat-header d-flex align-center text-medium-emphasis">
+        <div class="active-chat-header d-flex align-center text-medium-emphasis bg-surface">
           <!-- Sidebar toggler -->
-          <VBtn
-            variant="text"
-            color="default"
-            icon
-            size="small"
+          <IconBtn
             class="d-md-none me-3"
             @click="isLeftSidebarOpen = true"
           >
-            <VIcon
-              size="24"
-              icon="tabler-menu-2"
-            />
-          </VBtn>
+            <VIcon icon="tabler-menu-2" />
+          </IconBtn>
 
           <!-- avatar -->
           <div
@@ -172,14 +181,14 @@ const refInputEl = ref<HTMLElement>()
               dot
               location="bottom right"
               offset-x="3"
-              offset-y="3"
+              offset-y="0"
               :color="resolveAvatarBadgeVariant(store.activeChat.contact.status)"
               bordered
             >
               <VAvatar
                 size="40"
-                variant="tonal"
-                :color="resolveAvatarBadgeVariant(store.activeChat.contact.status)"
+                :variant="!store.activeChat.contact.avatar ? 'tonal' : undefined"
+                :color="!store.activeChat.contact.avatar ? resolveAvatarBadgeVariant(store.activeChat.contact.status) : undefined"
                 class="cursor-pointer"
               >
                 <VImg
@@ -192,75 +201,32 @@ const refInputEl = ref<HTMLElement>()
             </VBadge>
 
             <div class="flex-grow-1 ms-4 overflow-hidden">
-              <h6 class="text-base font-weight-regular">
+              <div class="text-h6 mb-0 font-weight-regular">
                 {{ store.activeChat.contact.fullName }}
-              </h6>
-              <span class="d-block text-sm text-truncate text-disabled">{{ store.activeChat.contact.role }}</span>
+              </div>
+              <p class="text-truncate mb-0 text-body-2">
+                {{ store.activeChat.contact.role }}
+              </p>
             </div>
           </div>
 
           <VSpacer />
 
           <!-- Header right content -->
-          <div class="d-sm-flex align-center d-none">
-            <VBtn
-              variant="text"
-              color="default"
-              icon
-              size="small"
-            >
-              <VIcon
-                size="22"
-                icon="tabler-phone"
-              />
-            </VBtn>
-            <VBtn
-              variant="text"
-              color="default"
-              icon
-              size="small"
-            >
-              <VIcon
-                size="22"
-                icon="tabler-video"
-              />
-            </VBtn>
-            <VBtn
-              variant="text"
-              color="default"
-              icon
-              size="small"
-            >
-              <VIcon
-                size="22"
-                icon="tabler-search"
-              />
-            </VBtn>
+          <div class="d-sm-flex align-center d-none text-medium-emphasis">
+            <IconBtn>
+              <VIcon icon="tabler-phone" />
+            </IconBtn>
+            <IconBtn>
+              <VIcon icon="tabler-video" />
+            </IconBtn>
+            <IconBtn>
+              <VIcon icon="tabler-search" />
+            </IconBtn>
+            <IconBtn>
+              <VIcon icon="tabler-dots-vertical" />
+            </IconBtn>
           </div>
-
-          <VBtn
-            variant="text"
-            color="default"
-            icon
-            size="small"
-          >
-            <VIcon
-              size="22"
-              icon="tabler-dots-vertical"
-            />
-
-            <VMenu activator="parent">
-              <VList>
-                <VListItem
-                  v-for="(item, index) in ['View Contact', 'Mute Notifications', 'Block Contact', 'Clear Chat', 'Report']"
-                  :key="index"
-                  :value="index"
-                >
-                  <VListItemTitle>{{ item }}</VListItemTitle>
-                </VListItem>
-              </VList>
-            </VMenu>
-          </VBtn>
         </div>
 
         <VDivider />
@@ -284,41 +250,35 @@ const refInputEl = ref<HTMLElement>()
             :key="store.activeChat?.contact.id"
             v-model="msg"
             variant="solo"
+            density="default"
             class="chat-message-input"
             placeholder="Type your message..."
-            density="default"
             autofocus
           >
             <template #append-inner>
-              <VBtn
-                icon
-                size="small"
-                variant="text"
-                color="default"
-              >
-                <VIcon
-                  size="22"
-                  icon="tabler-microphone"
-                />
-              </VBtn>
-
-              <VBtn
-                icon
-                size="small"
-                variant="text"
-                color="default"
-                class="me-4"
-                @click="refInputEl?.click()"
-              >
-                <VIcon
-                  size="22"
-                  icon="tabler-link"
-                />
-              </VBtn>
-
-              <VBtn @click="sendMessage">
-                Send
-              </VBtn>
+              <div class="d-flex gap-1">
+                <IconBtn>
+                  <VIcon
+                    icon="tabler-microphone"
+                    size="22"
+                  />
+                </IconBtn>
+                <IconBtn @click="refInputEl?.click()">
+                  <VIcon
+                    icon="tabler-paperclip"
+                    size="22"
+                  />
+                </IconBtn>
+                <VBtn @click="sendMessage">
+                  <template #append>
+                    <VIcon
+                      icon="tabler-send"
+                      color="#fff"
+                    />
+                  </template>
+                  Send
+                </VBtn>
+              </div>
             </template>
           </VTextField>
 
@@ -338,53 +298,62 @@ const refInputEl = ref<HTMLElement>()
         class="d-flex h-100 align-center justify-center flex-column"
       >
         <VAvatar
-          size="109"
-          class="elevation-3 mb-6 bg-surface"
+          size="98"
+          variant="tonal"
+          color="primary"
+          class="mb-4"
         >
           <VIcon
             size="50"
-            class="rounded-0 text-high-emphasis"
-            icon="tabler-message"
+            class="rounded-0"
+            icon="tabler-message-2"
           />
         </VAvatar>
-        <p
-          class="mb-0 px-6 py-1 font-weight-medium text-lg elevation-3 rounded-xl text-high-emphasis bg-surface"
-          :class="[{ 'cursor-pointer': $vuetify.display.smAndDown }]"
+
+        <VBtn
+          v-if="$vuetify.display.smAndDown"
+          rounded="xl"
           @click="startConversation"
         >
           Start Conversation
+        </VBtn>
+
+        <p
+          v-else
+          style="max-inline-size: 40ch; text-wrap: balance;"
+          class="text-center text-disabled"
+        >
+          Start connecting with the people by selecting one of the contact on left
         </p>
       </div>
     </VMain>
   </VLayout>
 </template>
 
-<route lang="yaml">
-meta:
-  layoutWrapperClasses: layout-content-height-fixed
-</route>
-
 <style lang="scss">
-@use "@styles/variables/_vuetify.scss";
-@use "@core/scss/base/_mixins.scss";
-@use "vuetify/lib/styles/tools/elevation" as elevation;
+@use "@styles/variables/vuetify.scss";
+@use "@core/scss/base/mixins.scss";
 @use "@layouts/styles/mixins" as layoutsMixins;
 
 // Variables
-$chat-app-header-height: 68px;
+$chat-app-header-height: 76px;
 
 // Placeholders
 %chat-header {
   display: flex;
   align-items: center;
   min-block-size: $chat-app-header-height;
-  padding-inline: 1rem;
+  padding-inline: 1.5rem;
+}
+
+.chat-start-conversation-btn {
+  cursor: default;
 }
 
 .chat-app-layout {
   border-radius: vuetify.$card-border-radius;
 
-  @include elevation.elevation(vuetify.$card-elevation);
+  @include mixins.elevation(vuetify.$card-elevation);
 
   $sel-chat-app-layout: &;
 
@@ -407,28 +376,6 @@ $chat-app-header-height: 68px;
     @extend %chat-header;
   }
 
-  .chat-list-search {
-    .v-field__outline__start {
-      flex-basis: 20px !important;
-      border-radius: 28px 0 0 28px !important;
-    }
-
-    .v-field__outline__end {
-      border-radius: 0 28px 28px 0 !important;
-    }
-
-    @include layoutsMixins.rtl {
-      .v-field__outline__start {
-        flex-basis: 20px !important;
-        border-radius: 0 28px 28px 0 !important;
-      }
-
-      .v-field__outline__end {
-        border-radius: 28px 0 0 28px !important;
-      }
-    }
-  }
-
   .chat-list-sidebar {
     .v-navigation-drawer__content {
       display: flex;
@@ -438,13 +385,24 @@ $chat-app-header-height: 68px;
 }
 
 .chat-content-container {
-  background-color: rgba(var(--v-theme-on-surface), var(--v-hover-opacity));
+  /* stylelint-disable-next-line value-keyword-case */
+  background-color: v-bind(chatContentContainerBg);
 
   // Adjust the padding so text field height stays 48px
   .chat-message-input {
+    .v-field__input {
+      font-size: 0.9375rem !important;
+      line-height: 1.375rem !important;
+      padding-block: 0.6rem 0.5rem;
+    }
+
     .v-field__append-inner {
       align-items: center;
       padding-block-start: 0;
+    }
+
+    .v-field--appended {
+      padding-inline-end: 8px;
     }
   }
 }

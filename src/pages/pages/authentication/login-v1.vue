@@ -1,9 +1,15 @@
 <script setup lang="ts">
-import authV1BottomShape from '@images/svg/auth-v1-bottom-shape.svg'
-import authV1TopShape from '@images/svg/auth-v1-top-shape.svg'
 import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
+import authV1BottomShape from '@images/svg/auth-v1-bottom-shape.svg?raw'
+import authV1TopShape from '@images/svg/auth-v1-top-shape.svg?raw'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
+
+definePage({
+  meta: {
+    layout: 'blank',
+  },
+})
 
 const form = ref({
   email: '',
@@ -18,38 +24,38 @@ const isPasswordVisible = ref(false)
   <div class="auth-wrapper d-flex align-center justify-center pa-4">
     <div class="position-relative my-sm-16">
       <!-- 👉 Top shape -->
-      <VImg
-        :src="authV1TopShape"
-        class="auth-v1-top-shape d-none d-sm-block"
+      <VNodeRenderer
+        :nodes="h('div', { innerHTML: authV1TopShape })"
+        class="text-primary auth-v1-top-shape d-none d-sm-block"
       />
 
       <!-- 👉 Bottom shape -->
-      <VImg
-        :src="authV1BottomShape"
-        class="auth-v1-bottom-shape d-none d-sm-block"
+      <VNodeRenderer
+        :nodes="h('div', { innerHTML: authV1BottomShape })"
+        class="text-primary auth-v1-bottom-shape d-none d-sm-block"
       />
 
       <!-- 👉 Auth Card -->
       <VCard
-        class="auth-card pa-4"
-        max-width="448"
+        class="auth-card"
+        max-width="460"
+        :class="$vuetify.display.smAndUp ? 'pa-6' : 'pa-0'"
       >
         <VCardItem class="justify-center">
-          <template #prepend>
-            <div class="d-flex">
+          <VCardTitle>
+            <div class="app-logo">
               <VNodeRenderer :nodes="themeConfig.app.logo" />
+              <h1 class="app-logo-title">
+                {{ themeConfig.app.title }}
+              </h1>
             </div>
-          </template>
-
-          <VCardTitle class="font-weight-bold text-h5 py-1">
-            {{ themeConfig.app.title }}
           </VCardTitle>
         </VCardItem>
 
-        <VCardText class="pt-1">
-          <h5 class="text-h5 font-weight-semibold mb-1">
-            Welcome to {{ themeConfig.app.title }}! 👋🏻
-          </h5>
+        <VCardText>
+          <h4 class="text-h4 mb-1">
+            Welcome to <span class="text-capitalize">{{ themeConfig.app.title }}</span>! 👋🏻
+          </h4>
           <p class="mb-0">
             Please sign-in to your account and start the adventure
           </p>
@@ -60,32 +66,35 @@ const isPasswordVisible = ref(false)
             <VRow>
               <!-- email -->
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="form.email"
-                  label="Email"
+                  autofocus
+                  label="Email or Username"
                   type="email"
+                  placeholder="johndoe@email.com"
                 />
               </VCol>
 
               <!-- password -->
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="form.password"
                   label="Password"
+                  placeholder="············"
                   :type="isPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 />
 
                 <!-- remember me checkbox -->
-                <div class="d-flex align-center justify-space-between flex-wrap mt-2 mb-4">
+                <div class="d-flex align-center justify-space-between flex-wrap my-6">
                   <VCheckbox
                     v-model="form.remember"
                     label="Remember me"
                   />
 
                   <RouterLink
-                    class="text-primary ms-2 mb-1"
+                    class="text-primary"
                     :to="{ name: 'pages-authentication-forgot-password-v1' }"
                   >
                     Forgot Password?
@@ -104,11 +113,13 @@ const isPasswordVisible = ref(false)
               <!-- create account -->
               <VCol
                 cols="12"
-                class="text-center text-base"
+                class="text-body-1 text-center"
               >
-                <span>New on our platform?</span>
+                <span class="d-inline-block">
+                  New on our platform?
+                </span>
                 <RouterLink
-                  class="text-primary ms-2"
+                  class="text-primary ms-1 d-inline-block text-body-1"
                   :to="{ name: 'pages-authentication-register-v1' }"
                 >
                   Create an account
@@ -120,7 +131,7 @@ const isPasswordVisible = ref(false)
                 class="d-flex align-center"
               >
                 <VDivider />
-                <span class="mx-4">or</span>
+                <span class="mx-4 text-high-emphasis">or</span>
                 <VDivider />
               </VCol>
 
@@ -142,8 +153,3 @@ const isPasswordVisible = ref(false)
 <style lang="scss">
 @use "@core/scss/template/pages/page-auth.scss";
 </style>
-
-<route lang="yaml">
-meta:
-  layout: blank
-</route>

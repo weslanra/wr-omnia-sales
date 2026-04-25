@@ -1,99 +1,56 @@
 <script setup lang="ts">
-import type { ProjectsAnalytics } from '@/@fake-db/types'
-import { useProjectStore } from '@/views/dashboards/analytics/useProjectStore'
-import { avatarText } from '@core/utils/formatters'
+import type { ProjectAnalytics } from '@db/dashboard/type'
 
-// 👉 Store
-const projectStore = useProjectStore()
+const projectTableHeaders = [
+  { title: 'PROJECT', key: 'project' },
+  { title: 'LEADER', key: 'leader' },
+  { title: 'Team', key: 'team', sortable: false },
+  { title: 'PROGRESS', key: 'progress' },
+  { title: 'Action', key: 'Action', sortable: false },
+]
 
-const searchQuery = ref('')
-const rowPerPage = ref(5)
-const currentPage = ref(1)
-const totalPage = ref(1)
-const totalProjects = ref(0)
-const projects = ref<ProjectsAnalytics[]>([])
-const selectedRows = ref<string[]>([])
-const selectAllProject = ref(false)
+const search = ref('')
 
-// 👉 Fetch Projects
-watchEffect(() => {
-  projectStore.fetchProjects(
-    {
-      q: searchQuery.value,
-      perPage: rowPerPage.value,
-      currentPage: currentPage.value,
-    },
-  ).then(response => {
-    projects.value = response.data.projects
-    totalPage.value = response.data.totalPage
-    totalProjects.value = response.data.totalProjects
-  }).catch(error => {
-    console.log(error)
-  })
-})
+const itemsPerPage = ref(5)
+const page = ref(1)
+const sortBy = ref()
+const orderBy = ref()
 
-// 👉 watching current page
-watchEffect(() => {
-  if (currentPage.value > totalPage.value)
-    currentPage.value = totalPage.value
-})
+const { data: projectsData } = await useApi<any>(createUrl('/dashboard/analytics/projects', {
+  query: {
+    q: search,
+    itemsPerPage,
+    page,
+    sortBy,
+    orderBy,
+  },
+}))
 
-// 👉 Computing pagination data
-const paginationData = computed(() => {
-  const firstIndex = projects.value.length ? ((currentPage.value - 1) * rowPerPage.value) + 1 : 0
-  const lastIndex = projects.value.length + ((currentPage.value - 1) * rowPerPage.value)
-
-  return `Showing ${firstIndex} to ${lastIndex} of ${totalProjects.value} entries`
-})
-
-// 👉 Add/Remove all checkbox ids in/from array
-const selectUnselectAll = () => {
-  selectAllProject.value = !selectAllProject.value
-  if (selectAllProject.value) {
-    projects.value.forEach(project => {
-      if (!selectedRows.value.includes(`check${project.status}`))
-        selectedRows.value.push(`check${project.status}`)
-    })
-  }
-  else {
-    selectedRows.value = []
-  }
+const updateOptions = (options: any) => {
+  sortBy.value = options.sortBy[0]?.key
+  orderBy.value = options.sortBy[0]?.order
 }
 
-// 👉 watch if checkbox array is empty all checkbox should be uncheck
-watch(selectedRows, () => {
-  if (!selectedRows.value.length)
-    selectAllProject.value = false
-}, { deep: true })
+const projects = computed((): ProjectAnalytics[] => projectsData.value?.projects)
+const totalProjects = computed(() => projectsData.value?.totalProjects)
 
-// 👉 Add/Remove individual checkbox in/from array
-const addRemoveIndividualCheckbox = (checkID: string) => {
-  if (selectedRows.value.includes(checkID)) {
-    const index = selectedRows.value.indexOf(checkID)
-
-    selectedRows.value.splice(index, 1)
-  }
-  else {
-    selectedRows.value.push(checkID)
-    selectAllProject.value = true
-  }
-}
+const moreList = [
+  { title: 'Download', value: 'Download' },
+  { title: 'Delete', value: 'Delete' },
+  { title: 'View', value: 'View' },
+]
 </script>
 
 <template>
   <VCard v-if="projects">
-    <VCardItem class="project-header d-flex flex-wrap justify-space-between py-4 gap-4">
-      <VCardTitle>Projects</VCardTitle>
+    <VCardItem class="project-header d-flex flex-wrap justify-space-between gap-4">
+      <VCardTitle>Project List</VCardTitle>
 
       <template #append>
-        <div
-          class="d-flex align-center gap-2"
-          style="width: 272px;"
-        >
-          <VLabel>Search:</VLabel>
-          <VTextField
-            v-model="searchQuery"
-            placeholder="Search"
+        <div style="inline-size: 250px;">
+          <AppTextField
+            v-model="search"
+            placeholder="Search Project"
           />
         </div>
       </template>
@@ -102,193 +59,100 @@ const addRemoveIndividualCheckbox = (checkID: string) => {
     <VDivider />
 
     <!-- SECTION Table -->
-    <VTable class="text-no-wrap">
-      <!-- 👉 Table head -->
-      <thead>
-        <tr>
-          <!-- 👉 Check/Uncheck all checkbox -->
-          <th
-            scope="col"
-            class="text-center"
-          >
-            <div style="width: 1rem;">
-              <VCheckbox
-                :model-value="selectAllProject"
-                :indeterminate="(projects.length !== selectedRows.length) && !!selectedRows.length"
-                @click="selectUnselectAll"
-              />
-            </div>
-          </th>
-
-          <th
-            scope="col"
-            class="font-weight-semibold"
-          >
-            NAME
-          </th>
-          <th
-            scope="col"
-            class="font-weight-semibold"
-          >
-            LEADER
-          </th>
-          <th
-            scope="col"
-            class="font-weight-semibold"
-          >
-            TEAM
-          </th>
-          <th
-            scope="col"
-            class="font-weight-semibold"
-          >
-            STATUS
-          </th>
-          <th
-            scope="col"
-            class="font-weight-semibold"
-          >
-            <span class="ms-2">ACTIONS</span>
-          </th>
-        </tr>
-      </thead>
-
-      <!-- 👉 Table Body -->
-      <tbody>
-        <tr
-          v-for="project in projects"
-          :key="project.name"
-          style="height: 3.5rem;"
+    <VDataTableServer
+      v-model:items-per-page="itemsPerPage"
+      v-model:page="page"
+      :items="projects"
+      :items-length="totalProjects"
+      item-value="name"
+      :headers="projectTableHeaders"
+      class="text-no-wrap"
+      show-select
+      @update:options="updateOptions"
+    >
+      <!-- projects -->
+      <template #item.project="{ item }">
+        <div
+          class="d-flex align-center gap-x-3"
+          style="padding-block: 7px;"
         >
-          <!-- 👉 Individual checkbox -->
-          <td>
-            <div style="width: 1rem;">
-              <VCheckbox
-                :id="`check${project.status}`"
-                :model-value="selectedRows.includes(`check${project.status}`)"
-                @click="addRemoveIndividualCheckbox(`check${project.status}`)"
-              />
+          <VAvatar
+            :size="34"
+            :image="item.logo"
+          />
+          <div>
+            <h6 class="text-h6 text-no-wrap">
+              {{ item.name }}
+            </h6>
+            <div class="text-body-2">
+              {{ item.project }}
             </div>
-          </td>
+          </div>
+        </div>
+      </template>
 
-          <!-- 👉 Name -->
-          <td>
-            <div class="d-flex align-center gap-3">
-              <VAvatar
-                variant="tonal"
-                color="primary"
-                size="38"
-              >
-                <VImg
-                  v-if="project.logo.length"
-                  :src="project.logo"
-                />
-                <span
-                  v-else
-                  class="font-weight-semibold"
-                >{{ avatarText(project.name) }}</span>
-              </VAvatar>
+      <template #item.leader="{ item }">
+        <div class="text-base text-high-emphasis">
+          {{ item.leader }}
+        </div>
+      </template>
 
-              <div>
-                <h6 class="text-base text-medium-emphasis font-weight-semibold">
-                  {{ project.name }}
-                </h6>
-                <span class="text-disabled">{{ project.date }}</span>
-              </div>
-            </div>
-          </td>
-
-          <!-- 👉 Leader -->
-          <td class="text-medium-emphasis">
-            {{ project.leader }}
-          </td>
-
-          <!-- 👉 Team -->
-          <td class="text-center">
-            <div class="v-avatar-group">
-              <VAvatar
-                v-for="avatar in project.team"
-                :key="avatar"
-                :size="32"
-                :image="avatar"
-              />
-            </div>
-          </td>
-
-          <!-- 👉 Progress -->
-          <td class="text-center">
-            <VProgressLinear
-              :model-value="project.status"
-              color="primary"
-              height="6"
-              rounded
-              rounded-bar
-            />
-          </td>
-
-          <!-- 👉 Actions -->
-          <td
-            class="text-center"
-            style="width: 7.5rem;"
-          >
-            <VBtn
-              icon
-              variant="plain"
-              color="default"
-              size="x-small"
+      <!-- Team -->
+      <template #item.team="{ item }">
+        <div class="d-flex">
+          <div class="v-avatar-group">
+            <VAvatar
+              v-for="(data, index) in item.team"
+              :key="index"
+              size="26"
             >
-              <VIcon
-                :size="22"
-                icon="tabler-dots-vertical"
-              />
+              <VImg :src="data" />
+            </VAvatar>
+            <VAvatar
+              v-if="item.extraMembers"
+              :color="$vuetify.theme.current.dark ? '#373b50' : '#eeedf0'"
+              :size="26"
+            >
+              <div class="text-caption text-high-emphasis">
+                +{{ item.extraMembers }}
+              </div>
+            </VAvatar>
+          </div>
+        </div>
+      </template>
 
-              <VMenu activator="parent">
-                <VList density="compact">
-                  <VListItem
-                    href="#"
-                    title="Details"
-                  />
-                  <VListItem
-                    href="#"
-                    title="Archive"
-                  />
-                </VList>
-              </VMenu>
-            </VBtn>
-          </td>
-        </tr>
-      </tbody>
+      <!-- Progress -->
+      <template #item.progress="{ item }">
+        <div class="d-flex align-center gap-3">
+          <div class="flex-grow-1">
+            <VProgressLinear
+              :height="6"
+              :model-value="item.progress"
+              color="primary"
+              rounded
+            />
+          </div>
+          <div class="text-body-1 text-high-emphasis">
+            {{ item.progress }}%
+          </div>
+        </div>
+      </template>
 
-      <!-- 👉 table footer  -->
-      <tfoot v-show="!projects.length">
-        <tr>
-          <td
-            colspan="8"
-            class="text-center text-body-1"
-          >
-            No data available
-          </td>
-        </tr>
-      </tfoot>
-    </VTable>
+      <!-- Action -->
+      <template #item.Action>
+        <MoreBtn :menu-list="moreList" />
+      </template>
+
+      <!-- TODO Refactor this after vuetify provides proper solution for removing default footer -->
+      <template #bottom>
+        <TablePagination
+          v-model:page="page"
+          :items-per-page="itemsPerPage"
+          :total-items="totalProjects"
+        />
+      </template>
+    </VDataTableServer>
     <!-- !SECTION -->
-
-    <VDivider />
-
-    <!-- SECTION Pagination -->
-    <VCardText class="d-flex align-center flex-wrap justify-space-between gap-4 py-3">
-      <!-- 👉 Pagination meta -->
-      <span class="text-sm text-disabled">{{ paginationData }}</span>
-
-      <!-- 👉 Pagination -->
-      <VPagination
-        v-model="currentPage"
-        size="small"
-        :total-visible="2"
-        :length="totalPage"
-      />
-    </VCardText>
-  <!-- !SECTION -->
   </VCard>
 </template>
 

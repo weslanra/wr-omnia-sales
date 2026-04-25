@@ -13,9 +13,14 @@ const props = withDefaults(defineProps<Props>(), {
   <VDivider v-if="props.divider" />
 
   <div class="customizer-section">
-    <p class="text-caption">
-      {{ props.title }}
-    </p>
+    <div>
+      <VChip
+        size="small"
+        color="primary"
+      >
+        <span class="font-weight-medium">{{ props.title }}</span>
+      </VChip>
+    </div>
 
     <slot />
   </div>

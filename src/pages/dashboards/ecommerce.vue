@@ -13,7 +13,7 @@ import EcommerceTransactions from '@/views/dashboards/ecommerce/EcommerceTransac
 </script>
 
 <template>
-  <VRow>
+  <VRow class="match-height">
     <!-- 👉 Congratulation John -->
     <VCol
       cols="12"
@@ -37,16 +37,6 @@ import EcommerceTransactions from '@/views/dashboards/ecommerce/EcommerceTransac
       lg="4"
     >
       <VRow>
-        <!-- 👉 Expenses Radial Bar Charts -->
-        <VCol
-          cols="12"
-          lg="6"
-          md="3"
-          sm="6"
-        >
-          <EcommerceExpensesRadialBarCharts />
-        </VCol>
-
         <!-- 👉 Total Profit Line -->
         <VCol
           cols="12"
@@ -55,6 +45,16 @@ import EcommerceTransactions from '@/views/dashboards/ecommerce/EcommerceTransac
           sm="6"
         >
           <EcommerceTotalProfitLineCharts />
+        </VCol>
+
+        <!-- 👉 Expenses Radial Bar Charts -->
+        <VCol
+          cols="12"
+          lg="6"
+          md="3"
+          sm="6"
+        >
+          <EcommerceExpensesRadialBarCharts />
         </VCol>
 
         <!-- 👉 Generated Leads -->

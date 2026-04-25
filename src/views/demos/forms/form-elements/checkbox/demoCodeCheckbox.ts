@@ -105,7 +105,7 @@ const checkboxString = ref('Show')
 export const colors = {
   ts: `<script lang="ts" setup>
 const colorCheckbox = ref(['Primary', 'Secondary', 'Success', 'Info', 'Warning', 'Error'])
-const selectedCheckbox = ref([])
+const selectedCheckbox = ref(['Primary', 'Secondary', 'Success', 'Info', 'Warning', 'Error'])
 </script>
 
 <template>
@@ -131,7 +131,14 @@ const colorCheckbox = ref([
   'Error',
 ])
 
-const selectedCheckbox = ref([])
+const selectedCheckbox = ref([
+  'Primary',
+  'Secondary',
+  'Success',
+  'Info',
+  'Warning',
+  'Error',
+])
 </script>
 
 <template>
@@ -298,6 +305,7 @@ const isInputEnabled = ref(false)
     <VCol
       sm="1"
       cols="2"
+      class="d-flex align-end"
     >
       <VCheckbox v-model="includeFiles" />
     </VCol>
@@ -306,7 +314,10 @@ const isInputEnabled = ref(false)
       sm="11"
       cols="10"
     >
-      <VTextField label="Include files" />
+      <AppTextField
+        label="Include files"
+        placeholder="Placeholder Text"
+      />
     </VCol>
   </VRow>
 
@@ -314,6 +325,7 @@ const isInputEnabled = ref(false)
     <VCol
       cols="2"
       sm="1"
+      class="d-flex align-end"
     >
       <VCheckbox v-model="isInputEnabled" />
     </VCol>
@@ -322,9 +334,10 @@ const isInputEnabled = ref(false)
       cols="10"
       sm="11"
     >
-      <VTextField
+      <AppTextField
         :disabled="!isInputEnabled"
         label="I only work if you check the box"
+        placeholder="Placeholder Text"
       />
     </VCol>
   </VRow>
@@ -340,6 +353,7 @@ const isInputEnabled = ref(false)
     <VCol
       sm="1"
       cols="2"
+      class="d-flex align-end"
     >
       <VCheckbox v-model="includeFiles" />
     </VCol>
@@ -348,7 +362,10 @@ const isInputEnabled = ref(false)
       sm="11"
       cols="10"
     >
-      <VTextField label="Include files" />
+      <AppTextField
+        label="Include files"
+        placeholder="Placeholder Text"
+      />
     </VCol>
   </VRow>
 
@@ -356,6 +373,7 @@ const isInputEnabled = ref(false)
     <VCol
       cols="2"
       sm="1"
+      class="d-flex align-end"
     >
       <VCheckbox v-model="isInputEnabled" />
     </VCol>
@@ -364,9 +382,10 @@ const isInputEnabled = ref(false)
       cols="10"
       sm="11"
     >
-      <VTextField
+      <AppTextField
         :disabled="!isInputEnabled"
         label="I only work if you check the box"
+        placeholder="Placeholder Text"
       />
     </VCol>
   </VRow>
@@ -580,4 +599,3 @@ const toggleOffCheckbox = ref(false)
 </template>
 `,
 }
-

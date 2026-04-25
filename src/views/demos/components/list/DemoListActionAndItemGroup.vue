@@ -3,6 +3,7 @@
     lines="three"
     density="compact"
     select-strategy="classic"
+    class="action-item-group-list"
   >
     <VListSubheader>General</VListSubheader>
 
@@ -12,7 +13,7 @@
           <VCheckbox
             :model-value="isActive"
             color="primary"
-            class="mt-2"
+            class="mt-1"
           />
         </VListItemAction>
       </template>
@@ -27,7 +28,7 @@
           <VCheckbox
             :model-value="isActive"
             color="primary"
-            class="mt-2"
+            class="mt-1"
           />
         </VListItemAction>
       </template>
@@ -42,7 +43,7 @@
           <VCheckbox
             :model-value="isActive"
             color="primary"
-            class="mt-2"
+            class="mt-1"
           />
         </VListItemAction>
       </template>

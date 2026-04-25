@@ -10,12 +10,13 @@ watch(selectedList, value => {
 </script>
 
 <template>
-  <VCombobox
+  <AppCombobox
     v-model="selectedList"
     v-model:search-input="search"
     :items="items"
     hide-selected
     :hide-no-data="false"
+    placeholder="deployment"
     hint="Maximum of 5 tags"
     label="Add some tags"
     multiple
@@ -28,5 +29,5 @@ watch(selectedList, value => {
         </VListItemTitle>
       </VListItem>
     </template>
-  </VCombobox>
+  </AppCombobox>
 </template>

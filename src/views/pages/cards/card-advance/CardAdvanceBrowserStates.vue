@@ -44,6 +44,12 @@ const browserStates = [
     progress: 'warning',
   },
 ]
+
+const moreList = [
+  { title: 'Refresh', value: 'refresh' },
+  { title: 'Download', value: 'Download' },
+  { title: 'View All', value: 'View All' },
+]
 </script>
 
 <template>
@@ -53,29 +59,7 @@ const browserStates = [
   >
     <template #append>
       <div class="mt-n4 me-n2">
-        <VBtn
-          icon
-          color="default"
-          size="x-small"
-          variant="plain"
-        >
-          <VIcon
-            size="22"
-            icon="tabler-dots-vertical"
-          />
-
-          <VMenu activator="parent">
-            <VList>
-              <VListItem
-                v-for="(item, index) in ['Refresh', 'Download', 'View All']"
-                :key="index"
-                :value="index"
-              >
-                <VListItemTitle>{{ item }}</VListItemTitle>
-              </VListItem>
-            </VList>
-          </VMenu>
-        </VBtn>
+        <MoreBtn :menu-list="moreList" />
       </div>
     </template>
 
@@ -86,22 +70,27 @@ const browserStates = [
           :key="state.title"
         >
           <template #prepend>
-            <VAvatar
-              size="28"
-              :image="state.avatarImg"
-            />
+            <img
+              :src="state.avatarImg"
+              height="28"
+              width="28"
+              class="me-4"
+            >
           </template>
 
-          <VListItemTitle class="font-weight-semibold">
+          <VListItemTitle class="font-weight-medium me-4">
             {{ state.title }}
           </VListItemTitle>
 
           <template #append>
-            <span class="font-weight-semibold me-3">{{ state.stats }}%</span>
+            <div class="text-body-1 me-4">
+              {{ state.stats }}%
+            </div>
             <VProgressCircular
               :model-value="state.stats"
               :color="state.progress"
               width="3"
+              size="28"
             />
           </template>
         </VListItem>
@@ -112,6 +101,6 @@ const browserStates = [
 
 <style lang="scss" scoped>
 .card-list {
-  --v-card-list-gap: 30px;
+  --v-card-list-gap: 2rem;
 }
 </style>

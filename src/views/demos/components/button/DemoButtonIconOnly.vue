@@ -2,18 +2,17 @@
   <div class="demo-space-x">
     <VBtn
       icon="tabler-briefcase"
-      variant="text"
+      rounded
     />
 
     <VBtn
+      variant="tonal"
       icon="tabler-user-plus"
-      variant="text"
-      color="secondary"
     />
 
     <VBtn
       icon="tabler-search"
-      variant="text"
+      variant="outlined"
       color="success"
     />
 
@@ -25,8 +24,9 @@
 
     <VBtn
       icon="tabler-star"
-      variant="text"
-      color="warning"
+      variant="tonal"
+      color="success"
+      rounded
     />
 
     <VBtn

@@ -1,14 +1,16 @@
 <template>
   <VRow>
     <VCol>
-      <VTextField
+      <AppTextField
         label="Disabled"
+        placeholder="Placeholder Text"
         disabled
       />
     </VCol>
 
     <VCol cols="12">
-      <VTextField
+      <AppTextField
+        placeholder="Placeholder Text"
         label="Readonly"
         readonly
       />

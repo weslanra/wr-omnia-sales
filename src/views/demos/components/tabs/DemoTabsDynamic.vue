@@ -8,32 +8,31 @@ watch(totalTabs, newValue => {
 </script>
 
 <template>
-  <VTabs v-model="currentTab">
-    <VTab
-      v-for="n in totalTabs"
-      :key="n"
-      :value="n"
-    >
-      Tab {{ n }}
-    </VTab>
-  </VTabs>
-  <VDivider />
+  <VCard>
+    <VTabs v-model="currentTab">
+      <VTab
+        v-for="n in totalTabs"
+        :key="n"
+        :value="n"
+      >
+        Tab {{ n }}
+      </VTab>
+    </VTabs>
 
-  <!-- buttons -->
-  <div class="text-center mt-9">
-    <VBtn
-      :disabled="!totalTabs"
-      variant="text"
-      @click="totalTabs--"
-    >
-      Remove Tab
-    </VBtn>
+    <!-- buttons -->
+    <VCardText class="text-center d-flex items-center gap-y-2 flex-wrap">
+      <VBtn
+        :disabled="!totalTabs"
+        class="me-4"
+        :variant="!totalTabs ? 'tonal' : undefined"
+        @click="totalTabs--"
+      >
+        Remove Tab
+      </VBtn>
 
-    <VBtn
-      variant="text"
-      @click="totalTabs++"
-    >
-      Add Tab
-    </VBtn>
-  </div>
+      <VBtn @click="totalTabs++">
+        Add Tab
+      </VBtn>
+    </VCardText>
+  </VCard>
 </template>

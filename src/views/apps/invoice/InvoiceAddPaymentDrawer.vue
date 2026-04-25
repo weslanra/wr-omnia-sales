@@ -19,8 +19,8 @@ interface Props {
 const props = defineProps<Props>()
 const emit = defineEmits<Emit>()
 
-const invoiceBalance = ref('')
-const paymentAmount = ref('')
+const invoiceBalance = ref()
+const paymentAmount = ref()
 const paymentDate = ref('')
 const paymentMethod = ref()
 const paymentNote = ref('')
@@ -46,49 +46,37 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
     temporary
     location="end"
     :width="400"
+    border="none"
     :model-value="props.isDrawerOpen"
     class="scrollable-content"
     @update:model-value="handleDrawerModelValueUpdate"
   >
     <!-- 👉 Header -->
-    <div class="d-flex align-center pa-6 pb-1">
-      <h6 class="text-h6">
-        Add Payment
-      </h6>
-
-      <VSpacer />
-
-      <VBtn
-        icon
-        size="32"
-        color="default"
-        variant="tonal"
-        class="rounded"
-        @click="handleDrawerModelValueUpdate(false)"
-      >
-        <VIcon
-          size="18"
-          icon="tabler-x"
-        />
-      </VBtn>
-    </div>
-
+    <AppDrawerHeaderSection
+      title="Add Payment"
+      @cancel="$emit('update:isDrawerOpen', false)"
+    />
+    <VDivider />
     <PerfectScrollbar :options="{ wheelPropagation: false }">
       <VCard flat>
         <VCardText>
           <VForm @submit.prevent="onSubmit">
             <VRow>
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="invoiceBalance"
                   label="Invoice Balance"
+                  type="number"
+                  placeholder="$99"
                 />
               </VCol>
 
               <VCol cols="12">
-                <VTextField
+                <AppTextField
                   v-model="paymentAmount"
                   label="Payment Amount"
+                  type="number"
+                  placeholder="$99"
                 />
               </VCol>
 
@@ -96,21 +84,24 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
                 <AppDateTimePicker
                   v-model="paymentDate"
                   label="Payment Date"
+                  placeholder="Select Date"
                 />
               </VCol>
 
               <VCol cols="12">
-                <VSelect
+                <AppSelect
                   v-model="paymentMethod"
                   label="Select Payment Method"
-                  :items="['Cash', 'Bank Transfer', 'Debit', 'Credit', 'Paypal']"
+                  placeholder="Select Payment Method"
+                  :items="['Cash', 'Bank Transfer', 'Debit', 'Credit', 'PayPal']"
                 />
               </VCol>
 
               <VCol cols="12">
-                <VTextarea
+                <AppTextarea
                   v-model="paymentNote"
                   label="Internal Payment Note"
+                  placeholder="Internal Payment Note"
                 />
               </VCol>
 

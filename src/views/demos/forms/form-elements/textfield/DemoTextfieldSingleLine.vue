@@ -1,6 +1,7 @@
 <template>
-  <VTextField
+  <AppTextField
     label="Regular"
+    placeholder="Placeholder Text"
     single-line
   />
 </template>

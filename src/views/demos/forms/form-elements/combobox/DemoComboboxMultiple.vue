@@ -6,18 +6,20 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
 <template>
   <VRow>
     <VCol cols="12">
-      <VCombobox
+      <AppCombobox
         v-model="selectedItem"
         :items="items"
+        placeholder="deployment"
         label="Select a favorite activity or create a new one"
         multiple
       />
     </VCol>
 
     <VCol cols="12">
-      <VCombobox
+      <AppCombobox
         v-model="selectedItem"
         :items="items"
+        placeholder="deployment"
         label="I use chips"
         multiple
         chips
@@ -25,8 +27,9 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
     </VCol>
 
     <VCol cols="12">
-      <VCombobox
+      <AppCombobox
         v-model="selectedItem"
+        placeholder="deployment"
         label="I'm readonly"
         chips
         multiple
@@ -35,24 +38,29 @@ const items = ['Programming', 'Design', 'Vue', 'Vuetify']
     </VCol>
 
     <VCol cols="12">
-      <VCombobox
+      <AppCombobox
         v-model="selectedItem"
         :items="items"
+        placeholder="deployment"
         label="I use selection slot"
         multiple
       >
         <template #selection="{ item }">
-          <VChip class="mt-1">
-            <VAvatar
-              start
-              color="primary"
-            >
-              {{ String(item.title).charAt(0).toUpperCase() }}
-            </VAvatar>
+          <VChip size="small">
+            <template #prepend>
+              <VAvatar
+                start
+                color="primary"
+                size="16"
+              >
+                {{ String(item.title).charAt(0).toUpperCase() }}
+              </VAvatar>
+            </template>
+
             {{ item.title }}
           </VChip>
         </template>
-      </VCombobox>
+      </AppCombobox>
     </VCol>
   </VRow>
 </template>

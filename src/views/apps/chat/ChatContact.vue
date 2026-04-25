@@ -1,8 +1,7 @@
 <script lang="ts" setup>
-import type { ChatContact, ChatContactWithChat } from '@/@fake-db/types'
 import { useChat } from '@/views/apps/chat/useChat'
 import { useChatStore } from '@/views/apps/chat/useChatStore'
-import { avatarText, formatDateToMonthShort } from '@core/utils/formatters'
+import type { ChatContact, ChatContactWithChat } from '@db/apps/chat/types'
 
 interface Props {
   isChatContact?: boolean
@@ -30,21 +29,20 @@ const isChatContactActive = computed(() => {
     :key="store.chatsContacts.length"
     class="chat-contact cursor-pointer d-flex align-center"
     :class="{ 'chat-contact-active': isChatContactActive }"
-    :data-x="store.chatsContacts.length"
   >
     <VBadge
       dot
       location="bottom right"
       offset-x="3"
-      offset-y="3"
+      offset-y="0"
       :color="resolveAvatarBadgeVariant(props.user.status)"
       bordered
       :model-value="props.isChatContact"
     >
       <VAvatar
         size="40"
-        variant="tonal"
-        :color="resolveAvatarBadgeVariant(props.user.status)"
+        :variant="!props.user.avatar ? 'tonal' : undefined"
+        :color="!props.user.avatar ? resolveAvatarBadgeVariant(props.user.status) : undefined"
       >
         <VImg
           v-if="props.user.avatar"
@@ -55,14 +53,20 @@ const isChatContactActive = computed(() => {
       </VAvatar>
     </VBadge>
     <div class="flex-grow-1 ms-4 overflow-hidden">
-      <span>{{ props.user.fullName }}</span>
-      <span class="d-block text-sm text-truncate text-disabled">{{ props.isChatContact && 'chat' in props.user ? props.user.chat.lastMessage.message : props.user.about }}</span>
+      <p class="text-base text-high-emphasis mb-0">
+        {{ props.user.fullName }}
+      </p>
+      <p class="mb-0 text-truncate text-body-2">
+        {{ props.isChatContact && 'chat' in props.user ? props.user.chat.lastMessage.message : props.user.about }}
+      </p>
     </div>
     <div
       v-if="props.isChatContact && 'chat' in props.user"
       class="d-flex flex-column align-self-start"
     >
-      <span class="d-block text-disabled whitespace-no-wrap">{{ formatDateToMonthShort(props.user.chat.lastMessage.time) }}</span>
+      <div class="text-body-2 text-disabled whitespace-no-wrap">
+        {{ formatDateToMonthShort(props.user.chat.lastMessage.time) }}
+      </div>
       <VBadge
         v-if="props.user.chat.unseenMsgs"
         color="error"
@@ -75,34 +79,30 @@ const isChatContactActive = computed(() => {
 </template>
 
 <style lang="scss">
-@use "@styles/variables/_vuetify.scss";
+@use "@core/scss/template/mixins" as templateMixins;
+@use "@styles/variables/vuetify.scss";
 @use "@core/scss/base/mixins";
 @use "vuetify/lib/styles/tools/states" as vuetifyStates;
 
 .chat-contact {
-  border-radius: vuetify.$card-border-radius;
-  padding-block: 10px;
-  padding-inline: var(--chat-content-spacing-x);
+  border-radius: vuetify.$border-radius-root;
+  padding-block: 8px;
+  padding-inline: 12px;
 
   @include mixins.before-pseudo;
   @include vuetifyStates.states($active: false);
 
   &.chat-contact-active {
-    .v-avatar {
-      background: #fff;
-      outline: 2px solid #fff;
-    }
+    @include templateMixins.custom-elevation(var(--v-theme-primary), "sm");
+
+    background: rgb(var(--v-theme-primary));
+    color: #fff;
+
+    --v-theme-on-background: #fff;
   }
 
   .v-badge--bordered .v-badge__badge::after {
     color: #fff;
-  }
-
-  &.chat-contact-active {
-    background: linear-gradient(270deg, rgb(var(--v-theme-primary)) 0%, #fff 300%);
-    color: #fff;
-
-    --v-theme-on-background: #fff;
   }
 }
 </style>

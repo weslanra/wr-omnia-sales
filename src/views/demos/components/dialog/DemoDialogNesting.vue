@@ -14,13 +14,7 @@ const isDialogTwoShow = ref(false)
     class="v-dialog-sm"
   >
     <!-- Dialog close btn -->
-    <VBtn
-      icon
-      class="v-dialog-close-btn"
-      @click="isDialogVisible = !isDialogVisible"
-    >
-      <VIcon icon="tabler-x" />
-    </VBtn>
+    <DialogCloseBtn @click="isDialogVisible = false" />
 
     <VCard title="Dialog">
       <VCardText>
@@ -48,7 +42,7 @@ const isDialogTwoShow = ref(false)
     class="v-dialog-sm"
   >
     <!-- Dialog close btn -->
-    <DialogCloseBtn @click="isDialogVisible = !isDialogVisible" />
+    <DialogCloseBtn @click="isDialogTwoShow = false" />
 
     <VCard title="Dialog 2">
       <VCardText>I'm a nested dialog.</VCardText>

@@ -24,8 +24,8 @@ const tabs = [
     >
       <VBadge
         :content="tab.badge"
-        :offset-x="-12"
-        :offset-y="-4"
+        :offset-x="-18"
+        :offset-y="6"
       >
         {{ tab.content }}
       </VBadge>

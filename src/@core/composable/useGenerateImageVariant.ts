@@ -1,19 +1,21 @@
-import { useThemeConfig } from '@core/composable/useThemeConfig'
-
-const { theme, skin } = useThemeConfig()
+import { useTheme } from 'vuetify'
+import { useConfigStore } from '@core/stores/config'
 
 // composable function to return the image variant as per the current theme and skin
 export const useGenerateImageVariant = (imgLight: string, imgDark: string, imgLightBordered?: string, imgDarkBordered?: string, bordered = false) => {
+  const configStore = useConfigStore()
+  const { global } = useTheme()
+
   return computed(() => {
-    if (theme.value === 'light') {
-      if (skin.value === 'bordered' && bordered)
+    if (global.name.value === 'light') {
+      if (configStore.skin === 'bordered' && bordered)
         return imgLightBordered
 
       else
         return imgLight
     }
-    else {
-      if (skin.value === 'bordered' && bordered)
+    if (global.name.value === 'dark') {
+      if (configStore.skin === 'bordered' && bordered)
         return imgDarkBordered
 
       else

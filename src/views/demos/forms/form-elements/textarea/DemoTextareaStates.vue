@@ -1,19 +1,21 @@
 <template>
   <VRow>
     <VCol cols="12">
-      <VTextarea
+      <AppTextarea
         disabled
         label="Disabled"
         hint="Hint text"
+        placeholder="Placeholder Text"
         rows="2"
       />
     </VCol>
 
     <VCol cols="12">
-      <VTextarea
+      <AppTextarea
         readonly
         rows="2"
         label="Readonly"
+        placeholder="Placeholder Text"
         hint="Hint text"
       />
     </VCol>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import VueApexCharts from 'vue3-apexcharts'
 import { useTheme } from 'vuetify'
+import { prefixWithPlus } from '@core/utils/formatters'
 
 const vuetifyTheme = useTheme()
 
@@ -29,6 +29,7 @@ const chartOptions = computed(() => {
       padding: {
         left: -10,
         right: -5,
+        top: -40,
       },
     },
     stroke: {
@@ -84,43 +85,27 @@ const projectStatus = [
     lossProfit: +576.24,
   },
 ]
+
+const moreList = [
+  { title: 'View More', value: 'View More' },
+  { title: 'Delete', value: 'Delete' },
+]
 </script>
 
 <template>
   <VCard title="Project Status">
     <template #append>
       <div class="mt-n4 me-n2">
-        <VBtn
-          icon
-          size="x-small"
-          variant="plain"
-          color="default"
-        >
-          <VIcon
-            size="22"
-            icon="tabler-dots-vertical"
-          />
-
-          <VMenu activator="parent">
-            <VList>
-              <VListItem
-                v-for="(item, index) in ['View More', 'Delete']"
-                :key="index"
-                :value="index"
-              >
-                <VListItemTitle>{{ item }}</VListItemTitle>
-              </VListItem>
-            </VList>
-          </VMenu>
-        </VBtn>
+        <MoreBtn :menu-list="moreList" />
       </div>
     </template>
 
     <VCardText>
-      <VList class="card-list">
-        <VListItem
-          title="$4,3742"
-        >
+      <VList class="card-list mb-6">
+        <VListItem>
+          <VListItemTitle class="font-weight-medium">
+            $4,3742
+          </VListItemTitle>
           <template #prepend>
             <VAvatar
               color="primary"
@@ -129,28 +114,33 @@ const projectStatus = [
               icon="tabler-currency-dollar"
             />
           </template>
-          <VListItemSubtitle>Your Earnings</VListItemSubtitle>
+          <VListItemSubtitle>
+            Your Earnings
+          </VListItemSubtitle>
 
           <template #append>
-            <span class="text-success">10.2%</span>
+            <span class="text-success font-weight-medium">+10.2%</span>
           </template>
         </VListItem>
       </VList>
+
       <VueApexCharts
         :options="chartOptions"
         :series="series"
-        height="252"
+        height="208"
       />
 
       <VList class="card-list">
         <VListItem
           v-for="status in projectStatus"
           :key="status.title"
-          :title="status.title"
         >
+          <VListItemTitle class="font-weight-medium">
+            {{ status.title }}
+          </VListItemTitle>
           <template #append>
-            <span class="me-3">{{ status.amount }}</span>
-            <span :class="status.lossProfit > 0 ? 'text-success' : 'text-error'">{{ status.lossProfit }}</span>
+            <span class="me-3 text-medium-emphasis">{{ status.amount }}</span>
+            <span :class="status.lossProfit > 0 ? 'text-success' : 'text-error'">{{ prefixWithPlus(status.lossProfit) }}</span>
           </template>
         </VListItem>
       </VList>
@@ -160,6 +150,6 @@ const projectStatus = [
 
 <style lang="scss" scoped>
 .card-list {
-  --v-card-list-gap: 15px;
+  --v-card-list-gap: 16px;
 }
 </style>

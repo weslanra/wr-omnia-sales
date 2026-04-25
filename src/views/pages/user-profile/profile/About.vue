@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { ProfileTab } from '@/@fake-db/types'
+import type { ProfileTab } from '@db/pages/profile/types'
 
 interface Props {
   data: ProfileTab
@@ -8,9 +8,9 @@ const props = defineProps<Props>()
 </script>
 
 <template>
-  <VCard class="mb-4">
+  <VCard class="mb-6">
     <VCardText>
-      <p class="text-xs">
+      <p class="text-sm text-disabled">
         ABOUT
       </p>
 
@@ -19,21 +19,21 @@ const props = defineProps<Props>()
           v-for="item in props.data.about"
           :key="item.property"
         >
-          <template #prepend>
-            <VIcon
-              :icon="item.icon"
-              size="20"
-              class="me-2"
-            />
-          </template>
           <VListItemTitle>
-            <span class="font-weight-semibold me-1">{{ item.property }}:</span>
-            <span>{{ item.value }}</span>
+            <span class="d-flex align-center">
+              <VIcon
+                :icon="item.icon"
+                size="24"
+                class="me-2"
+              />
+              <div class="text-body-1 font-weight-medium me-2">{{ item.property }}:</div>
+              <div>{{ item.value }}</div>
+            </span>
           </VListItemTitle>
         </VListItem>
       </VList>
 
-      <p class="text-xs mt-5">
+      <p class="text-sm text-disabled mt-6">
         CONTACTS
       </p>
 
@@ -42,21 +42,21 @@ const props = defineProps<Props>()
           v-for="item in props.data.contacts"
           :key="item.property"
         >
-          <template #prepend>
-            <VIcon
-              :icon="item.icon"
-              size="20"
-              class="me-2"
-            />
-          </template>
           <VListItemTitle>
-            <span class="font-weight-semibold me-1">{{ item.property }}:</span>
-            <span>{{ item.value }}</span>
+            <span class="d-flex align-center">
+              <VIcon
+                :icon="item.icon"
+                size="24"
+                class="me-2"
+              />
+              <div class="text-body-1 font-weight-medium me-2">{{ item.property }}:</div>
+              <div>{{ item.value }}</div>
+            </span>
           </VListItemTitle>
         </VListItem>
       </VList>
 
-      <p class="text-xs mt-5">
+      <p class="text-sm text-disabled mt-6">
         TEAMS
       </p>
 
@@ -65,17 +65,11 @@ const props = defineProps<Props>()
           v-for="item in props.data.teams"
           :key="item.property"
         >
-          <template #prepend>
-            <VIcon
-              :icon="item.icon"
-              size="20"
-              :color="item.color"
-              class="me-2"
-            />
-          </template>
           <VListItemTitle>
-            <span class="font-weight-semibold me-1">{{ item.property }}:</span>
-            <span>{{ item.value }}</span>
+            <span class="d-flex align-center">
+              <div class="text-body-1 font-weight-medium me-2">{{ item.property }}</div>
+              <div>{{ item.value }}</div>
+            </span>
           </VListItemTitle>
         </VListItem>
       </VList>
@@ -84,7 +78,7 @@ const props = defineProps<Props>()
 
   <VCard>
     <VCardText>
-      <p class="text-xs">
+      <p class="text-sm text-disabled">
         OVERVIEW
       </p>
 
@@ -93,16 +87,16 @@ const props = defineProps<Props>()
           v-for="item in props.data.overview"
           :key="item.property"
         >
-          <template #prepend>
-            <VIcon
-              :icon="item.icon"
-              size="20"
-              class="me-2"
-            />
-          </template>
           <VListItemTitle>
-            <span class="font-weight-semibold me-1">{{ item.property }}:</span>
-            <span>{{ item.value }}</span>
+            <span class="d-flex align-center">
+              <VIcon
+                :icon="item.icon"
+                size="24"
+                class="me-2"
+              />
+              <div class="text-body-1 font-weight-medium me-2">{{ item.property }}:</div>
+              <div>{{ item.value }}</div>
+            </span>
           </VListItemTitle>
         </VListItem>
       </VList>

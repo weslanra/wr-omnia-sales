@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import InvoiceEditable from '@/views/apps/invoice/InvoiceEditable.vue'
+import InvoiceSendInvoiceDrawer from '@/views/apps/invoice/InvoiceSendInvoiceDrawer.vue'
 
 // Type: Invoice data
-import type { InvoiceData } from '@/views/apps/invoice/types'
+import type { InvoiceData, PurchasedProduct } from '@/views/apps/invoice/types'
 
 // 👉 Default Blank Data
 const invoiceData = ref<InvoiceData>({
@@ -13,22 +14,22 @@ const invoiceData = ref<InvoiceData>({
     total: 0,
     avatar: '',
     invoiceStatus: '',
-    balance: '',
     dueDate: '',
+    balance: 0,
     client: {
-      address: '',
-      company: '',
-      companyEmail: '',
-      contact: '',
-      country: '',
-      name: '',
+      address: '112, Lorem Ipsum, Florida',
+      company: 'Greeva Inc',
+      companyEmail: 'johndoe@greeva.com',
+      contact: '+1 123 3452 12',
+      country: 'USA',
+      name: 'John Doe',
     },
   },
   paymentDetails: {
     totalDue: '$12,110.55',
     bankName: 'American Bank',
     country: 'United States',
-    iban: 'ETD95476213874685',
+    iban: 'ETD95476213',
     swiftCode: 'BR91905',
   },
   purchasedProducts: [
@@ -50,6 +51,15 @@ const clientNotes = ref(false)
 const paymentStub = ref(false)
 const selectedPaymentMethod = ref('Bank Account')
 const paymentMethods = ['Bank Account', 'PayPal', 'UPI Transfer']
+const isSendPaymentSidebarVisible = ref(false)
+
+const addProduct = (value: PurchasedProduct) => {
+  invoiceData.value?.purchasedProducts.push(value)
+}
+
+const removeProduct = (id: number) => {
+  invoiceData.value?.purchasedProducts.splice(id, 1)
+}
 </script>
 
 <template>
@@ -59,7 +69,11 @@ const paymentMethods = ['Bank Account', 'PayPal', 'UPI Transfer']
       cols="12"
       md="9"
     >
-      <InvoiceEditable :data="invoiceData" />
+      <InvoiceEditable
+        :data="invoiceData"
+        @push="addProduct"
+        @remove="removeProduct"
+      />
     </VCol>
 
     <!-- 👉 Right Column: Invoice Action -->
@@ -73,7 +87,8 @@ const paymentMethods = ['Bank Account', 'PayPal', 'UPI Transfer']
           <VBtn
             block
             prepend-icon="tabler-send"
-            class="mb-2"
+            class="mb-4"
+            @click="isSendPaymentSidebarVisible = true"
           >
             Send Invoice
           </VBtn>
@@ -81,9 +96,9 @@ const paymentMethods = ['Bank Account', 'PayPal', 'UPI Transfer']
           <!-- 👉 Preview -->
           <VBtn
             block
-            color="default"
+            color="secondary"
             variant="tonal"
-            class="mb-2"
+            class="mb-4"
             :to="{ name: 'apps-invoice-preview-id', params: { id: '5036' } }"
           >
             Preview
@@ -92,7 +107,7 @@ const paymentMethods = ['Bank Account', 'PayPal', 'UPI Transfer']
           <!-- 👉 Save -->
           <VBtn
             block
-            color="default"
+            color="secondary"
             variant="tonal"
           >
             Save
@@ -101,7 +116,7 @@ const paymentMethods = ['Bank Account', 'PayPal', 'UPI Transfer']
       </VCard>
 
       <!-- 👉 Select payment method -->
-      <VSelect
+      <AppSelect
         v-model="selectedPaymentMethod"
         :items="paymentMethods"
         label="Accept Payment Via"
@@ -148,5 +163,7 @@ const paymentMethods = ['Bank Account', 'PayPal', 'UPI Transfer']
       </div>
     </VCol>
   </VRow>
-</template>
 
+  <!-- 👉 Send Invoice Sidebar -->
+  <InvoiceSendInvoiceDrawer v-model:isDrawerOpen="isSendPaymentSidebarVisible" />
+</template>
