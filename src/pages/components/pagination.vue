@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/components/pagination/demoCodePagination'
+import { basic, circle, color, disabled, icons, length, outline, outlineCircle, size, totalVisible } from '@/views/demos/components/pagination/demoCodePagination'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/components/pagination/demoCodePaginatio
       <!-- 👉 Basic -->
       <AppCardCode
         title="Basic"
-        :code="demoCode.basic"
+        :code="basic"
       >
         <p>The <code>v-pagination</code> component is used to separate long sets of data.</p>
 
@@ -26,7 +26,7 @@ import * as demoCode from '@/views/demos/components/pagination/demoCodePaginatio
       <!-- 👉 outline basic variant -->
       <AppCardCode
         title="Outline"
-        :code="demoCode.outline"
+        :code="outline"
       >
         <p>The <code>variant='outline'</code> prop is used to give outline to pagination item.</p>
 
@@ -41,7 +41,7 @@ import * as demoCode from '@/views/demos/components/pagination/demoCodePaginatio
       <!-- 👉 Circle -->
       <AppCardCode
         title="Circle"
-        :code="demoCode.circle"
+        :code="circle"
       >
         <p>The <code>rounded</code> prop allows you to render pagination buttons with alternative styles.</p>
 
@@ -56,7 +56,7 @@ import * as demoCode from '@/views/demos/components/pagination/demoCodePaginatio
       <!-- 👉 outline circle variant -->
       <AppCardCode
         title="Outline Circle"
-        :code="demoCode.outlineCircle"
+        :code="outlineCircle"
       >
         <p>The <code>variant='outline'</code> and <code>rounded</code> prop is used to give rounded outline to pagination item.</p>
 
@@ -71,7 +71,7 @@ import * as demoCode from '@/views/demos/components/pagination/demoCodePaginatio
       <!-- 👉 Disabled -->
       <AppCardCode
         title="Disabled"
-        :code="demoCode.disabled"
+        :code="disabled"
       >
         <p>Pagination items can be manually deactivated using the <code>disabled</code> prop.</p>
 
@@ -86,7 +86,7 @@ import * as demoCode from '@/views/demos/components/pagination/demoCodePaginatio
       <!-- 👉 Icons -->
       <AppCardCode
         title="Icons"
-        :code="demoCode.icons"
+        :code="icons"
       >
         <p>Previous and next page icons can be customized with the <code>prev-icon</code> and <code>next-icon</code> props.</p>
 
@@ -101,7 +101,7 @@ import * as demoCode from '@/views/demos/components/pagination/demoCodePaginatio
       <!-- 👉 Length -->
       <AppCardCode
         title="Length"
-        :code="demoCode.length"
+        :code="length"
       >
         <p>Using the <code>length</code> prop you can set the length of <code>v-pagination</code>, if the number of page buttons exceeds the parent container, it will truncate the list.</p>
 
@@ -116,7 +116,7 @@ import * as demoCode from '@/views/demos/components/pagination/demoCodePaginatio
       <!-- 👉 Total visible -->
       <AppCardCode
         title="Total visible"
-        :code="demoCode.totalVisible"
+        :code="totalVisible"
       >
         <p>You can also manually set the maximum number of visible page buttons with the <code>total-visible</code> prop.</p>
 
@@ -131,7 +131,7 @@ import * as demoCode from '@/views/demos/components/pagination/demoCodePaginatio
       <!-- 👉 Color -->
       <AppCardCode
         title="Color"
-        :code="demoCode.color"
+        :code="color"
       >
         <p>Use <code>active-color</code> prop for create different color pagination.</p>
 
@@ -146,7 +146,7 @@ import * as demoCode from '@/views/demos/components/pagination/demoCodePaginatio
       <!-- 👉 Size -->
       <AppCardCode
         title="Size"
-        :code="demoCode.size"
+        :code="size"
       >
         <p>Use <code>size</code> prop to sets the height and width of the component. Default unit is px. Can also use the following predefined sizes: <strong>x-small</strong>, <strong>small</strong>, <strong>default</strong>, <strong>large</strong>, and <strong>x-large</strong>.</p>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/forms/form-layout/demoCodeFormLayout'
+import { formHint, formValidation, formWithTabs, horizontalForm, horizontalFormWithIcons, multipleColumn, verticalForm, verticalFormWithIcons } from '@/views/demos/forms/form-layout/demoCodeFormLayout'
 </script>
 
 <template>
@@ -12,7 +12,7 @@ import * as demoCode from '@/views/demos/forms/form-layout/demoCodeFormLayout'
         <!-- 👉 Horizontal Form -->
         <AppCardCode
           title="Horizontal Form"
-          :code="demoCode.horizontalForm"
+          :code="horizontalForm"
         >
           <DemoFormLayoutHorizontalForm />
         </AppCardCode>
@@ -25,7 +25,7 @@ import * as demoCode from '@/views/demos/forms/form-layout/demoCodeFormLayout'
         <!-- 👉 Horizontal Form with Icons -->
         <AppCardCode
           title="Horizontal Form with Icons"
-          :code="demoCode.horizontalFormWithIcons"
+          :code="horizontalFormWithIcons"
         >
           <DemoFormLayoutHorizontalFormWithIcons />
         </AppCardCode>
@@ -38,7 +38,7 @@ import * as demoCode from '@/views/demos/forms/form-layout/demoCodeFormLayout'
         <!-- 👉 Vertical Form -->
         <AppCardCode
           title="Vertical Form"
-          :code="demoCode.verticalForm"
+          :code="verticalForm"
         >
           <DemoFormLayoutVerticalForm />
         </AppCardCode>
@@ -51,7 +51,7 @@ import * as demoCode from '@/views/demos/forms/form-layout/demoCodeFormLayout'
         <!-- 👉 Vertical Form with Icons -->
         <AppCardCode
           title="Vertical Form with Icons"
-          :code="demoCode.verticalFormWithIcons"
+          :code="verticalFormWithIcons"
         >
           <DemoFormLayoutVerticalFormWithIcons />
         </AppCardCode>
@@ -61,7 +61,7 @@ import * as demoCode from '@/views/demos/forms/form-layout/demoCodeFormLayout'
         <!-- 👉 Multiple Column -->
         <AppCardCode
           title="Multiple Column"
-          :code="demoCode.multipleColumn"
+          :code="multipleColumn"
         >
           <DemoFormLayoutMultipleColumn />
         </AppCardCode>
@@ -76,7 +76,7 @@ import * as demoCode from '@/views/demos/forms/form-layout/demoCodeFormLayout'
         <!-- 👉 Form Hint -->
         <AppCardCode
           title="Form Hint"
-          :code="demoCode.formHint"
+          :code="formHint"
         >
           <DemoFormLayoutFormHint />
         </AppCardCode>
@@ -88,7 +88,7 @@ import * as demoCode from '@/views/demos/forms/form-layout/demoCodeFormLayout'
         <!-- 👉 Form Validation -->
         <AppCardCode
           title="Form Validation"
-          :code="demoCode.formValidation"
+          :code="formValidation"
         >
           <DemoFormLayoutFormValidation />
         </AppCardCode>
@@ -101,7 +101,7 @@ import * as demoCode from '@/views/demos/forms/form-layout/demoCodeFormLayout'
         <AppCardCode
           title="Form with Tabs"
           no-padding
-          :code="demoCode.formWithTabs"
+          :code="formWithTabs"
         >
           <DemoFormLayoutFormWithTabs />
         </AppCardCode>

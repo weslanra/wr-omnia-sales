@@ -19,7 +19,6 @@ const tabItemText = 'hortbread chocolate bar marshmallow bear claw tiramisu choc
         <VWindowItem
           v-for="i in 10"
           :key="i"
-          :value="`item${i}`"
         >
           {{ tabItemText }}
         </VWindowItem>

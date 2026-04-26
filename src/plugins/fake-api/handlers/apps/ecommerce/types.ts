@@ -23,7 +23,6 @@ export interface Referrals {
   status: string
   value: string
   earning: string
-
 }
 
 export interface Review {

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/forms/form-elements/switch/demoCodeSwitch'
+import { basic, colors, inset, labelSlot, modelAsArray, states, trueAndFalseValue } from '@/views/demos/forms/form-elements/switch/demoCodeSwitch'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/switch/demoCodeSwit
       <!-- 👉 Basic -->
       <AppCardCode
         title="Basic"
-        :code="demoCode.basic"
+        :code="basic"
       >
         <p>A <code>v-switch</code> in its simplest form provides a toggle between 2 values.</p>
 
@@ -26,7 +26,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/switch/demoCodeSwit
       <!-- 👉 Inset -->
       <AppCardCode
         title="Inset"
-        :code="demoCode.inset"
+        :code="inset"
       >
         <p>To change the default <code>inset</code> switch, simply modify the inset prop to a <code>false</code> value.</p>
 
@@ -41,7 +41,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/switch/demoCodeSwit
       <!-- 👉 Colors -->
       <AppCardCode
         title="Colors"
-        :code="demoCode.colors"
+        :code="colors"
       >
         <p>Switches can be colored by using any of the builtin colors and contextual names using the <code>color</code> prop.</p>
 
@@ -56,7 +56,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/switch/demoCodeSwit
       <!-- 👉 Model as array -->
       <AppCardCode
         title="Model as array"
-        :code="demoCode.modelAsArray"
+        :code="modelAsArray"
       >
         <p>Multiple <code>v-switch</code>'s can share the same <code>v-model</code> by using an array.</p>
 
@@ -71,7 +71,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/switch/demoCodeSwit
       <!-- 👉 Label slot -->
       <AppCardCode
         title="Label slot"
-        :code="demoCode.labelSlot"
+        :code="labelSlot"
       >
         <p>Switch labels can be defined in <code>label</code> slot - that will allow to use HTML content.</p>
 
@@ -86,7 +86,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/switch/demoCodeSwit
       <!-- 👉 True and False Value -->
       <AppCardCode
         title="True and False Value"
-        :code="demoCode.trueAndFalseValue"
+        :code="trueAndFalseValue"
       >
         <p>
           Use <code>false-value</code> and <code>true-value</code> prop to sets value for truthy and falsy state
@@ -103,7 +103,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/switch/demoCodeSwit
       <!-- 👉 States -->
       <AppCardCode
         title="States"
-        :code="demoCode.states"
+        :code="states"
       >
         <p><code>v-switch</code> can have different states such as <code>default</code>, <code>disabled</code>, and <code>loading</code>.</p>
 

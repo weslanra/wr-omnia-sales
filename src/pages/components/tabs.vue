@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/components/tabs/demoCodeTabs'
+import { alignment, basic, basicPill, customIcons, dynamic, fixed, grow, pagination, programmaticNavigation, stacked, vertical, verticalPill } from '@/views/demos/components/tabs/demoCodeTabs'
 </script>
 
 <template>
@@ -12,7 +12,7 @@ import * as demoCode from '@/views/demos/components/tabs/demoCodeTabs'
       <AppCardCode
         title="Basic"
         variant="outlined"
-        :code="demoCode.basic"
+        :code="basic"
       >
         <p>The <code>v-tabs</code> component is used for hiding content behind a selectable item.</p>
 
@@ -28,7 +28,7 @@ import * as demoCode from '@/views/demos/components/tabs/demoCodeTabs'
       <AppCardCode
         title="Stacked"
         variant="outlined"
-        :code="demoCode.stacked"
+        :code="stacked"
       >
         <p>Using <code>stacked</code> prop you can have buttons that use both icons and text.</p>
 
@@ -44,7 +44,7 @@ import * as demoCode from '@/views/demos/components/tabs/demoCodeTabs'
       <AppCardCode
         title="Vertical"
         variant="outlined"
-        :code="demoCode.vertical"
+        :code="vertical"
       >
         <p>The <code>vertical</code> prop allows for <code>v-tab</code> components to stack vertically.</p>
 
@@ -60,7 +60,7 @@ import * as demoCode from '@/views/demos/components/tabs/demoCodeTabs'
       <AppCardCode
         title="Alignment"
         variant="outlined"
-        :code="demoCode.alignment"
+        :code="alignment"
       >
         <p>Use <code>align-tabs</code> prop to change the tabs alignment.</p>
 
@@ -76,7 +76,7 @@ import * as demoCode from '@/views/demos/components/tabs/demoCodeTabs'
       <AppCardCode
         title="Pagination"
         variant="outlined"
-        :code="demoCode.pagination"
+        :code="pagination"
       >
         <p>If the tab items overflow their container, pagination controls will appear on desktop.</p>
 
@@ -92,7 +92,7 @@ import * as demoCode from '@/views/demos/components/tabs/demoCodeTabs'
       <AppCardCode
         title="Custom Icons"
         variant="outlined"
-        :code="demoCode.customIcons"
+        :code="customIcons"
       >
         <p><code>prev-icon</code> and <code>next-icon</code> props can be used for applying custom pagination icons.</p>
 
@@ -108,7 +108,7 @@ import * as demoCode from '@/views/demos/components/tabs/demoCodeTabs'
       <AppCardCode
         title="Fixed"
         variant="outlined"
-        :code="demoCode.fixed"
+        :code="fixed"
       >
         <p>The <code>fixed-tabs</code> prop forces <code>v-tab</code> to take up all available space up to the maximum width (300px).</p>
 
@@ -124,7 +124,7 @@ import * as demoCode from '@/views/demos/components/tabs/demoCodeTabs'
       <AppCardCode
         title="Grow"
         variant="outlined"
-        :code="demoCode.grow"
+        :code="grow"
       >
         <p>The <code>grow</code> prop will make the tab items take up all available space with no limit.</p>
 
@@ -140,7 +140,7 @@ import * as demoCode from '@/views/demos/components/tabs/demoCodeTabs'
       <AppCardCode
         title="Programmatic Navigation"
         variant="outlined"
-        :code="demoCode.programmaticNavigation"
+        :code="programmaticNavigation"
       >
         <DemoTabsProgrammaticNavigation />
       </AppCardCode>
@@ -154,7 +154,7 @@ import * as demoCode from '@/views/demos/components/tabs/demoCodeTabs'
       <AppCardCode
         title="Dynamic"
         variant="outlined"
-        :code="demoCode.dynamic"
+        :code="dynamic"
       >
         <p>Tabs can be dynamically added and removed. This allows you to update to any number and the <code>v-tabs</code> component will react.</p>
 
@@ -170,7 +170,7 @@ import * as demoCode from '@/views/demos/components/tabs/demoCodeTabs'
       <AppCardCode
         title="Basic Pill"
         variant="outlined"
-        :code="demoCode.basicPill"
+        :code="basicPill"
       >
         <p>Use our custom class <code>.v-tabs-pill</code> along with <code>v-tabs</code> component to style pill tabs.</p>
 
@@ -186,7 +186,7 @@ import * as demoCode from '@/views/demos/components/tabs/demoCodeTabs'
       <AppCardCode
         title="Vertical Pill"
         variant="outlined"
-        :code="demoCode.verticalPill"
+        :code="verticalPill"
       >
         <p>Use our custom class .v-tabs-pill along with v-tabs component to style pill tabs.</p>
 

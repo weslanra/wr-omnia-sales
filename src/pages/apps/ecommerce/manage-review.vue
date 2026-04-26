@@ -9,6 +9,7 @@ const itemsPerPage = ref(10)
 const page = ref(1)
 const sortBy = ref()
 const orderBy = ref()
+const selectedRows = ref([])
 
 // Fetch Reviews
 const { data: ReviewData, execute: fetchReviews } = await useApi<any>(createUrl('/apps/ecommerce/reviews', {
@@ -37,6 +38,12 @@ const deleteReview = async (id: number) => {
     method: 'DELETE',
   })
 
+  // Delete from selectedRows
+  const index = selectedRows.value.findIndex(row => row === id)
+  if (index !== -1)
+    selectedRows.value.splice(index, 1)
+
+  // Refetch review
   fetchReviews()
 }
 
@@ -419,6 +426,7 @@ const reviewStatChartConfig = {
 
         <VDataTableServer
           v-model:items-per-page="itemsPerPage"
+          v-model:model-value="selectedRows"
           v-model:page="page"
           :headers="headers"
           :items="reviews"
@@ -470,6 +478,8 @@ const reviewStatChartConfig = {
           <template #item.review="{ item }">
             <div class="my-4">
               <VRating
+                :id="item.id"
+                :name="`${item.id}`"
                 readonly
                 :model-value="item.review"
                 size="24"
@@ -535,5 +545,5 @@ const reviewStatChartConfig = {
 </template>
 
 <style lang="scss">
-@use "@core/scss/template/libs/apex-chart.scss";
+@use "@core/scss/template/libs/apex-chart";
 </style>

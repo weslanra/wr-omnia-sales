@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/forms/form-elements/date-time-picker/demoCodeDateTimePicker'
+import { basic, dateAndTime, disabledRange, humanFriendly, inline, multipleDates, range, timePicker } from '@/views/demos/forms/form-elements/date-time-picker/demoCodeDateTimePicker'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/date-time-picker/de
     >
       <AppCardCode
         title="Basic"
-        :code="demoCode.basic"
+        :code="basic"
       >
         <DemoDateTimePickerBasic />
       </AppCardCode>
@@ -24,7 +24,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/date-time-picker/de
     >
       <AppCardCode
         title="Time Picker"
-        :code="demoCode.timePicker"
+        :code="timePicker"
       >
         <DemoDateTimePickerTimePicker />
       </AppCardCode>
@@ -37,7 +37,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/date-time-picker/de
     >
       <AppCardCode
         title="Date and Time"
-        :code="demoCode.dateAndTime"
+        :code="dateAndTime"
       >
         <DemoDateTimePickerDateAndTime />
       </AppCardCode>
@@ -50,7 +50,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/date-time-picker/de
     >
       <AppCardCode
         title="Multiple Dates"
-        :code="demoCode.multipleDates"
+        :code="multipleDates"
       >
         <DemoDateTimePickerMultipleDates />
       </AppCardCode>
@@ -63,7 +63,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/date-time-picker/de
     >
       <AppCardCode
         title="Range"
-        :code="demoCode.range"
+        :code="range"
       >
         <DemoDateTimePickerRange />
       </AppCardCode>
@@ -76,7 +76,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/date-time-picker/de
     >
       <AppCardCode
         title="Human Friendly"
-        :code="demoCode.humanFriendly"
+        :code="humanFriendly"
       >
         <DemoDateTimePickerHumanFriendly />
       </AppCardCode>
@@ -89,7 +89,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/date-time-picker/de
     >
       <AppCardCode
         title="Disabled Range"
-        :code="demoCode.disabledRange"
+        :code="disabledRange"
       >
         <DemoDateTimePickerDisabledRange />
       </AppCardCode>
@@ -102,7 +102,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/date-time-picker/de
     >
       <AppCardCode
         title="Inline"
-        :code="demoCode.inline"
+        :code="inline"
       >
         <DemoDateTimePickerInline />
       </AppCardCode>

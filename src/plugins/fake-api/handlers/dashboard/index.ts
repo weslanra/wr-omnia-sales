@@ -1,5 +1,5 @@
 import is from '@sindresorhus/is'
-import destr from 'destr'
+import { destr } from 'destr'
 import { HttpResponse, http } from 'msw'
 import { db } from '@db/dashboard/db'
 import { paginateArray } from '@api-utils/paginateArray'

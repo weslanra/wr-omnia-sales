@@ -32,8 +32,8 @@ const { updateEmailLabels } = useEmail()
 
 const { labels, resolveLabelColor, emailMoveToFolderActions, shallShowMoveToActionFor, moveSelectedEmailTo } = useEmail()
 
-const handleMoveMailsTo = (action: MoveEmailToAction) => {
-  moveSelectedEmailTo(action, [(props.email as Email).id])
+const handleMoveMailsTo = async (action: MoveEmailToAction) => {
+  await moveSelectedEmailTo(action, [(props.email as Email).id])
   emit('refresh')
   emit('close')
 }
@@ -48,6 +48,7 @@ const updateMailLabel = async (label: Email['labels'][number]) => {
 <template>
   <!-- ℹ️ calc(100% - 256px) => 265px is left sidebar width -->
   <VNavigationDrawer
+    data-allow-mismatch
     temporary
     :model-value="!!props.email"
     location="right"
@@ -61,7 +62,7 @@ const updateMailLabel = async (label: Email['labels'][number]) => {
       <div class="email-view-header d-flex align-center px-5 py-3">
         <IconBtn
           class="me-2"
-          @click="$emit('close')"
+          @click="$emit('close'); showReplyBox = false; showReplyCard = true; emailReply = ''"
         >
           <VIcon
             size="22"
@@ -229,11 +230,15 @@ const updateMailLabel = async (label: Email['labels'][number]) => {
         <VSpacer />
 
         <div class="d-flex align-center gap-x-1">
+          <!-- Star/Unstar -->
+          <IconBtn
+            :color="props.email.isStarred ? 'warning' : 'default'"
+            @click="props.email?.isStarred ? $emit('unstar') : $emit('star'); $emit('refresh')"
+          >
+            <VIcon icon="tabler-star" />
+          </IconBtn>
           <IconBtn>
-            <VIcon
-              icon="tabler-dots-vertical"
-              size="22"
-            />
+            <VIcon icon="tabler-dots-vertical" />
           </IconBtn>
         </div>
       </div>
@@ -278,16 +283,6 @@ const updateMailLabel = async (label: Email['labels'][number]) => {
                       size="22"
                     />
                   </IconBtn>
-                  <!-- Star/Unstar -->
-                  <IconBtn
-                    :color="props.email.isStarred ? 'warning' : 'default'"
-                    @click="props.email?.isStarred ? $emit('unstar') : $emit('star'); $emit('refresh')"
-                  >
-                    <VIcon
-                      :icon="props.email.isStarred ? 'tabler-star-filled' : 'tabler-star' "
-                      size="22"
-                    />
-                  </IconBtn>
                   <IconBtn>
                     <VIcon
                       icon="tabler-dots-vertical"
@@ -303,6 +298,9 @@ const updateMailLabel = async (label: Email['labels'][number]) => {
 
           <VCardText>
             <!-- eslint-disable vue/no-v-html -->
+            <div class="text-body-1 font-weight-medium text-truncate mb-4">
+              {{ props.email.from.name }},
+            </div>
             <div
               class="text-base"
               v-html="props.email.message"
@@ -361,7 +359,14 @@ const updateMailLabel = async (label: Email['labels'][number]) => {
             />
             <div class="d-flex justify-end gap-4 pt-2 flex-wrap">
               <VBtn
-
+                icon
+                variant="text"
+                color="secondary"
+                @click="showReplyBox = !showReplyBox; showReplyCard = !showReplyCard; emailReply = ''"
+              >
+                <VIcon icon="tabler-trash" />
+              </VBtn>
+              <VBtn
                 variant="text"
                 color="secondary"
               >
@@ -387,6 +392,10 @@ const updateMailLabel = async (label: Email['labels'][number]) => {
 
 <style lang="scss">
 .email-view {
+  &:not(.v-navigation-drawer--active) {
+    transform: translateX(110%) !important;
+  }
+
   inline-size: 100% !important;
 
   @media only screen and (min-width: 1280px) {

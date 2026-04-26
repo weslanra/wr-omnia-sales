@@ -86,7 +86,6 @@ const tabItemContent = 'Candy canes donut chupa chups candy canes lemon drops oa
         <VWindowItem
           v-for="item in 3"
           :key="item"
-          :value="\`item-\${item}\`"
         >
           {{ tabItemContent }}
         </VWindowItem>
@@ -113,7 +112,6 @@ const tabItemContent = 'Candy canes donut chupa chups candy canes lemon drops oa
         <VWindowItem
           v-for="item in 3"
           :key="item"
-          :value="\`item-\${item}\`"
         >
           {{ tabItemContent }}
         </VWindowItem>
@@ -210,7 +208,6 @@ const tabItemText = 'hortbread chocolate bar marshmallow bear claw tiramisu choc
         <VWindowItem
           v-for="i in 10"
           :key="i"
-          :value="i"
         >
           {{ tabItemText }}
         </VWindowItem>
@@ -243,7 +240,6 @@ const tabItemText = 'hortbread chocolate bar marshmallow bear claw tiramisu choc
         <VWindowItem
           v-for="i in 10"
           :key="i"
-          :value="i"
         >
           {{ tabItemText }}
         </VWindowItem>
@@ -431,6 +427,7 @@ const tabItemText = 'hortbread chocolate bar marshmallow bear claw tiramisu choc
       <VTab
         v-for="item in items"
         :key="item"
+        :value="item"
       >
         {{ item }}
       </VTab>
@@ -472,6 +469,7 @@ const tabItemText = 'hortbread chocolate bar marshmallow bear claw tiramisu choc
       <VTab
         v-for="item in items"
         :key="item"
+        :value="item"
       >
         {{ item }}
       </VTab>
@@ -515,7 +513,6 @@ const tabItemText = 'hortbread chocolate bar marshmallow bear claw tiramisu choc
         <VWindowItem
           v-for="i in 10"
           :key="i"
-          :value="\`item\${i}\`"
         >
           {{ tabItemText }}
         </VWindowItem>
@@ -545,7 +542,6 @@ const tabItemText = 'hortbread chocolate bar marshmallow bear claw tiramisu choc
         <VWindowItem
           v-for="i in 10"
           :key="i"
-          :value="\`item\${i}\`"
         >
           {{ tabItemText }}
         </VWindowItem>
@@ -733,7 +729,6 @@ const tabItemText = 'Biscuit cheesecake gingerbread oat cake tiramisu. Marzipan 
         <VWindowItem
           v-for="i in 3"
           :key="i"
-          :value="\`tab-\${i}\`"
         >
           {{ tabItemText }}
         </VWindowItem>
@@ -784,7 +779,6 @@ const tabItemText = 'Biscuit cheesecake gingerbread oat cake tiramisu. Marzipan 
         <VWindowItem
           v-for="i in 3"
           :key="i"
-          :value="\`tab-\${i}\`"
         >
           {{ tabItemText }}
         </VWindowItem>
@@ -797,7 +791,7 @@ const tabItemText = 'Biscuit cheesecake gingerbread oat cake tiramisu. Marzipan 
 
 export const vertical = {
   ts: `<script setup lang="ts">
-const currentTab = ref('tab-1')
+const currentTab = ref(0)
 </script>
 
 <template>
@@ -839,9 +833,9 @@ const currentTab = ref('tab-1')
           v-model="currentTab"
           class="ms-3"
         >
-          <VWindowItem value="tab-1">
+          <VWindowItem>
             <p>
-              Sed aliquam ultrices mauris. Donec posuere vulputate arcu. Morbi ac felis. Etiam feugiat lorem non metus. Sed a libero.
+              fsdfSed aliquam ultrices mauris. Donec posuere vulputate arcu. Morbi ac felis. Etiam feugiat lorem non metus. Sed a libero.
             </p>
 
             <p class="mb-0">
@@ -849,13 +843,13 @@ const currentTab = ref('tab-1')
             </p>
           </VWindowItem>
 
-          <VWindowItem value="tab-2">
+          <VWindowItem>
             <p class="mb-0">
               Morbi nec metus. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero.
             </p>
           </VWindowItem>
 
-          <VWindowItem value="tab-3">
+          <VWindowItem>
             <p class="mb-0">
               Fusce a quam. Phasellus nec sem in justo pellentesque facilisis. Nam eget dui. Proin viverra, ligula sit amet ultrices semper.
             </p>
@@ -867,7 +861,7 @@ const currentTab = ref('tab-1')
 </template>
 `,
   js: `<script setup>
-const currentTab = ref('tab-1')
+const currentTab = ref(0)
 </script>
 
 <template>
@@ -909,9 +903,9 @@ const currentTab = ref('tab-1')
           v-model="currentTab"
           class="ms-3"
         >
-          <VWindowItem value="tab-1">
+          <VWindowItem>
             <p>
-              Sed aliquam ultrices mauris. Donec posuere vulputate arcu. Morbi ac felis. Etiam feugiat lorem non metus. Sed a libero.
+              fsdfSed aliquam ultrices mauris. Donec posuere vulputate arcu. Morbi ac felis. Etiam feugiat lorem non metus. Sed a libero.
             </p>
 
             <p class="mb-0">
@@ -919,13 +913,13 @@ const currentTab = ref('tab-1')
             </p>
           </VWindowItem>
 
-          <VWindowItem value="tab-2">
+          <VWindowItem>
             <p class="mb-0">
               Morbi nec metus. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero.
             </p>
           </VWindowItem>
 
-          <VWindowItem value="tab-3">
+          <VWindowItem>
             <p class="mb-0">
               Fusce a quam. Phasellus nec sem in justo pellentesque facilisis. Nam eget dui. Proin viverra, ligula sit amet ultrices semper.
             </p>
@@ -940,7 +934,7 @@ const currentTab = ref('tab-1')
 
 export const verticalPill = {
   ts: `<script setup lang="ts">
-const currentTab = ref('window-1')
+const currentTab = ref(0)
 </script>
 
 <template>
@@ -980,23 +974,23 @@ const currentTab = ref('window-1')
     <VCard>
       <VCardText>
         <VWindow v-model="currentTab">
-          <VWindowItem value="window-1">
+          <VWindowItem>
             <p>
               Sed aliquam ultrices mauris. Donec posuere vulputate arcu. Morbi ac felis. Etiam feugiat lorem non metus. Sed a libero.
             </p>
 
             <p class="mb-0">
-              Phasellus dolor. Fusce neque. Fusce fermentum odio nec arcu. Pellentesque libero tortor, tincidunt et.
+              Phasellus dolor. Fusce neque. Fusce fermentum odio nec arcu. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam. Phasellus blandit leo ut odio.
             </p>
           </VWindowItem>
 
-          <VWindowItem value="window-2">
+          <VWindowItem>
             <p class="mb-0">
               Morbi nec metus. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero, non adipiscing dolor urna a orci. Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Nunc sed turpis.
             </p>
           </VWindowItem>
 
-          <VWindowItem value="window-3">
+          <VWindowItem>
             <p class="mb-0">
               Fusce a quam. Phasellus nec sem in justo pellentesque facilisis. Nam eget dui. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. In dui magna, posuere eget, vestibulum et, tempor auctor, justo.
             </p>
@@ -1008,7 +1002,7 @@ const currentTab = ref('window-1')
 </template>
 `,
   js: `<script setup>
-const currentTab = ref('window-1')
+const currentTab = ref(0)
 </script>
 
 <template>
@@ -1048,23 +1042,23 @@ const currentTab = ref('window-1')
     <VCard>
       <VCardText>
         <VWindow v-model="currentTab">
-          <VWindowItem value="window-1">
+          <VWindowItem>
             <p>
               Sed aliquam ultrices mauris. Donec posuere vulputate arcu. Morbi ac felis. Etiam feugiat lorem non metus. Sed a libero.
             </p>
 
             <p class="mb-0">
-              Phasellus dolor. Fusce neque. Fusce fermentum odio nec arcu. Pellentesque libero tortor, tincidunt et.
+              Phasellus dolor. Fusce neque. Fusce fermentum odio nec arcu. Pellentesque libero tortor, tincidunt et, tincidunt eget, semper nec, quam. Phasellus blandit leo ut odio.
             </p>
           </VWindowItem>
 
-          <VWindowItem value="window-2">
+          <VWindowItem>
             <p class="mb-0">
               Morbi nec metus. Suspendisse faucibus, nunc et pellentesque egestas, lacus ante convallis tellus, vitae iaculis lacus elit id tortor. Sed mollis, eros et ultrices tempus, mauris ipsum aliquam libero, non adipiscing dolor urna a orci. Curabitur ligula sapien, tincidunt non, euismod vitae, posuere imperdiet, leo. Nunc sed turpis.
             </p>
           </VWindowItem>
 
-          <VWindowItem value="window-3">
+          <VWindowItem>
             <p class="mb-0">
               Fusce a quam. Phasellus nec sem in justo pellentesque facilisis. Nam eget dui. Proin viverra, ligula sit amet ultrices semper, ligula arcu tristique sapien, a accumsan nisi mauris ac eros. In dui magna, posuere eget, vestibulum et, tempor auctor, justo.
             </p>

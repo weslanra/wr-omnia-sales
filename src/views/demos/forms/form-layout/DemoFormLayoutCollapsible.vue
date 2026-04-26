@@ -128,6 +128,7 @@ const paymentMethods = [
                   <VRadio
                     label="Home (All day delivery)"
                     value="home"
+                    class="me-3"
                   />
                   <VRadio
                     label="Office (Delivery between 10 AM - 5 PM)"
@@ -245,6 +246,7 @@ const paymentMethods = [
                       v-for="payment in paymentMethods"
                       :key="payment.radioValue"
                       :value="payment.radioValue"
+                      class="me-3"
                     >
                       <template #label>
                         <span class="me-1">{{ payment.radioLabel }}</span>
@@ -273,7 +275,7 @@ const paymentMethods = [
                   cols="12"
                   md="6"
                 >
-                  <VTextField
+                  <AppTextField
                     label="Name"
                     placeholder="john doe"
                   />
@@ -284,7 +286,7 @@ const paymentMethods = [
                   cols="6"
                   md="3"
                 >
-                  <VTextField
+                  <AppTextField
                     label="Expiry Date"
                     placeholder="MM/YY"
                   />
@@ -295,7 +297,7 @@ const paymentMethods = [
                   cols="6"
                   md="3"
                 >
-                  <VTextField
+                  <AppTextField
                     label="CVV Code"
                     type="number"
                     max="3"

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import * as demoCode from '@/views/demos/components/button/demoCodeButton'
+import { block, colors, flat, group, icon, iconOnly, link, loaders, outlined, plain, rounded, router, sizing, text, tonal } from '@/views/demos/components/button/demoCodeButton'
 </script>
 
 <template>
@@ -8,7 +8,7 @@ import * as demoCode from '@/views/demos/components/button/demoCodeButton'
       <!-- 👉 Colors -->
       <AppCardCode
         title="Colors"
-        :code="demoCode.colors"
+        :code="colors"
       >
         <p>The <code>color</code> prop is used to change the background color of the alert.</p>
         <DemoButtonColors />
@@ -19,7 +19,7 @@ import * as demoCode from '@/views/demos/components/button/demoCodeButton'
       <!-- 👉 Outlined -->
       <AppCardCode
         title="Outlined"
-        :code="demoCode.outlined"
+        :code="outlined"
       >
         <p>The <code>outlined</code> variant option is used to create outlined buttons.</p>
         <DemoButtonOutlined />
@@ -30,7 +30,7 @@ import * as demoCode from '@/views/demos/components/button/demoCodeButton'
       <!-- 👉 Flat -->
       <AppCardCode
         title="Flat"
-        :code="demoCode.flat"
+        :code="flat"
       >
         <p>The <code>flat</code> buttons still maintain their background color, but have no box shadow.</p>
         <DemoButtonFlat />
@@ -41,7 +41,7 @@ import * as demoCode from '@/views/demos/components/button/demoCodeButton'
       <!-- 👉 Rounded -->
       <AppCardCode
         title="Rounded"
-        :code="demoCode.rounded"
+        :code="rounded"
       >
         <p>Use the <code>rounded</code> prop to control the border radius of buttons.</p>
         <DemoButtonRounded />
@@ -52,7 +52,7 @@ import * as demoCode from '@/views/demos/components/button/demoCodeButton'
       <!-- 👉 Text -->
       <AppCardCode
         title="Text"
-        :code="demoCode.text"
+        :code="text"
       >
         <p>Use <code>text</code> variant option to create text button. Text buttons have no box shadow and no background.</p>
         <DemoButtonText />
@@ -63,7 +63,7 @@ import * as demoCode from '@/views/demos/components/button/demoCodeButton'
       <!-- 👉 Plain -->
       <AppCardCode
         title="Plain"
-        :code="demoCode.plain"
+        :code="plain"
       >
         <p>Use <code>plain</code> variant option to a create a plain button. Plain buttons have a lower baseline opacity that reacts to hover and focus.</p>
         <DemoButtonPlain />
@@ -74,7 +74,7 @@ import * as demoCode from '@/views/demos/components/button/demoCodeButton'
       <!-- 👉 Tonal -->
       <AppCardCode
         title="Tonal"
-        :code="demoCode.tonal"
+        :code="tonal"
       >
         <p>Use <code>tonal</code> variant option to a create a light background button.</p>
         <DemoButtonTonal />
@@ -85,7 +85,7 @@ import * as demoCode from '@/views/demos/components/button/demoCodeButton'
       <!-- 👉 Icon -->
       <AppCardCode
         title="Icon"
-        :code="demoCode.icon"
+        :code="icon"
       >
         <p>Icons can be used inside of buttons to add emphasis to the action.</p>
         <DemoButtonIcon />
@@ -96,7 +96,7 @@ import * as demoCode from '@/views/demos/components/button/demoCodeButton'
       <!-- 👉 Icon Only -->
       <AppCardCode
         title="Icon Only"
-        :code="demoCode.iconOnly"
+        :code="iconOnly"
       >
         <p>Use <code>VIcon</code> component inside button to create buttons that looks like rest of the theme.</p>
         <DemoButtonIconOnly />
@@ -107,7 +107,7 @@ import * as demoCode from '@/views/demos/components/button/demoCodeButton'
       <!-- 👉 Sizing -->
       <AppCardCode
         title="Sizing"
-        :code="demoCode.sizing"
+        :code="sizing"
       >
         <p>Buttons can be given different sizing options to fit a multitude of scenarios.</p>
         <DemoButtonSizing />
@@ -118,7 +118,7 @@ import * as demoCode from '@/views/demos/components/button/demoCodeButton'
       <!-- 👉 Block  -->
       <AppCardCode
         title="Block"
-        :code="demoCode.block"
+        :code="block"
       >
         <p>The <code>block</code> prop allows buttons to extend the full available width.</p>
         <DemoButtonBlock />
@@ -129,7 +129,7 @@ import * as demoCode from '@/views/demos/components/button/demoCodeButton'
       <!-- 👉 Loaders -->
       <AppCardCode
         title="Loaders"
-        :code="demoCode.loaders"
+        :code="loaders"
       >
         <p>Using the <code>loading</code> prop, you can notify a user that there is processing taking place. The default behavior is to use a <code>v-progress-circular</code> component but this can be customized.</p>
 
@@ -141,7 +141,7 @@ import * as demoCode from '@/views/demos/components/button/demoCodeButton'
       <!-- 👉 Router -->
       <AppCardCode
         title="Router"
-        :code="demoCode.router"
+        :code="router"
       >
         <p>Use <code>to</code> prop to create button with router support.</p>
         <VAlert
@@ -159,7 +159,7 @@ import * as demoCode from '@/views/demos/components/button/demoCodeButton'
       <!-- 👉 Link -->
       <AppCardCode
         title="Link"
-        :code="demoCode.link"
+        :code="link"
       >
         <p>Designates that the component is a link. This is automatic when using the <code>href</code> or <code>to</code> prop.</p>
         <VAlert
@@ -177,7 +177,7 @@ import * as demoCode from '@/views/demos/components/button/demoCodeButton'
       <!-- 👉 Button Group -->
       <AppCardCode
         title="Group"
-        :code="demoCode.group"
+        :code="group"
       >
         <p>
           Wrap buttons with the <code>v-btn-toggle</code> component to create a group button. You can add a visual divider  between buttons with the <code>divided</code> prop.

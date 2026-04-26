@@ -213,7 +213,7 @@ const currencies = [
                 <AppTextField
                   v-model="accountDataLocal.org"
                   label="Organization"
-                  placeholder="ThemeSelection"
+                  placeholder="Pixinvent"
                 />
               </VCol>
 
@@ -369,7 +369,7 @@ const currencies = [
 
   <!-- Confirm Dialog -->
   <ConfirmDialog
-    v-model:isDialogVisible="isConfirmDialogOpen"
+    v-model:is-dialog-visible="isConfirmDialogOpen"
     confirmation-question="Are you sure you want to deactivate your account?"
     confirm-title="Deactivated!"
     confirm-msg="Your account has been deactivated successfully."

@@ -22,10 +22,7 @@ const router = useRouter()
 
 <template>
   <IconBtn>
-    <VIcon
-      size="24"
-      :icon="props.togglerIcon"
-    />
+    <VIcon :icon="props.togglerIcon" />
 
     <VMenu
       activator="parent"
@@ -39,7 +36,7 @@ const router = useRouter()
       >
         <VCardItem class="py-3">
           <h6 class="text-base font-weight-medium">
-            Shortcuts
+            {{ $t("Shortcut") }}
           </h6>
 
           <template #append>
@@ -79,10 +76,10 @@ const router = useRouter()
               </VAvatar>
 
               <h6 class="text-base font-weight-medium mt-3 mb-0">
-                {{ shortcut.title }}
+                {{ $t(shortcut.title) }}
               </h6>
               <p class="text-sm mb-0">
-                {{ shortcut.subtitle }}
+                {{ $t(shortcut.subtitle) }}
               </p>
             </VCol>
           </VRow>

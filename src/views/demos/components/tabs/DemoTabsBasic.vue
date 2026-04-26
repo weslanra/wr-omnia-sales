@@ -16,7 +16,6 @@ const tabItemContent = 'Candy canes donut chupa chups candy canes lemon drops oa
         <VWindowItem
           v-for="item in 3"
           :key="item"
-          :value="`item-${item}`"
         >
           {{ tabItemContent }}
         </VWindowItem>

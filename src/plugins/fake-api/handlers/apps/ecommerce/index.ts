@@ -132,7 +132,7 @@ export const handlerAppsEcommerce = [
     const productIndex = db.products.findIndex(e => e.id === id)
 
     if (productIndex >= 0) {
-      db.products.splice(productIndex, 3)
+      db.products.splice(productIndex, 1)
 
       // return res(
       //   ctx.status(204),
@@ -149,6 +149,25 @@ export const handlerAppsEcommerce = [
   }),
 
   // 👉 Orders
+  // Get single Customer
+  http.get(('/api/apps/ecommerce/orders/:id'), ({ params }) => {
+    const orderId = Number(params.id)
+
+    try {
+      const order = db.orderData.find(e => e.order === orderId)
+
+      if (order)
+        return HttpResponse.json(order, { status: 200 })
+      else
+        return HttpResponse.json('No invoice found with this id', { status: 404 })
+    }
+    catch (error) {
+      return new HttpResponse(null, {
+        status: 404,
+      })
+    }
+  }),
+
   // Get Order List
   http.get('/api/apps/ecommerce/orders', ({ request }) => {
     const url = new URL(request.url)

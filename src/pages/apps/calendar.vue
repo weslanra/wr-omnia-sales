@@ -55,6 +55,7 @@ const jumpToDateFn = (date: string) => {
         <!-- 👉 Navigation drawer -->
         <VNavigationDrawer
           v-model="isLeftSidebarOpen"
+          data-allow-mismatch
           width="292"
           absolute
           touchless
@@ -76,6 +77,7 @@ const jumpToDateFn = (date: string) => {
 
           <div class="d-flex align-center justify-center pa-2">
             <AppDateTimePicker
+              id="calendar-date-picker"
               :model-value="new Date().toJSON().slice(0, 10)"
               :config="{ inline: true }"
               class="calendar-date-picker"
@@ -91,11 +93,13 @@ const jumpToDateFn = (date: string) => {
 
             <div class="d-flex flex-column calendars-checkbox">
               <VCheckbox
+                id="check-all-events"
                 v-model="checkAll"
                 label="View all"
               />
               <VCheckbox
-                v-for="calendar in store.availableCalendars"
+                v-for="(calendar, index) in store.availableCalendars"
+                :id="`${index}`"
                 :key="calendar.label"
                 v-model="store.selectedCalendars"
                 :value="calendar.label"
@@ -117,7 +121,7 @@ const jumpToDateFn = (date: string) => {
       </VLayout>
     </VCard>
     <CalendarEventHandler
-      v-model:isDrawerOpen="isEventHandlerSidebarActive"
+      v-model:is-drawer-open="isEventHandlerSidebarActive"
       :event="event"
       @add-event="addEvent"
       @update-event="updateEvent"
@@ -140,6 +144,10 @@ const jumpToDateFn = (date: string) => {
   &.v-navigation-drawer:not(.v-navigation-drawer--temporary) {
     border-end-start-radius: 0.375rem;
     border-start-start-radius: 0.375rem;
+  }
+
+  &.v-navigation-drawer--temporary:not(.v-navigation-drawer--active) {
+    transform: translateX(-110%) !important;
   }
 }
 

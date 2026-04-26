@@ -28,7 +28,7 @@ interface BillingAddress {
 }
 
 const currentCardDetails: CardDetails = {
-  number: 1234567890123456,
+  number: '1234567890123456',
   name: 'John Doe',
   expiry: '12/2028',
   cvv: '123',
@@ -397,13 +397,13 @@ const paymentData = [
     </VCardText>
   </VCard>
   <AddEditAddressDialog
-    v-model:isDialogVisible="isEditAddressDialogVisible"
+    v-model:is-dialog-visible="isEditAddressDialogVisible"
     :billing-address="editBillingData"
   />
-  <AddEditAddressDialog v-model:isDialogVisible="isNewEditAddressDialogVisible" />
+  <AddEditAddressDialog v-model:is-dialog-visible="isNewEditAddressDialogVisible" />
   <CardAddEditDialog
-    v-model:isDialogVisible="isCardAddDialogVisible"
+    v-model:is-dialog-visible="isCardAddDialogVisible"
     :card-details="currentCardDetails"
   />
-  <CardAddEditDialog v-model:isDialogVisible="isNewCardAddDialogVisible" />
+  <CardAddEditDialog v-model:is-dialog-visible="isNewCardAddDialogVisible" />
 </template>

@@ -117,6 +117,7 @@ const removeProduct = (id: number) => {
 
       <!-- 👉 Select payment method -->
       <AppSelect
+        id="payment-method"
         v-model="selectedPaymentMethod"
         :items="paymentMethods"
         label="Accept Payment Via"
@@ -165,5 +166,5 @@ const removeProduct = (id: number) => {
   </VRow>
 
   <!-- 👉 Send Invoice Sidebar -->
-  <InvoiceSendInvoiceDrawer v-model:isDrawerOpen="isSendPaymentSidebarVisible" />
+  <InvoiceSendInvoiceDrawer v-model:is-drawer-open="isSendPaymentSidebarVisible" />
 </template>

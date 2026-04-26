@@ -3,22 +3,21 @@ import { useGenerateImageVariant } from '@core/composable/useGenerateImageVarian
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
 
+import { useLoginStore } from "@/views/login/useLoginStore"
 import authV2ForgotPasswordIllustrationDark from '@images/pages/auth-v2-forgot-password-illustration-dark.png'
 import authV2ForgotPasswordIllustrationLight from '@images/pages/auth-v2-forgot-password-illustration-light.png'
 import authV2MaskDark from '@images/pages/misc-mask-dark.png'
 import authV2MaskLight from '@images/pages/misc-mask-light.png'
-
 import { VForm } from 'vuetify/components/VForm'
-
-// store
-import { useLoginStore } from "@/views/login/useLoginStore"
 
 const router = useRouter()
 const useLogin = useLoginStore()
+const refVForm = ref<VForm>()
 
 const email = ref('')
-const refVForm = ref<VForm>()
+
 const authThemeImg = useGenerateImageVariant(authV2ForgotPasswordIllustrationLight, authV2ForgotPasswordIllustrationDark)
+
 const authThemeMask = useGenerateImageVariant(authV2MaskLight, authV2MaskDark)
 
 definePage({
@@ -145,7 +144,7 @@ const onSubmit = () => {
                   block
                   type="submit"
                 >
-                  Send Recovery Code
+                  Send Reset Link
                 </VBtn>
               </VCol>
 

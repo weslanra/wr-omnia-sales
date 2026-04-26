@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
+import { autoplay, basic, centeredSlidesOption1, centeredSlidesOption2, coverflowEffect, cubeEffect, fade, gallery, grid, lazyLoading, multipleSlidesPerView, navigation, pagination, progress, responsiveBreakpoints, virtualSlides } from '@/views/demos/components/swiper/demoCodeSwiper'
 </script>
 
 <template>
@@ -7,7 +7,7 @@ import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
     <VCol>
       <AppCardCode
         title="Basic"
-        :code="demoCode.basic"
+        :code="basic"
       >
         <DemoSwiperBasic />
       </AppCardCode>
@@ -16,7 +16,7 @@ import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
     <VCol>
       <AppCardCode
         title="Navigation"
-        :code="demoCode.navigation"
+        :code="navigation"
       >
         <DemoSwiperNavigation />
       </AppCardCode>
@@ -25,7 +25,7 @@ import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
     <VCol>
       <AppCardCode
         title="Pagination"
-        :code="demoCode.pagination"
+        :code="pagination"
       >
         <DemoSwiperPagination />
       </AppCardCode>
@@ -34,7 +34,7 @@ import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
     <VCol>
       <AppCardCode
         title="Progress"
-        :code="demoCode.progress"
+        :code="progress"
       >
         <DemoSwiperProgress />
       </AppCardCode>
@@ -43,7 +43,7 @@ import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
     <VCol>
       <AppCardCode
         title="Multiple Slides Per View"
-        :code="demoCode.multipleSlidesPerView"
+        :code="multipleSlidesPerView"
       >
         <DemoSwiperMultipleSlidesPerView />
       </AppCardCode>
@@ -52,7 +52,7 @@ import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
     <VCol>
       <AppCardCode
         title="Grid"
-        :code="demoCode.grid"
+        :code="grid"
       >
         <DemoSwiperGrid />
       </AppCardCode>
@@ -62,7 +62,7 @@ import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
       <AppCardCode
         variant="text"
         title="Centered Slides Option 1"
-        :code="demoCode.centeredSlidesOption1"
+        :code="centeredSlidesOption1"
       >
         <DemoSwiperCenteredSlidesOption1 />
       </AppCardCode>
@@ -71,7 +71,7 @@ import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
     <VCol>
       <AppCardCode
         title="Centered Slides Option 2"
-        :code="demoCode.centeredSlidesOption2"
+        :code="centeredSlidesOption2"
       >
         <DemoSwiperCenteredSlidesOption2 />
       </AppCardCode>
@@ -80,7 +80,7 @@ import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
     <VCol>
       <AppCardCode
         title="Fade"
-        :code="demoCode.fade"
+        :code="fade"
       >
         <DemoSwiperFade />
       </AppCardCode>
@@ -89,7 +89,7 @@ import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
     <VCol>
       <AppCardCode
         title="Cube Effect"
-        :code="demoCode.cubeEffect"
+        :code="cubeEffect"
       >
         <DemoSwiperCubeEffect />
       </AppCardCode>
@@ -98,7 +98,7 @@ import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
     <VCol>
       <AppCardCode
         title="Coverflow Effect"
-        :code="demoCode.coverflowEffect"
+        :code="coverflowEffect"
       >
         <DemoSwiperCoverflowEffect />
       </AppCardCode>
@@ -107,7 +107,7 @@ import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
     <VCol>
       <AppCardCode
         title="Autoplay"
-        :code="demoCode.autoplay"
+        :code="autoplay"
       >
         <DemoSwiperAutoplay />
       </AppCardCode>
@@ -116,7 +116,7 @@ import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
     <VCol>
       <AppCardCode
         title="Gallery"
-        :code="demoCode.gallery"
+        :code="gallery"
       >
         <DemoSwiperGallery />
       </AppCardCode>
@@ -125,7 +125,7 @@ import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
     <VCol>
       <AppCardCode
         title="Lazy Loading"
-        :code="demoCode.lazyLoading"
+        :code="lazyLoading"
       >
         <DemoSwiperLazyLoading />
       </AppCardCode>
@@ -134,7 +134,7 @@ import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
     <VCol>
       <AppCardCode
         title="Responsive Breakpoints"
-        :code="demoCode.responsiveBreakpoints"
+        :code="responsiveBreakpoints"
       >
         <DemoSwiperResponsiveBreakpoints />
       </AppCardCode>
@@ -143,7 +143,7 @@ import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
     <VCol>
       <AppCardCode
         title="Virtual Slides"
-        :code="demoCode.virtualSlides"
+        :code="virtualSlides"
       >
         <DemoSwiperVirtualSlides />
       </AppCardCode>
@@ -152,5 +152,5 @@ import * as demoCode from '@/views/demos/components/swiper/demoCodeSwiper'
 </template>
 
 <style lang="scss">
-@use "@core/scss/template/libs/swiper.scss"
+@use "@core/scss/template/libs/swiper"
 </style>

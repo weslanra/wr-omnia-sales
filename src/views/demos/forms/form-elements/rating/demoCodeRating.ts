@@ -238,16 +238,9 @@ const rating = ref(4)
       size="small"
     />
 
-    <VRating v-model="rating" />
-
     <VRating
       v-model="rating"
       size="large"
-    />
-
-    <VRating
-      v-model="rating"
-      size="x-large"
     />
   </div>
 </template>
@@ -268,16 +261,9 @@ const rating = ref(4)
       size="small"
     />
 
-    <VRating v-model="rating" />
-
     <VRating
       v-model="rating"
       size="large"
-    />
-
-    <VRating
-      v-model="rating"
-      size="x-large"
     />
   </div>
 </template>

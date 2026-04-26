@@ -19,13 +19,6 @@ const tabs = [
 ]
 
 const { data: userData } = await useApi<any>(`/apps/users/${route.params.id}`)
-
-if (userData.value) {
-  const [firstName, lastName] = userData.value.fullName.split(' ')
-
-  userData.value.firstName = firstName
-  userData.value.lastName = lastName
-}
 </script>
 
 <template>

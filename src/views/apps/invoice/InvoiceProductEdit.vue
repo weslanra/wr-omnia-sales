@@ -127,6 +127,7 @@ watch(totalPrice, () => {
           md="6"
         >
           <AppSelect
+            id="item"
             v-model="selectedItem"
             :items="itemsOptions"
             item-title="title"
@@ -136,6 +137,7 @@ watch(totalPrice, () => {
           />
 
           <AppTextarea
+            id="item-description"
             v-model="localProductData.description"
             rows="2"
             placeholder="Item description"
@@ -148,6 +150,7 @@ watch(totalPrice, () => {
           sm="4"
         >
           <AppTextField
+            id="item-cost"
             v-model="localProductData.cost"
             type="number"
             placeholder="Cost"
@@ -175,6 +178,7 @@ watch(totalPrice, () => {
           sm="4"
         >
           <AppTextField
+            id="item-hours"
             v-model="localProductData.hours"
             type="number"
             placeholder="5"

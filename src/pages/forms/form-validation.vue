@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/forms/form-validation/demoCodeFormValidation'
+import { simpleFormValidation, validatingMultipleRules, validationTypes } from '@/views/demos/forms/form-validation/demoCodeFormValidation'
 </script>
 
 <template>
@@ -8,7 +8,7 @@ import * as demoCode from '@/views/demos/forms/form-validation/demoCodeFormValid
       <!-- 👉 Simple Form Validation -->
       <AppCardCode
         title="Simple Form Validation"
-        :code="demoCode.simpleFormValidation"
+        :code="simpleFormValidation"
       >
         <p>Use <code>Rules</code> prop to validate the input.</p>
 
@@ -20,7 +20,7 @@ import * as demoCode from '@/views/demos/forms/form-validation/demoCodeFormValid
       <!-- 👉 Validating Multiple Rules -->
       <AppCardCode
         title="Validating Multiple Rules"
-        :code="demoCode.validatingMultipleRules"
+        :code="validatingMultipleRules"
       >
         <DemoFormValidationValidatingMultipleRules />
       </AppCardCode>
@@ -30,7 +30,7 @@ import * as demoCode from '@/views/demos/forms/form-validation/demoCodeFormValid
       <!-- 👉 Validation Types -->
       <AppCardCode
         title="Validation Types"
-        :code="demoCode.validationTypes"
+        :code="validationTypes"
       >
         <DemoFormValidationValidationTypes />
       </AppCardCode>

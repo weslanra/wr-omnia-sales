@@ -344,12 +344,12 @@ const resolveUserRoleVariant = (role: string) => {
 
   <!-- 👉 Edit user info dialog -->
   <UserInfoEditDialog
-    v-model:isDialogVisible="isUserInfoEditDialogVisible"
+    v-model:is-dialog-visible="isUserInfoEditDialogVisible"
     :user-data="props.userData"
   />
 
   <!-- 👉 Upgrade plan dialog -->
-  <UserUpgradePlanDialog v-model:isDialogVisible="isUpgradePlanDialogVisible" />
+  <UserUpgradePlanDialog v-model:is-dialog-visible="isUpgradePlanDialogVisible" />
 </template>
 
 <style lang="scss" scoped>

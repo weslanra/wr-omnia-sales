@@ -1,5 +1,5 @@
 import is from '@sindresorhus/is'
-import destr from 'destr'
+import { destr } from 'destr'
 import type { PathParams } from 'msw'
 import { HttpResponse, http } from 'msw'
 import { db } from '@db/apps/users/db'

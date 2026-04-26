@@ -9,24 +9,24 @@ interface Props {
   customerData: Customer
 }
 
-const userData = {
-  id: 110,
-  firstName: 'Selena',
-  lastName: 'Kyle',
-  company: 'pixinvent',
-  role: 'Web developer',
-  username: 'charwomen1940',
-  country: 'United States',
-  contact: '(829) 537-0057',
-  email: 'irena.dubrovna@wayne.com',
+const customerData = {
+  id: props.customerData.id,
+  fullName: props.customerData.customer,
+  firstName: props.customerData.customer.split(' ')[0],
+  lastName: props.customerData.customer.split(' ')[1],
+  company: '',
+  role: '',
+  username: props.customerData.customer,
+  country: props.customerData.country,
+  contact: props.customerData.contact,
+  email: props.customerData.email,
   currentPlan: '',
-  status: 'Active',
+  status: props.customerData.status,
   avatar: '',
   taskDone: null,
   projectDone: null,
   taxId: 'Tax-8894',
   language: 'English',
-  fullName: 'Selena Kyle',
 }
 </script>
 
@@ -215,10 +215,10 @@ const userData = {
     <!-- !SECTION -->
   </VRow>
   <UserInfoEditDialog
-    v-model:isDialogVisible="isUserInfoEditDialogVisible"
-    :user-data="userData"
+    v-model:is-dialog-visible="isUserInfoEditDialogVisible"
+    :user-data="customerData"
   />
-  <UserUpgradePlanDialog v-model:isDialogVisible="isUpgradePlanDialogVisible" />
+  <UserUpgradePlanDialog v-model:is-dialog-visible="isUpgradePlanDialogVisible" />
 </template>
 
 <style lang="scss" scoped>

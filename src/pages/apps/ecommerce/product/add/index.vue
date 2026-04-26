@@ -3,51 +3,6 @@ import { ref } from 'vue'
 
 const optionCounter = ref(1)
 
-const dropZoneRef = ref<HTMLDivElement>()
-interface FileData {
-  file: File
-  url: string
-}
-
-const fileData = ref<FileData[]>([])
-const { onChange } = useFileDialog({ accept: 'image/*' })
-
-function onDrop(DroppedFiles: File[] | null) {
-  DroppedFiles?.forEach(file => {
-    if (file.type.slice(0, 6) !== 'image/') {
-      // eslint-disable-next-line no-alert
-      alert('Only image files are allowed')
-
-      return
-    }
-
-    fileData.value.push({
-      file,
-      url: useObjectUrl(file).value ?? '',
-    })
-  },
-  )
-}
-
-onChange(selectedFiles => {
-  if (!selectedFiles)
-    return
-
-  for (const file of selectedFiles) {
-    fileData.value.push({
-      file,
-      url: useObjectUrl(file).value ?? '',
-    })
-  }
-})
-
-useDropZone(dropZoneRef, onDrop)
-
-const content = ref(
-  `<p>
-    Keep your account secure with authentication step.
-    </p>`)
-
 const activeTab = ref('Restock')
 const isTaxChargeToProduct = ref(true)
 
@@ -67,6 +22,11 @@ const inventoryTabsData = [
   { icon: 'tabler-world', title: 'Attributes', value: 'Attributes' },
   { icon: 'tabler-lock', title: 'Advanced', value: 'Advanced' },
 ]
+
+const content = ref(
+  `<p>
+    Keep your account secure with authentication step.
+    </p>`)
 </script>
 
 <template>
@@ -175,7 +135,7 @@ const inventoryTabsData = [
                   md="4"
                 >
                   <AppSelect
-                    :items="['Size', 'Color', 'Weight', 'Smell']"
+                    :items="['Size', 'Color', 'Weight']"
                     placeholder="Select Variant"
                     label="Options"
                   />
@@ -224,6 +184,7 @@ const inventoryTabsData = [
                     <VTab
                       v-for="(tab, index) in inventoryTabsData"
                       :key="index"
+                      :value="tab.value"
                     >
                       <VIcon
                         :icon="tab.icon"
@@ -398,7 +359,6 @@ const inventoryTabsData = [
                               <VTextField
                                 placeholder="40 C"
                                 type="number"
-                                style="min-inline-size: 250px;"
                               />
                             </div>
                           </template>
@@ -559,6 +519,23 @@ const inventoryTabsData = [
     .v-label.custom-input {
       border: none !important;
     }
+  }
+}
+
+.ProseMirror {
+  p {
+    margin-block-end: 0;
+  }
+
+  padding: 0.5rem;
+  outline: none;
+
+  p.is-editor-empty:first-child::before {
+    block-size: 0;
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: inline-start;
+    pointer-events: none;
   }
 }
 </style>

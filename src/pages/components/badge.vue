@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import * as demoCode from '@/views/demos/components/badge/demoCodeBadge'
+import { avatarStatus, color, dynamicNotifications, icon, maximumValue, position, showOnHover, style, tabs, tonal } from '@/views/demos/components/badge/demoCodeBadge'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/components/badge/demoCodeBadge'
       <!-- 👉 Style -->
       <AppCardCode
         title="Style"
-        :code="demoCode.style"
+        :code="style"
       >
         <p>You can use various props like <code>bordered</code>, <code>dot</code>, <code>inline</code>, <code>rounded</code> etc. to style the badge.</p>
 
@@ -26,7 +26,7 @@ import * as demoCode from '@/views/demos/components/badge/demoCodeBadge'
       <!-- 👉 Color -->
       <AppCardCode
         title="Color"
-        :code="demoCode.color"
+        :code="color"
       >
         <p>Use <code>color</code> prop to create various background badges.</p>
 
@@ -41,7 +41,7 @@ import * as demoCode from '@/views/demos/components/badge/demoCodeBadge'
       <!-- 👉 Position -->
       <AppCardCode
         title="Position"
-        :code="demoCode.position"
+        :code="position"
       >
         <p>You can use <code>location</code> prop to change the position of the badge. Possible values are <code>top-end</code>, <code>bottom-end</code>, <code>bottom-start</code>, <code>top-start</code>.</p>
 
@@ -56,7 +56,7 @@ import * as demoCode from '@/views/demos/components/badge/demoCodeBadge'
       <!-- 👉 Icon -->
       <AppCardCode
         title="Icon"
-        :code="demoCode.icon"
+        :code="icon"
       >
         <p>You can use <code>icon</code> prop or use <code>slot</code> to render the icon</p>
 
@@ -71,7 +71,7 @@ import * as demoCode from '@/views/demos/components/badge/demoCodeBadge'
       <!-- 👉 Avatar Status -->
       <AppCardCode
         title="Avatar Status"
-        :code="demoCode.avatarStatus"
+        :code="avatarStatus"
       >
         <p>You can use badge with avatar as status.</p>
 
@@ -86,7 +86,7 @@ import * as demoCode from '@/views/demos/components/badge/demoCodeBadge'
       <!-- 👉 Dynamic notifications -->
       <AppCardCode
         title="Dynamic notifications"
-        :code="demoCode.dynamicNotifications"
+        :code="dynamicNotifications"
       >
         <p>You can incorporate badges with dynamic content to make things such as a notification system.</p>
 
@@ -101,7 +101,7 @@ import * as demoCode from '@/views/demos/components/badge/demoCodeBadge'
       <!-- 👉 Show on hover -->
       <AppCardCode
         title="Show on hover"
-        :code="demoCode.showOnHover"
+        :code="showOnHover"
       >
         <p>You can do many things with visibility control, for example, show badge on hover.</p>
 
@@ -116,7 +116,7 @@ import * as demoCode from '@/views/demos/components/badge/demoCodeBadge'
       <!-- 👉 Tabs -->
       <AppCardCode
         title="Tabs"
-        :code="demoCode.tabs"
+        :code="tabs"
       >
         <p>Badges help convey information to the user in a variety of ways.</p>
 
@@ -131,7 +131,7 @@ import * as demoCode from '@/views/demos/components/badge/demoCodeBadge'
       <!-- 👉 Maximum value content -->
       <AppCardCode
         title="Maximum Value"
-        :code="demoCode.maximumValue"
+        :code="maximumValue"
       >
         <p>Use <code>max</code> prop to cap the value of the badge content</p>
 
@@ -146,7 +146,7 @@ import * as demoCode from '@/views/demos/components/badge/demoCodeBadge'
       <!-- 👉 Tonal Badge -->
       <AppCardCode
         title="Tonal"
-        :code="demoCode.tonal"
+        :code="tonal"
       >
         <p>Use class <code>v-badge--tonal</code> for using tonal variant badge.</p>
 

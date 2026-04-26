@@ -84,7 +84,7 @@ const earnings = [
         <!-- 👉 Header -->
         <VCard class="mb-10 mt-n4">
           <VCardItem class="pb-4">
-            <VCardTitle>You've uploaded doc pdf to the Themeselection project</VCardTitle>
+            <VCardTitle>You've uploaded doc pdf to the Pixinvent project</VCardTitle>
           </VCardItem>
           <VCardText>
             <!-- 👉 Content -->
@@ -177,7 +177,7 @@ const earnings = [
         <VCard class="mb-10 mt-n4">
           <VCardItem class="pb-4">
             <VCardTitle>
-              Loretta write a review on Themeselection
+              Loretta write a review on Pixinvent
             </VCardTitle>
           </VCardItem>
           <VCardText>

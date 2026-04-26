@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { VideoPlayer } from '@videojs-player/vue'
 import AcademyMyCourses from '@/views/apps/academy/AcademyMyCourses.vue'
 import boyAppAcademy from '@images/illustrations/boy-app-academy.png'
 import girlAppAcademy from '@images/illustrations/girl-app-academy.png'
 import academyCourseIllustration1 from '@images/pages/academy-course-illustration1.png'
-import academyCourseIllustration2 from '@images/pages/academy-course-illustration2.png'
+import academyCourseIllustration2Dark from '@images/pages/academy-course-illustration2-dark.png'
+import academyCourseIllustration2Light from '@images/pages/academy-course-illustration2-light.png'
 import guitarCoursePoster from '@images/pages/guitar-course-poster.png'
 import singingCoursePoster from '@images/pages/singing-course-poster.png'
+
+const academyCourseIllustration2 = useGenerateImageVariant(academyCourseIllustration2Light, academyCourseIllustration2Dark)
 
 const searchQuery = ref('')
 </script>
@@ -49,7 +51,7 @@ const searchQuery = ref('')
         </div>
         <img
           :src="academyCourseIllustration1"
-          class="illustration1 d-none d-md-block"
+          class="illustration1 d-none d-md-block flip-in-rtl"
           height="180"
         >
         <img
@@ -161,13 +163,14 @@ const searchQuery = ref('')
               border
             >
               <div class="px-2 pt-2">
-                <VideoPlayer
+                <VVideo
+                  :image="guitarCoursePoster"
                   src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4"
-                  :poster="guitarCoursePoster"
-                  controls
-                  plays-inline
+                  pills
+                  density="compact"
                   :height="$vuetify.display.mdAndUp ? 200 : 150"
-                  class="w-100 rounded"
+                  elevation="0"
+                  rounded
                 />
               </div>
               <VCardText>
@@ -190,13 +193,14 @@ const searchQuery = ref('')
               border
             >
               <div class="px-2 pt-2">
-                <VideoPlayer
+                <VVideo
+                  :image="singingCoursePoster"
                   src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4"
-                  :poster="singingCoursePoster"
-                  controls
-                  plays-inline
+                  pills
+                  density="compact"
                   :height="$vuetify.display.mdAndUp ? 200 : 150"
-                  class="w-100 rounded"
+                  elevation="0"
+                  rounded
                 />
               </div>
               <VCardText>
@@ -216,8 +220,6 @@ const searchQuery = ref('')
 </template>
 
 <style lang="scss">
-@import "video.js/dist/video-js.css";
-
 .illustration1 {
   position: absolute;
   inset-block-end: 0;

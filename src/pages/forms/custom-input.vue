@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/forms/form-elements/custom-input/demoCodeCustomInput'
+import { customCheckboxes, customCheckboxesWithIcon, customCheckboxesWithImage, customRadios, customRadiosWithIcon, customRadiosWithImage } from '@/views/demos/forms/form-elements/custom-input/demoCodeCustomInput'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/custom-input/demoCo
     >
       <AppCardCode
         title="Custom Radios"
-        :code="demoCode.customRadios"
+        :code="customRadios"
       >
         <DemoCustomInputCustomRadios />
       </AppCardCode>
@@ -24,7 +24,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/custom-input/demoCo
     >
       <AppCardCode
         title="Custom Checkboxes"
-        :code="demoCode.customCheckboxes"
+        :code="customCheckboxes"
       >
         <DemoCustomInputCustomCheckboxes />
       </AppCardCode>
@@ -37,7 +37,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/custom-input/demoCo
     >
       <AppCardCode
         title="Custom Radios With Icon"
-        :code="demoCode.customRadiosWithIcon"
+        :code="customRadiosWithIcon"
       >
         <DemoCustomInputCustomRadiosWithIcon />
       </AppCardCode>
@@ -50,7 +50,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/custom-input/demoCo
     >
       <AppCardCode
         title="Custom Checkboxes With Icon"
-        :code="demoCode.customCheckboxesWithIcon"
+        :code="customCheckboxesWithIcon"
       >
         <DemoCustomInputCustomCheckboxesWithIcon />
       </AppCardCode>
@@ -63,7 +63,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/custom-input/demoCo
     >
       <AppCardCode
         title="Custom Radios With Image"
-        :code="demoCode.customRadiosWithImage"
+        :code="customRadiosWithImage"
       >
         <DemoCustomInputCustomRadiosWithImage />
       </AppCardCode>
@@ -76,7 +76,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/custom-input/demoCo
     >
       <AppCardCode
         title="Custom Checkboxes With Image"
-        :code="demoCode.customCheckboxesWithImage"
+        :code="customCheckboxesWithImage"
       >
         <DemoCustomInputCustomCheckboxesWithImage />
       </AppCardCode>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { VNodeRenderer } from '@/@layouts/components/VNodeRenderer'
 import type { Referrals } from '@db/apps/ecommerce/types'
 import paperImg from '@images/svg/paper-send.svg?raw'
 import rocketImg from '@images/svg/rocket.svg?raw'
@@ -132,11 +133,7 @@ const resolveStatus = (status: string) => {
                 style="max-inline-size: 185px;"
               >
                 <div class="icon-container">
-                  <VIcon
-                    :icon="step.icon"
-                    color="primary"
-                    size="36"
-                  />
+                  <VNodeRenderer :nodes="step.icon" />
                 </div>
                 <div class="text-body-1 text-wrap text-center">
                   {{ step.desc }}

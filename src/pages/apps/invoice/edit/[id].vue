@@ -57,7 +57,7 @@ const paymentMethods = ['Bank Account', 'PayPal', 'UPI Transfer']
 </script>
 
 <template>
-  <VRow v-if="invoiceData && invoiceData?.invoice ">
+  <VRow v-if="invoiceData && invoiceData?.invoice">
     <!-- 👉 InvoiceEditable -->
     <VCol
       cols="12"
@@ -123,6 +123,7 @@ const paymentMethods = ['Bank Account', 'PayPal', 'UPI Transfer']
 
       <!-- 👉 Accept payment via  -->
       <AppSelect
+        id="payment-method"
         v-model="selectedPaymentMethod"
         :items="paymentMethods"
         label="Accept Payment Via"
@@ -170,10 +171,10 @@ const paymentMethods = ['Bank Account', 'PayPal', 'UPI Transfer']
     </VCol>
 
     <!-- 👉 Invoice send drawer -->
-    <InvoiceSendInvoiceDrawer v-model:isDrawerOpen="isSendSidebarActive" />
+    <InvoiceSendInvoiceDrawer v-model:is-drawer-open="isSendSidebarActive" />
 
     <!-- 👉 Invoice add payment drawer -->
-    <InvoiceAddPaymentDrawer v-model:isDrawerOpen="isAddPaymentSidebarActive" />
+    <InvoiceAddPaymentDrawer v-model:is-drawer-open="isAddPaymentSidebarActive" />
   </VRow>
 
   <section v-else>

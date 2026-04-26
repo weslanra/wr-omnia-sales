@@ -226,7 +226,7 @@ const isAddProductDrawerOpen = ref(false)
       </div>
     </VCard>
 
-    <ECommerceAddCategoryDrawer v-model:isDrawerOpen="isAddProductDrawerOpen" />
+    <ECommerceAddCategoryDrawer v-model:is-drawer-open="isAddProductDrawerOpen" />
   </div>
 </template>
 

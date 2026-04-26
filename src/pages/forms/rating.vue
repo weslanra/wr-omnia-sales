@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/forms/form-elements/rating/demoCodeRating'
+import { basic, clearable, colors, density, hover, incremented, itemSlot, length, readonly, size } from '@/views/demos/forms/form-elements/rating/demoCodeRating'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/rating/demoCodeRati
       <!-- 👉 Basic -->
       <AppCardCode
         title="Basic"
-        :code="demoCode.basic"
+        :code="basic"
       >
         <p>The <code>v-rating</code> component provides a simple interface for gathering user feedback.</p>
 
@@ -26,7 +26,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/rating/demoCodeRati
       <!-- 👉 Density -->
       <AppCardCode
         title="Density"
-        :code="demoCode.density"
+        :code="density"
       >
         <p>Control the space occupied by <code>v-rating</code> items using the <code>density</code> prop.</p>
 
@@ -41,7 +41,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/rating/demoCodeRati
       <!-- 👉 Colors -->
       <AppCardCode
         title="Colors"
-        :code="demoCode.colors"
+        :code="colors"
       >
         <p>The <code>v-rating</code> component can be colored as you want, you can set both selected and not selected colors.</p>
 
@@ -56,7 +56,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/rating/demoCodeRati
       <!-- 👉 Size -->
       <AppCardCode
         title="Size"
-        :code="demoCode.size"
+        :code="size"
       >
         <p>Utilize the same sizing classes available in <code>v-icon</code> or provide your own with the <code>size</code> prop.</p>
 
@@ -71,7 +71,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/rating/demoCodeRati
       <!-- 👉 Length -->
       <AppCardCode
         title="Length"
-        :code="demoCode.length"
+        :code="length"
       >
         <p>Change the number of items by modifying the the <code>length</code> prop.</p>
 
@@ -86,7 +86,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/rating/demoCodeRati
       <!-- 👉 Clearable -->
       <AppCardCode
         title="Clearable"
-        :code="demoCode.clearable"
+        :code="clearable"
       >
         <p>Use <code>clearable</code> prop to allows for the component to be cleared. Triggers when the icon containing the current value is clicked.</p>
 
@@ -101,7 +101,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/rating/demoCodeRati
       <!-- 👉 Readonly -->
       <AppCardCode
         title="Readonly"
-        :code="demoCode.readonly"
+        :code="readonly"
       >
         <p>For ratings that are not meant to be changed you can use <code>readonly</code> prop.</p>
 
@@ -116,7 +116,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/rating/demoCodeRati
       <!-- 👉 Hover -->
       <AppCardCode
         title="Hover"
-        :code="demoCode.hover"
+        :code="hover"
       >
         <p>Provides visual feedback when hovering over icons</p>
 
@@ -131,7 +131,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/rating/demoCodeRati
       <!-- 👉 Incremented -->
       <AppCardCode
         title="Incremented"
-        :code="demoCode.incremented"
+        :code="incremented"
       >
         <p>The <code>half-increments</code> prop increases the granularity of the ratings, allow for .5 values as well.</p>
 
@@ -146,7 +146,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/rating/demoCodeRati
       <!-- 👉 Item slot -->
       <AppCardCode
         title="Item slot"
-        :code="demoCode.itemSlot"
+        :code="itemSlot"
       >
         <p>Slots enable advanced customization possibilities and provide you with more freedom in how you display the rating.</p>
 

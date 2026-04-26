@@ -25,7 +25,7 @@ import ctaDashborad from '@images/front-pages/landing-page/cta-dashboard.png'
           </VBtn>
         </div>
 
-        <div class="banner-img mb-n5">
+        <div class="banner-img">
           <img
             :src="ctaDashborad"
             class="w-100"
@@ -40,6 +40,10 @@ import ctaDashborad from '@images/front-pages/landing-page/cta-dashboard.png'
 .landing-cta {
   background-size: cover;
   margin-block: auto;
+}
+
+.banner-img {
+  margin-block-end: -22px;
 }
 
 .banner-title {

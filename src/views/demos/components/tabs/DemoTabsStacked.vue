@@ -40,7 +40,6 @@ const tabItemText = 'Biscuit cheesecake gingerbread oat cake tiramisu. Marzipan 
         <VWindowItem
           v-for="i in 3"
           :key="i"
-          :value="`tab-${i}`"
         >
           {{ tabItemText }}
         </VWindowItem>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/forms/form-elements/textarea/demoCodeTextarea'
+import { autoGrow, basic, browserAutocomplete, clearable, counter, icons, noResize, rows, states, validation, variant } from '@/views/demos/forms/form-elements/textarea/demoCodeTextarea'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/textarea/demoCodeTe
       <!-- 👉 Basic -->
       <AppCardCode
         title="Basic"
-        :code="demoCode.basic"
+        :code="basic"
       >
         <p>
           v-textarea in its simplest form is a multi-line text-field, useful for larger amounts of text.
@@ -28,7 +28,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/textarea/demoCodeTe
       <!-- 👉 Auto Grow -->
       <AppCardCode
         title="Auto Grow"
-        :code="demoCode.autoGrow"
+        :code="autoGrow"
       >
         <p>When using the <code>auto-grow</code> prop, textarea's will automatically increase in size when the contained text exceeds its size.</p>
 
@@ -40,7 +40,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/textarea/demoCodeTe
       <!-- 👉 Variant -->
       <AppCardCode
         title="Variant"
-        :code="demoCode.variant"
+        :code="variant"
       >
         <p>Use <code>filled</code>, <code>plain</code>, <code>outlined</code>, <code>solo</code> and <code>underlined</code> option of <code>variant</code> prop to change the look of file input.</p>
 
@@ -55,7 +55,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/textarea/demoCodeTe
       <!-- 👉 States -->
       <AppCardCode
         title="States"
-        :code="demoCode.states"
+        :code="states"
       >
         <p>Use <code>disabled</code> and <code>readonly</code> prop to change the state of textarea.</p>
 
@@ -70,7 +70,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/textarea/demoCodeTe
       <!-- 👉 Browser autocomplete -->
       <AppCardCode
         title="Browser autocomplete"
-        :code="demoCode.browserAutocomplete"
+        :code="browserAutocomplete"
       >
         <p>
           The <code>autocomplete</code> prop gives you the option to enable the browser to predict user input.
@@ -87,7 +87,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/textarea/demoCodeTe
       <!-- 👉 Clearable -->
       <AppCardCode
         title="Clearable"
-        :code="demoCode.clearable"
+        :code="clearable"
       >
         <p>You can clear the text from a <code>v-textarea</code> by using the <code>clearable</code> prop, and customize the icon used with the <code>clearable-icon</code> prop.</p>
 
@@ -102,7 +102,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/textarea/demoCodeTe
       <!-- 👉 Counter -->
       <AppCardCode
         title="Counter"
-        :code="demoCode.counter"
+        :code="counter"
       >
         <p>
           The <code>counter</code> prop informs the user of a character limit for the <code>v-textarea</code>.
@@ -119,7 +119,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/textarea/demoCodeTe
       <!-- 👉 Icons -->
       <AppCardCode
         title="Icons"
-        :code="demoCode.icons"
+        :code="icons"
       >
         <p>The <code>append-icon</code>, <code>prepend-icon</code>, <code>append-inner-icon</code> and <code>prepend-inner-icon</code> props help add context to v-textarea.</p>
 
@@ -134,7 +134,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/textarea/demoCodeTe
       <!-- 👉 Rows -->
       <AppCardCode
         title="Rows"
-        :code="demoCode.rows"
+        :code="rows"
       >
         <p>The <code>rows</code> prop allows you to define how many rows the textarea has, when combined with the <code>row-height</code> prop you can further customize your rows by defining their height.</p>
 
@@ -149,7 +149,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/textarea/demoCodeTe
       <!-- 👉 No resize -->
       <AppCardCode
         title="No resize"
-        :code="demoCode.noResize"
+        :code="noResize"
       >
         <p><code>v-textarea</code>'s have the option to remain the same size regardless of their content's size, using the <code>no-resize</code> prop.</p>
 
@@ -164,7 +164,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/textarea/demoCodeTe
       <!-- 👉 Validation -->
       <AppCardCode
         title="Validation"
-        :code="demoCode.validation"
+        :code="validation"
       >
         <p>Use <code>rules</code> prop to validate the textarea.</p>
 

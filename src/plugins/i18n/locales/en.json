@@ -16,6 +16,7 @@
   "Badge": "Badge",
   "Button": "Button",
   "Calendar": "Calendar",
+  "Kanban": "Kanban",
   "Image": "Image",
   "Pagination": "Pagination",
   "Progress Circular": "Progress Circular",
@@ -156,6 +157,15 @@
   "Logistics": "Logistics",
   "Dashboard": "Dashboard",
   "Fleet": "Fleet",
+  "Shortcut": "Shortcut",
+  "Appointments": "Appointments",
+  "Invoice App": "Invoice App",
+  "Manage Accounts": "Manage Accounts",
+  "Users": "Users",
+  "Manage Users": "Manage Users",
+  "Role Management": "Role Management",
+  "Permission": "Permission",
+  "Dashboard Analytics": "Dashboard Analytics",
   "5": "5",
   "10": "10",
   "20": "20",
@@ -171,6 +181,13 @@
     "carousel": {
       "ariaLabel": {
         "delimiter": "delimiter"
+      }
+    },
+    "colorPicker": {
+      "ariaLabel": {
+        "hueSlider": "Hue Slider",
+        "eyedropper": "Eye Dropper",
+        "hexInput": "Hex Input"
       }
     },
     "dataFooter": {
@@ -207,6 +224,14 @@
       "ariaLabel": {
         "item": "item"
       }
+    },
+    "video": {
+      "seek": "Seek",
+      "play": "Play",
+      "pause": "Pause",
+      "showVolume": "Show Volume",
+      "enterFullscreen": "Enter Fullscreen",
+      "volume": "Volume"
     }
   }
 }

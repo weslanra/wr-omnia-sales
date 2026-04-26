@@ -129,6 +129,7 @@ const paymentMethods = [
                   <VRadio
                     label="Home (All day delivery)"
                     value="home"
+                    class="me-3"
                   />
                   <VRadio
                     label="Office (Delivery between 10 AM - 5 PM)"
@@ -246,6 +247,7 @@ const paymentMethods = [
                       v-for="payment in paymentMethods"
                       :key="payment.radioValue"
                       :value="payment.radioValue"
+                      class="me-3"
                     >
                       <template #label>
                         <span class="me-1">{{ payment.radioLabel }}</span>
@@ -274,7 +276,7 @@ const paymentMethods = [
                   cols="12"
                   md="6"
                 >
-                  <VTextField
+                  <AppTextField
                     label="Name"
                     placeholder="john doe"
                   />
@@ -285,7 +287,7 @@ const paymentMethods = [
                   cols="6"
                   md="3"
                 >
-                  <VTextField
+                  <AppTextField
                     label="Expiry Date"
                     placeholder="MM/YY"
                   />
@@ -296,7 +298,7 @@ const paymentMethods = [
                   cols="6"
                   md="3"
                 >
-                  <VTextField
+                  <AppTextField
                     label="CVV Code"
                     type="number"
                     max="3"
@@ -483,6 +485,7 @@ const paymentMethods = [
                   <VRadio
                     label="Home (All day delivery)"
                     value="home"
+                    class="me-3"
                   />
                   <VRadio
                     label="Office (Delivery between 10 AM - 5 PM)"
@@ -600,6 +603,7 @@ const paymentMethods = [
                       v-for="payment in paymentMethods"
                       :key="payment.radioValue"
                       :value="payment.radioValue"
+                      class="me-3"
                     >
                       <template #label>
                         <span class="me-1">{{ payment.radioLabel }}</span>
@@ -628,7 +632,7 @@ const paymentMethods = [
                   cols="12"
                   md="6"
                 >
-                  <VTextField
+                  <AppTextField
                     label="Name"
                     placeholder="john doe"
                   />
@@ -639,7 +643,7 @@ const paymentMethods = [
                   cols="6"
                   md="3"
                 >
-                  <VTextField
+                  <AppTextField
                     label="Expiry Date"
                     placeholder="MM/YY"
                   />
@@ -650,7 +654,7 @@ const paymentMethods = [
                   cols="6"
                   md="3"
                 >
-                  <VTextField
+                  <AppTextField
                     label="CVV Code"
                     type="number"
                     max="3"
@@ -1110,7 +1114,7 @@ const formData = ref({
               </VCol>
             </VRow>
 
-            <VDivider class="my-4" />
+            <VDivider class="my-6" />
 
             <h2 class="text-lg font-weight-medium mb-6">
               2. Delivery Type
@@ -1122,7 +1126,7 @@ const formData = ref({
               :grid-column="{ sm: '4', cols: '12' }"
             />
 
-            <VDivider class="my-4" />
+            <VDivider class="my-6" />
 
             <h2 class="text-lg font-weight-medium mb-6">
               3. Apply Promo code
@@ -1162,7 +1166,7 @@ const formData = ref({
               </VListItem>
             </VList>
 
-            <VDivider class="my-4" />
+            <VDivider class="my-6" />
 
             <h2 class="text-lg font-weight-medium mb-6">
               4. Payment Method
@@ -1488,7 +1492,7 @@ const formData = ref({
               </VCol>
             </VRow>
 
-            <VDivider class="my-4" />
+            <VDivider class="my-6" />
 
             <h2 class="text-lg font-weight-medium mb-6">
               2. Delivery Type
@@ -1500,7 +1504,7 @@ const formData = ref({
               :grid-column="{ sm: '4', cols: '12' }"
             />
 
-            <VDivider class="my-4" />
+            <VDivider class="my-6" />
 
             <h2 class="text-lg font-weight-medium mb-6">
               3. Apply Promo code
@@ -1540,7 +1544,7 @@ const formData = ref({
               </VListItem>
             </VList>
 
-            <VDivider class="my-4" />
+            <VDivider class="my-6" />
 
             <h2 class="text-lg font-weight-medium mb-6">
               4. Payment Method
@@ -1652,7 +1656,6 @@ const formData = ref({
 
 export const formValidation = {
   ts: `<script lang="ts" setup>
-// eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import type { VForm } from 'vuetify/components/VForm'
 
 const name = ref('')
@@ -1988,6 +1991,7 @@ const isCPasswordVisible = ref(false)
                   label="Password"
                   placeholder="············"
                   :type="isPasswordVisible ? 'text' : 'password'"
+                  autocomplete="password"
                   :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 />
@@ -2000,6 +2004,7 @@ const isCPasswordVisible = ref(false)
                 <AppTextField
                   v-model="cPassword"
                   label="Confirm Password"
+                  autocomplete="confirm-password"
                   placeholder="············"
                   :type="isCPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isCPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
@@ -2267,6 +2272,7 @@ const isCPasswordVisible = ref(false)
                   label="Password"
                   placeholder="············"
                   :type="isPasswordVisible ? 'text' : 'password'"
+                  autocomplete="password"
                   :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 />
@@ -2279,6 +2285,7 @@ const isCPasswordVisible = ref(false)
                 <AppTextField
                   v-model="cPassword"
                   label="Confirm Password"
+                  autocomplete="confirm-password"
                   placeholder="············"
                   :type="isCPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isCPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
@@ -2502,35 +2509,50 @@ const checkbox = ref(false)
       </VCol>
 
       <!-- 👉 Remember me -->
-      <VCol
-        offset-md="3"
-        cols="12"
-        md="9"
-        class="px-2"
-      >
-        <VCheckbox
-          v-model="checkbox"
-          label="Remember me"
-        />
+      <VCol cols="12">
+        <VRow no-gutters>
+          <VCol
+            cols="12"
+            md="3"
+          />
+          <VCol
+            cols="12"
+            md="9"
+          >
+            <VCheckbox
+              v-model="checkbox"
+              label="Remember me"
+            />
+          </VCol>
+        </VRow>
       </VCol>
 
       <!-- 👉 submit and reset button -->
-      <VCol
-        offset-md="3"
-        cols="12"
-        md="9"
-        class="d-flex gap-4"
-      >
-        <VBtn type="submit">
-          Submit
-        </VBtn>
-        <VBtn
-          color="secondary"
-          variant="tonal"
-          type="reset"
-        >
-          Reset
-        </VBtn>
+      <VCol cols="12">
+        <VRow no-gutters>
+          <VCol
+            cols="12"
+            md="3"
+          />
+          <VCol
+            cols="12"
+            md="9"
+          >
+            <VBtn
+              type="submit"
+              class="me-4"
+            >
+              Submit
+            </VBtn>
+            <VBtn
+              color="secondary"
+              variant="tonal"
+              type="reset"
+            >
+              Reset
+            </VBtn>
+          </VCol>
+        </VRow>
       </VCol>
     </VRow>
   </VForm>
@@ -2663,35 +2685,50 @@ const checkbox = ref(false)
       </VCol>
 
       <!-- 👉 Remember me -->
-      <VCol
-        offset-md="3"
-        cols="12"
-        md="9"
-        class="px-2"
-      >
-        <VCheckbox
-          v-model="checkbox"
-          label="Remember me"
-        />
+      <VCol cols="12">
+        <VRow no-gutters>
+          <VCol
+            cols="12"
+            md="3"
+          />
+          <VCol
+            cols="12"
+            md="9"
+          >
+            <VCheckbox
+              v-model="checkbox"
+              label="Remember me"
+            />
+          </VCol>
+        </VRow>
       </VCol>
 
       <!-- 👉 submit and reset button -->
-      <VCol
-        offset-md="3"
-        cols="12"
-        md="9"
-        class="d-flex gap-4"
-      >
-        <VBtn type="submit">
-          Submit
-        </VBtn>
-        <VBtn
-          color="secondary"
-          variant="tonal"
-          type="reset"
-        >
-          Reset
-        </VBtn>
+      <VCol cols="12">
+        <VRow no-gutters>
+          <VCol
+            cols="12"
+            md="3"
+          />
+          <VCol
+            cols="12"
+            md="9"
+          >
+            <VBtn
+              type="submit"
+              class="me-4"
+            >
+              Submit
+            </VBtn>
+            <VBtn
+              color="secondary"
+              variant="tonal"
+              type="reset"
+            >
+              Reset
+            </VBtn>
+          </VCol>
+        </VRow>
       </VCol>
     </VRow>
   </VForm>
@@ -2831,35 +2868,50 @@ const checkbox = ref(false)
       </VCol>
 
       <!-- 👉 Checkbox -->
-      <VCol
-        offset-md="3"
-        cols="12"
-        md="9"
-        class="px-2"
-      >
-        <VCheckbox
-          v-model="checkbox"
-          label="Remember me"
-        />
+      <VCol cols="12">
+        <VRow no-gutters>
+          <VCol
+            cols="12"
+            md="3"
+          />
+          <VCol
+            cols="12"
+            md="9"
+          >
+            <VCheckbox
+              v-model="checkbox"
+              label="Remember me"
+            />
+          </VCol>
+        </VRow>
       </VCol>
 
       <!-- 👉 submit and reset button -->
-      <VCol
-        offset-md="3"
-        cols="12"
-        md="9"
-        class="d-flex gap-4"
-      >
-        <VBtn type="submit">
-          Submit
-        </VBtn>
-        <VBtn
-          color="secondary"
-          type="reset"
-          variant="tonal"
-        >
-          Reset
-        </VBtn>
+      <VCol cols="12">
+        <VRow no-gutters>
+          <VCol
+            cols="12"
+            md="3"
+          />
+          <VCol
+            cols="12"
+            md="9"
+          >
+            <VBtn
+              type="submit"
+              class="me-4"
+            >
+              Submit
+            </VBtn>
+            <VBtn
+              color="secondary"
+              variant="tonal"
+              type="reset"
+            >
+              Reset
+            </VBtn>
+          </VCol>
+        </VRow>
       </VCol>
     </VRow>
   </VForm>
@@ -2996,35 +3048,50 @@ const checkbox = ref(false)
       </VCol>
 
       <!-- 👉 Checkbox -->
-      <VCol
-        offset-md="3"
-        cols="12"
-        md="9"
-        class="px-2"
-      >
-        <VCheckbox
-          v-model="checkbox"
-          label="Remember me"
-        />
+      <VCol cols="12">
+        <VRow no-gutters>
+          <VCol
+            cols="12"
+            md="3"
+          />
+          <VCol
+            cols="12"
+            md="9"
+          >
+            <VCheckbox
+              v-model="checkbox"
+              label="Remember me"
+            />
+          </VCol>
+        </VRow>
       </VCol>
 
       <!-- 👉 submit and reset button -->
-      <VCol
-        offset-md="3"
-        cols="12"
-        md="9"
-        class="d-flex gap-4"
-      >
-        <VBtn type="submit">
-          Submit
-        </VBtn>
-        <VBtn
-          color="secondary"
-          type="reset"
-          variant="tonal"
-        >
-          Reset
-        </VBtn>
+      <VCol cols="12">
+        <VRow no-gutters>
+          <VCol
+            cols="12"
+            md="3"
+          />
+          <VCol
+            cols="12"
+            md="9"
+          >
+            <VBtn
+              type="submit"
+              class="me-4"
+            >
+              Submit
+            </VBtn>
+            <VBtn
+              color="secondary"
+              variant="tonal"
+              type="reset"
+            >
+              Reset
+            </VBtn>
+          </VCol>
+        </VRow>
       </VCol>
     </VRow>
   </VForm>
@@ -3473,6 +3540,7 @@ const formData = ref({
                   <VRadio
                     label="Home (All day delivery)"
                     value="home"
+                    class="me-3"
                   />
                   <VRadio
                     label="Office (Delivery between 10 AM - 5 PM)"
@@ -3482,7 +3550,7 @@ const formData = ref({
               </VCol>
             </VRow>
 
-            <VDivider class="my-4" />
+            <VDivider class="my-6" />
 
             <h5 class="text-h5 mb-6">
               2. Delivery Type
@@ -3494,9 +3562,9 @@ const formData = ref({
               :grid-column="{ sm: '4', cols: '12' }"
             />
 
-            <VDivider class="my-4" />
+            <VDivider class="my-6" />
 
-            <h5 class="text-h5 mb-6">
+            <h5 class="text-h5 my-6">
               3. Apply Promo code
             </h5>
 
@@ -3526,14 +3594,17 @@ const formData = ref({
                 :class="index !== 0 ? 'border-t' : ''"
               >
                 <template #append>
-                  <VBtn variant="tonal">
+                  <VBtn
+                    variant="tonal"
+                    class="ms-4"
+                  >
                     Apply
                   </VBtn>
                 </template>
               </VListItem>
             </VList>
 
-            <VDivider class="my-4" />
+            <VDivider class="my-6" />
 
             <h5 class="text-h5 mb-6">
               4. Payment Method
@@ -3547,6 +3618,7 @@ const formData = ref({
               <VRadio
                 value="card"
                 label="Credit/Debit/ATM Card"
+                class="me-3"
               />
               <VRadio
                 value="cash-on-delivery"
@@ -3621,7 +3693,7 @@ const formData = ref({
 
   &.layout-navbar-static {
     .sticky-header {
-      inset-block: 0 0;
+      inset-block: 0;
     }
   }
 }
@@ -3629,7 +3701,7 @@ const formData = ref({
 .layout-nav-type-horizontal {
   &.layout-navbar-static {
     .sticky-header {
-      inset-block: 0 0;
+      inset-block: 0;
     }
   }
 
@@ -3859,6 +3931,7 @@ const formData = ref({
                   <VRadio
                     label="Home (All day delivery)"
                     value="home"
+                    class="me-3"
                   />
                   <VRadio
                     label="Office (Delivery between 10 AM - 5 PM)"
@@ -3868,7 +3941,7 @@ const formData = ref({
               </VCol>
             </VRow>
 
-            <VDivider class="my-4" />
+            <VDivider class="my-6" />
 
             <h5 class="text-h5 mb-6">
               2. Delivery Type
@@ -3880,9 +3953,9 @@ const formData = ref({
               :grid-column="{ sm: '4', cols: '12' }"
             />
 
-            <VDivider class="my-4" />
+            <VDivider class="my-6" />
 
-            <h5 class="text-h5 mb-6">
+            <h5 class="text-h5 my-6">
               3. Apply Promo code
             </h5>
 
@@ -3912,14 +3985,17 @@ const formData = ref({
                 :class="index !== 0 ? 'border-t' : ''"
               >
                 <template #append>
-                  <VBtn variant="tonal">
+                  <VBtn
+                    variant="tonal"
+                    class="ms-4"
+                  >
                     Apply
                   </VBtn>
                 </template>
               </VListItem>
             </VList>
 
-            <VDivider class="my-4" />
+            <VDivider class="my-6" />
 
             <h5 class="text-h5 mb-6">
               4. Payment Method
@@ -3933,6 +4009,7 @@ const formData = ref({
               <VRadio
                 value="card"
                 label="Credit/Debit/ATM Card"
+                class="me-3"
               />
               <VRadio
                 value="cash-on-delivery"
@@ -4007,7 +4084,7 @@ const formData = ref({
 
   &.layout-navbar-static {
     .sticky-header {
-      inset-block: 0 0;
+      inset-block: 0;
     }
   }
 }
@@ -4015,7 +4092,7 @@ const formData = ref({
 .layout-nav-type-horizontal {
   &.layout-navbar-static {
     .sticky-header {
-      inset-block: 0 0;
+      inset-block: 0;
     }
   }
 

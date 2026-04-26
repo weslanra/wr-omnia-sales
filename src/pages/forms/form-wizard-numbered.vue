@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/forms/form-wizard/form-wizard-numbered/demoCodeFormWizardNumbered'
+import { basic, modernBasic, modernVertical, validation, vertical } from '@/views/demos/forms/form-wizard/form-wizard-numbered/demoCodeFormWizardNumbered'
 
-import DemoFormWizardNumberedModernBasic from '@/views/demos/forms/form-wizard/form-wizard-numbered/DemoFormWizardNumberdModernBasic.vue'
 import DemoFormWizardNumberedBasic from '@/views/demos/forms/form-wizard/form-wizard-numbered/DemoFormWizardNumberedBasic.vue'
+import DemoFormWizardNumberedModernBasic from '@/views/demos/forms/form-wizard/form-wizard-numbered/DemoFormWizardNumberedModernBasic.vue'
 import DemoFormWizardNumberedModernVertical from '@/views/demos/forms/form-wizard/form-wizard-numbered/DemoFormWizardNumberedModernVertical.vue'
 import DemoFormWizardNumberedValidation from '@/views/demos/forms/form-wizard/form-wizard-numbered/DemoFormWizardNumberedValidation.vue'
 import DemoFormWizardNumberedVertical from '@/views/demos/forms/form-wizard/form-wizard-numbered/DemoFormWizardNumberedVertical.vue'
@@ -15,7 +15,7 @@ import DemoFormWizardNumberedVertical from '@/views/demos/forms/form-wizard/form
       <AppCardCode
         variant="outlined"
         title="Basic"
-        :code="demoCode.basic"
+        :code="basic"
       >
         <DemoFormWizardNumberedBasic />
       </AppCardCode>
@@ -26,7 +26,7 @@ import DemoFormWizardNumberedVertical from '@/views/demos/forms/form-wizard/form
       <AppCardCode
         variant="outlined"
         title="Validation"
-        :code="demoCode.validation"
+        :code="validation"
       >
         <DemoFormWizardNumberedValidation />
       </AppCardCode>
@@ -37,7 +37,7 @@ import DemoFormWizardNumberedVertical from '@/views/demos/forms/form-wizard/form
       <AppCardCode
         variant="outlined"
         title="Vertical"
-        :code="demoCode.vertical"
+        :code="vertical"
       >
         <DemoFormWizardNumberedVertical />
       </AppCardCode>
@@ -54,8 +54,8 @@ import DemoFormWizardNumberedVertical from '@/views/demos/forms/form-wizard/form
     <VCol cols="12">
       <AppCardCode
         variant="outlined"
-        title="Vertical"
-        :code="demoCode.vertical"
+        title="Modern Vertical"
+        :code="modernVertical"
       >
         <DemoFormWizardNumberedModernVertical />
       </AppCardCode>
@@ -65,8 +65,8 @@ import DemoFormWizardNumberedVertical from '@/views/demos/forms/form-wizard/form
     <VCol cols="12">
       <AppCardCode
         variant="outlined"
-        title="Basic"
-        :code="demoCode.basic"
+        title="Modern Basic"
+        :code="modernBasic"
       >
         <DemoFormWizardNumberedModernBasic />
       </AppCardCode>

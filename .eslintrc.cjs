@@ -28,7 +28,7 @@ module.exports = {
     'regex',
     'regexp',
   ],
-  ignorePatterns: ['src/plugins/iconify/*.js', 'node_modules', 'dist', '*.d.ts', 'vendor'],
+  ignorePatterns: ['src/plugins/iconify/*.js', 'node_modules', 'dist', '*.d.ts', 'vendor', '*.json'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -127,8 +127,9 @@ module.exports = {
     'import/no-unresolved': [2, {
       ignore: [
         '~pages$',
-        'virtual:generated-layouts',
+        'virtual:meta-layouts',
         '#auth$',
+        '#components$',
 
         // Ignore vite's ?raw imports
         '.*\?raw',

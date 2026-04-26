@@ -89,7 +89,7 @@ import pdf from '@images/icons/project-icons/pdf.png'
                 <p class="text-sm font-weight-medium text-medium-emphasis mb-0">
                   Lester McCarthy (Client)
                 </p>
-                <span class="text-sm">CEO of ThemeSelection</span>
+                <span class="text-sm">CEO of Pixinvent</span>
               </div>
             </div>
           </div>

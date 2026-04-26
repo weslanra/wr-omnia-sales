@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/forms/form-elements/radio/demoCodeRadio'
+import { basic, colors, density, icon, inline, labelSlot, validation } from '@/views/demos/forms/form-elements/radio/demoCodeRadio'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/radio/demoCodeRadio
       <!-- 👉 Basic -->
       <AppCardCode
         title="Basic"
-        :code="demoCode.basic"
+        :code="basic"
       >
         <p>The <code>v-radio</code> component is a simple radio button.</p>
 
@@ -26,7 +26,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/radio/demoCodeRadio
       <!-- 👉 Colors -->
       <AppCardCode
         title="Colors"
-        :code="demoCode.colors"
+        :code="colors"
       >
         <p>Radios can be colored by using any of the built-in colors and contextual names using the <code>color</code> prop.</p>
 
@@ -41,7 +41,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/radio/demoCodeRadio
       <!-- 👉 Inline -->
       <AppCardCode
         title="Inline"
-        :code="demoCode.inline"
+        :code="inline"
       >
         <p>Use <code>inline</code> prop to displays radio buttons in row.</p>
 
@@ -56,7 +56,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/radio/demoCodeRadio
       <!-- 👉 Density -->
       <AppCardCode
         title="Density"
-        :code="demoCode.density"
+        :code="density"
       >
         <p>Use <code>density</code> prop to adjusts the spacing within the component. Available options are: <code>default</code>, <code>comfortable</code>, and <code>compact</code>.</p>
 
@@ -71,7 +71,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/radio/demoCodeRadio
       <!-- 👉 Label Slot -->
       <AppCardCode
         title="Label Slot"
-        :code="demoCode.labelSlot"
+        :code="labelSlot"
       >
         <p>Radio Group labels can be defined in <code>label</code> slot - that will allow to use HTML content.</p>
 
@@ -86,7 +86,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/radio/demoCodeRadio
       <!-- 👉 Icon -->
       <AppCardCode
         title="Icon"
-        :code="demoCode.icon"
+        :code="icon"
       >
         <p>Use <code>false-icon</code> and <code>true-icon</code> prop to set icon on inactive and active state.</p>
 
@@ -101,7 +101,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/radio/demoCodeRadio
       <!-- 👉 Validation -->
       <AppCardCode
         title="Validation"
-        :code="demoCode.validation"
+        :code="validation"
       >
         <p>Use <code>rules</code> prop to validate a radio. Accepts a mixed array of types <code>function</code>, <code>boolean</code> and <code>string</code>. Functions pass an input value as an argument and must return either <code>true</code> / <code>false</code> or a string containing an error message.</p>
 

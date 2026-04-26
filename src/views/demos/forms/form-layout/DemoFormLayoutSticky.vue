@@ -209,6 +209,7 @@ const formData = ref({
                   <VRadio
                     label="Home (All day delivery)"
                     value="home"
+                    class="me-3"
                   />
                   <VRadio
                     label="Office (Delivery between 10 AM - 5 PM)"
@@ -218,7 +219,7 @@ const formData = ref({
               </VCol>
             </VRow>
 
-            <VDivider class="my-4" />
+            <VDivider class="my-6" />
 
             <h5 class="text-h5 mb-6">
               2. Delivery Type
@@ -230,9 +231,9 @@ const formData = ref({
               :grid-column="{ sm: '4', cols: '12' }"
             />
 
-            <VDivider class="my-4" />
+            <VDivider class="my-6" />
 
-            <h5 class="text-h5 mb-6">
+            <h5 class="text-h5 my-6">
               3. Apply Promo code
             </h5>
 
@@ -262,14 +263,17 @@ const formData = ref({
                 :class="index !== 0 ? 'border-t' : ''"
               >
                 <template #append>
-                  <VBtn variant="tonal">
+                  <VBtn
+                    variant="tonal"
+                    class="ms-4"
+                  >
                     Apply
                   </VBtn>
                 </template>
               </VListItem>
             </VList>
 
-            <VDivider class="my-4" />
+            <VDivider class="my-6" />
 
             <h5 class="text-h5 mb-6">
               4. Payment Method
@@ -283,6 +287,7 @@ const formData = ref({
               <VRadio
                 value="card"
                 label="Credit/Debit/ATM Card"
+                class="me-3"
               />
               <VRadio
                 value="cash-on-delivery"
@@ -357,7 +362,7 @@ const formData = ref({
 
   &.layout-navbar-static {
     .sticky-header {
-      inset-block: 0 0;
+      inset-block: 0;
     }
   }
 }
@@ -365,7 +370,7 @@ const formData = ref({
 .layout-nav-type-horizontal {
   &.layout-navbar-static {
     .sticky-header {
-      inset-block: 0 0;
+      inset-block: 0;
     }
   }
 

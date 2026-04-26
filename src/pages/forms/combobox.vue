@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import * as demoCode from '@/views/demos/forms/form-elements/combobox/demoCodeCombobox'
+import { basic, clearable, density, multiple, noDataWithChips, variant } from '@/views/demos/forms/form-elements/combobox/demoCodeCombobox'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/combobox/demoCodeCo
       <!-- 👉 Basic -->
       <AppCardCode
         title="Basic"
-        :code="demoCode.basic"
+        :code="basic"
       >
         <p>With Combobox, you can allow a user to create new values that may not be present in a provided items list.</p>
 
@@ -26,7 +26,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/combobox/demoCodeCo
       <!-- 👉 Density -->
       <AppCardCode
         title="Density"
-        :code="demoCode.density"
+        :code="density"
       >
         <p>
           You can use <code>Density</code> prop to reduce combobox height and lower max height of list items. Available options are: <code>default</code>, <code>comfortable</code>, and <code>compact</code>.
@@ -43,7 +43,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/combobox/demoCodeCo
       <!-- 👉 Variant -->
       <AppCardCode
         title="Variant"
-        :code="demoCode.variant"
+        :code="variant"
       >
         <p>Use <code>solo</code>, <code>outlined</code>, <code>underlined</code>, <code>filled</code> and <code>plain</code> options of <code>variant</code> prop to change the look of combobox. </p>
 
@@ -58,7 +58,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/combobox/demoCodeCo
       <!-- 👉 Multiple -->
       <AppCardCode
         title="Multiple"
-        :code="demoCode.multiple"
+        :code="multiple"
       >
         <p>Previously known as tags - user is allowed to enter more than 1 value</p>
 
@@ -73,7 +73,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/combobox/demoCodeCo
       <!-- 👉 No data with chips -->
       <AppCardCode
         title="No data with chips"
-        :code="demoCode.noDataWithChips"
+        :code="noDataWithChips"
       >
         <p>Previously known as tags - user is allowed to enter more than 1 value</p>
 
@@ -89,7 +89,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/combobox/demoCodeCo
 
       <AppCardCode
         title="Clearable"
-        :code="demoCode.clearable"
+        :code="clearable"
       >
         <p>Use <code>clearable</code> prop to clear combobox.</p>
 

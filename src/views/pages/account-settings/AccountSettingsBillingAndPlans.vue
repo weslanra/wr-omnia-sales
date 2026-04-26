@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import BillingHistoryTable from './BillingHistoryTable.vue'
 
-// Images
 import mastercard from '@images/icons/payments/mastercard.png'
 import visa from '@images/icons/payments/visa.png'
 
@@ -168,7 +167,7 @@ const resetPaymentForm = () => {
 
           <!-- 👉 Confirm Dialog -->
           <ConfirmDialog
-            v-model:isDialogVisible="isConfirmDialogVisible"
+            v-model:is-dialog-visible="isConfirmDialogVisible"
             confirmation-question="Are you sure to cancel your subscription?"
             cancel-msg="Unsubscription Cancelled!!"
             cancel-title="Cancelled"
@@ -357,7 +356,7 @@ const resetPaymentForm = () => {
 
                 <!-- 👉 Add Edit Card Dialog -->
                 <CardAddEditDialog
-                  v-model:isDialogVisible="isCardEditDialogVisible"
+                  v-model:is-dialog-visible="isCardEditDialogVisible"
                   :card-details="currentCardDetails"
                 />
               </VCol>

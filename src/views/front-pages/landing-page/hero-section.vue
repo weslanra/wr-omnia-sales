@@ -18,10 +18,13 @@ const { x, y } = useMouse({ touch: false })
 
 const translateMouse = computed(() => {
   if (typeof window !== 'undefined') {
-    const rotateX = ref((window.innerHeight - (2 * y.value)) / 100)
+    const rotateX = ref((window.innerHeight - (1 * y.value)) / 100)
 
     return { transform: `perspective(1200px) rotateX(${rotateX.value < -40 ? -20 : rotateX.value}deg) rotateY(${(window.innerWidth - (2 * x.value)) / 100}deg) scale3d(1,1,1)` }
   }
+
+  // Provide a default return value when `window` is undefined
+  return { transform: 'perspective(1200px) rotateX(0deg) rotateY(0deg) scale3d(1,1,1)' }
 })
 </script>
 
@@ -73,12 +76,13 @@ const translateMouse = computed(() => {
         <div class="blank-section" />
         <div class="hero-animation-img position-absolute">
           <RouterLink
-            :to="{ name: 'dashboards-analytics' }"
+            :to="{ name: 'dashboards-ecommerce' }"
             target="_blank"
           >
             <div
               class="hero-dashboard-img position-relative"
               :style="translateMouse"
+              data-allow-mismatch
             >
               <img
                 :src="heroDashboardImg"
@@ -251,6 +255,7 @@ section {
   //  stylelint-disable-next-line property-no-vendor-prefix
   -webkit-background-clip: text;
   background-clip: text;
+  background-size: 200% auto;
   font-size: 42px;
   font-weight: 800;
   line-height: 48px;

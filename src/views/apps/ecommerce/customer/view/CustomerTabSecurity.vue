@@ -100,6 +100,7 @@ const recentDevices = [
               >
                 <AppTextField
                   label="Confirm Password"
+                  autocomplete="confirm-password"
                   placeholder="············"
                   :type="isConfirmPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isConfirmPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
@@ -186,7 +187,7 @@ const recentDevices = [
 
   <!-- 👉 Enable One Time Password Dialog -->
   <TwoFactorAuthDialog
-    v-model:isDialogVisible="isTwoFactorDialogOpen"
+    v-model:is-dialog-visible="isTwoFactorDialogOpen"
     :sms-code="smsVerificationNumber"
   />
 </template>

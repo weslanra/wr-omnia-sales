@@ -151,6 +151,7 @@ const validateSocialLinkForm = () => {
                   placeholder="············"
                   :rules="[requiredValidator, passwordValidator]"
                   :type="isPasswordVisible ? 'text' : 'password'"
+                  autocomplete="password"
                   :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 />
@@ -163,6 +164,7 @@ const validateSocialLinkForm = () => {
                 <AppTextField
                   v-model="accountForm.cPassword"
                   label="Confirm Password"
+                  autocomplete="confirm-password"
                   placeholder="············"
                   :rules="[requiredValidator, confirmedValidator(accountForm.cPassword, accountForm.password)]"
                   :type="isCPasswordVisible ? 'text' : 'password'"

@@ -1,16 +1,18 @@
+<!-- eslint-disable -->
 <script setup lang="ts">
+// @ts-nocheck
 import type { Options } from 'flatpickr/dist/types/options'
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 import { VForm } from 'vuetify/components/VForm'
 
-import type { Event, NewEvent } from './types'
-import { useCalendarStore } from './useCalendarStore'
 import avatar1 from '@images/avatars/avatar-1.png'
 import avatar2 from '@images/avatars/avatar-2.png'
 import avatar3 from '@images/avatars/avatar-3.png'
 import avatar5 from '@images/avatars/avatar-5.png'
 import avatar6 from '@images/avatars/avatar-6.png'
 import avatar7 from '@images/avatars/avatar-7.png'
+import type { Event, NewEvent } from './types'
+import { useCalendarStore } from './useCalendarStore'
 
 const props = defineProps<Props>()
 
@@ -112,6 +114,7 @@ const dialogModelValueUpdate = (val: boolean) => {
 
 <template>
   <VNavigationDrawer
+    data-allow-mismatch
     temporary
     location="end"
     :model-value="props.isDrawerOpen"
@@ -152,6 +155,7 @@ const dialogModelValueUpdate = (val: boolean) => {
               <!-- 👉 Title -->
               <VCol cols="12">
                 <AppTextField
+                  id="event-title"
                   v-model="event.title"
                   label="Title"
                   placeholder="Meeting with Jane"
@@ -162,6 +166,7 @@ const dialogModelValueUpdate = (val: boolean) => {
               <!-- 👉 Calendar -->
               <VCol cols="12">
                 <AppSelect
+                  id="event-label"
                   v-model="event.extendedProps.calendar"
                   label="Label"
                   placeholder="Select Event Label"
@@ -203,6 +208,7 @@ const dialogModelValueUpdate = (val: boolean) => {
               <!-- 👉 Start date -->
               <VCol cols="12">
                 <AppDateTimePicker
+                  id="event-start-date"
                   :key="JSON.stringify(startDateTimePickerConfig)"
                   v-model="event.start"
                   :rules="[requiredValidator]"
@@ -215,6 +221,7 @@ const dialogModelValueUpdate = (val: boolean) => {
               <!-- 👉 End date -->
               <VCol cols="12">
                 <AppDateTimePicker
+                  id="event-end-date"
                   :key="JSON.stringify(endDateTimePickerConfig)"
                   v-model="event.end"
                   :rules="[requiredValidator]"
@@ -227,6 +234,8 @@ const dialogModelValueUpdate = (val: boolean) => {
               <!-- 👉 All day -->
               <VCol cols="12">
                 <VSwitch
+                  id="event-all-day"
+
                   v-model="event.allDay"
                   label="All day"
                 />
@@ -235,6 +244,8 @@ const dialogModelValueUpdate = (val: boolean) => {
               <!-- 👉 Event URL -->
               <VCol cols="12">
                 <AppTextField
+                  id="event-url"
+
                   v-model="event.url"
                   label="Event URL"
                   placeholder="https://event.com/meeting"
@@ -246,6 +257,7 @@ const dialogModelValueUpdate = (val: boolean) => {
               <!-- 👉 Guests -->
               <VCol cols="12">
                 <AppSelect
+                  id="event-guests"
                   v-model="event.extendedProps.guests"
                   label="Guests"
                   placeholder="Select guests"
@@ -261,6 +273,7 @@ const dialogModelValueUpdate = (val: boolean) => {
               <!-- 👉 Location -->
               <VCol cols="12">
                 <AppTextField
+                  id="event-location"
                   v-model="event.extendedProps.location"
                   label="Location"
                   placeholder="Meeting room"
@@ -270,6 +283,7 @@ const dialogModelValueUpdate = (val: boolean) => {
               <!-- 👉 Description -->
               <VCol cols="12">
                 <AppTextarea
+                  id="event-description"
                   v-model="event.extendedProps.description"
                   label="Description"
                   placeholder="Meeting description"

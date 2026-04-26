@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/forms/form-elements/file-input/demoCodeFileInput'
+import { accept, basic, chips, counter, density, loading, multiple, prependIcon, selectionSlot, showSize, validation, variant } from '@/views/demos/forms/form-elements/file-input/demoCodeFileInput'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/file-input/demoCode
       <!-- 👉 Basic -->
       <AppCardCode
         title="Basic"
-        :code="demoCode.basic"
+        :code="basic"
       >
         <p>The <code>v-file-input</code> component is used to selecting files.</p>
 
@@ -26,7 +26,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/file-input/demoCode
       <!-- 👉 Density -->
       <AppCardCode
         title="Density"
-        :code="demoCode.density"
+        :code="density"
       >
         <p>You can reduces the file input height with <code>density</code> prop.  Available options are: <code>default</code>, <code>comfortable</code>, and <code>compact</code>.</p>
 
@@ -38,7 +38,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/file-input/demoCode
       <!-- 👉 Variant -->
       <AppCardCode
         title="Variant"
-        :code="demoCode.variant"
+        :code="variant"
       >
         <p>use <code>solo</code>, <code>filled</code>, <code>outlined</code>, <code>plain</code> and <code>underlined</code> option of <code>variant</code> prop to change the look of file input.</p>
 
@@ -53,7 +53,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/file-input/demoCode
       <!-- 👉 Accept -->
       <AppCardCode
         title="Accept"
-        :code="demoCode.accept"
+        :code="accept"
       >
         <p><code>v-file-input</code> component can accept only specific media formats/file types if you want.</p>
 
@@ -68,7 +68,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/file-input/demoCode
       <!-- 👉 Chips -->
       <AppCardCode
         title="Chips"
-        :code="demoCode.chips"
+        :code="chips"
       >
         <p>Use <code>chip</code> prop to display the selected file as a chip.</p>
 
@@ -83,7 +83,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/file-input/demoCode
       <!-- 👉 Counter -->
       <AppCardCode
         title="Counter"
-        :code="demoCode.counter"
+        :code="counter"
       >
         <p>When using the <code>show-size</code> property along with <code>counter</code>, the total number of files and size will be displayed under the input.</p>
 
@@ -98,7 +98,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/file-input/demoCode
       <!-- 👉 Multiple -->
       <AppCardCode
         title="Multiple"
-        :code="demoCode.multiple"
+        :code="multiple"
       >
         <p>
           The <code>v-file-input</code> can contain multiple files at the same time when using the <code>multiple</code> prop.
@@ -115,7 +115,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/file-input/demoCode
       <!-- 👉 Prepend icon -->
       <AppCardCode
         title="Prepend icon"
-        :code="demoCode.prependIcon"
+        :code="prependIcon"
       >
         <p>
           The <code>v-file-input</code> has a default <code>prepend-icon</code> that can be set on the component or adjusted globally.
@@ -132,7 +132,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/file-input/demoCode
       <!-- 👉 Show size -->
       <AppCardCode
         title="Show size"
-        :code="demoCode.showSize"
+        :code="showSize"
       >
         <p>The displayed size of the selected file(s) can be configured with the <code>show-size</code> property.</p>
 
@@ -147,7 +147,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/file-input/demoCode
       <!-- 👉 Validation -->
       <AppCardCode
         title="Validation"
-        :code="demoCode.validation"
+        :code="validation"
       >
         <p>You can use the <code>rules</code> prop to create your own custom validation parameters.</p>
 
@@ -162,7 +162,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/file-input/demoCode
       <!-- 👉 Selection slot -->
       <AppCardCode
         title="Selection slot"
-        :code="demoCode.selectionSlot"
+        :code="selectionSlot"
       >
         <p>Using the <code>selection</code> slot, you can customize the appearance of your input selections.</p>
 
@@ -177,7 +177,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/file-input/demoCode
       <!-- 👉 Loading -->
       <AppCardCode
         title="Loading"
-        :code="demoCode.loading"
+        :code="loading"
       >
         <p>Use <code>loading</code> prop to displays linear progress bar.</p>
 

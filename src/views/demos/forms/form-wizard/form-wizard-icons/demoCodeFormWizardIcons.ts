@@ -119,6 +119,7 @@ const onSubmit = () => {
                   label="Password"
                   placeholder="············"
                   :type="isPasswordVisible ? 'text' : 'password'"
+                  autocomplete="password"
                   :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 />
@@ -131,6 +132,7 @@ const onSubmit = () => {
                 <AppTextField
                   v-model="formData.cPassword"
                   label="Confirm Password"
+                  autocomplete="confirm-password"
                   placeholder="············"
                   :type="isCPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isCPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
@@ -548,6 +550,7 @@ const onSubmit = () => {
                   label="Password"
                   placeholder="············"
                   :type="isPasswordVisible ? 'text' : 'password'"
+                  autocomplete="password"
                   :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 />
@@ -560,6 +563,7 @@ const onSubmit = () => {
                 <AppTextField
                   v-model="formData.cPassword"
                   label="Confirm Password"
+                  autocomplete="confirm-password"
                   placeholder="············"
                   :type="isCPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isCPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
@@ -2454,6 +2458,7 @@ const validateSocialLinkForm = () => {
                   label="Password"
                   :rules="[requiredValidator, passwordValidator]"
                   :type="isPasswordVisible ? 'text' : 'password'"
+                  autocomplete="password"
                   :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 />
@@ -2467,6 +2472,7 @@ const validateSocialLinkForm = () => {
                   v-model="accountForm.cPassword"
                   placeholder="············"
                   label="Confirm Password"
+                  autocomplete="confirm-password"
                   :rules="[requiredValidator, confirmedValidator(accountForm.cPassword, accountForm.password)]"
                   :type="isCPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isCPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
@@ -3065,6 +3071,7 @@ const validateSocialLinkForm = () => {
                   label="Password"
                   :rules="[requiredValidator, passwordValidator]"
                   :type="isPasswordVisible ? 'text' : 'password'"
+                  autocomplete="password"
                   :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                   @click:append-inner="isPasswordVisible = !isPasswordVisible"
                 />
@@ -3078,6 +3085,7 @@ const validateSocialLinkForm = () => {
                   v-model="accountForm.cPassword"
                   placeholder="············"
                   label="Confirm Password"
+                  autocomplete="confirm-password"
                   :rules="[requiredValidator, confirmedValidator(accountForm.cPassword, accountForm.password)]"
                   :type="isCPasswordVisible ? 'text' : 'password'"
                   :append-inner-icon="isCPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
@@ -3613,6 +3621,7 @@ const onSubmit = () => {
                       label="Password"
                       placeholder="············"
                       :type="isPasswordVisible ? 'text' : 'password'"
+                      autocomplete="password"
                       :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                       @click:append-inner="isPasswordVisible = !isPasswordVisible"
                     />
@@ -3625,6 +3634,7 @@ const onSubmit = () => {
                     <AppTextField
                       v-model="formData.cPassword"
                       label="Confirm Password"
+                      autocomplete="confirm-password"
                       placeholder="············"
                       :type="isCPasswordVisible ? 'text' : 'password'"
                       :append-inner-icon="isCPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
@@ -3909,6 +3919,7 @@ const onSubmit = () => {
                       label="Password"
                       placeholder="············"
                       :type="isPasswordVisible ? 'text' : 'password'"
+                      autocomplete="password"
                       :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                       @click:append-inner="isPasswordVisible = !isPasswordVisible"
                     />
@@ -3921,6 +3932,7 @@ const onSubmit = () => {
                     <AppTextField
                       v-model="formData.cPassword"
                       label="Confirm Password"
+                      autocomplete="confirm-password"
                       placeholder="············"
                       :type="isCPasswordVisible ? 'text' : 'password'"
                       :append-inner-icon="isCPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"

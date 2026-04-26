@@ -13,6 +13,7 @@ const itemsPerPage = ref(10)
 const page = ref(1)
 const sortBy = ref()
 const orderBy = ref()
+const selectedRows = ref([])
 
 // Update data table options
 const updateOptions = (options: any) => {
@@ -104,6 +105,11 @@ const deleteUser = async (id: number) => {
     method: 'DELETE',
   })
 
+  // Delete from selectedRows
+  const index = selectedRows.value.findIndex(row => row === id)
+  if (index !== -1)
+    selectedRows.value.splice(index, 1)
+
   // refetch User
   // TODO: Make this async
   fetchUsers()
@@ -159,6 +165,7 @@ const deleteUser = async (id: number) => {
       <!-- SECTION datatable -->
       <VDataTableServer
         v-model:items-per-page="itemsPerPage"
+        v-model:model-value="selectedRows"
         v-model:page="page"
         :items-per-page-options="[
           { value: 10, title: '10' },
@@ -294,7 +301,7 @@ const deleteUser = async (id: number) => {
 
     <!-- 👉 Add New User -->
     <AddNewUserDrawer
-      v-model:isDrawerOpen="isAddNewUserDrawerVisible"
+      v-model:is-drawer-open="isAddNewUserDrawerVisible"
       @user-data="addNewUser"
     />
   </section>

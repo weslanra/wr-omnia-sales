@@ -100,8 +100,10 @@ const isNotificationEnabled = ref(false)
           class="mt-1"
         >
           <VRadio
-            v-for="radioOption in userStatusRadioOptions"
+            v-for="(radioOption, index) in userStatusRadioOptions"
+            :id="`${index}`"
             :key="radioOption.title"
+            :name="radioOption.title"
             :label="radioOption.title"
             :value="radioOption.value"
             :color="radioOption.color"
@@ -110,7 +112,7 @@ const isNotificationEnabled = ref(false)
       </div>
 
       <!-- Settings -->
-      <div class="text-medium-emphasis">
+      <div class="text-medium-emphasis chat-settings-section">
         <div class="text-base text-disabled">
           SETTINGS
         </div>
@@ -126,6 +128,7 @@ const isNotificationEnabled = ref(false)
               Two-step Verification
             </div>
             <VSwitch
+              id="two-step-verification"
               v-model="isAuthenticationEnabled"
               density="compact"
             />
@@ -142,6 +145,7 @@ const isNotificationEnabled = ref(false)
               Notification
             </div>
             <VSwitch
+              id="chat-notification"
               v-model="isNotificationEnabled"
               density="compact"
             />
@@ -153,7 +157,7 @@ const isNotificationEnabled = ref(false)
             icon="tabler-user-plus"
             size="22"
           />
-          <div class="text-high-emphasis">
+          <div class="text-body-1 text-high-emphasis">
             Invite Friends
           </div>
         </div>
@@ -163,7 +167,7 @@ const isNotificationEnabled = ref(false)
             icon="tabler-trash"
             size="22"
           />
-          <div class="text-high-emphasis">
+          <div class="text-body-1 text-high-emphasis">
             Delete Account
           </div>
         </div>
@@ -181,3 +185,15 @@ const isNotificationEnabled = ref(false)
     </PerfectScrollbar>
   </template>
 </template>
+
+<style lang="scss">
+.chat-settings-section {
+  .v-switch {
+    .v-input__control {
+      .v-selection-control__wrapper {
+        block-size: 18px;
+      }
+    }
+  }
+}
+</style>

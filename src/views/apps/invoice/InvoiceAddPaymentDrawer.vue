@@ -43,6 +43,7 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
 
 <template>
   <VNavigationDrawer
+    data-allow-mismatch
     temporary
     location="end"
     :width="400"
@@ -64,6 +65,7 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
             <VRow>
               <VCol cols="12">
                 <AppTextField
+                  id="invoice-balance"
                   v-model="invoiceBalance"
                   label="Invoice Balance"
                   type="number"
@@ -73,6 +75,7 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
 
               <VCol cols="12">
                 <AppTextField
+                  id="payment-amount"
                   v-model="paymentAmount"
                   label="Payment Amount"
                   type="number"
@@ -82,6 +85,7 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
 
               <VCol cols="12">
                 <AppDateTimePicker
+                  id="invoice-payment-date"
                   v-model="paymentDate"
                   label="Payment Date"
                   placeholder="Select Date"
@@ -90,6 +94,7 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
 
               <VCol cols="12">
                 <AppSelect
+                  id="invoice-payment-method"
                   v-model="paymentMethod"
                   label="Select Payment Method"
                   placeholder="Select Payment Method"
@@ -99,6 +104,7 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
 
               <VCol cols="12">
                 <AppTextarea
+                  id="invoice-payment-note"
                   v-model="paymentNote"
                   label="Internal Payment Note"
                   placeholder="Internal Payment Note"

@@ -49,6 +49,7 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
 
 <template>
   <VNavigationDrawer
+    data-allow-mismatch
     temporary
     location="end"
     :width="400"
@@ -69,6 +70,8 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
             <VRow>
               <VCol cols="12">
                 <AppTextField
+                  id="sender-email"
+
                   v-model="emailFrom"
                   label="From"
                   placeholder="sender@email.com"
@@ -77,6 +80,9 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
 
               <VCol cols="12">
                 <AppTextField
+
+                  id="receiver-email"
+
                   v-model="emailTo"
                   label="To"
                   placeholder="receiver@email.com"
@@ -85,6 +91,8 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
 
               <VCol cols="12">
                 <AppTextField
+                  id="invoice-subject"
+
                   v-model="invoiceSubject"
                   label="Subject"
                   placeholder="Invoice of purchased Admin Templates"
@@ -93,6 +101,8 @@ const handleDrawerModelValueUpdate = (val: boolean) => {
 
               <VCol cols="12">
                 <AppTextarea
+                  id="payment-message"
+
                   v-model="paymentMessage"
                   rows="10"
                   label="Message"

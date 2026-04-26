@@ -3,7 +3,7 @@ import FlatPickr from 'vue-flatpickr-component'
 import { useTheme } from 'vuetify'
 
 // @ts-expect-error There won't be declaration file for it
-import { VField, filterFieldProps, makeVFieldProps } from 'vuetify/lib/components/VField/VField'
+import { VField, makeVFieldProps } from 'vuetify/lib/components/VField/VField'
 
 // @ts-expect-error There won't be declaration file for it
 import { VInput, makeVInputProps } from 'vuetify/lib/components/VInput/VInput'
@@ -19,6 +19,10 @@ defineOptions({
 })
 
 const props = defineProps({
+  modelValue: {
+    type: String,
+    default: '',
+  },
   autofocus: Boolean,
   counter: [Boolean, Number, String] as PropType<true | number | string>,
   counterValue: Function as PropType<(value: any) => number>,
@@ -57,7 +61,7 @@ const attrs = useAttrs()
 
 const [rootAttrs, compAttrs] = filterInputAttrs(attrs)
 const inputProps = ref(VInput.filterProps(props))
-const fieldProps = ref(filterFieldProps(props))
+const fieldProps = ref(VField.filterProps(props))
 
 const refFlatPicker = ref()
 
@@ -115,7 +119,7 @@ const emitModelValue = (val: string) => {
 }
 
 watch(() => props, () => {
-  fieldProps.value = filterFieldProps(props)
+  fieldProps.value = VField.filterProps(props)
   inputProps.value = VInput.filterProps(props)
 },
 {
@@ -123,11 +127,12 @@ watch(() => props, () => {
   immediate: true,
 })
 
-const elementId = computed(() => {
-  // @ts-expect-error id or label will be there
-  const _elementIdToken = fieldProps.id || fieldProps.label
+const elementId = computed (() => {
+  const _elementIdToken = fieldProps.id || fieldProps.label || inputProps.value.id
 
-  return _elementIdToken ? `app-picker-field-${_elementIdToken}-${Math.random().toString(36).slice(2, 7)}` : undefined
+  const _id = useId()
+
+  return _elementIdToken ? `app-picker-field-${_elementIdToken}` : _id
 })
 </script>
 
@@ -143,7 +148,7 @@ const elementId = computed(() => {
 
     <VInput
       v-bind="{ ...inputProps, ...rootAttrs }"
-      :model-value="modelValue"
+      :model-value="props.modelValue"
       :hide-details="props.hideDetails"
       :class="[{
         'v-text-field--prefixed': props.prefix,
@@ -153,7 +158,7 @@ const elementId = computed(() => {
       class="position-relative v-text-field"
       :style="props.style"
     >
-      <template #default="{ id, isDirty, isValid, isDisabled, isReadonly }">
+      <template #default="{ id, isDirty, isValid, isDisabled, isReadonly, validate }">
         <!-- v-field -->
         <VField
           v-bind="{ ...fieldProps, label: undefined }"
@@ -173,20 +178,20 @@ const elementId = computed(() => {
                 v-if="!isInlinePicker"
                 v-bind="compAttrs"
                 ref="refFlatPicker"
-                :model-value="modelValue"
+                :model-value="props.modelValue"
                 :placeholder="props.placeholder"
                 :readonly="isReadonly.value"
                 class="flat-picker-custom-style h-100 w-100"
                 :disabled="isReadonly.value"
                 @on-open="isCalendarOpen = true"
-                @on-close="isCalendarOpen = false"
+                @on-close="isCalendarOpen = false; validate()"
                 @update:model-value="emitModelValue"
               />
 
               <!-- simple input for inline prop -->
               <input
                 v-if="isInlinePicker"
-                :value="modelValue"
+                :value="props.modelValue"
                 :placeholder="props.placeholder"
                 :readonly="isReadonly.value"
                 class="flat-picker-custom-style h-100 w-100"
@@ -203,7 +208,7 @@ const elementId = computed(() => {
       v-if="isInlinePicker"
       v-bind="compAttrs"
       ref="refFlatPicker"
-      :model-value="modelValue"
+      :model-value="props.modelValue"
       @update:model-value="emitModelValue"
       @on-open="isCalendarOpen = true"
       @on-close="isCalendarOpen = false"

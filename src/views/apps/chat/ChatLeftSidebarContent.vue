@@ -50,6 +50,7 @@ const store = useChatStore()
     </VBadge>
 
     <AppTextField
+      id="search"
       v-model="search"
       placeholder="Search..."
       prepend-inner-icon="tabler-search"

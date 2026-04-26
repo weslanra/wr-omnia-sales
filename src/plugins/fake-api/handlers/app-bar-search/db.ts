@@ -88,6 +88,11 @@ export const db: DB = {
           title: 'Calendar',
         },
         {
+          title: 'Kanban',
+          icon: 'tabler-layout-kanban',
+          url: { name: 'apps-kanban' },
+        },
+        {
           url: { name: 'apps-ecommerce-dashboard' },
           icon: 'tabler-shopping-cart',
           title: 'ECommerce Dashboard',

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/forms/form-wizard/form-wizard-icons/demoCodeFormWizardIcons'
+import { basic, modernBasic, modernVertical, validation, vertical } from '@/views/demos/forms/form-wizard/form-wizard-icons/demoCodeFormWizardIcons'
 
 import DemoFormWizardIconsBasic from '@/views/demos/forms/form-wizard/form-wizard-icons/DemoFormWizardIconsBasic.vue'
 import DemoFormWizardIconsModernBasic from '@/views/demos/forms/form-wizard/form-wizard-icons/DemoFormWizardIconsModernBasic.vue'
@@ -14,7 +14,7 @@ import DemoFormWizardIconsVertical from '@/views/demos/forms/form-wizard/form-wi
       <AppCardCode
         variant="outlined"
         title="Basic"
-        :code="demoCode.basic"
+        :code="basic"
       >
         <DemoFormWizardIconsBasic />
       </AppCardCode>
@@ -25,7 +25,7 @@ import DemoFormWizardIconsVertical from '@/views/demos/forms/form-wizard/form-wi
       <AppCardCode
         variant="outlined"
         title="Validation"
-        :code="demoCode.validation"
+        :code="validation"
       >
         <DemoFormWizardIconsValidation />
       </AppCardCode>
@@ -36,7 +36,7 @@ import DemoFormWizardIconsVertical from '@/views/demos/forms/form-wizard/form-wi
       <AppCardCode
         variant="outlined"
         title="Vertical"
-        :code="demoCode.vertical"
+        :code="vertical"
       >
         <DemoFormWizardIconsVertical />
       </AppCardCode>
@@ -54,7 +54,7 @@ import DemoFormWizardIconsVertical from '@/views/demos/forms/form-wizard/form-wi
       <AppCardCode
         variant="outlined"
         title="Modern basic"
-        :code="demoCode.modernBasic"
+        :code="modernBasic"
       >
         <DemoFormWizardIconsModernBasic />
       </AppCardCode>
@@ -65,7 +65,7 @@ import DemoFormWizardIconsVertical from '@/views/demos/forms/form-wizard/form-wi
       <AppCardCode
         variant="outlined"
         title="Modern Vertical"
-        :code="demoCode.modernVertical"
+        :code="modernVertical"
       >
         <DemoFormWizardIconsModernVertical />
       </AppCardCode>

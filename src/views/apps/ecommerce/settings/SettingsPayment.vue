@@ -38,17 +38,13 @@ const isPaymentProvidersDialogVisible = ref(false)
         </h6>
         <div class="my-class mb-5">
           <div class="d-flex justify-space-between align-center mb-6">
-            <VAvatar
-              variant="elevated"
-              color="#fff"
-              rounded
-              size="36"
-            >
+            <div class="rounded paypal-logo">
               <img
                 :src="paypal"
-                height="25"
+                alt="Pixinvent"
+                style="padding-block: 6px;padding-inline: 18px;"
               >
-            </VAvatar>
+            </div>
 
             <VBtn variant="text">
               Activate PayPal
@@ -151,3 +147,12 @@ const isPaymentProvidersDialogVisible = ref(false)
   <AddPaymentMethodDialog v-model:is-dialog-visible="isAddPaymentMethodsDialogVisible" />
   <PaymentProvidersDialog v-model:is-dialog-visible="isPaymentProvidersDialogVisible" />
 </template>
+
+<style lang="scss" scoped>
+.paypal-logo {
+  background-color: #fff;
+  block-size: 37px;
+  box-shadow: 0 2px 4px 0 rgba(165, 163, 174, 30%);
+  inline-size: 58px;
+}
+</style>

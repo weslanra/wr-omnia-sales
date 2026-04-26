@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/components/progress-linear/demoCodeProgressLinear'
+import { buffering, color, indeterminate, reversed, rounded, slots, striped } from '@/views/demos/components/progress-linear/demoCodeProgressLinear'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/components/progress-linear/demoCodeProg
     >
       <AppCardCode
         title="Color"
-        :code="demoCode.color"
+        :code="color"
       >
         <p>Use the props <code>color</code> and <code>background-color</code> to set colors.</p>
 
@@ -26,7 +26,7 @@ import * as demoCode from '@/views/demos/components/progress-linear/demoCodeProg
     >
       <AppCardCode
         title="Buffering"
-        :code="demoCode.buffering"
+        :code="buffering"
       >
         <p>The primary value is controlled by <code>v-model</code>, whereas the buffer is controlled by the <code>buffer-value</code> prop.</p>
 
@@ -41,7 +41,7 @@ import * as demoCode from '@/views/demos/components/progress-linear/demoCodeProg
     >
       <AppCardCode
         title="Indeterminate"
-        :code="demoCode.indeterminate"
+        :code="indeterminate"
       >
         <p>for continuously animating progress bar,use prop <code>indeterminate</code>. This indicates continuous process. </p>
 
@@ -56,7 +56,7 @@ import * as demoCode from '@/views/demos/components/progress-linear/demoCodeProg
     >
       <AppCardCode
         title="Reversed"
-        :code="demoCode.reversed"
+        :code="reversed"
       >
         <p>Use prop <code>reverse</code> to animate continuously in reverse direction. The component also has RTL support.</p>
 
@@ -71,7 +71,7 @@ import * as demoCode from '@/views/demos/components/progress-linear/demoCodeProg
     >
       <AppCardCode
         title="Rounded"
-        :code="demoCode.rounded"
+        :code="rounded"
       >
         <p>
           The <code> rounded </code>prop is used to apply a border radius to the v-progress-linear component.
@@ -88,7 +88,7 @@ import * as demoCode from '@/views/demos/components/progress-linear/demoCodeProg
     >
       <AppCardCode
         title="Slots"
-        :code="demoCode.slots"
+        :code="slots"
       >
         <p>The v-progress-linear component will be responsive to user input when using <code>v-model</code>. You can use the default slot or bind a local model to display inside of the progress.</p>
 
@@ -103,7 +103,7 @@ import * as demoCode from '@/views/demos/components/progress-linear/demoCodeProg
     >
       <AppCardCode
         title="Striped"
-        :code="demoCode.striped"
+        :code="striped"
       >
         <p> The <code>striped</code> prop is used to apply striped background.</p>
         <DemoProgressLinearStriped />

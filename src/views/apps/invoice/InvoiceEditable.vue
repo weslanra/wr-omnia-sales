@@ -90,6 +90,7 @@ const removeProduct = (id: number) => {
           >Invoice:</span>
           <span>
             <AppTextField
+              id="invoice-id"
               v-model="invoice.id"
               disabled
               prefix="#"
@@ -107,6 +108,7 @@ const removeProduct = (id: number) => {
 
           <span style="inline-size: 9.5rem;">
             <AppDateTimePicker
+              id="issued-date"
               v-model="invoice.issuedDate"
               placeholder="YYYY-MM-DD"
               :config="{ position: 'auto right' }"
@@ -122,6 +124,7 @@ const removeProduct = (id: number) => {
           >Due Date:</span>
           <span style="min-inline-size: 9.5rem;">
             <AppDateTimePicker
+              id="due-date"
               v-model="invoice.dueDate"
               placeholder="YYYY-MM-DD"
               :config="{ position: 'auto right' }"
@@ -139,6 +142,7 @@ const removeProduct = (id: number) => {
         </h6>
 
         <VSelect
+          id="client-name"
           v-model="invoice.client"
           :items="clients"
           item-title="name"
@@ -248,6 +252,7 @@ const removeProduct = (id: number) => {
             Salesperson:
           </h6>
           <AppTextField
+            id="salesperson"
             v-model="salesperson"
             style="inline-size: 8rem;"
             placeholder="John Doe"
@@ -255,6 +260,7 @@ const removeProduct = (id: number) => {
         </div>
 
         <AppTextField
+          id="thanks-note"
           v-model="thanksNote"
           placeholder="Thanks for your business"
         />
@@ -322,6 +328,7 @@ const removeProduct = (id: number) => {
         Note:
       </h6>
       <VTextarea
+        id="note"
         v-model="note"
         placeholder="Write note here..."
         :rows="2"

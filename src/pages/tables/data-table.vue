@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/forms/tables/data-table/demoCodeDataTable'
+import { basic, cellSlot, dense, expandableRows, externalPagination, fixedHeader, groupingRows, kitchenSink, rowEditingViaDialog, rowSelection } from '@/views/demos/forms/tables/data-table/demoCodeDataTable'
 </script>
 
 <template>
@@ -8,7 +8,7 @@ import * as demoCode from '@/views/demos/forms/tables/data-table/demoCodeDataTab
       <!-- 👉 Basic -->
       <AppCardCode
         title="Basic"
-        :code="demoCode.basic"
+        :code="basic"
         no-padding
       >
         <DemoDataTableBasic />
@@ -19,7 +19,7 @@ import * as demoCode from '@/views/demos/forms/tables/data-table/demoCodeDataTab
       <!-- 👉 Dense  -->
       <AppCardCode
         title="Dense"
-        :code="demoCode.dense"
+        :code="dense"
         no-padding
       >
         <DemoDataTableDense />
@@ -30,7 +30,7 @@ import * as demoCode from '@/views/demos/forms/tables/data-table/demoCodeDataTab
     <VCol cols="12">
       <AppCardCode
         title="Cell Slot"
-        :code="demoCode.cellSlot"
+        :code="cellSlot"
         no-padding
       >
         <DemoDataTableCellSlot />
@@ -41,7 +41,7 @@ import * as demoCode from '@/views/demos/forms/tables/data-table/demoCodeDataTab
     <VCol cols="12">
       <AppCardCode
         title="Row Selection"
-        :code="demoCode.rowSelection"
+        :code="rowSelection"
         no-padding
       >
         <DemoDataTableRowSelection />
@@ -52,7 +52,7 @@ import * as demoCode from '@/views/demos/forms/tables/data-table/demoCodeDataTab
     <VCol cols="12">
       <AppCardCode
         title="Fixed Header"
-        :code="demoCode.fixedHeader"
+        :code="fixedHeader"
         no-padding
       >
         <DemoDataTableFixedHeader />
@@ -63,7 +63,7 @@ import * as demoCode from '@/views/demos/forms/tables/data-table/demoCodeDataTab
     <VCol cols="12">
       <AppCardCode
         title="Expandable Rows"
-        :code="demoCode.expandableRows"
+        :code="expandableRows"
         no-padding
       >
         <DemoDataTableExpandableRows />
@@ -73,7 +73,7 @@ import * as demoCode from '@/views/demos/forms/tables/data-table/demoCodeDataTab
     <VCol cols="12">
       <AppCardCode
         title="Grouping Rows"
-        :code="demoCode.groupingRows"
+        :code="groupingRows"
         no-padding
       >
         <DemoDataTableGroupingRows />
@@ -84,7 +84,7 @@ import * as demoCode from '@/views/demos/forms/tables/data-table/demoCodeDataTab
     <VCol cols="12">
       <AppCardCode
         title="Row Editing via Dialog"
-        :code="demoCode.rowEditingViaDialog"
+        :code="rowEditingViaDialog"
         no-padding
       >
         <DemoDataTableRowEditingViaDialog />
@@ -95,7 +95,7 @@ import * as demoCode from '@/views/demos/forms/tables/data-table/demoCodeDataTab
     <VCol cols="12">
       <AppCardCode
         title="External Pagination"
-        :code="demoCode.externalPagination"
+        :code="externalPagination"
         no-padding
       >
         <DemoDataTableExternalPagination />
@@ -106,7 +106,7 @@ import * as demoCode from '@/views/demos/forms/tables/data-table/demoCodeDataTab
     <VCol cols="12">
       <AppCardCode
         title="Kitchen Sink"
-        :code="demoCode.kitchenSink"
+        :code="kitchenSink"
         no-padding
       >
         <DemoDataTableKitchenSink />

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { getHighlighter } from 'shikiji'
+import { getSingletonHighlighter } from 'shiki'
 import { PerfectScrollbar } from 'vue3-perfect-scrollbar'
 
 type CodeLanguages = 'ts' | 'js'
@@ -27,15 +27,17 @@ const isCodeShown = ref(false)
 
 const { copy, copied } = useClipboard({ source: computed(() => props.code[preferredCodeLanguage.value]) })
 
-const highlighter = await getHighlighter({
+const highlighter = await getSingletonHighlighter({
   themes: ['dracula', 'dracula-soft'],
   langs: ['vue'],
 })
 
-const codeSnippet = highlighter.codeToHtml(props.code[preferredCodeLanguage.value], {
-  lang: 'vue',
-  theme: 'dracula',
-})
+const codeSnippet = computed(() =>
+  highlighter.codeToHtml(props.code[preferredCodeLanguage.value], {
+    lang: 'vue',
+    theme: 'dracula',
+  }),
+)
 </script>
 
 <template>
@@ -124,7 +126,7 @@ const codeSnippet = highlighter.codeToHtml(props.code[preferredCodeLanguage.valu
 </template>
 
 <style lang="scss">
-@use "@styles/variables/vuetify.scss";
+@use "@styles/variables/vuetify";
 
 code[class*="language-"],
 pre[class*="language-"] {

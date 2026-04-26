@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/components/progress-circular/demoCodeProgressCircular'
+import { color, indeterminate, rotate, size } from '@/views/demos/components/progress-circular/demoCodeProgressCircular'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/components/progress-circular/demoCodePr
     >
       <AppCardCode
         title="color"
-        :code="demoCode.color"
+        :code="color"
       >
         <p>Alternate colors can be applied to <code>v-progress-circular</code> using the <code>color</code> prop.</p>
 
@@ -26,7 +26,7 @@ import * as demoCode from '@/views/demos/components/progress-circular/demoCodePr
     >
       <AppCardCode
         title="Indeterminate"
-        :code="demoCode.indeterminate"
+        :code="indeterminate"
       >
         <p>Using the <code>indeterminate</code> prop, a <code>v-progress-circular</code> continues to animate indefinitely.</p>
 
@@ -41,7 +41,7 @@ import * as demoCode from '@/views/demos/components/progress-circular/demoCodePr
     >
       <AppCardCode
         title="Rotate"
-        :code="demoCode.rotate"
+        :code="rotate"
       >
         <p>The <code>rotate</code> prop gives you the ability to customize the <code>v-progress-circular</code>'s origin.</p>
 
@@ -56,7 +56,7 @@ import * as demoCode from '@/views/demos/components/progress-circular/demoCodePr
     >
       <AppCardCode
         title="Size"
-        :code="demoCode.size"
+        :code="size"
       >
         <p>The <code>size</code> and <code>width</code> props allow you to easily alter the size and width of the <code>v-progress-circular</code> component.</p>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/forms/form-elements/select/demoCodeSelect'
+import { basic, chips, customTextAndValue, density, icons, menuProps, multiple, selectionSlot, variant } from '@/views/demos/forms/form-elements/select/demoCodeSelect'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/select/demoCodeSele
       <!-- 👉 Basic -->
       <AppCardCode
         title="Basic"
-        :code="demoCode.basic"
+        :code="basic"
       >
         <p>Select fields components are used for collecting user provided information from a list of options.</p>
         <DemoSelectBasic />
@@ -25,7 +25,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/select/demoCodeSele
       <!-- 👉 Density -->
       <AppCardCode
         title="Density"
-        :code="demoCode.density"
+        :code="density"
       >
         <p>You can use <code>density</code> prop to reduce the field height and lower max height of list items.</p>
         <DemoSelectDensity />
@@ -36,7 +36,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/select/demoCodeSele
       <!-- 👉 Variant -->
       <AppCardCode
         title="Variant"
-        :code="demoCode.variant"
+        :code="variant"
       >
         <p>
           Use <code>filled</code>, <code>outlined</code>, <code>solo</code>, <code>underlined</code> and <code>plain</code> options of <code>variant</code> prop to change appearance of select.
@@ -53,7 +53,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/select/demoCodeSele
       <!-- 👉 Custom text and value -->
       <AppCardCode
         title="Custom text and value"
-        :code="demoCode.customTextAndValue"
+        :code="customTextAndValue"
       >
         <p>You can specify the specific properties within your items array that correspond to the title and value fields. In this example we also use the return-object prop which will return the entire object of the selected item on selection.</p>
 
@@ -68,7 +68,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/select/demoCodeSele
       <!-- 👉 Icons -->
       <AppCardCode
         title="Icons"
-        :code="demoCode.icons"
+        :code="icons"
       >
         <p>Use a custom <code>prepend</code> or <code>appended</code> icon.</p>
 
@@ -83,7 +83,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/select/demoCodeSele
       <!-- 👉 Chips -->
       <AppCardCode
         title="Chips"
-        :code="demoCode.chips"
+        :code="chips"
       >
         <p>Use <code>chips</code> prop to make selected option as chip.</p>
 
@@ -98,7 +98,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/select/demoCodeSele
       <!-- 👉 Menu Props -->
       <AppCardCode
         title="Menu Props"
-        :code="demoCode.menuProps"
+        :code="menuProps"
       >
         <p>Custom props can be passed directly to <code>v-menu</code> using <code>menuProps</code> prop.</p>
 
@@ -113,7 +113,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/select/demoCodeSele
       <!-- 👉 Multiple -->
       <AppCardCode
         title="Multiple"
-        :code="demoCode.multiple"
+        :code="multiple"
       >
         <p>Use <code>multiple</code> prop to select multiple option.</p>
 
@@ -128,7 +128,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/select/demoCodeSele
       <!-- 👉 Selection slot -->
       <AppCardCode
         title="Selection slot"
-        :code="demoCode.selectionSlot"
+        :code="selectionSlot"
       >
         <p>The <code>selection</code> slot can be used to customize the way selected values are shown in the input.</p>
 

@@ -17,6 +17,7 @@
   "Badge": "شارة",
   "Button": "زر",
   "Calendar": "تقويم",
+  "Kanban": "مجلس كانبان",
   "Image": "صورة",
   "Pagination": "ترقيم الصفحات",
   "Progress Circular": "تقدم التعميم",
@@ -156,6 +157,15 @@
   "checkout": "الدفع",
   "Payment": "دفع",
   "Swiper": "المنزلق",
+  "Shortcut": "اختصار",
+  "Appointments": "المواعيد",
+  "Invoice App": "تطبيق الفاتورة",
+  "Manage Accounts": "إدارة الحسابات",
+  "Users": "المستخدمون",
+  "Manage Users": "إدارة المستخدمين",
+  "Role Management": "إدارة الأدوار",
+  "Permission": "إذن",
+  "Dashboard Analytics": "تحليلات لوحة القيادة",
   "3": "3",
   "5": "5",
   "10": "10",
@@ -172,6 +182,13 @@
     "carousel": {
       "ariaLabel": {
         "delimiter": "تحديد"
+      }
+    },
+    "colorPicker": {
+      "ariaLabel": {
+        "hueSlider": "شريط تدرج اللون",
+        "eyedropper": "قطارة",
+        "hexInput": "إدخال هيكس"
       }
     },
     "dataFooter": {
@@ -207,6 +224,14 @@
       "ariaLabel": {
         "item": "العنصر"
       }
+    },
+    "video": {
+      "seek": "يطلب",
+      "play": "يلعب",
+      "pause": "يوقف",
+      "showVolume": "إظهار الحجم",
+      "enterFullscreen": "أدخل ملء الشاشة",
+      "volume": "مقدار"
     }
   }
 }

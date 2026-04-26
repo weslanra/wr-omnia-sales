@@ -98,7 +98,7 @@ const socialAccounts = ref([
                 :key="item.logo"
               >
                 <template #prepend>
-                  <VAvatar start>
+                  <VAvatar>
                     <img
                       :src="item.logo"
                       height="32"
@@ -145,10 +145,7 @@ const socialAccounts = ref([
                 :key="item.logo"
               >
                 <template #prepend>
-                  <VAvatar
-                    rounded
-                    start
-                  >
+                  <VAvatar rounded>
                     <img
                       :src="item.logo"
                       height="32"

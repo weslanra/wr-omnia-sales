@@ -114,7 +114,7 @@ const reviewData = [
   },
 ]
 
-const customerReviewSwiper = ref(null)
+const customerReviewSwiper = ref<any>(null)
 
 const slide = (dir: string) => {
   const swiper = customerReviewSwiper.value?.swiper

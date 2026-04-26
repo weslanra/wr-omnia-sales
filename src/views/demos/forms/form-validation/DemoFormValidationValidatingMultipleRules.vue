@@ -63,11 +63,11 @@ const isConfirmPasswordVisible = ref(false)
         <AppTextField
           v-model="confirmPassword"
           label="Confirm Password"
+          autocomplete="confirm-password"
           :type="isConfirmPasswordVisible ? 'text' : 'password'"
           placeholder="Confirm Password"
           :append-inner-icon="confirmPassword ? 'tabler-eye-off' : 'tabler-eye'"
           :rules="[requiredValidator, confirmedValidator(confirmPassword, password)]"
-          autocomplete="on"
           @click:append-inner="isConfirmPasswordVisible = !isConfirmPasswordVisible"
         />
       </VCol>

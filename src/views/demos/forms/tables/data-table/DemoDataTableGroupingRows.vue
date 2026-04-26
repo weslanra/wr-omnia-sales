@@ -357,7 +357,7 @@ const getIcon = (props: Record<string, unknown>) => props.icon as any
     </template>
 
     <template #data-table-group="{ props, item, count }">
-      <td>
+      <td colspan="12">
         <VBtn
           v-bind="props"
           variant="text"

@@ -22,6 +22,7 @@ const itemsPerPage = ref(10)
 const page = ref(1)
 const sortBy = ref()
 const orderBy = ref()
+const selectedRows = ref([])
 
 // Data table Headers
 const headers = [
@@ -83,6 +84,13 @@ const deleteOrder = async (id: number) => {
   await $api(`/apps/ecommerce/orders/${id}`, {
     method: 'DELETE',
   })
+
+  // Delete from selectedRows
+  const index = selectedRows.value.findIndex(row => row === id)
+  if (index !== -1)
+    selectedRows.value.splice(index, 1)
+
+  // Refetch Orders
   fetchOrders()
 }
 </script>
@@ -178,10 +186,10 @@ const deleteOrder = async (id: number) => {
       <!-- 👉 Order Table -->
       <VDataTableServer
         v-model:items-per-page="itemsPerPage"
+        v-model:model-value="selectedRows"
         v-model:page="page"
         :headers="headers"
         :items="orders"
-        item-value="order"
         :items-length="totalOrder"
         show-select
         class="text-no-wrap"

@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { VideoPlayer } from '@videojs-player/vue'
 import type { CourseDetails } from '@db/apps/academy/types'
 import InstructorPoster from '@images/pages/instructor-poster.png'
-import 'video.js/dist/video-js.css'
 
 const courseDetails = ref<CourseDetails>()
 
@@ -60,13 +58,14 @@ const panelStatus = ref(0)
             border
           >
             <div class="px-2 pt-2">
-              <VideoPlayer
+              <VVideo
+                :image="InstructorPoster"
                 src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4"
-                :poster="InstructorPoster"
-                controls
-                plays-inline
+                pills
+                density="compact"
                 :height="$vuetify.display.mdAndUp ? 440 : 250"
-                class="w-100 rounded"
+                elevation="0"
+                rounded
               />
             </div>
             <VCardText>

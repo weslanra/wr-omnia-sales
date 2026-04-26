@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/components/tooltip/demoCodeTooltip'
+import { delayOnHover, events, location, tooltipOnVariousElements, transition, vModelSupport } from '@/views/demos/components/tooltip/demoCodeTooltip'
 </script>
 
 <template>
@@ -8,7 +8,7 @@ import * as demoCode from '@/views/demos/components/tooltip/demoCodeTooltip'
       <!-- 👉 Location -->
       <AppCardCode
         title="Location"
-        :code="demoCode.location"
+        :code="location"
       >
         <p>Use the <code>location</code> prop to specify on which side of the element the tooltip should show</p>
 
@@ -20,7 +20,7 @@ import * as demoCode from '@/views/demos/components/tooltip/demoCodeTooltip'
       <!-- 👉 Events -->
       <AppCardCode
         title="Events"
-        :code="demoCode.events"
+        :code="events"
       >
         <DemoTooltipEvents />
       </AppCardCode>
@@ -30,7 +30,7 @@ import * as demoCode from '@/views/demos/components/tooltip/demoCodeTooltip'
       <!-- 👉 Delay On Hover -->
       <AppCardCode
         title="Delay On Hover"
-        :code="demoCode.delayOnHover"
+        :code="delayOnHover"
       >
         <p>Delay (in ms) after which tooltip opens (when <code>open-on-hover</code> prop is set to true)</p>
 
@@ -42,7 +42,7 @@ import * as demoCode from '@/views/demos/components/tooltip/demoCodeTooltip'
       <!-- 👉 V-model Support -->
       <AppCardCode
         title="V-Model Support"
-        :code="demoCode.vModelSupport"
+        :code="vModelSupport"
       >
         <p>Tooltip visibility can be programmatically changed using <code>v-model</code>.</p>
 
@@ -54,7 +54,7 @@ import * as demoCode from '@/views/demos/components/tooltip/demoCodeTooltip'
       <!-- 👉 Transition -->
       <AppCardCode
         title="Transition"
-        :code="demoCode.transition"
+        :code="transition"
       >
         <p>Use <code>transition</code> prop to sets the component transition.</p>
 
@@ -66,7 +66,7 @@ import * as demoCode from '@/views/demos/components/tooltip/demoCodeTooltip'
       <!-- 👉 Tooltip on Various Elements -->
       <AppCardCode
         title="Tooltip on Various Elements"
-        :code="demoCode.tooltipOnVariousElements"
+        :code="tooltipOnVariousElements"
       >
         <p>Tooltips can wrap any element.</p>
 

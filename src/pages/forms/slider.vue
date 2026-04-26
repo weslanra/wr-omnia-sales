@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/forms/form-elements/slider/demoCodeSlider'
+import { appendAndPrepend, appendTextField, basic, colors, disabledAndReadonly, icons, minAndMax, size, step, thumb, ticks, validation, vertical } from '@/views/demos/forms/form-elements/slider/demoCodeSlider'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/slider/demoCodeSlid
       <!-- 👉 Basic -->
       <AppCardCode
         title="Basic"
-        :code="demoCode.basic"
+        :code="basic"
       >
         <p>The <code>v-slider</code> component is a better visualization of the number input.</p>
 
@@ -26,7 +26,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/slider/demoCodeSlid
       <!-- 👉 Disabled and Readonly -->
       <AppCardCode
         title="Disabled and Readonly"
-        :code="demoCode.disabledAndReadonly"
+        :code="disabledAndReadonly"
       >
         <p>You cannot interact with <code>disabled</code> and <code>readonly</code> sliders.</p>
 
@@ -41,7 +41,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/slider/demoCodeSlid
       <!-- 👉 Colors -->
       <AppCardCode
         title="Colors"
-        :code="demoCode.colors"
+        :code="colors"
       >
         <p>You can set the colors of the slider using the props <code>color</code>, <code>track-color</code> and <code>thumb-color</code>.</p>
 
@@ -56,7 +56,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/slider/demoCodeSlid
       <!-- 👉 Icons -->
       <AppCardCode
         title="Icons"
-        :code="demoCode.icons"
+        :code="icons"
       >
         <p>You can add icons to the slider with the <code>append-icon</code> and <code>prepend-icon</code> props.</p>
 
@@ -71,7 +71,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/slider/demoCodeSlid
       <!-- 👉 Step -->
       <AppCardCode
         title="Step"
-        :code="demoCode.step"
+        :code="step"
       >
         <p>Using the <code>step</code> prop you can control the precision of the slider, and how much it should move each step.</p>
 
@@ -86,7 +86,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/slider/demoCodeSlid
       <!-- 👉 Validation -->
       <AppCardCode
         title="Validation"
-        :code="demoCode.validation"
+        :code="validation"
       >
         <p>Vuetify includes simple validation through the <code>rules</code> prop.</p>
 
@@ -101,7 +101,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/slider/demoCodeSlid
       <!-- 👉 Min and Max -->
       <AppCardCode
         title="Min and Max"
-        :code="demoCode.minAndMax"
+        :code="minAndMax"
       >
         <p>You can set <code>min</code> and <code>max</code> values of sliders.</p>
 
@@ -116,7 +116,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/slider/demoCodeSlid
       <!-- 👉 Size -->
       <AppCardCode
         title="Size"
-        :code="demoCode.size"
+        :code="size"
       >
         <p>Use <code>thumb-size</code>, <code>tick-size</code>, and <code>track-size</code> prop to increase and decrease the size of thumb, tick and track. </p>
 
@@ -131,7 +131,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/slider/demoCodeSlid
       <!-- 👉 Thumb -->
       <AppCardCode
         title="Thumb"
-        :code="demoCode.thumb"
+        :code="thumb"
       >
         <p>You can display a thumb label while sliding or always with the <code>thumb-label</code> prop.</p>
 
@@ -146,7 +146,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/slider/demoCodeSlid
       <!-- 👉 Ticks -->
       <AppCardCode
         title="Ticks"
-        :code="demoCode.ticks"
+        :code="ticks"
       >
         <p>Tick marks represent predetermined values to which the user can move the slider.</p>
 
@@ -161,7 +161,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/slider/demoCodeSlid
       <!-- 👉 Vertical -->
       <AppCardCode
         title="Vertical"
-        :code="demoCode.vertical"
+        :code="vertical"
       >
         <p>
           You can use the <code>vertical</code> prop to switch sliders to a vertical orientation.
@@ -178,7 +178,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/slider/demoCodeSlid
       <!-- 👉 Append text field -->
       <AppCardCode
         title="Append text field"
-        :code="demoCode.appendTextField"
+        :code="appendTextField"
       >
         <p>Sliders can be combined with other components in its <code>append</code> slot, such as <code>v-text-field</code>, to add additional functionality to the component.</p>
 
@@ -193,7 +193,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/slider/demoCodeSlid
       <!-- 👉 Append and prepend -->
       <AppCardCode
         title="Append and prepend"
-        :code="demoCode.appendAndPrepend"
+        :code="appendAndPrepend"
       >
         <p>Use slots such as <code>append</code> and <code>prepend</code> to easily customize the <code>v-slider</code> to fit any situation.</p>
 

@@ -108,10 +108,14 @@ const chatContentContainerBg = computed(() => {
 </script>
 
 <template>
-  <VLayout class="chat-app-layout">
+  <VLayout
+    class="chat-app-layout"
+    style="z-index: 0;"
+  >
     <!-- 👉 user profile sidebar -->
     <VNavigationDrawer
       v-model="isUserProfileSidebarOpen"
+      data-allow-mismatch
       temporary
       touchless
       absolute
@@ -125,6 +129,7 @@ const chatContentContainerBg = computed(() => {
     <!-- 👉 Active Chat sidebar -->
     <VNavigationDrawer
       v-model="isActiveChatUserProfileSidebarOpen"
+      data-allow-mismatch
       width="374"
       absolute
       temporary
@@ -138,6 +143,7 @@ const chatContentContainerBg = computed(() => {
     <!-- 👉 Left sidebar   -->
     <VNavigationDrawer
       v-model="isLeftSidebarOpen"
+      data-allow-mismatch
       absolute
       touchless
       location="start"
@@ -147,7 +153,7 @@ const chatContentContainerBg = computed(() => {
       :permanent="$vuetify.display.mdAndUp"
     >
       <ChatLeftSidebarContent
-        v-model:isDrawerOpen="isLeftSidebarOpen"
+        v-model:is-drawer-open="isLeftSidebarOpen"
         v-model:search="q"
         @open-chat-of-contact="openChatOfContact"
         @show-user-profile="isUserProfileSidebarOpen = true"
@@ -269,15 +275,20 @@ const chatContentContainerBg = computed(() => {
                     size="22"
                   />
                 </IconBtn>
-                <VBtn @click="sendMessage">
-                  <template #append>
-                    <VIcon
-                      icon="tabler-send"
-                      color="#fff"
-                    />
-                  </template>
-                  Send
-                </VBtn>
+                <div class="d-none d-md-block">
+                  <VBtn
+                    append-icon="tabler-send"
+                    @click="sendMessage"
+                  >
+                    Send
+                  </VBtn>
+                </div>
+                <IconBtn
+                  class="d-block d-md-none"
+                  @click="sendMessage"
+                >
+                  <VIcon icon="tabler-send" />
+                </IconBtn>
               </div>
             </template>
           </VTextField>
@@ -309,10 +320,9 @@ const chatContentContainerBg = computed(() => {
             icon="tabler-message-2"
           />
         </VAvatar>
-
         <VBtn
           v-if="$vuetify.display.smAndDown"
-          rounded="xl"
+          rounded="pill"
           @click="startConversation"
         >
           Start Conversation
@@ -331,8 +341,8 @@ const chatContentContainerBg = computed(() => {
 </template>
 
 <style lang="scss">
-@use "@styles/variables/vuetify.scss";
-@use "@core/scss/base/mixins.scss";
+@use "@styles/variables/vuetify";
+@use "@core/scss/base/mixins";
 @use "@layouts/styles/mixins" as layoutsMixins;
 
 // Variables

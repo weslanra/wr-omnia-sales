@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/forms/tables/simple-table/demoCodeSimpleTable'
+import { basic, density, fixedHeader, height, theme } from '@/views/demos/forms/tables/simple-table/demoCodeSimpleTable'
 </script>
 
 <template>
@@ -7,7 +7,7 @@ import * as demoCode from '@/views/demos/forms/tables/simple-table/demoCodeSimpl
     <VCol cols="12">
       <AppCardCode
         title="Basic"
-        :code="demoCode.basic"
+        :code="basic"
         no-padding
       >
         <DemoSimpleTableBasic />
@@ -17,7 +17,7 @@ import * as demoCode from '@/views/demos/forms/tables/simple-table/demoCodeSimpl
     <VCol cols="12">
       <AppCardCode
         title="Theme"
-        :code="demoCode.theme"
+        :code="theme"
         no-padding
       >
         <VCardText>
@@ -30,7 +30,7 @@ import * as demoCode from '@/views/demos/forms/tables/simple-table/demoCodeSimpl
     <VCol cols="12">
       <AppCardCode
         title="Density"
-        :code="demoCode.density"
+        :code="density"
         no-padding
       >
         <VCardText>
@@ -43,7 +43,7 @@ import * as demoCode from '@/views/demos/forms/tables/simple-table/demoCodeSimpl
     <VCol cols="12">
       <AppCardCode
         title="Height"
-        :code="demoCode.height"
+        :code="height"
         no-padding
       >
         <VCardText>
@@ -56,7 +56,7 @@ import * as demoCode from '@/views/demos/forms/tables/simple-table/demoCodeSimpl
     <VCol cols="12">
       <AppCardCode
         title="Fixed Header"
-        :code="demoCode.fixedHeader"
+        :code="fixedHeader"
         no-padding
       >
         <VCardText>

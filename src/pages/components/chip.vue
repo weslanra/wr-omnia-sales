@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/components/chip/demoCodeChip'
+import { closable, color, elevated, expandable, inSelects, outlined, rounded, sizes, withAvatar, withIcon } from '@/views/demos/components/chip/demoCodeChip'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/components/chip/demoCodeChip'
       <!-- 👉 Color -->
       <AppCardCode
         title="Color"
-        :code="demoCode.color"
+        :code="color"
       >
         <p>Use <code>color</code> prop to change the background color of chips.</p>
 
@@ -26,7 +26,7 @@ import * as demoCode from '@/views/demos/components/chip/demoCodeChip'
       <!-- 👉 Elevated -->
       <AppCardCode
         title="Elevated"
-        :code="demoCode.elevated"
+        :code="elevated"
       >
         <p>Use <code>elevated</code> variant option to create filled chips.</p>
 
@@ -41,7 +41,7 @@ import * as demoCode from '@/views/demos/components/chip/demoCodeChip'
       <!-- 👉 Outlined -->
       <AppCardCode
         title="Outlined"
-        :code="demoCode.outlined"
+        :code="outlined"
       >
         <p>Use <code>outlined</code> variant option to create outline border chips.</p>
 
@@ -56,7 +56,7 @@ import * as demoCode from '@/views/demos/components/chip/demoCodeChip'
       <!-- 👉 Label -->
       <AppCardCode
         title="Rounded"
-        :code="demoCode.rounded"
+        :code="rounded"
       >
         <p>To use the rounded chip, set <code>label</code> props value to <strong>false</strong>.</p>
 
@@ -71,7 +71,7 @@ import * as demoCode from '@/views/demos/components/chip/demoCodeChip'
       <!-- 👉 Closable -->
       <AppCardCode
         title="Closable"
-        :code="demoCode.closable"
+        :code="closable"
       >
         <p>Closable chips can be controlled with a <code>v-model</code>.</p>
 
@@ -86,7 +86,7 @@ import * as demoCode from '@/views/demos/components/chip/demoCodeChip'
       <!-- 👉 Chip With Icon -->
       <AppCardCode
         title="With Icon"
-        :code="demoCode.withIcon"
+        :code="withIcon"
       >
         <p>Chips can use text or any icon available in the Material Icons font library.</p>
 
@@ -101,7 +101,7 @@ import * as demoCode from '@/views/demos/components/chip/demoCodeChip'
       <!-- 👉 Avatar -->
       <AppCardCode
         title="With Avatar"
-        :code="demoCode.withAvatar"
+        :code="withAvatar"
       >
         <p>Use <code>pill</code> prop to remove the <code>v-avatar</code> padding.</p>
 
@@ -116,7 +116,7 @@ import * as demoCode from '@/views/demos/components/chip/demoCodeChip'
       <!-- 👉 Sizes -->
       <AppCardCode
         title="Sizes"
-        :code="demoCode.sizes"
+        :code="sizes"
       >
         <p>The <code>v-chip</code> component can have various sizes from <code>x-small</code> to <code>x-large</code>.</p>
 
@@ -131,7 +131,7 @@ import * as demoCode from '@/views/demos/components/chip/demoCodeChip'
       <!-- 👉 In Selects -->
       <AppCardCode
         title="In Selects"
-        :code="demoCode.inSelects"
+        :code="inSelects"
       >
         <p>Selects can use <code>chips</code> to display the selected data. Try adding your own tags below.</p>
 
@@ -146,7 +146,7 @@ import * as demoCode from '@/views/demos/components/chip/demoCodeChip'
       <!-- 👉 Expandable -->
       <AppCardCode
         title="Expandable"
-        :code="demoCode.expandable"
+        :code="expandable"
       >
         <p>Chips can be combined with <code>v-menu</code> to enable a specific set of actions for a chip.</p>
 

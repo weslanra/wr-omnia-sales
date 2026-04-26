@@ -9,7 +9,7 @@ import fleetImg from '@images/misc/fleet-car.png'
 
 const { isLeftSidebarOpen } = useResponsiveLeftSidebar()
 
-const accessToken = 'pk.eyJ1Ijoic29jaWFsZXhwbG9yZXIiLCJhIjoiREFQbXBISSJ9.dwFTwfSaWsHvktHrRtpydQ'
+const accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 const map = ref()
 
 const vuetifyDisplay = useDisplay()
@@ -61,7 +61,9 @@ const geojson = {
 
 const activeIndex = ref(0)
 
-onMounted(() => {
+onMounted(async () => {
+  await new Promise(resolve => setTimeout(resolve, 100))
+
   mapboxgl.accessToken = accessToken
 
   map.value = new mapboxgl.Map({
@@ -132,6 +134,7 @@ watch(activeIndex, () => {
   <VLayout class="fleet-app-layout">
     <VNavigationDrawer
       v-model="isLeftSidebarOpen"
+      data-allow-mismatch
       width="360"
       absolute
       touchless
@@ -316,8 +319,8 @@ watch(activeIndex, () => {
 </template>
 
 <style lang="scss">
-@use "@styles/variables/vuetify.scss";
-@use "@core/scss/base/mixins.scss";
+@use "@styles/variables/vuetify";
+@use "@core/scss/base/mixins";
 @import "mapbox-gl/dist/mapbox-gl.css";
 
 .fleet-app-layout {

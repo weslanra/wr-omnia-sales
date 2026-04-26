@@ -81,7 +81,7 @@ const demoList = [
             sm="4"
             xs="6"
           >
-            <div>
+            <div class="footer-links">
               <h6 class="footer-title text-h6 mb-6">
                 Demos
               </h6>
@@ -110,7 +110,7 @@ const demoList = [
             sm="4"
             xs="6"
           >
-            <div>
+            <div class="footer-links">
               <h6 class="footer-title text-h6 mb-6">
                 Pages
               </h6>
@@ -247,6 +247,15 @@ const demoList = [
   border-radius: 60px 60px 0 0;
   background-size: cover;
   color: #fff;
+}
+
+.footer-links {
+  .text-white-variant,
+  .text-body-1 {
+    &:hover {
+      color: #fff;
+    }
+  }
 }
 
 .footer-line {

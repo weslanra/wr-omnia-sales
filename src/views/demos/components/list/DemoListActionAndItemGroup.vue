@@ -9,7 +9,7 @@
 
     <VListItem value="notifications">
       <template #prepend="{ isActive }">
-        <VListItemAction start>
+        <VListItemAction>
           <VCheckbox
             :model-value="isActive"
             color="primary"
@@ -24,7 +24,7 @@
 
     <VListItem value="sound">
       <template #prepend="{ isActive }">
-        <VListItemAction start>
+        <VListItemAction>
           <VCheckbox
             :model-value="isActive"
             color="primary"
@@ -39,7 +39,7 @@
 
     <VListItem value="widgets">
       <template #prepend="{ isActive }">
-        <VListItemAction start>
+        <VListItemAction>
           <VCheckbox
             :model-value="isActive"
             color="primary"

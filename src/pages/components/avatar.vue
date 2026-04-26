@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import * as demoCode from '@/views/demos/components/avatar/demoCodeAvatar'
+import { colors, group, icons, images, rounded, sizes, tonal } from '@/views/demos/components/avatar/demoCodeAvatar'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/components/avatar/demoCodeAvatar'
       <!-- 👉 Colors -->
       <AppCardCode
         title="Colors"
-        :code="demoCode.colors"
+        :code="colors"
       >
         <p>Use <code>color</code> prop to change the background color of avatar.</p>
 
@@ -26,7 +26,7 @@ import * as demoCode from '@/views/demos/components/avatar/demoCodeAvatar'
       <!-- 👉 Initials -->
       <AppCardCode
         title="Tonal"
-        :code="demoCode.tonal"
+        :code="tonal"
       >
         <p>Use <code>variant="tonal"</code> to create light background avatars.</p>
 
@@ -41,7 +41,7 @@ import * as demoCode from '@/views/demos/components/avatar/demoCodeAvatar'
       <!-- 👉 Sizes -->
       <AppCardCode
         title="Sizes"
-        :code="demoCode.sizes"
+        :code="sizes"
       >
         <p>The <code>size</code> prop allows you to change the height and width of the avatar.</p>
 
@@ -56,7 +56,7 @@ import * as demoCode from '@/views/demos/components/avatar/demoCodeAvatar'
       <!-- 👉 Icons -->
       <AppCardCode
         title="Icons"
-        :code="demoCode.icons"
+        :code="icons"
       >
         <p>You can use <code>icon</code> prop of <code>v-avatar</code> component for rendering icons.</p>
 
@@ -71,7 +71,7 @@ import * as demoCode from '@/views/demos/components/avatar/demoCodeAvatar'
       <!-- 👉 Rounded -->
       <AppCardCode
         title="Rounded"
-        :code="demoCode.rounded"
+        :code="rounded"
       >
         <p>The <code>rounded</code> prop can be used to change the border radius of <code>v-avatar</code>.</p>
 
@@ -86,7 +86,7 @@ import * as demoCode from '@/views/demos/components/avatar/demoCodeAvatar'
       <!-- 👉 Images -->
       <AppCardCode
         title="Images"
-        :code="demoCode.images"
+        :code="images"
       >
         <p>You can use <code>image</code> prop of <code>v-avatar</code> component for rendering image.</p>
 
@@ -101,7 +101,7 @@ import * as demoCode from '@/views/demos/components/avatar/demoCodeAvatar'
       <!-- 👉 Group -->
       <AppCardCode
         title="Group"
-        :code="demoCode.group"
+        :code="group"
       >
         <p>Use <code>v-avatar-group</code> class as a wrapper of avatars.</p>
 

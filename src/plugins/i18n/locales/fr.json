@@ -17,6 +17,7 @@
   "Badge": "Badge",
   "Button": "Bouton",
   "Calendar": "Calendrier",
+  "Kanban": "Tableau Kanban",
   "Image": "Image",
   "Pagination": "Pagination",
   "Progress Circular": "Progrès circulaire",
@@ -158,6 +159,15 @@
   "checkout": "Check-out",
   "Payment": "Paiement",
   "Swiper": "Swiper",
+  "Shortcut": "Raccourci",
+  "Appointments": "Rendez-vous",
+  "Invoice App": "Application de facturation",
+  "Manage Accounts": "Gérer les comptes",
+  "Users": "Utilisateurs",
+  "Manage Users": "Gérer les utilisateurs",
+  "Role Management": "Gestion des rôles",
+  "Permission": "Autorisation",
+  "Dashboard Analytics": "Analyse du tableau de bord",
   "5": "5",
   "10": "10",
   "20": "20",
@@ -173,6 +183,13 @@
     "carousel": {
       "ariaLabel": {
         "delimiter": "délimiteur"
+      }
+    },
+    "colorPicker": {
+      "ariaLabel": {
+        "hueSlider": "curseur de teinte",
+        "eyedropper": "compte-gouttes",
+        "hexInput": "entrée hexadécimale"
       }
     },
     "dataFooter": {
@@ -208,6 +225,14 @@
       "ariaLabel": {
         "item": "Objet"
       }
+    },
+    "video": {
+      "seek": "Rechercher",
+      "play": "Jouer",
+      "pause": "Pause",
+      "showVolume": "Afficher le volume",
+      "enterFullscreen": "Entrer en plein écran",
+      "volume": "Volume"
     }
   }
 }

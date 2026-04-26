@@ -7,6 +7,7 @@ import miscMaskLight from '@images/pages/misc-mask-light.png'
 definePage({
   meta: {
     layout: 'blank',
+    public: true,
   },
 })
 

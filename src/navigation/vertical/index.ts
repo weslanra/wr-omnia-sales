@@ -9,4 +9,4 @@ import records from './records'
 import settings from './settings'
 import uiElements from './ui-elements'
 
-export default [...records, ...finances, ...settings, ...dashboard, ...appsAndPages, ...uiElements, ...forms, ...charts, ...others] as VerticalNavItems
+export default [...dashboard, ...appsAndPages, ...uiElements, ...forms, ...charts, ...others, ...finances, ...records, ...settings] as VerticalNavItems

@@ -62,7 +62,6 @@ export default {
   },
   VMenu: {
     offset: '2px',
-    scrollStrategy: 'block',
   },
   VPagination: {
     density: 'comfortable',
@@ -188,5 +187,10 @@ export default {
   },
   VNavigationDrawer: {
     touchless: true,
+  },
+  VVideo: {
+    VSlider: {
+      thumbLabel: false,
+    },
   },
 }

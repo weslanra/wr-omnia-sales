@@ -47,6 +47,16 @@ const aliases: Partial<IconAliases> = {
   minus: 'tabler-minus',
   sortAsc: 'tabler-arrow-up',
   sortDesc: 'tabler-arrow-down',
+  play: 'tabler-player-play',
+  pause: 'tabler-player-pause',
+  fullscreen: 'tabler-maximize',
+  fullscreenExit: 'tabler-minimize',
+  volumeHigh: 'tabler-volume',
+  volumeMedium: 'tabler-volume-2',
+  volumeLow: 'tabler-volume-2',
+  volumeOff: 'tabler-volume-off',
+  tableGroupExpand: 'tabler-chevron-right',
+  tableGroupCollapse: 'tabler-chevron-down',
 }
 
 export const iconify = {

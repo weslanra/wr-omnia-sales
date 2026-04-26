@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import Footer from '@/views/front-pages/front-page-footer.vue'
 import Navbar from '@/views/front-pages/front-page-navbar.vue'
+import { useConfigStore } from '@core/stores/config'
 import type { HelpCenterArticle } from '@db/pages/help-center/types'
 
+const store = useConfigStore()
+
+store.skin = 'default'
 definePage({
   meta: {
     layout: 'blank',
+    public: true,
   },
 })
 
@@ -13,7 +18,6 @@ const articleData = ref<HelpCenterArticle>()
 
 setTimeout(async () => {
   const { data, error } = await useApi<any>('/pages/help-center/article')
-
   if (error.value)
     console.log(error.value)
   else

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/forms/form-elements/checkbox/demoCodeCheckbox'
+import { basic, checkboxValue, colors, density, icon, inlineTextField, labelSlot, modelAsArray, states } from '@/views/demos/forms/form-elements/checkbox/demoCodeCheckbox'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/checkbox/demoCodeCh
       <!-- 👉 Basic -->
       <AppCardCode
         title="Basic"
-        :code="demoCode.basic"
+        :code="basic"
       >
         <p><code>v-checkbox</code> in its simplest form provides a toggle between 2 values.</p>
 
@@ -26,7 +26,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/checkbox/demoCodeCh
       <!-- 👉 Density -->
       <AppCardCode
         title="Density"
-        :code="demoCode.density"
+        :code="density"
       >
         <p>Use <code>density</code> prop to reduces the input height. Available options are: <code>default</code>, <code>comfortable</code>, and <code>compact</code>.</p>
 
@@ -41,7 +41,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/checkbox/demoCodeCh
       <!-- 👉 Colors -->
       <AppCardCode
         title="Colors"
-        :code="demoCode.colors"
+        :code="colors"
       >
         <p>Checkboxes can be colored by using any of the builtin colors and contextual names using the <code>color</code> prop.</p>
 
@@ -56,7 +56,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/checkbox/demoCodeCh
       <!-- 👉 Model as array -->
       <AppCardCode
         title="Model as array"
-        :code="demoCode.modelAsArray"
+        :code="modelAsArray"
       >
         <p>Multiple <code>v-checkbox</code>'s can share the same <code>v-model</code> by using an array.</p>
 
@@ -71,7 +71,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/checkbox/demoCodeCh
       <!-- 👉 Icon -->
       <AppCardCode
         title="Icon"
-        :code="demoCode.icon"
+        :code="icon"
       >
         <p>Use <code>false-icon</code> and <code>true-icon</code> prop to change the icon on the checkbox.</p>
 
@@ -86,7 +86,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/checkbox/demoCodeCh
       <!-- 👉 Checkbox Value -->
       <AppCardCode
         title="Checkbox Value"
-        :code="demoCode.checkboxValue"
+        :code="checkboxValue"
       >
         <p>Use <code>false-value</code> and <code>true-value</code> prop to sets value for truthy and falsy state</p>
 
@@ -101,7 +101,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/checkbox/demoCodeCh
       <!-- 👉 States -->
       <AppCardCode
         title="States"
-        :code="demoCode.states"
+        :code="states"
       >
         <p><code>v-checkbox</code> can have different states such as <code>default</code>, <code>disabled</code>, and <code>indeterminate</code>.</p>
 
@@ -116,7 +116,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/checkbox/demoCodeCh
       <!-- 👉 Label Slot -->
       <AppCardCode
         title="Label Slot"
-        :code="demoCode.labelSlot"
+        :code="labelSlot"
       >
         <p>Checkbox labels can be defined in <code>label</code> slot - that will allow to use HTML content.</p>
 
@@ -131,7 +131,7 @@ import * as demoCode from '@/views/demos/forms/form-elements/checkbox/demoCodeCh
       <!-- 👉 Inline text-field -->
       <AppCardCode
         title="Inline text-field"
-        :code="demoCode.inlineTextField"
+        :code="inlineTextField"
       >
         <p>You can place <code>v-checkbox</code> in line with other components such as <code>v-text-field</code>.</p>
 

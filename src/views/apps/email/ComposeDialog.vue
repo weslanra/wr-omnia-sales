@@ -8,7 +8,6 @@ const content = ref('')
 const to = ref('')
 const subject = ref('')
 const message = ref('')
-const items = ['Schedule Mail', 'Save Draft', 'Sent']
 
 const cc = ref('')
 const bcc = ref('')
@@ -42,7 +41,7 @@ const resetValues = () => {
           <IconBtn
             size="small"
             icon="tabler-x"
-            @click="$emit('close'); resetValues()"
+            @click="$emit('close'); resetValues(); isEmailCc = false; isEmailBcc = false;"
           />
         </div>
       </div>
@@ -128,27 +127,15 @@ const resetValues = () => {
       placeholder="Message"
     />
 
-    <VDivider />
-
     <div class="d-flex align-center px-6 py-4">
       <VBtn
         color="primary"
         class="me-4"
         append-icon="tabler-send"
+        :disabled="to === '' ? true : false"
+        @click="$emit('close'); content = ''; resetValues(); isEmailCc = false; isEmailBcc = false;"
       >
         send
-
-        <VMenu activator="parent">
-          <VList>
-            <VListItem
-              v-for="(item, index) in items"
-              :key="index"
-              :value="index"
-            >
-              {{ item }}
-            </VListItem>
-          </VList>
-        </VMenu>
       </VBtn>
 
       <IconBtn size="small">
@@ -166,7 +153,7 @@ const resetValues = () => {
 
       <IconBtn
         size="small"
-        @click="$emit('close'); resetValues()"
+        @click="$emit('close'); resetValues(); content = ''; isEmailCc = false; isEmailBcc = false;"
       >
         <VIcon icon="tabler-trash" />
       </IconBtn>
@@ -184,6 +171,11 @@ const resetValues = () => {
 
   .v-field--prepended {
     padding-inline-start: 20px;
+  }
+
+  .v-field__prepend-inner {
+    align-items: center;
+    padding: 0;
   }
 
   .v-field__prepend-inner {

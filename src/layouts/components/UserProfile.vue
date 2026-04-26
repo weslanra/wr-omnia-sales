@@ -70,8 +70,8 @@ const userProfileList = [
       >
         <VList>
           <VListItem>
-            <template #prepend>
-              <VListItemAction start>
+            <div class="d-flex gap-2 align-center">
+              <VListItemAction>
                 <VBadge
                   dot
                   location="bottom right"
@@ -95,12 +95,16 @@ const userProfileList = [
                   </VAvatar>
                 </VBadge>
               </VListItemAction>
-            </template>
 
-            <VListItemTitle class="font-weight-medium">
-              {{ userData.fullName || userData.username }}
-            </VListItemTitle>
-            <VListItemSubtitle>{{ userData.role }}</VListItemSubtitle>
+              <div>
+                <h6 class="text-h6 font-weight-medium">
+                  {{ userData.fullName || userData.username }}
+                </h6>
+                <VListItemSubtitle class="text-capitalize text-disabled">
+                  {{ userData.role }}
+                </VListItemSubtitle>
+              </div>
+            </div>
           </VListItem>
 
           <PerfectScrollbar :options="{ wheelPropagation: false }">

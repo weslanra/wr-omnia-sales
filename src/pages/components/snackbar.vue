@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/components/snackbar/demoCodeSnackbar'
+import { basic, multiLine, position, timeout, transition, variants, vertical, withAction } from '@/views/demos/components/snackbar/demoCodeSnackbar'
 </script>
 
 <template>
@@ -11,7 +11,7 @@ import * as demoCode from '@/views/demos/components/snackbar/demoCodeSnackbar'
       <!-- 👉 Basic -->
       <AppCardCode
         title="Basic"
-        :code="demoCode.basic"
+        :code="basic"
       >
         <p>The <code>v-snackbar</code> component is used to display a quick message to a user. Snackbars support positioning, removal delay, and callbacks.</p>
 
@@ -26,7 +26,7 @@ import * as demoCode from '@/views/demos/components/snackbar/demoCodeSnackbar'
       <!-- 👉 With Action -->
       <AppCardCode
         title="With Action"
-        :code="demoCode.withAction"
+        :code="withAction"
       >
         <p>Use <code>actions</code> slot to add action button. A <code>v-snackbar</code> in its simplest form displays a temporary and closable notification to the user.</p>
 
@@ -41,7 +41,7 @@ import * as demoCode from '@/views/demos/components/snackbar/demoCodeSnackbar'
       <!-- 👉 Multi line -->
       <AppCardCode
         title="Multi Line"
-        :code="demoCode.multiLine"
+        :code="multiLine"
       >
         <p>The <code>multi-line</code> property extends the height of the <code>v-snackbar</code> to give you a little more room for content.</p>
 
@@ -56,7 +56,7 @@ import * as demoCode from '@/views/demos/components/snackbar/demoCodeSnackbar'
       <!-- 👉 Timeout -->
       <AppCardCode
         title="Timeout"
-        :code="demoCode.timeout"
+        :code="timeout"
       >
         <p>The <code>timeout</code> property lets you customize the delay before the <code>v-snackbar</code> is hidden.</p>
 
@@ -71,7 +71,7 @@ import * as demoCode from '@/views/demos/components/snackbar/demoCodeSnackbar'
       <!-- 👉 Vertical -->
       <AppCardCode
         title="Vertical"
-        :code="demoCode.vertical"
+        :code="vertical"
       >
         <p>The <code>vertical</code> property allows you to stack the content of your <code>v-snackbar</code>.</p>
 
@@ -86,7 +86,7 @@ import * as demoCode from '@/views/demos/components/snackbar/demoCodeSnackbar'
       <!-- 👉 Position -->
       <AppCardCode
         title="Position"
-        :code="demoCode.position"
+        :code="position"
       >
         <p>Use <code>location</code> prop to change the position of snackbar.</p>
 
@@ -101,7 +101,7 @@ import * as demoCode from '@/views/demos/components/snackbar/demoCodeSnackbar'
       <!-- 👉 Variants -->
       <AppCardCode
         title="Variants"
-        :code="demoCode.variants"
+        :code="variants"
       >
         <p>Apply different styles to the snackbar using props such as <code>shaped</code>, <code>rounded</code>, <code>color</code>, <code>text</code>, <code>outlined</code>, <code>tile</code> and more.</p>
 
@@ -115,7 +115,7 @@ import * as demoCode from '@/views/demos/components/snackbar/demoCodeSnackbar'
       <!-- 👉 Transition -->
       <AppCardCode
         title="Transition"
-        :code="demoCode.transition"
+        :code="transition"
       >
         <p>Use transition prop to sets the component transition.</p>
 

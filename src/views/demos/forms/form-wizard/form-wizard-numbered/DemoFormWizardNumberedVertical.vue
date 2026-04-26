@@ -109,6 +109,7 @@ const onSubmit = () => {
                       placeholder="············"
                       label="Password"
                       :type="isPasswordVisible ? 'text' : 'password'"
+                      autocomplete="password"
                       :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                       @click:append-inner="isPasswordVisible = !isPasswordVisible"
                     />
@@ -122,6 +123,7 @@ const onSubmit = () => {
                       v-model="formData.cPassword"
                       placeholder="············"
                       label="Confirm Password"
+                      autocomplete="confirm-password"
                       :type="isCPasswordVisible ? 'text' : 'password'"
                       :append-inner-icon="isCPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
                       @click:append-inner="isCPasswordVisible = !isCPasswordVisible"

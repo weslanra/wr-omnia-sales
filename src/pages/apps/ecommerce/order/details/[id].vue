@@ -1,11 +1,19 @@
 <script setup lang="ts">
-import avatar1 from '@images/avatars/avatar-1.png'
+import type { Order } from '@db/apps/ecommerce/types'
 import product21 from '@images/ecommerce-images/product-21.png'
 import product22 from '@images/ecommerce-images/product-22.png'
 import product23 from '@images/ecommerce-images/product-23.png'
 import product24 from '@images/ecommerce-images/product-24.png'
 
+const orderData = ref<Order>()
+
 const route = useRoute('apps-ecommerce-order-details-id')
+
+const { data } = await useApi<Order>(`/apps/ecommerce/orders/${route.params.id}`)
+
+if (data.value)
+  orderData.value = data.value
+
 const isConfirmDialogVisible = ref(false)
 const isUserInfoEditDialogVisible = ref(false)
 const isEditAddressDialogVisible = ref(false)
@@ -17,29 +25,50 @@ const headers = [
   { title: 'Total', key: 'total' },
 ]
 
+const resolvePaymentStatus = (payment: number) => {
+  if (payment === 1)
+    return { text: 'Paid', color: 'success' }
+  if (payment === 2)
+    return { text: 'Pending', color: 'warning' }
+  if (payment === 3)
+    return { text: 'Cancelled', color: 'secondary' }
+  if (payment === 4)
+    return { text: 'Failed', color: 'error' }
+}
+
+const resolveStatus = (status: string) => {
+  if (status === 'Delivered')
+    return { text: 'Delivered', color: 'success' }
+  if (status === 'Out for Delivery')
+    return { text: 'Out for Delivery', color: 'primary' }
+  if (status === 'Ready to Pickup')
+    return { text: 'Ready to Pickup', color: 'info' }
+  if (status === 'Dispatched')
+    return { text: 'Dispatched', color: 'warning' }
+}
+
 const userData = {
-  id: 110,
-  firstName: 'Shamus',
-  lastName: 'Tuttle',
-  company: 'pixinvent',
+  id: null,
+  fullName: orderData.value ? orderData.value.customer : '',
+  company: 'Pixinvent',
   role: 'Web developer',
-  username: 'ShamusT1940',
+  username: 'T1940',
   country: 'United States',
   contact: '+1 (609) 972-22-22',
-  email: 'Sheldon88@yahoo.com',
-  currentPlan: '',
+  email: orderData.value?.email,
   status: 'Active',
+  taxId: 'Tax-8894',
+  language: 'English',
+  currentPlan: '',
   avatar: '',
   taskDone: null,
   projectDone: null,
-  taxId: 'Tax-8894',
-  language: 'English',
-  fullName: 'Shamus Tuttle',
 }
 
 const currentBillingAddress = {
-  firstName: 'Shamus',
-  lastName: 'Tuttle',
+  fullName: orderData.value?.customer,
+  firstName: orderData.value?.customer.split(' ')[0],
+  lastName: orderData.value?.customer.split(' ')[1],
   selectedCountry: 'USA',
   addressLine1: '45 Rocker Terrace',
   addressLine2: 'Latheronwheel',
@@ -51,7 +80,7 @@ const currentBillingAddress = {
   zipCode: 110001,
 }
 
-const orderData = [
+const orderDetail = [
   {
     productName: 'OnePlus 7 Pro',
     productImage: product21,
@@ -88,7 +117,7 @@ const orderData = [
 </script>
 
 <template>
-  <div>
+  <div v-if="orderData">
     <div class="d-flex justify-space-between align-center flex-wrap gap-y-4 mb-6">
       <div>
         <div class="d-flex gap-2 align-center mb-2 flex-wrap">
@@ -97,21 +126,20 @@ const orderData = [
           </h5>
           <div class="d-flex gap-x-2">
             <VChip
+              v-if="orderData?.payment"
               variant="tonal"
-              color="success"
+              :color="resolvePaymentStatus(orderData.payment)?.color"
               label
               size="small"
             >
-              Paid
+              {{ resolvePaymentStatus(orderData.payment)?.text }}
             </VChip>
             <VChip
-              variant="tonal"
-              color="info"
+              v-if="orderData?.status"
+              v-bind="resolveStatus(orderData?.status)"
               label
               size="small"
-            >
-              Ready to Pickup
-            </VChip>
+            />
           </div>
         </div>
         <div class="text-body-1">
@@ -151,7 +179,7 @@ const orderData = [
           <VDivider />
           <VDataTable
             :headers="headers"
-            :items="orderData"
+            :items="orderDetail"
             item-value="productName"
             show-select
             class="text-no-wrap"
@@ -343,14 +371,29 @@ const orderData = [
               Customer details
             </h5>
 
-            <div class="d-flex align-center gap-x-3">
-              <VAvatar :image="avatar1" />
+            <div class="d-flex align-center">
+              <VAvatar
+                v-if="orderData"
+                :variant="!orderData?.avatar.length ? 'tonal' : undefined"
+                :rounded="1"
+                class="me-3"
+              >
+                <VImg
+                  v-if="orderData?.avatar"
+                  :src="orderData?.avatar"
+                />
+
+                <span
+                  v-else
+                  class="font-weight-medium"
+                >{{ avatarText(orderData?.customer) }}</span>
+              </VAvatar>
               <div>
                 <h6 class="text-h6">
-                  Shamus Tuttle
+                  {{ orderData?.customer }}
                 </h6>
                 <div class="text-body-1">
-                  Customer ID: #47389
+                  Customer ID: #{{ orderData?.order }}
                 </div>
               </div>
             </div>
@@ -379,7 +422,7 @@ const orderData = [
                   Edit
                 </div>
               </div>
-              <span>Email: Sheldon88@yahoo.com</span>
+              <span>Email: {{ orderData?.email }}</span>
               <span>Mobile: +1 (609) 972-22-22</span>
             </div>
           </VCardText>
@@ -431,7 +474,7 @@ const orderData = [
                 Mastercard
               </h5>
               <div class="text-body-1">
-                Card Number: ******4291
+                Card Number: ******{{ orderData?.methodNumber }}
               </div>
             </div>
           </VCardText>
@@ -440,7 +483,7 @@ const orderData = [
     </VRow>
 
     <ConfirmDialog
-      v-model:isDialogVisible="isConfirmDialogVisible"
+      v-model:is-dialog-visible="isConfirmDialogVisible"
       confirmation-question="Are you sure to cancel your Order?"
       cancel-msg="Order cancelled!!"
       cancel-title="Cancelled"
@@ -449,13 +492,21 @@ const orderData = [
     />
 
     <UserInfoEditDialog
-      v-model:isDialogVisible="isUserInfoEditDialogVisible"
+      v-model:is-dialog-visible="isUserInfoEditDialogVisible"
       :user-data="userData"
     />
 
     <AddEditAddressDialog
-      v-model:isDialogVisible="isEditAddressDialogVisible"
+      v-model:is-dialog-visible="isEditAddressDialogVisible"
       :billing-address="currentBillingAddress"
     />
   </div>
+  <section v-else>
+    <VAlert
+      type="error"
+      variant="tonal"
+    >
+      Order with ID #{{ route.params.id }} is not available or could not be found!
+    </VAlert>
+  </section>
 </template>

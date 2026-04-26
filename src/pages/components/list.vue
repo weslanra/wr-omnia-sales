@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import * as demoCode from '@/views/demos/components/list/demoCodeList'
+import { actionAndItemGroup, basic, density, nav, progressList, rounded, shaped, subGroup, threeLine, twoLinesAndSubheader, userList } from '@/views/demos/components/list/demoCodeList'
 </script>
 
 <template>
@@ -12,7 +12,7 @@ import * as demoCode from '@/views/demos/components/list/demoCodeList'
       <AppCardCode
         title="Basic"
         no-padding
-        :code="demoCode.basic"
+        :code="basic"
       >
         <VCardText><code>v-list</code> component can contain an avatar, content, actions and much more.</VCardText>
 
@@ -30,7 +30,7 @@ import * as demoCode from '@/views/demos/components/list/demoCodeList'
       <AppCardCode
         title="Rounded"
         no-padding
-        :code="demoCode.rounded"
+        :code="rounded"
       >
         <VCardText>You can make <code>v-list-item</code> rounded using <code>rounded</code> prop.</VCardText>
 
@@ -47,7 +47,7 @@ import * as demoCode from '@/views/demos/components/list/demoCodeList'
       <!-- 👉 Density  -->
       <AppCardCode
         title="Density"
-        :code="demoCode.density"
+        :code="density"
         no-padding
       >
         <VCardText>Use <code>density</code> prop to adjusts the spacing within the component. Available options are: <code>default</code>, <code>comfortable</code>, and <code>compact</code>.</VCardText>
@@ -66,7 +66,7 @@ import * as demoCode from '@/views/demos/components/list/demoCodeList'
       <AppCardCode
         title="Nav"
         no-padding
-        :code="demoCode.nav"
+        :code="nav"
       >
         <VCardText>Lists can receive an alternative <code>nav</code> styling that reduces the width <code>v-list-item</code> takes up as well as adding a border radius.</VCardText>
 
@@ -84,7 +84,7 @@ import * as demoCode from '@/views/demos/components/list/demoCodeList'
       <AppCardCode
         title="Action and item group"
         no-padding
-        :code="demoCode.actionAndItemGroup"
+        :code="actionAndItemGroup"
       >
         <VCardText>A <code>three-line</code> list with actions. Utilizing <code>v-list-group</code>, easily connect actions to your tiles.</VCardText>
 
@@ -102,7 +102,7 @@ import * as demoCode from '@/views/demos/components/list/demoCodeList'
       <AppCardCode
         title="Sub Group"
         no-padding
-        :code="demoCode.subGroup"
+        :code="subGroup"
       >
         <VCardText>
           Using the <code>v-list-group</code> component you can create up to 2 levels in depth using the sub-group prop.
@@ -122,7 +122,7 @@ import * as demoCode from '@/views/demos/components/list/demoCodeList'
       <AppCardCode
         title="Two lines and subheader"
         no-padding
-        :code="demoCode.twoLinesAndSubheader"
+        :code="twoLinesAndSubheader"
       >
         <VCardText>Lists can contain subheaders, dividers, and can contain 1 or more lines. The subtitle will overflow with ellipsis if it extends past one line.</VCardText>
 
@@ -140,7 +140,7 @@ import * as demoCode from '@/views/demos/components/list/demoCodeList'
       <AppCardCode
         title="Three Line"
         no-padding
-        :code="demoCode.threeLine"
+        :code="threeLine"
       >
         <VCardText>For three line lists, the subtitle will clamp vertically at 2 lines and then ellipsis. This feature uses line-clamp and is not supported in all browsers.</VCardText>
 
@@ -158,7 +158,7 @@ import * as demoCode from '@/views/demos/components/list/demoCodeList'
       <AppCardCode
         title="User List"
         no-padding
-        :code="demoCode.userList"
+        :code="userList"
       >
         <VCardText>
           <DemoListUserList />
@@ -174,7 +174,7 @@ import * as demoCode from '@/views/demos/components/list/demoCodeList'
       <AppCardCode
         title="Progress List"
         no-padding
-        :code="demoCode.progressList"
+        :code="progressList"
       >
         <VCardText>
           <DemoListProgressList />
@@ -190,7 +190,7 @@ import * as demoCode from '@/views/demos/components/list/demoCodeList'
       <AppCardCode
         title="Shaped"
         no-padding
-        :code="demoCode.shaped"
+        :code="shaped"
       >
         <VCardText>
           Shaped lists have rounded borders on one side of the <code>v-list-item</code>.

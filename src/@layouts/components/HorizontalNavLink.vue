@@ -2,7 +2,11 @@
 import { layoutConfig } from '@layouts'
 import { can } from '@layouts/plugins/casl'
 import type { NavLink } from '@layouts/types'
-import { getComputedNavLinkToProp, getDynamicI18nProps, isNavLinkActive } from '@layouts/utils'
+import {
+  getComputedNavLinkToProp,
+  getDynamicI18nProps,
+  isNavLinkActive,
+} from '@layouts/utils'
 
 interface Props {
   item: NavLink
@@ -20,20 +24,31 @@ const props = withDefaults(defineProps<Props>(), {
   <li
     v-if="can(item.action, item.subject)"
     class="nav-link"
-    :class="[{
-      'sub-item': props.isSubItem,
-      'disabled': item.disable,
-    }]"
+    :class="[
+      {
+        'sub-item': props.isSubItem,
+        'disabled': item.disable,
+      },
+    ]"
   >
     <Component
       :is="item.to ? 'RouterLink' : 'a'"
       v-bind="getComputedNavLinkToProp(item)"
-      :class="{ 'router-link-active router-link-exact-active': isNavLinkActive(item, $router) }"
+      :class="{
+        'router-link-active router-link-exact-active': isNavLinkActive(
+          item,
+          $router,
+        ),
+      }"
     >
       <Component
         :is="layoutConfig.app.iconRenderer || 'div'"
         class="nav-item-icon"
-        v-bind="item.icon || layoutConfig.verticalNav.defaultNavItemIconProps"
+        v-bind="
+          item.icon && typeof item.icon === 'object' && item.icon !== null
+            ? item.icon
+            : layoutConfig.verticalNav.defaultNavItemIconProps || {}
+        "
       />
       <Component
         :is="layoutConfig.app.i18n.enable ? 'i18n-t' : 'span'"

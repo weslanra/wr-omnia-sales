@@ -3,7 +3,7 @@
     "target": "esnext",
     "useDefineForClassFields": true,
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "isolatedModules": true,
     "strict": true,
     "jsx": "preserve",
@@ -59,7 +59,8 @@
     "skipLibCheck": true,
     "types": [
       "vite/client",
-      "vite-plugin-vue-layouts/client"
+      "unplugin-vue-router/client",
+      "vite-plugin-vue-meta-layouts/client"
     ]
   },
   "include": [
